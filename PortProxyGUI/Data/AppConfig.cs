@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -16,9 +17,9 @@ namespace PortProxyGUI.Data
         public AppConfig(Config[] rows)
         {
             {
-                var item = rows.Where(x => x.Item == "MainWindow");
-                if (int.TryParse(item.FirstOrDefault(x => x.Key == "Width")?.Value, out var width)
-                    && int.TryParse(item.FirstOrDefault(x => x.Key == "Height")?.Value, out var height))
+                IEnumerable<Config> item = rows.Where(x => x.Item == "MainWindow");
+                if (int.TryParse(item.FirstOrDefault(x => x.Key == "Width")?.Value, out int width)
+                    && int.TryParse(item.FirstOrDefault(x => x.Key == "Height")?.Value, out int height))
                 {
                     MainWindowSize = new Size(width, height);
                 }
@@ -26,9 +27,9 @@ namespace PortProxyGUI.Data
             }
 
             {
-                var item = rows.Where(x => x.Item == "PortProxy");
-                var s_ColumnWidths = item.FirstOrDefault(x => x.Key == "ColumnWidths").Value;
-                var match = _intArrayRegex.Match(s_ColumnWidths);
+                IEnumerable<Config> item = rows.Where(x => x.Item == "PortProxy");
+                string s_ColumnWidths = item.FirstOrDefault(x => x.Key == "ColumnWidths").Value;
+                Match match = _intArrayRegex.Match(s_ColumnWidths);
 
                 if (match.Success)
                 {

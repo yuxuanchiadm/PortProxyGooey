@@ -29,8 +29,8 @@ namespace PortProxyGUI.Data
 
         public void EnsureUpdateVersion()
         {
-            var migration = DbScope.GetLastMigration();
-            var assemblyVersion = Assembly.GetExecutingAssembly().GetName().Version;
+            Migration migration = DbScope.GetLastMigration();
+            Version assemblyVersion = Assembly.GetExecutingAssembly().GetName().Version;
 
             if (new Version(migration.ProductVersion) > assemblyVersion)
             {
@@ -49,15 +49,15 @@ Would you like to download it now?", "Upgrade", MessageBoxButtons.YesNo, Message
 
         public void MigrateToLast()
         {
-            var migration = DbScope.GetLastMigration();
-            var migrationId = migration.MigrationId;
-            var pendingMigrations = migrationId != "000000000000"
+            Migration migration = DbScope.GetLastMigration();
+            string migrationId = migration.MigrationId;
+            IEnumerable<KeyValuePair<MigrationKey, string[]>> pendingMigrations = migrationId != "000000000000"
                 ? History.SkipWhile(pair => pair.Key.MigrationId != migrationId).Skip(1)
                 : History;
 
-            foreach (var pendingMigration in pendingMigrations)
+            foreach (KeyValuePair<MigrationKey, string[]> pendingMigration in pendingMigrations)
             {
-                foreach (var sql in pendingMigration.Value)
+                foreach (string sql in pendingMigration.Value)
                 {
                     DbScope.UnsafeSql(sql);
                 }

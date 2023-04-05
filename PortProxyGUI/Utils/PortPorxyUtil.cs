@@ -20,23 +20,23 @@ namespace PortProxyGUI.Utils
 
         public static Rule[] GetProxies()
         {
-            var ruleList = new List<Rule>();
-            foreach (var type in ProxyTypes)
+            List<Rule> ruleList = new List<Rule>();
+            foreach (string type in ProxyTypes)
             {
-                var keyName = GetKeyName(type);
-                var key = Registry.LocalMachine.OpenSubKey(keyName);
+                string keyName = GetKeyName(type);
+                RegistryKey key = Registry.LocalMachine.OpenSubKey(keyName);
 
                 if (key is not null)
                 {
-                    foreach (var name in key.GetValueNames())
+                    foreach (string name in key.GetValueNames())
                     {
-                        var listenParts = name.Split('/');
-                        var listenOn = listenParts[0];
-                        if (!int.TryParse(listenParts[1], out var listenPort)) continue;
+                        string[] listenParts = name.Split('/');
+                        string listenOn = listenParts[0];
+                        if (!int.TryParse(listenParts[1], out int listenPort)) continue;
 
-                        var connectParts = key.GetValue(name).ToString().Split('/');
-                        var connectTo = connectParts[0];
-                        if (!int.TryParse(connectParts[1], out var connectPort)) continue;
+                        string[] connectParts = key.GetValue(name).ToString().Split('/');
+                        string connectTo = connectParts[0];
+                        if (!int.TryParse(connectParts[1], out int connectPort)) continue;
 
                         ruleList.Add(new Rule
                         {
@@ -58,10 +58,10 @@ namespace PortProxyGUI.Utils
 
             if (!ProxyTypes.Contains(rule.Type)) throw InvalidPortProxyType(rule.Type);
 
-            var keyName = GetKeyName(rule.Type);
-            var key = Registry.LocalMachine.OpenSubKey(keyName, true);
-            var name = $"{rule.ListenOn}/{rule.ListenPort}";
-            var value = $"{rule.ConnectTo}/{rule.ConnectPort}";
+            string keyName = GetKeyName(rule.Type);
+            RegistryKey key = Registry.LocalMachine.OpenSubKey(keyName, true);
+            string name = $"{rule.ListenOn}/{rule.ListenPort}";
+            string value = $"{rule.ConnectTo}/{rule.ConnectPort}";
 
             if (key is null) Registry.LocalMachine.CreateSubKey(keyName);
             key = Registry.LocalMachine.OpenSubKey(keyName, true);
@@ -74,9 +74,9 @@ namespace PortProxyGUI.Utils
 
             if (!ProxyTypes.Contains(rule.Type)) throw InvalidPortProxyType(rule.Type);
 
-            var keyName = GetKeyName(rule.Type);
-            var key = Registry.LocalMachine.OpenSubKey(keyName, true);
-            var name = $"{rule.ListenOn}/{rule.ListenPort}";
+            string keyName = GetKeyName(rule.Type);
+            RegistryKey key = Registry.LocalMachine.OpenSubKey(keyName, true);
+            string name = $"{rule.ListenOn}/{rule.ListenPort}";
 
             try
             {
@@ -87,19 +87,19 @@ namespace PortProxyGUI.Utils
 
         public static void ParamChange()
         {
-            var hManager = NativeMethods.OpenSCManager(null, null, (uint)GenericRights.GENERIC_READ);
+            IntPtr hManager = NativeMethods.OpenSCManager(null, null, (uint)GenericRights.GENERIC_READ);
             if (hManager == IntPtr.Zero) throw new InvalidOperationException("Open SC Manager failed.");
 
-            var serviceName = "iphlpsvc";
-            var hService = NativeMethods.OpenService(hManager, serviceName, ServiceRights.SERVICE_PAUSE_CONTINUE);
+            string serviceName = "iphlpsvc";
+            IntPtr hService = NativeMethods.OpenService(hManager, serviceName, ServiceRights.SERVICE_PAUSE_CONTINUE);
             if (hService == IntPtr.Zero)
             {
                 NativeMethods.CloseServiceHandle(hManager);
                 throw new InvalidOperationException($"Open Service ({serviceName}) failed.");
             }
 
-            var serviceStatus = new ServiceStatus();
-            var success = NativeMethods.ControlService(hService, ServiceControls.SERVICE_CONTROL_PARAMCHANGE, ref serviceStatus);
+            ServiceStatus serviceStatus = new ServiceStatus();
+            bool success = NativeMethods.ControlService(hService, ServiceControls.SERVICE_CONTROL_PARAMCHANGE, ref serviceStatus);
 
             NativeMethods.CloseServiceHandle(hService);
             NativeMethods.CloseServiceHandle(hManager);

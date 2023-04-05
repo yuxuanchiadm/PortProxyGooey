@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace PortProxyGUI.Utils
 {
@@ -10,8 +11,14 @@ namespace PortProxyGUI.Utils
 
         public static void FlushCache()
         {
-            var status = DnsFlushResolverCache();
-            if (status == 0) throw new InvalidOperationException("Flush DNS Cache failed.");
+            uint status = DnsFlushResolverCache();
+            if (status == 0)
+            {
+                throw new InvalidOperationException("Flush DNS Cache failed.");
+            } else
+            {
+                MessageBox.Show("DNS Flushed!", "Whoosh", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
     }

@@ -1,11 +1,14 @@
-﻿using NStandard;
-using PortProxyGUI.Data;
-using PortProxyGUI.Utils;
-using System;
-using System.Drawing;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Windows.Forms;
+﻿#region Namespace Imports
+
+    using NStandard;
+    using PortProxyGUI.Data;
+    using PortProxyGUI.Utils;
+    using System;
+    using System.Linq;
+    using System.Text.RegularExpressions;
+    using System.Windows.Forms;
+
+#endregion
 
 namespace PortProxyGUI
 {
@@ -26,7 +29,7 @@ namespace PortProxyGUI
             Font = InterfaceUtil.UiFont;
 
             AutoTypeString = comboBox_Type.Text = comboBox_Type.Items.OfType<string>().First();
-            var groupNames = (
+            string[] groupNames = (
                 from g in parent.listViewProxies.Groups.OfType<ListViewGroup>()
                 let header = g.Header
                 where !header.IsNullOrWhiteSpace()
@@ -42,13 +45,13 @@ namespace PortProxyGUI
             _itemRule = null;
 
             comboBox_Type.Text = AutoTypeString;
-            comboBox_Group.Text = "";
+            comboBox_Group.Text = String.Empty;
 
-            textBox_ListenOn.Text = "*";
-            textBox_ListenPort.Text = "";
-            textBox_ConnectTo.Text = "";
-            textBox_ConnectPort.Text = "";
-            textBox_Comment.Text = "";
+            comboBox_ListenOn.Text = "*";
+            textBox_ListenPort.Text = String.Empty;
+            textBox_ConnectTo.Text = String.Empty;
+            textBox_ConnectPort.Text = String.Empty;
+            textBox_Comment.Text = String.Empty;
         }
 
         public void UseUpdateMode(ListViewItem item, Rule rule)
@@ -61,7 +64,7 @@ namespace PortProxyGUI
             comboBox_Type.Text = rule.Type;
             comboBox_Group.Text = rule.Group;
 
-            textBox_ListenOn.Text = rule.ListenOn;
+            comboBox_ListenOn.Text = rule.ListenOn;
             textBox_ListenPort.Text = rule.ListenPort.ToString();
             textBox_ConnectTo.Text = rule.ConnectTo;
             textBox_ConnectPort.Text = rule.ConnectPort.ToString();
@@ -75,8 +78,8 @@ namespace PortProxyGUI
 
         private string GetPassType(string listenOn, string connectTo)
         {
-            var from = IsIPv6(listenOn) ? "v6" : "v4";
-            var to = IsIPv6(connectTo) ? "v6" : "v4";
+            string from = IsIPv6(listenOn) ? "v6" : "v4";
+            string to = IsIPv6(connectTo) ? "v6" : "v4";
             return $"{from}to{to}";
         }
 
@@ -95,10 +98,10 @@ namespace PortProxyGUI
                 return;
             }
 
-            var rule = new Rule
+            Rule rule = new Rule
             {
                 Type = comboBox_Type.Text.Trim(),
-                ListenOn = textBox_ListenOn.Text.Trim(),
+                ListenOn = comboBox_ListenOn.Text.Trim(),
                 ListenPort = listenPort,
                 ConnectTo = textBox_ConnectTo.Text.Trim(),
                 ConnectPort = connectPort,
@@ -116,7 +119,7 @@ namespace PortProxyGUI
 
             if (_updateMode)
             {
-                var oldRule = Program.Database.GetRule(_itemRule.Type, _itemRule.ListenOn, _itemRule.ListenPort);
+                Rule oldRule = Program.Database.GetRule(_itemRule.Type, _itemRule.ListenOn, _itemRule.ListenPort);
                 PortPorxyUtil.DeleteProxy(oldRule);
                 Program.Database.Remove(oldRule);
 

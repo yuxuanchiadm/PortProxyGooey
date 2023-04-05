@@ -14,7 +14,7 @@ namespace PortProxyGUI.Data
 
         public static ApplicationDbScope FromFile(string file)
         {
-            var dir = Path.GetDirectoryName(file);
+            string dir = Path.GetDirectoryName(file);
 
             if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
             if (!File.Exists(file))
@@ -25,7 +25,7 @@ namespace PortProxyGUI.Data
 #endif
             }
 
-            var scope = new ApplicationDbScope($"Data Source=\"{file}\"");
+            ApplicationDbScope scope = new ApplicationDbScope($"Data Source=\"{file}\"");
             scope.Migrate();
             return scope;
         }
@@ -54,7 +54,7 @@ namespace PortProxyGUI.Data
 
         public void Add<T>(T obj) where T : class
         {
-            var newid = Guid.NewGuid().ToString();
+            string newid = Guid.NewGuid().ToString();
             if (obj is Rule rule)
             {
                 Sql($"INSERT INTO Rules (Id, Type, ListenOn, ListenPort, ConnectTo, ConnectPort, Comment, `Group`) VALUES ({newid}, {rule.Type}, {rule.ListenOn}, {rule.ListenPort}, {rule.ConnectTo}, {rule.ConnectPort}, {rule.Comment ?? ""}, {rule.Group ?? ""});");
@@ -64,7 +64,7 @@ namespace PortProxyGUI.Data
         }
         public void AddRange<T>(IEnumerable<T> objs) where T : class
         {
-            foreach (var obj in objs) Add(obj);
+            foreach (T obj in objs) Add(obj);
         }
 
         public void Update<T>(T obj) where T : class
@@ -77,7 +77,7 @@ namespace PortProxyGUI.Data
         }
         public void UpdateRange<T>(IEnumerable<T> objs) where T : class
         {
-            foreach (var obj in objs) Update(obj);
+            foreach (T obj in objs) Update(obj);
         }
 
         public void Remove<T>(T obj) where T : class
@@ -90,13 +90,13 @@ namespace PortProxyGUI.Data
         }
         public void RemoveRange<T>(IEnumerable<T> objs) where T : class
         {
-            foreach (var obj in objs) Remove(obj);
+            foreach (T obj in objs) Remove(obj);
         }
 
         public AppConfig GetAppConfig()
         {
-            var configRows = SqlQuery<Config>($"SELECT * FROM Configs;");
-            var appConfig = new AppConfig(configRows);
+            Config[] configRows = SqlQuery<Config>($"SELECT * FROM Configs;");
+            AppConfig appConfig = new AppConfig(configRows);
             return appConfig;
         }
 
@@ -105,7 +105,7 @@ namespace PortProxyGUI.Data
             Sql($"UPDATE Configs SET Value = {appConfig.MainWindowSize.Width} WHERE Item = 'MainWindow' AND `Key` = 'Width';");
             Sql($"UPDATE Configs SET Value = {appConfig.MainWindowSize.Height} WHERE Item = 'MainWindow' AND `Key` = 'Height';");
 
-            var s_portProxyColumnWidths = $"[{appConfig.PortProxyColumnWidths.Select(x => x.ToString()).Join(", ")}]";
+            string s_portProxyColumnWidths = $"[{appConfig.PortProxyColumnWidths.Select(x => x.ToString()).Join(", ")}]";
             Sql($"UPDATE Configs SET Value = {s_portProxyColumnWidths} WHERE Item = 'PortProxy' AND `Key` = 'ColumnWidths';");
         }
 

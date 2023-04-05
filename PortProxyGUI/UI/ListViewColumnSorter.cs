@@ -53,8 +53,8 @@ namespace PortProxyGUI.UI
             // Compare the two items
             if (listviewX.SubItems[ColumnToSort].Tag?.ToString() == "Number" && listviewY.SubItems[ColumnToSort].Tag?.ToString() == "Number")
             {
-                int.TryParse(listviewX.SubItems[ColumnToSort].Text, out var xint);
-                int.TryParse(listviewY.SubItems[ColumnToSort].Text, out var yint);
+                int.TryParse(listviewX.SubItems[ColumnToSort].Text, out int xint);
+                int.TryParse(listviewY.SubItems[ColumnToSort].Text, out int yint);
                 compareResult = ObjectCompare.Compare(xint, yint);
             }
             else compareResult = ObjectCompare.Compare(listviewX.SubItems[ColumnToSort].Text, listviewY.SubItems[ColumnToSort].Text);
