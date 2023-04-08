@@ -46,8 +46,8 @@
             toolStripMenuItem_Modify = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem_Delete = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            toolStripMenuItem_Refresh = new System.Windows.Forms.ToolStripMenuItem();
             clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem_Refresh = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             toolStripMenuItem_More = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,6 +55,8 @@
             toolStripMenuItem_Import = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             externalAppsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            dockerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             windowsFirewallToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             windowsFirewallToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             basicToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -86,11 +88,10 @@
             listViewProxies.SmallImageList = imageListProxies;
             listViewProxies.UseCompatibleStateImageBehavior = false;
             listViewProxies.View = System.Windows.Forms.View.Details;
-            listViewProxies.ColumnClick += listView1_ColumnClick;
+            listViewProxies.ColumnClick += listViewProxies_ColumnClick;
             listViewProxies.ColumnWidthChanged += listViewProxies_ColumnWidthChanged;
-            listViewProxies.DoubleClick += listView1_DoubleClick;
-            listViewProxies.KeyUp += listViewProxies_KeyUp;
-            listViewProxies.MouseUp += listView1_MouseUp;
+            listViewProxies.DoubleClick += listViewProxies_DoubleClick;
+            listViewProxies.MouseUp += listViewProxies_MouseUp;
             // 
             // columnHeader1
             // 
@@ -127,6 +128,7 @@
             resources.ApplyResources(contextMenuStrip_RightClick, "contextMenuStrip_RightClick");
             contextMenuStrip_RightClick.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem_Enable, toolStripMenuItem_Disable, toolStripSeparator3, toolStripMenuItem_New, toolStripMenuItem_Modify, toolStripMenuItem_Delete, toolStripSeparator1, clearToolStripMenuItem, toolStripMenuItem_Refresh, toolStripSeparator2, toolStripMenuItem_More, toolStripSeparator4, toolStripMenuItem_About });
             contextMenuStrip_RightClick.Name = "contextMenuStrip1";
+            contextMenuStrip_RightClick.Closed += contextMenuStrip_RightClick_Closed;
             contextMenuStrip_RightClick.MouseClick += contextMenuStrip_RightClick_MouseClick;
             // 
             // toolStripMenuItem_Enable
@@ -148,16 +150,19 @@
             // 
             // toolStripMenuItem_New
             // 
+            toolStripMenuItem_New.Image = Properties.Resources.add;
             toolStripMenuItem_New.Name = "toolStripMenuItem_New";
             resources.ApplyResources(toolStripMenuItem_New, "toolStripMenuItem_New");
             // 
             // toolStripMenuItem_Modify
             // 
+            toolStripMenuItem_Modify.Image = Properties.Resources.edit;
             toolStripMenuItem_Modify.Name = "toolStripMenuItem_Modify";
             resources.ApplyResources(toolStripMenuItem_Modify, "toolStripMenuItem_Modify");
             // 
             // toolStripMenuItem_Delete
             // 
+            toolStripMenuItem_Delete.Image = Properties.Resources.delete;
             toolStripMenuItem_Delete.Name = "toolStripMenuItem_Delete";
             resources.ApplyResources(toolStripMenuItem_Delete, "toolStripMenuItem_Delete");
             // 
@@ -166,15 +171,17 @@
             toolStripSeparator1.Name = "toolStripSeparator1";
             resources.ApplyResources(toolStripSeparator1, "toolStripSeparator1");
             // 
-            // toolStripMenuItem_Refresh
-            // 
-            toolStripMenuItem_Refresh.Name = "toolStripMenuItem_Refresh";
-            resources.ApplyResources(toolStripMenuItem_Refresh, "toolStripMenuItem_Refresh");
-            // 
             // clearToolStripMenuItem
             // 
+            clearToolStripMenuItem.Image = Properties.Resources.clear;
             clearToolStripMenuItem.Name = "clearToolStripMenuItem";
             resources.ApplyResources(clearToolStripMenuItem, "clearToolStripMenuItem");
+            // 
+            // toolStripMenuItem_Refresh
+            // 
+            toolStripMenuItem_Refresh.Image = Properties.Resources.refresh;
+            toolStripMenuItem_Refresh.Name = "toolStripMenuItem_Refresh";
+            resources.ApplyResources(toolStripMenuItem_Refresh, "toolStripMenuItem_Refresh");
             // 
             // toolStripSeparator2
             // 
@@ -212,9 +219,20 @@
             // 
             // externalAppsToolStripMenuItem
             // 
-            externalAppsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { windowsFirewallToolStripMenuItem, adaptersToolStripMenuItem });
+            externalAppsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { dockerToolStripMenuItem, toolStripSeparator8, windowsFirewallToolStripMenuItem, adaptersToolStripMenuItem });
             externalAppsToolStripMenuItem.Name = "externalAppsToolStripMenuItem";
             resources.ApplyResources(externalAppsToolStripMenuItem, "externalAppsToolStripMenuItem");
+            // 
+            // dockerToolStripMenuItem
+            // 
+            dockerToolStripMenuItem.Image = Properties.Resources.docker;
+            dockerToolStripMenuItem.Name = "dockerToolStripMenuItem";
+            resources.ApplyResources(dockerToolStripMenuItem, "dockerToolStripMenuItem");
+            // 
+            // toolStripSeparator8
+            // 
+            toolStripSeparator8.Name = "toolStripSeparator8";
+            resources.ApplyResources(toolStripSeparator8, "toolStripSeparator8");
             // 
             // windowsFirewallToolStripMenuItem
             // 
@@ -279,6 +297,7 @@
             // 
             // toolStripMenuItem_FlushDnsCache
             // 
+            toolStripMenuItem_FlushDnsCache.Image = Properties.Resources.flushdns;
             toolStripMenuItem_FlushDnsCache.Name = "toolStripMenuItem_FlushDnsCache";
             resources.ApplyResources(toolStripMenuItem_FlushDnsCache, "toolStripMenuItem_FlushDnsCache");
             toolStripMenuItem_FlushDnsCache.Click += toolStripMenuItem_FlushDnsCache_Click;
@@ -373,6 +392,8 @@
         private System.Windows.Forms.ToolStripMenuItem advancedToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_FlushDnsCache;
+        private System.Windows.Forms.ToolStripMenuItem dockerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
     }
 }
 

@@ -1,9 +1,11 @@
-using PortProxyGUI.Data;
-using System;
-using System.Globalization;
-using System.IO;
-using System.Threading;
-using System.Windows.Forms;
+#region Namespace Imports
+
+    using PortProxyGUI.Data;
+    using System;
+    using System.IO;
+    using System.Windows.Forms;
+
+#endregion
 
 namespace PortProxyGUI
 {
@@ -12,7 +14,7 @@ namespace PortProxyGUI
         public static readonly ApplicationDbScope Database = ApplicationDbScope.FromFile(
             Path.Combine(
                 Path.Combine(
-                    Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                    Environment.ExpandEnvironmentVariables("%ALLUSERSPROFILE%"),
                     "PortProxyGUI"
                 ), "config.db"
             ));

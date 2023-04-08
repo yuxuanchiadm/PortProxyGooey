@@ -1,18 +1,18 @@
-﻿#region Namespace Imports
+﻿#region + -- NAMESPACE IMPORTS -- +
 
-using Microsoft.Win32;
-using NStandard;
-using PortProxyGUI.Data;
-using PortProxyGUI.UI;
-using PortProxyGUI.Utils;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Windows.Forms;
-using static System.Windows.Forms.ListViewItem;
+    using Microsoft.Win32;
+    using NStandard;
+    using PortProxyGUI.Data;
+    using PortProxyGUI.UI;
+    using PortProxyGUI.Utils;
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Drawing;
+    using System.IO;
+    using System.Linq;
+    using System.Windows.Forms;
+    using static System.Windows.Forms.ListViewItem;
 
 #endregion
 
@@ -20,11 +20,15 @@ namespace PortProxyGUI
 {
     public partial class PortProxyGUI : Form
     {
-        private readonly ListViewColumnSorter lvwColumnSorter = new ListViewColumnSorter();
 
+#region Variable Declarations
+
+        private readonly ListViewColumnSorter lvwColumnSorter = new();
         public SetProxy SetProxyForm;
         public About AboutForm;
         private AppConfig AppConfig;
+
+#endregion
 
         public PortProxyGUI()
         {
@@ -49,6 +53,25 @@ namespace PortProxyGUI
         private void PortProxyGUI_Shown(object sender, EventArgs e)
         {
             RefreshProxyList();
+
+            // Sort columns based on saved config
+            lvwColumnSorter.SortColumn = AppConfig.SortColumn;
+
+            switch (AppConfig.SortOrder)
+            {
+                case 2:
+                    lvwColumnSorter.Order = SortOrder.Descending;
+                    break;
+                case 1:
+                    lvwColumnSorter.Order = SortOrder.Ascending;
+                    break;
+                case 0:
+                    lvwColumnSorter.Order = SortOrder.None;
+                    break;
+            }
+
+            // Perform the sort with these new sort options.
+            listViewProxies.Sort();
         }
 
         private void ResetWindowSize()
@@ -66,15 +89,15 @@ namespace PortProxyGUI
             }
         }
 
-        private Data.Rule ParseRule(ListViewItem item)
+        private Rule ParseRule(ListViewItem item)
         {
             ListViewSubItem[] subItems = item.SubItems.OfType<ListViewSubItem>().ToArray();
             int listenPort, connectPort;
 
-            listenPort = Data.Rule.ParsePort(subItems[3].Text);
-            connectPort = Data.Rule.ParsePort(subItems[5].Text);
+            listenPort = Rule.ParsePort(subItems[3].Text);
+            connectPort = Rule.ParsePort(subItems[5].Text);
 
-            Data.Rule rule = new Data.Rule
+            Rule rule = new()
             {
                 Type = subItems[1].Text.Trim(),
                 ListenOn = subItems[2].Text.Trim(),
@@ -96,7 +119,7 @@ namespace PortProxyGUI
 
                 try
                 {
-                    Data.Rule rule = ParseRule(item);
+                    Rule rule = ParseRule(item);
                     PortPorxyUtil.AddOrUpdateProxy(rule);
                 }
                 catch (NotSupportedException ex)
@@ -117,7 +140,7 @@ namespace PortProxyGUI
 
                 try
                 {
-                    Data.Rule rule = ParseRule(item);
+                    Rule rule = ParseRule(item);
                     PortPorxyUtil.DeleteProxy(rule);
                 }
                 catch (NotSupportedException ex)
@@ -129,12 +152,24 @@ namespace PortProxyGUI
             PortPorxyUtil.ParamChange();
         }
 
+        /// <summary>
+        /// Delete Prox(ies)
+        /// </summary>
         private void DeleteSelectedProxies()
         {
             IEnumerable<ListViewItem> items = listViewProxies.SelectedItems.OfType<ListViewItem>();
-            DisableSelectedProxies();
-            Program.Database.RemoveRange(items.Select(x => new Rule { Id = x.Tag.ToString() }));
-            foreach (ListViewItem item in items) listViewProxies.Items.Remove(item);
+
+            int intCount = listViewProxies.SelectedItems.Count;
+
+            // Pluralize if necessary ;)
+            string strMsg = string.Format("Delete {0} {1}?", intCount, intCount == 1 ? "proxy" : "proxies");
+
+            if (MessageBox.Show(strMsg, "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            {
+                DisableSelectedProxies();
+                Program.Database.RemoveRange(items.Select(x => new Rule { Id = x.Tag.ToString() }));
+                foreach (ListViewItem item in items) listViewProxies.Items.Remove(item);
+            }
         }
 
         private void SetProxyForUpdate(SetProxy form)
@@ -173,7 +208,7 @@ namespace PortProxyGUI
                 int imageIndex = proxies.Any(p => p.EqualsWithKeys(rule)) ? 1 : 0;
                 ListViewGroup group = listViewProxies.Groups.OfType<ListViewGroup>().FirstOrDefault(x => x.Header == rule.Group);
 
-                ListViewItem item = new ListViewItem();
+                ListViewItem item = new();
                 UpdateListViewItem(item, rule, imageIndex);
                 listViewProxies.Items.Add(item);
             }
@@ -209,6 +244,8 @@ namespace PortProxyGUI
 
         public void RefreshProxyList()
         {
+            listViewProxies.Cursor = Cursors.WaitCursor;
+
             Rule[] proxies = PortPorxyUtil.GetProxies();
             Rule[] rules = Program.Database.Rules.ToArray();
             foreach (Rule proxy in proxies)
@@ -231,6 +268,8 @@ namespace PortProxyGUI
             rules = Program.Database.Rules.ToArray();
             InitProxyGroups(rules);
             InitProxyItems(rules, proxies);
+
+            listViewProxies.Cursor= Cursors.Default;
         }
 
         /// <summary>
@@ -298,24 +337,62 @@ namespace PortProxyGUI
             SetProxyForm.ShowDialog();
         }
 
-        private void listView1_MouseUp(object sender, MouseEventArgs e)
+        private void listViewProxies_MouseUp(object sender, MouseEventArgs e)
         {
             if (sender is ListView listView)
             {
+                ListViewHitTestInfo hit = listViewProxies.HitTest(e.Location);
+
+                // If a ListView item was clicked ...
+                if (hit.Item != null)
+                {
+                    // Fetch which colum the user clicked in
+                    int columnindex = hit.Item.SubItems.IndexOf(hit.SubItem);
+
+                    // If it's the first column (checkbox icon column) then toggle it's state
+                    if (columnindex == 0)
+                    {
+                        if (hit.Item.ImageIndex == 1)
+                        {
+                            DisableSelectedProxies();
+                        }
+                        else
+                        {
+                            EnableSelectedProxies();
+                        }
+                    }
+                }
+                else
+                {
+                    if (e.Button == MouseButtons.Left)
+                    {
+                        // Left-licking an empty space opens the New Item dialog
+                        NewItem();
+                    }
+                }
+
+                int intCount = listViewProxies.SelectedItems.Count;
+
+                // Set enabled state of toolstrip items based on the selected item's image index
                 toolStripMenuItem_Enable.Enabled = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Any(x => x.ImageIndex == 0);
                 toolStripMenuItem_Disable.Enabled = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Any(x => x.ImageIndex == 1);
+
+                // Add count to label if more than 1
+                if (toolStripMenuItem_Enable.Enabled && intCount > 1) { toolStripMenuItem_Enable.Text = string.Format("Enable ({0})", intCount); }
+                if (toolStripMenuItem_Disable.Enabled && intCount > 1) { toolStripMenuItem_Disable.Text = string.Format("Disable ({0})", intCount); }
+
+                // Add count to let users know how many they're about to nuke
+                if (intCount > 1) toolStripMenuItem_Delete.Text = string.Format("Delete ({0})", intCount);
 
                 toolStripMenuItem_Delete.Enabled = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Any();
                 toolStripMenuItem_Modify.Enabled = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
             }
         }
 
-        private void listView1_DoubleClick(object sender, EventArgs e)
+        private void listViewProxies_DoubleClick(object sender, EventArgs e)
         {
             if (sender is ListView listView)
             {
-                // TODO: check the coilumn, if it was the checkbox colum, swap the enabled/disabled icon and its status
-                //       also wanna open the "new" doalog when dbl clicking empty space, but its not triggering here for some reason.
                 bool selectAny = listView.SelectedItems.OfType<ListViewItem>().Any();
                 if (selectAny)
                 {
@@ -326,7 +403,7 @@ namespace PortProxyGUI
             }
         }
 
-        private void listView1_ColumnClick(object sender, ColumnClickEventArgs e)
+        private void listViewProxies_ColumnClick(object sender, ColumnClickEventArgs e)
         {
             // Determine if clicked column is already the column that is being sorted.
             if (e.Column == lvwColumnSorter.SortColumn)
@@ -347,6 +424,12 @@ namespace PortProxyGUI
                 lvwColumnSorter.SortColumn = e.Column;
                 lvwColumnSorter.Order = SortOrder.Ascending;
             }
+            // LEFT OFF: Making sure the sorting saves and restores, as well as the handlers here are all ok
+            if (AppConfig is not null && sender is ListView listView)
+            {
+                AppConfig.SortColumn = lvwColumnSorter.SortColumn;
+                AppConfig.SortOrder = (int)lvwColumnSorter.Order;
+            }
 
             // Perform the sort with these new sort options.
             listViewProxies.Sort();
@@ -355,26 +438,60 @@ namespace PortProxyGUI
         /// <summary>
         /// HotKeys / Shortcuts
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void listViewProxies_KeyUp(object sender, KeyEventArgs e)
+        /// <param name="msg"></param>
+        /// <param name="keyData"></param>
+        /// <returns></returns>
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if (sender is ListView)
+            switch (keyData)
             {
-                switch (e.KeyCode)
-                {
+                // Enable Item
+                case Keys.Control | Keys.E:
+                    if (listViewProxies.SelectedItems.Count > 0) { EnableSelectedProxies(); }
+                    return true;
 
-                    // Delete Item(s)
-                    case Keys.Delete:
-                        DeleteSelectedProxies(); // TODO: Add delete confirmation. Also add count to total number to be deleted.
-                        break;
+                // Disable Item
+                case Keys.Control | Keys.D:
+                    if (listViewProxies.SelectedItems.Count > 0) { DisableSelectedProxies(); }
+                    return true;
 
-                    // Add New Item
-                    case Keys.Insert:
-                        NewItem();
-                        break;
+                // Delete Item(s)
+                case Keys.Delete:
+                    if (listViewProxies.SelectedItems.Count > 0) { DeleteSelectedProxies(); }
+                    return true;
 
-                }
+                // Add New Item
+                case Keys.Insert:
+                    NewItem();
+                    return true;
+
+                // FlushDNS
+                case Keys.Control | Keys.F:
+                    DnsUtil.FlushCache();
+                    return true;
+
+                // Clear List
+                case Keys.Control | Keys.C:
+                    // TODO
+                    return true;
+
+                // Edit Proxy
+                case Keys.F2:
+                    if (listViewProxies.SelectedItems.Count > 0)
+                    {
+                        if (SetProxyForm == null) SetProxyForm = new SetProxy(this);
+                        SetProxyForUpdate(SetProxyForm);
+                        SetProxyForm.ShowDialog();
+                    }
+                    return true;
+                    
+                // Refresh List
+                case Keys.F5:
+                    RefreshProxyList();
+                    return true;
+
+                default:
+                    return base.ProcessCmdKey(ref msg, keyData);
             }
         }
 
@@ -405,7 +522,7 @@ namespace PortProxyGUI
         /// <param name="strURL">URL to open</param>
         private void LaunchURL(string strURL)
         {
-            ProcessStartInfo psi = new ProcessStartInfo
+            ProcessStartInfo psi = new()
             {
                 FileName = strURL,
                 UseShellExecute = true
@@ -423,7 +540,7 @@ namespace PortProxyGUI
         /// <param name="e"></param>
         private void toolStripMenuItem_Export_Click(object sender, EventArgs e)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            SaveFileDialog saveFileDialog = new();
 
             // Autogenerate a name they can use if they want
             string t2 = DateTime.Now.ToString("MM-dd-yyyy-hh-mm-ss");
@@ -467,31 +584,29 @@ namespace PortProxyGUI
         private void toolStripMenuItem_Import_Click(object sender, EventArgs e)
         {
 
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            using OpenFileDialog openFileDialog = new();
+            openFileDialog.Title = "Import Proxy List ...";
+            openFileDialog.Filter = "db files (*.db)|*.db";
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                openFileDialog.Title = "Import Proxy List ...";
-                openFileDialog.Filter = "db files (*.db)|*.db";
 
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                if (MessageBox.Show("Overwrite current list with the selected list? " + openFileDialog.FileName, "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
-
-                    if (MessageBox.Show("Overwrite current list with the selected list? " + openFileDialog.FileName, "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                    using (ApplicationDbScope scope = ApplicationDbScope.FromFile(openFileDialog.FileName))
                     {
-                        using (ApplicationDbScope scope = ApplicationDbScope.FromFile(openFileDialog.FileName))
+                        foreach (Data.Rule rule in scope.Rules)
                         {
-                            foreach (Data.Rule rule in scope.Rules)
+                            Data.Rule exsist = Program.Database.GetRule(rule.Type, rule.ListenOn, rule.ListenPort);
+                            if (exsist is null)
                             {
-                                Data.Rule exsist = Program.Database.GetRule(rule.Type, rule.ListenOn, rule.ListenPort);
-                                if (exsist is null)
-                                {
-                                    rule.Id = Guid.NewGuid().ToString();
-                                    Program.Database.Add(rule);
-                                }
+                                rule.Id = Guid.NewGuid().ToString();
+                                Program.Database.Add(rule);
                             }
                         }
-                        // TODO: Could be nice to add success/failure mbox here.
-                        RefreshProxyList();
                     }
+                    // TODO: Could be nice to add success/failure mbox here.
+                    RefreshProxyList();
                 }
             }
         }
@@ -621,6 +736,18 @@ namespace PortProxyGUI
             {
                 DnsUtil.FlushCache();
             }
+        }
+
+        /// <summary>
+        /// Resets the counts on the right-click context menu when the menu closes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void contextMenuStrip_RightClick_Closed(object sender, ToolStripDropDownClosedEventArgs e)
+        {
+            toolStripMenuItem_Enable.Text = "Enable";
+            toolStripMenuItem_Disable.Text = "Disable";
+            toolStripMenuItem_Delete.Text = "Delete";
         }
     }
 }

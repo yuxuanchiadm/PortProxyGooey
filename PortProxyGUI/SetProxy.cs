@@ -1,4 +1,4 @@
-﻿#region Namespace Imports
+﻿#region + -- NAMESPACE IMPORTS -- +
 
     using NStandard;
     using PortProxyGUI.Data;
@@ -98,7 +98,7 @@ namespace PortProxyGUI
                 return;
             }
 
-            Rule rule = new Rule
+            Rule rule = new()
             {
                 Type = comboBox_Type.Text.Trim(),
                 ListenOn = comboBox_ListenOn.Text.Trim(),

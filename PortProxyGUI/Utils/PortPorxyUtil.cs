@@ -1,10 +1,13 @@
-﻿using Microsoft.Win32;
+﻿#region + -- NAMESPACE IMPORTS -- +
+
+using Microsoft.Win32;
 using PortProxyGUI.Data;
 using PortProxyGUI.Native;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
+
+#endregion
 
 namespace PortProxyGUI.Utils
 {
@@ -20,7 +23,7 @@ namespace PortProxyGUI.Utils
 
         public static Rule[] GetProxies()
         {
-            List<Rule> ruleList = new List<Rule>();
+            List<Rule> ruleList = new();
             foreach (string type in ProxyTypes)
             {
                 string keyName = GetKeyName(type);
@@ -98,7 +101,7 @@ namespace PortProxyGUI.Utils
                 throw new InvalidOperationException($"Open Service ({serviceName}) failed.");
             }
 
-            ServiceStatus serviceStatus = new ServiceStatus();
+            ServiceStatus serviceStatus = new();
             bool success = NativeMethods.ControlService(hService, ServiceControls.SERVICE_CONTROL_PARAMCHANGE, ref serviceStatus);
 
             NativeMethods.CloseServiceHandle(hService);

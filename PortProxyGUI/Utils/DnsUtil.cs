@@ -20,6 +20,5 @@ namespace PortProxyGUI.Utils
                 MessageBox.Show("DNS Flushed!", "Whoosh", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-
     }
 }

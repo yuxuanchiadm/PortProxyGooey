@@ -1,9 +1,13 @@
-﻿using System;
+﻿#region Namespace Imports
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
+
+#endregion
 
 namespace PortProxyGUI.Data
 {
@@ -65,7 +69,7 @@ Would you like to download it now?", "Upgrade", MessageBoxButtons.YesNo, Message
             }
         }
 
-        public Dictionary<MigrationKey, string[]> History = new Dictionary<MigrationKey, string[]>
+        public Dictionary<MigrationKey, string[]> History = new()
         {
             [new MigrationKey { MigrationId = "202103021542", ProductVersion = "1.1.0" }] = new[]
             {
@@ -121,6 +125,8 @@ Would you like to download it now?", "Upgrade", MessageBoxButtons.YesNo, Message
 "INSERT INTO configs ( Item, `Key`, Value ) VALUES ( 'MainWindow', 'Width', '720' );",
 "INSERT INTO configs ( Item, `Key`, Value ) VALUES ( 'MainWindow', 'Height', '500' );",
 "INSERT INTO configs ( Item, `Key`, Value ) VALUES ( 'PortProxy', 'ColumnWidths', '[24, 64, 140, 100, 140, 100, 100]' );",
+"INSERT INTO configs ( Item, `Key`, Value ) VALUES ( 'PortProxy', 'Column', '0' );",
+"INSERT INTO configs ( Item, `Key`, Value ) VALUES ( 'PortProxy', 'Order', '0' );",
             },
         };
     }

@@ -1,5 +1,9 @@
-﻿using System.Collections;
+﻿#region +--NAMESPACE IMPORTS-- +
+
+using System.Collections;
 using System.Windows.Forms;
+
+#endregion
 
 namespace PortProxyGUI.UI
 {
