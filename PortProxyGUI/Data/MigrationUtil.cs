@@ -1,4 +1,4 @@
-﻿#region Namespace Imports
+﻿#region + -- NAMESPACE IMPORTS -- +
 
 using System;
 using System.Collections.Generic;

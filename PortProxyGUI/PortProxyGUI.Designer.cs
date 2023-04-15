@@ -43,6 +43,7 @@
             toolStripMenuItem_Disable = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             toolStripMenuItem_New = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem_Clone = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem_Modify = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem_Delete = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -69,6 +70,15 @@
             toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             toolStripMenuItem_FlushDnsCache = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem_ResetWindowSize = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
+            advancedToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            NetSHToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            NetSHaddToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            NetSHAddCopyToClipboard = new System.Windows.Forms.ToolStripMenuItem();
+            NetSHAddViewCline = new System.Windows.Forms.ToolStripMenuItem();
+            NetSHdeleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            NetSHDelCopyToClipboard = new System.Windows.Forms.ToolStripMenuItem();
+            NetSHDelViewCline = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             toolStripMenuItem_About = new System.Windows.Forms.ToolStripMenuItem();
             imageListProxies = new System.Windows.Forms.ImageList(components);
@@ -79,10 +89,12 @@
             // 
             // listViewProxies
             // 
+            listViewProxies.BackColor = System.Drawing.Color.FromArgb(46, 52, 64);
             listViewProxies.BorderStyle = System.Windows.Forms.BorderStyle.None;
             listViewProxies.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader4, columnHeader5, columnHeader6, columnHeader7 });
             listViewProxies.ContextMenuStrip = contextMenuStrip_RightClick;
             resources.ApplyResources(listViewProxies, "listViewProxies");
+            listViewProxies.ForeColor = System.Drawing.Color.FromArgb(216, 222, 233);
             listViewProxies.FullRowSelect = true;
             listViewProxies.Name = "listViewProxies";
             listViewProxies.SmallImageList = imageListProxies;
@@ -126,7 +138,7 @@
             // contextMenuStrip_RightClick
             // 
             resources.ApplyResources(contextMenuStrip_RightClick, "contextMenuStrip_RightClick");
-            contextMenuStrip_RightClick.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem_Enable, toolStripMenuItem_Disable, toolStripSeparator3, toolStripMenuItem_New, toolStripMenuItem_Modify, toolStripMenuItem_Delete, toolStripSeparator1, clearToolStripMenuItem, toolStripMenuItem_Refresh, toolStripSeparator2, toolStripMenuItem_More, toolStripSeparator4, toolStripMenuItem_About });
+            contextMenuStrip_RightClick.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem_Enable, toolStripMenuItem_Disable, toolStripSeparator3, toolStripMenuItem_New, toolStripMenuItem_Clone, toolStripMenuItem_Modify, toolStripMenuItem_Delete, toolStripSeparator1, clearToolStripMenuItem, toolStripMenuItem_Refresh, toolStripSeparator2, toolStripMenuItem_More, toolStripSeparator4, toolStripMenuItem_About });
             contextMenuStrip_RightClick.Name = "contextMenuStrip1";
             contextMenuStrip_RightClick.Closed += contextMenuStrip_RightClick_Closed;
             contextMenuStrip_RightClick.MouseClick += contextMenuStrip_RightClick_MouseClick;
@@ -153,6 +165,11 @@
             toolStripMenuItem_New.Image = Properties.Resources.add;
             toolStripMenuItem_New.Name = "toolStripMenuItem_New";
             resources.ApplyResources(toolStripMenuItem_New, "toolStripMenuItem_New");
+            // 
+            // toolStripMenuItem_Clone
+            // 
+            toolStripMenuItem_Clone.Name = "toolStripMenuItem_Clone";
+            resources.ApplyResources(toolStripMenuItem_Clone, "toolStripMenuItem_Clone");
             // 
             // toolStripMenuItem_Modify
             // 
@@ -190,7 +207,7 @@
             // 
             // toolStripMenuItem_More
             // 
-            toolStripMenuItem_More.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem1, toolStripSeparator5, externalAppsToolStripMenuItem, toolStripSeparator6, toolStripMenuItem_FlushDnsCache, toolStripMenuItem_ResetWindowSize });
+            toolStripMenuItem_More.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem1, toolStripSeparator5, externalAppsToolStripMenuItem, toolStripSeparator6, toolStripMenuItem_FlushDnsCache, toolStripMenuItem_ResetWindowSize, toolStripSeparator9, advancedToolStripMenuItem1 });
             toolStripMenuItem_More.Name = "toolStripMenuItem_More";
             resources.ApplyResources(toolStripMenuItem_More, "toolStripMenuItem_More");
             // 
@@ -308,6 +325,59 @@
             resources.ApplyResources(toolStripMenuItem_ResetWindowSize, "toolStripMenuItem_ResetWindowSize");
             toolStripMenuItem_ResetWindowSize.Click += toolStripMenuItem_ResetWindowSize_Click;
             // 
+            // toolStripSeparator9
+            // 
+            toolStripSeparator9.Name = "toolStripSeparator9";
+            resources.ApplyResources(toolStripSeparator9, "toolStripSeparator9");
+            // 
+            // advancedToolStripMenuItem1
+            // 
+            advancedToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { NetSHToolStripMenuItem });
+            advancedToolStripMenuItem1.Name = "advancedToolStripMenuItem1";
+            resources.ApplyResources(advancedToolStripMenuItem1, "advancedToolStripMenuItem1");
+            // 
+            // NetSHToolStripMenuItem
+            // 
+            NetSHToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { NetSHaddToolStripMenuItem, NetSHdeleteToolStripMenuItem });
+            NetSHToolStripMenuItem.Name = "NetSHToolStripMenuItem";
+            resources.ApplyResources(NetSHToolStripMenuItem, "NetSHToolStripMenuItem");
+            // 
+            // NetSHaddToolStripMenuItem
+            // 
+            NetSHaddToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { NetSHAddCopyToClipboard, NetSHAddViewCline });
+            NetSHaddToolStripMenuItem.Name = "NetSHaddToolStripMenuItem";
+            resources.ApplyResources(NetSHaddToolStripMenuItem, "NetSHaddToolStripMenuItem");
+            // 
+            // NetSHAddCopyToClipboard
+            // 
+            NetSHAddCopyToClipboard.Name = "NetSHAddCopyToClipboard";
+            resources.ApplyResources(NetSHAddCopyToClipboard, "NetSHAddCopyToClipboard");
+            NetSHAddCopyToClipboard.Click += NetSHAddCopyToClipboard_Click;
+            // 
+            // NetSHAddViewCline
+            // 
+            NetSHAddViewCline.Name = "NetSHAddViewCline";
+            resources.ApplyResources(NetSHAddViewCline, "NetSHAddViewCline");
+            NetSHAddViewCline.Click += NetSHAddViewCline_Click;
+            // 
+            // NetSHdeleteToolStripMenuItem
+            // 
+            NetSHdeleteToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { NetSHDelCopyToClipboard, NetSHDelViewCline });
+            NetSHdeleteToolStripMenuItem.Name = "NetSHdeleteToolStripMenuItem";
+            resources.ApplyResources(NetSHdeleteToolStripMenuItem, "NetSHdeleteToolStripMenuItem");
+            // 
+            // NetSHDelCopyToClipboard
+            // 
+            NetSHDelCopyToClipboard.Name = "NetSHDelCopyToClipboard";
+            resources.ApplyResources(NetSHDelCopyToClipboard, "NetSHDelCopyToClipboard");
+            NetSHDelCopyToClipboard.Click += NetSHDelCopyToClipboard_Click;
+            // 
+            // NetSHDelViewCline
+            // 
+            NetSHDelViewCline.Name = "NetSHDelViewCline";
+            resources.ApplyResources(NetSHDelViewCline, "NetSHDelViewCline");
+            NetSHDelViewCline.Click += NetSHDelViewCline_Click;
+            // 
             // toolStripSeparator4
             // 
             toolStripSeparator4.Name = "toolStripSeparator4";
@@ -339,6 +409,7 @@
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.FromArgb(46, 52, 64);
             Controls.Add(listViewProxies);
             Name = "PortProxyGUI";
             FormClosing += PortProxyGUI_FormClosing;
@@ -394,6 +465,16 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_FlushDnsCache;
         private System.Windows.Forms.ToolStripMenuItem dockerToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_Clone;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
+        private System.Windows.Forms.ToolStripMenuItem advancedToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem NetSHToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem NetSHaddToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem NetSHdeleteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem NetSHAddCopyToClipboard;
+        private System.Windows.Forms.ToolStripMenuItem NetSHAddViewCline;
+        private System.Windows.Forms.ToolStripMenuItem NetSHDelCopyToClipboard;
+        private System.Windows.Forms.ToolStripMenuItem NetSHDelViewCline;
     }
 }
 

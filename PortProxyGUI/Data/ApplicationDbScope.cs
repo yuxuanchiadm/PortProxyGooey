@@ -13,8 +13,12 @@ namespace PortProxyGUI.Data
 {
     public class ApplicationDbScope : SqliteScope<ApplicationDbScope>
     {
-        public static readonly string AppDbDirectory = Path.Combine(Environment.ExpandEnvironmentVariables("%ALLUSERSPROFILE%"), "PortProxyGUI");
-        public static readonly string AppDbFile = Path.Combine(AppDbDirectory, "config.db");
+        #region + -- VAR DECLARATIONS -- +
+
+            public static readonly string AppDbDirectory = Path.Combine(Environment.ExpandEnvironmentVariables("%ALLUSERSPROFILE%"), "PortProxyGUI");
+            public static readonly string AppDbFile = Path.Combine(AppDbDirectory, "config.db");
+
+        #endregion
 
         public static ApplicationDbScope FromFile(string file)
         {

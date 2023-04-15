@@ -1,11 +1,14 @@
 ﻿#region + -- NAMESPACE IMPORTS -- +
 
 using Microsoft.Win32;
+using NStandard;
 using PortProxyGUI.Data;
 using PortProxyGUI.Native;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 #endregion
 
@@ -21,6 +24,10 @@ namespace PortProxyGUI.Utils
             return $@"SYSTEM\CurrentControlSet\Services\PortProxy\{type}\tcp";
         }
 
+        /// <summary>
+        /// Read proxies from registry
+        /// </summary>
+        /// <returns></returns>
         public static Rule[] GetProxies()
         {
             List<Rule> ruleList = new();
@@ -55,6 +62,10 @@ namespace PortProxyGUI.Utils
             return ruleList.ToArray();
         }
 
+        /// <summary>
+        /// Write proxy to registry
+        /// </summary>
+        /// <param name="rule"></param>
         public static void AddOrUpdateProxy(Rule rule)
         {
             // $"netsh interface portproxy add {rule.Type} listenaddress={rule.ListenOn} listenport={rule.ListenPort} connectaddress={rule.ConnectTo} connectport={rule.ConnectPort}"
@@ -71,6 +82,10 @@ namespace PortProxyGUI.Utils
             key?.SetValue(name, value);
         }
 
+        /// <summary>
+        /// Delete proxy from registry
+        /// </summary>
+        /// <param name="rule"></param>
         public static void DeleteProxy(Rule rule)
         {
             // $"netsh interface portproxy delete {rule.Type} listenaddress={rule.ListenOn} listenport={rule.ListenPort}"
@@ -113,5 +128,41 @@ namespace PortProxyGUI.Utils
             }
         }
 
+        /// <summary>
+        /// Fetches the current WSL IP
+        /// </summary>
+        /// <returns>Success: (string) IP Address; Fail: Empty string</returns>
+        public static string GetWSLIP()
+        {
+            Process p = new();
+
+            {
+                ProcessStartInfo withBlock = p.StartInfo;
+                withBlock.Verb = "runas";
+                withBlock.RedirectStandardOutput = true;
+                withBlock.RedirectStandardError = true;
+                withBlock.FileName = "bash.exe";
+                withBlock.Arguments = string.Format("{0} {1}", "-c", "\"ifconfig eth0 | grep 'inet '\"");
+                withBlock.UseShellExecute = false;
+                withBlock.CreateNoWindow = true;
+            }
+
+            p.Start();
+            string strOutput = p.StandardOutput.ReadToEnd();
+            p.WaitForExit();
+
+            string strWSLIP = Regex.Match(strOutput, "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}").ToString();
+            return strWSLIP.Length > 0 ? strWSLIP : string.Empty;
+        }
+
+        /// <summary>
+        /// Regex Validates IPv4 string
+        /// </summary>
+        /// <param name="ip"><string> IP Address to check</string></param>
+        /// <returns></returns>
+        public static bool IsIPv4(string ip)
+        {
+            return ip.IsMatch(new Regex(@"^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$"));
+        }
     }
 }

@@ -1,18 +1,19 @@
 ﻿#region + -- NAMESPACE IMPORTS -- +
 
-    using Microsoft.Win32;
-    using NStandard;
-    using PortProxyGUI.Data;
-    using PortProxyGUI.UI;
-    using PortProxyGUI.Utils;
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Drawing;
-    using System.IO;
-    using System.Linq;
-    using System.Windows.Forms;
-    using static System.Windows.Forms.ListViewItem;
+using Microsoft.Win32;
+using NStandard;
+using PortProxyGUI.Data;
+using PortProxyGUI.UI;
+using PortProxyGUI.Utils;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
+using static System.Windows.Forms.ListViewItem;
 
 #endregion
 
@@ -21,14 +22,14 @@ namespace PortProxyGUI
     public partial class PortProxyGUI : Form
     {
 
-#region Variable Declarations
+        #region Variable Declarations
 
         private readonly ListViewColumnSorter lvwColumnSorter = new();
         public SetProxy SetProxyForm;
         public About AboutForm;
         private AppConfig AppConfig;
 
-#endregion
+        #endregion
 
         public PortProxyGUI()
         {
@@ -269,7 +270,7 @@ namespace PortProxyGUI
             InitProxyGroups(rules);
             InitProxyItems(rules, proxies);
 
-            listViewProxies.Cursor= Cursors.Default;
+            listViewProxies.Cursor = Cursors.Default;
         }
 
         /// <summary>
@@ -292,6 +293,11 @@ namespace PortProxyGUI
                     // New Item
                     case ToolStripMenuItem item when item == toolStripMenuItem_New:
                         NewItem();
+                        break;
+
+                    // Clone Item
+                    case ToolStripMenuItem item when item == toolStripMenuItem_Clone:
+                        MessageBox.Show("TODO");
                         break;
 
                     // Modify/Edit Item
@@ -409,14 +415,7 @@ namespace PortProxyGUI
             if (e.Column == lvwColumnSorter.SortColumn)
             {
                 // Reverse the current sort direction for this column.
-                if (lvwColumnSorter.Order == SortOrder.Ascending)
-                {
-                    lvwColumnSorter.Order = SortOrder.Descending;
-                }
-                else
-                {
-                    lvwColumnSorter.Order = SortOrder.Ascending;
-                }
+                lvwColumnSorter.Order = lvwColumnSorter.Order == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending;
             }
             else
             {
@@ -484,7 +483,7 @@ namespace PortProxyGUI
                         SetProxyForm.ShowDialog();
                     }
                     return true;
-                    
+
                 // Refresh List
                 case Keys.F5:
                     RefreshProxyList();
@@ -741,13 +740,102 @@ namespace PortProxyGUI
         /// <summary>
         /// Resets the counts on the right-click context menu when the menu closes
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void contextMenuStrip_RightClick_Closed(object sender, ToolStripDropDownClosedEventArgs e)
         {
             toolStripMenuItem_Enable.Text = "Enable";
             toolStripMenuItem_Disable.Text = "Disable";
             toolStripMenuItem_Delete.Text = "Delete";
         }
+
+        #region Clipboard & View Cline
+
+        /// <summary>
+        /// Copies netsh add command to clipboard
+        /// </summary>
+        private void NetSHAddCopyToClipboard_Click(object sender, EventArgs e)
+        {
+            AdvNetsh(1, 1);
+        }
+
+        /// <summary>
+        /// Shows netsh add command in a messagebox
+        /// </summary>
+        private void NetSHAddViewCline_Click(object sender, EventArgs e)
+        {
+            AdvNetsh(2, 1);
+        }
+
+        /// <summary>
+        /// Copy delete cmd to clipboard
+        /// </summary>
+        private void NetSHDelCopyToClipboard_Click(object sender, EventArgs e)
+        {
+            AdvNetsh(1, 2);
+        }
+
+        /// <summary>
+        /// View delete command in msgbox
+        /// </summary>
+        private void NetSHDelViewCline_Click(object sender, EventArgs e)
+        {
+            AdvNetsh(2, 2);
+        }
+
+        /// <summary>
+        /// Either shows or copies to clipboard the actual netsh cline for the selected item
+        /// </summary>
+        /// <param name="intType">1 = Clipboard; else = View</param>
+        /// <param name="intCmd">2 = delete; else = add</param>
+        private void AdvNetsh(int intType, int intCmd)
+        {
+            try
+            {
+                string strCmd = intCmd == 2 ? "delete" : "add";
+                string strMessage = string.Empty;
+
+                // Message to copy/show
+                if (intCmd == 2)
+                {
+                    // Delete
+                    strMessage = string.Format(
+                                                "netsh interface portproxy {3} {0} listenaddress={1} listenport={2}",
+                                                listViewProxies.FocusedItem.SubItems[1].Text,
+                                                listViewProxies.FocusedItem.SubItems[2].Text,
+                                                listViewProxies.FocusedItem.SubItems[3].Text,
+                                                strCmd);
+                }
+                else
+                {
+                    // Add
+                    strMessage = string.Format(
+                                                "netsh interface portproxy {5} {0} listenaddress={1} listenport={2} connectaddress={3} connectport={4}",
+                                                listViewProxies.FocusedItem.SubItems[1].Text,
+                                                listViewProxies.FocusedItem.SubItems[2].Text,
+                                                listViewProxies.FocusedItem.SubItems[3].Text,
+                                                listViewProxies.FocusedItem.SubItems[4].Text,
+                                                listViewProxies.FocusedItem.SubItems[5].Text,
+                                                strCmd);
+                }
+
+                // Action to do (copy to clipboard or messagebox)
+                if (intType == 1)
+                {
+                    Clipboard.SetText(strMessage);
+                }
+                else
+                {
+                    MessageBox.Show(strMessage, "netsh " + strCmd, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(string.Format("netsh {1}: {2} error: {0}", ex.Message, intCmd, intType == 1 ? "Copy" : "View"));
+                throw;
+            }
+        }
+
+        #endregion
+
     }
 }

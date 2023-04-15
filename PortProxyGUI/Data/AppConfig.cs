@@ -12,16 +12,26 @@ namespace PortProxyGUI.Data
 {
     public class AppConfig
     {
-        public Size MainWindowSize = new(720, 500);
-        public int[] PortProxyColumnWidths = new int[] { 24, 64, 140, 100, 140, 100, 100 };
+        #region + -- VAR DECLARATIONS -- +
 
-        public int SortColumn = 0;
-        public int SortOrder = 0;
+            // Window Size & Column Widths
+            public Size MainWindowSize = new(720, 500);
+            public int[] PortProxyColumnWidths = new int[] { 24, 64, 140, 100, 140, 100, 100 };
 
-        private readonly Regex _intArrayRegex = new(@"^\[\s*(\d+)(?:\s*,\s*(\d+))*\s*\]$");
+            // Column Sorting 
+            public int SortColumn = 0;
+            public int SortOrder = 0;
+
+            private readonly Regex _intArrayRegex = new(@"^\[\s*(\d+)(?:\s*,\s*(\d+))*\s*\]$");
+
+        #endregion
 
         public AppConfig() {}
 
+        /// <summary>
+        /// Fetches settings from .db
+        /// </summary>
+        /// <param name="rows"></param>
         public AppConfig(Config[] rows)
         {
 

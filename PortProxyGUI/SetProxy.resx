@@ -66,7 +66,7 @@
     <value>Microsoft YaHei UI, 9pt</value>
   </data>
   <data name="label_ListenOn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 62</value>
+    <value>32, 60</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="label_ListenOn.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
@@ -81,6 +81,18 @@
   <data name="label_ListenOn.Text" xml:space="preserve">
     <value>Listen on</value>
   </data>
+  <metadata name="tTipSetProxy.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="label_ListenOn.ToolTip" xml:space="preserve">
+    <value>IP to listen on:
+
+i.e.
+0.0.0.0
+127.0.0.1
+
+Auto-complete is also enabled for some common IP's</value>
+  </data>
   <data name="&gt;&gt;label_ListenOn.Name" xml:space="preserve">
     <value>label_ListenOn</value>
   </data>
@@ -91,7 +103,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label_ListenOn.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>23</value>
   </data>
   <data name="label_ConnectTo.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -100,7 +112,7 @@
     <value>Microsoft YaHei UI, 9pt</value>
   </data>
   <data name="label_ConnectTo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 93</value>
+    <value>32, 93</value>
   </data>
   <data name="label_ConnectTo.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
@@ -114,6 +126,16 @@
   <data name="label_ConnectTo.Text" xml:space="preserve">
     <value>Connect to</value>
   </data>
+  <data name="label_ConnectTo.ToolTip" xml:space="preserve">
+    <value>IP to connect/send to:
+
+i.e.
+0.0.0.0
+127.0.0.1
+Your WSL IP, etc.
+
+Auto-complete is also enabled for some common IP's</value>
+  </data>
   <data name="&gt;&gt;label_ConnectTo.Name" xml:space="preserve">
     <value>label_ConnectTo</value>
   </data>
@@ -124,34 +146,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label_ConnectTo.ZOrder" xml:space="preserve">
-    <value>13</value>
-  </data>
-  <data name="textBox_ConnectTo.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft YaHei UI, 9pt</value>
-  </data>
-  <data name="textBox_ConnectTo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>97, 90</value>
-  </data>
-  <data name="textBox_ConnectTo.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 3, 4, 3</value>
-  </data>
-  <data name="textBox_ConnectTo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>146, 23</value>
-  </data>
-  <data name="textBox_ConnectTo.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;textBox_ConnectTo.Name" xml:space="preserve">
-    <value>textBox_ConnectTo</value>
-  </data>
-  <data name="&gt;&gt;textBox_ConnectTo.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBox_ConnectTo.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;textBox_ConnectTo.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>22</value>
   </data>
   <data name="textBox_ConnectPort.AutoCompleteCustomSource" xml:space="preserve">
     <value>53</value>
@@ -199,7 +194,7 @@
     <value>Microsoft YaHei UI, 9pt</value>
   </data>
   <data name="textBox_ConnectPort.Location" type="System.Drawing.Point, System.Drawing">
-    <value>299, 90</value>
+    <value>466, 90</value>
   </data>
   <data name="textBox_ConnectPort.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
@@ -208,11 +203,7 @@
     <value>84, 23</value>
   </data>
   <data name="textBox_ConnectPort.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="textBox_ConnectPort.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
-    <value>Center</value>
+    <value>5</value>
   </data>
   <data name="&gt;&gt;textBox_ConnectPort.Name" xml:space="preserve">
     <value>textBox_ConnectPort</value>
@@ -224,7 +215,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;textBox_ConnectPort.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>21</value>
   </data>
   <data name="label_ConnectPort.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -233,7 +224,7 @@
     <value>Microsoft YaHei UI, 9pt</value>
   </data>
   <data name="label_ConnectPort.Location" type="System.Drawing.Point, System.Drawing">
-    <value>251, 93</value>
+    <value>418, 93</value>
   </data>
   <data name="label_ConnectPort.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
@@ -247,6 +238,9 @@
   <data name="label_ConnectPort.Text" xml:space="preserve">
     <value>Port</value>
   </data>
+  <data name="label_ConnectPort.ToolTip" xml:space="preserve">
+    <value>Port to 'remotely' listen on.</value>
+  </data>
   <data name="&gt;&gt;label_ConnectPort.Name" xml:space="preserve">
     <value>label_ConnectPort</value>
   </data>
@@ -257,22 +251,26 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label_ConnectPort.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>20</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="button_Set.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
   </data>
   <data name="button_Set.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft YaHei UI, 9pt</value>
   </data>
   <data name="button_Set.Location" type="System.Drawing.Point, System.Drawing">
-    <value>260, 134</value>
+    <value>577, 90</value>
   </data>
   <data name="button_Set.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 5, 4, 5</value>
   </data>
   <data name="button_Set.Size" type="System.Drawing.Size, System.Drawing">
-    <value>125, 31</value>
+    <value>84, 126</value>
   </data>
   <data name="button_Set.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
+    <value>10</value>
   </data>
   <data name="button_Set.Text" xml:space="preserve">
     <value>Set</value>
@@ -287,7 +285,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;button_Set.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>19</value>
   </data>
   <data name="label_Type.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -296,7 +294,7 @@
     <value>Microsoft YaHei UI, 9pt</value>
   </data>
   <data name="label_Type.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 16</value>
+    <value>32, 139</value>
   </data>
   <data name="label_Type.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
@@ -310,6 +308,14 @@
   <data name="label_Type.Text" xml:space="preserve">
     <value>Type</value>
   </data>
+  <data name="label_Type.ToolTip" xml:space="preserve">
+    <value>The 'Type' of proxy to use.
+
+i.e.
+IPv4 or IPv6
+
+If set to "auto", it'll try to determine based on the IP's you've entered.</value>
+  </data>
   <data name="&gt;&gt;label_Type.Name" xml:space="preserve">
     <value>label_Type</value>
   </data>
@@ -320,7 +326,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label_Type.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>18</value>
   </data>
   <data name="label_ListenPort.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -329,7 +335,7 @@
     <value>Microsoft YaHei UI, 9pt</value>
   </data>
   <data name="label_ListenPort.Location" type="System.Drawing.Point, System.Drawing">
-    <value>251, 62</value>
+    <value>418, 60</value>
   </data>
   <data name="label_ListenPort.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
@@ -343,6 +349,12 @@
   <data name="label_ListenPort.Text" xml:space="preserve">
     <value>Port</value>
   </data>
+  <data name="label_ListenPort.ToolTip" xml:space="preserve">
+    <value>(Starting) Port to listen on.
+
+Note:
+If using a port range, this port must be lower than the ending port to the right. -&gt;</value>
+  </data>
   <data name="&gt;&gt;label_ListenPort.Name" xml:space="preserve">
     <value>label_ListenPort</value>
   </data>
@@ -353,7 +365,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label_ListenPort.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>17</value>
   </data>
   <data name="textBox_ListenPort.AutoCompleteCustomSource" xml:space="preserve">
     <value>53</value>
@@ -401,7 +413,7 @@
     <value>Microsoft YaHei UI, 9pt</value>
   </data>
   <data name="textBox_ListenPort.Location" type="System.Drawing.Point, System.Drawing">
-    <value>299, 58</value>
+    <value>466, 56</value>
   </data>
   <data name="textBox_ListenPort.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
@@ -411,9 +423,6 @@
   </data>
   <data name="textBox_ListenPort.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
-  </data>
-  <data name="textBox_ListenPort.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
-    <value>Center</value>
   </data>
   <data name="&gt;&gt;textBox_ListenPort.Name" xml:space="preserve">
     <value>textBox_ListenPort</value>
@@ -425,7 +434,10 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;textBox_ListenPort.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>16</value>
+  </data>
+  <data name="comboBox_Type.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
   </data>
   <data name="comboBox_Type.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft YaHei UI, 9pt</value>
@@ -446,7 +458,7 @@
     <value>v6tov6</value>
   </data>
   <data name="comboBox_Type.Location" type="System.Drawing.Point, System.Drawing">
-    <value>97, 13</value>
+    <value>115, 135</value>
   </data>
   <data name="comboBox_Type.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
@@ -455,7 +467,7 @@
     <value>146, 25</value>
   </data>
   <data name="comboBox_Type.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
+    <value>7</value>
   </data>
   <data name="&gt;&gt;comboBox_Type.Name" xml:space="preserve">
     <value>comboBox_Type</value>
@@ -467,7 +479,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;comboBox_Type.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>15</value>
   </data>
   <data name="label_Comment.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -479,7 +491,7 @@
     <value>NoControl</value>
   </data>
   <data name="label_Comment.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 141</value>
+    <value>32, 196</value>
   </data>
   <data name="label_Comment.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
@@ -493,6 +505,15 @@
   <data name="label_Comment.Text" xml:space="preserve">
     <value>Comment</value>
   </data>
+  <data name="label_Comment.ToolTip" xml:space="preserve">
+    <value>[Optional]
+Add a note for this (or 'these', if adding a port range) proxy.
+
+Note:
+If adding a port range, the same comment will be added for them all;
+you can individually edit the comment(s), if desired after they've been added
+to the list.</value>
+  </data>
   <data name="&gt;&gt;label_Comment.Name" xml:space="preserve">
     <value>label_Comment</value>
   </data>
@@ -503,25 +524,22 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label_Comment.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>14</value>
   </data>
   <data name="textBox_Comment.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft YaHei UI, 9pt</value>
   </data>
   <data name="textBox_Comment.Location" type="System.Drawing.Point, System.Drawing">
-    <value>97, 138</value>
+    <value>115, 193</value>
   </data>
   <data name="textBox_Comment.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
   </data>
   <data name="textBox_Comment.Size" type="System.Drawing.Size, System.Drawing">
-    <value>146, 23</value>
+    <value>435, 23</value>
   </data>
   <data name="textBox_Comment.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="textBox_Comment.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
-    <value>Center</value>
+    <value>9</value>
   </data>
   <data name="&gt;&gt;textBox_Comment.Name" xml:space="preserve">
     <value>textBox_Comment</value>
@@ -533,7 +551,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;textBox_Comment.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>13</value>
   </data>
   <data name="label_Group.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -545,7 +563,7 @@
     <value>NoControl</value>
   </data>
   <data name="label_Group.Location" type="System.Drawing.Point, System.Drawing">
-    <value>251, 16</value>
+    <value>418, 139</value>
   </data>
   <data name="label_Group.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
@@ -559,6 +577,10 @@
   <data name="label_Group.Text" xml:space="preserve">
     <value>Group</value>
   </data>
+  <data name="label_Group.ToolTip" xml:space="preserve">
+    <value>[Optional]
+Place this (or 'these', if adding a port range) proxy into a named group in the list.</value>
+  </data>
   <data name="&gt;&gt;label_Group.Name" xml:space="preserve">
     <value>label_Group</value>
   </data>
@@ -569,7 +591,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label_Group.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>12</value>
   </data>
   <data name="comboBox_Group.AutoCompleteCustomSource" xml:space="preserve">
     <value>Apache</value>
@@ -596,7 +618,7 @@
     <value>Microsoft YaHei UI, 9pt</value>
   </data>
   <data name="comboBox_Group.Location" type="System.Drawing.Point, System.Drawing">
-    <value>299, 13</value>
+    <value>466, 135</value>
   </data>
   <data name="comboBox_Group.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
@@ -605,7 +627,7 @@
     <value>84, 25</value>
   </data>
   <data name="comboBox_Group.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
+    <value>8</value>
   </data>
   <data name="&gt;&gt;comboBox_Group.Name" xml:space="preserve">
     <value>comboBox_Group</value>
@@ -617,13 +639,34 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;comboBox_Group.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>11</value>
   </data>
   <data name="comboBox_ListenOn.AutoCompleteCustomSource" xml:space="preserve">
     <value>0.0.0.0</value>
   </data>
   <data name="comboBox_ListenOn.AutoCompleteCustomSource1" xml:space="preserve">
     <value>127.0.0.1</value>
+  </data>
+  <data name="comboBox_ListenOn.AutoCompleteCustomSource2" xml:space="preserve">
+    <value>192.168.</value>
+  </data>
+  <data name="comboBox_ListenOn.AutoCompleteCustomSource3" xml:space="preserve">
+    <value>192.168.0.</value>
+  </data>
+  <data name="comboBox_ListenOn.AutoCompleteCustomSource4" xml:space="preserve">
+    <value>192.168.0.1</value>
+  </data>
+  <data name="comboBox_ListenOn.AutoCompleteCustomSource5" xml:space="preserve">
+    <value>192.168.1.</value>
+  </data>
+  <data name="comboBox_ListenOn.AutoCompleteCustomSource6" xml:space="preserve">
+    <value>192.168.1.0</value>
+  </data>
+  <data name="comboBox_ListenOn.AutoCompleteCustomSource7" xml:space="preserve">
+    <value>::1</value>
+  </data>
+  <data name="comboBox_ListenOn.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
   </data>
   <data name="comboBox_ListenOn.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft YaHei UI, 9pt</value>
@@ -638,10 +681,10 @@
     <value>127.0.0.1</value>
   </data>
   <data name="comboBox_ListenOn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>97, 58</value>
+    <value>115, 56</value>
   </data>
   <data name="comboBox_ListenOn.Size" type="System.Drawing.Size, System.Drawing">
-    <value>146, 24</value>
+    <value>281, 25</value>
   </data>
   <data name="comboBox_ListenOn.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -656,7 +699,414 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;comboBox_ListenOn.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="textBox_ListenPortRange.AutoCompleteCustomSource" xml:space="preserve">
+    <value>53</value>
+  </data>
+  <data name="textBox_ListenPortRange.AutoCompleteCustomSource1" xml:space="preserve">
+    <value>80</value>
+  </data>
+  <data name="textBox_ListenPortRange.AutoCompleteCustomSource2" xml:space="preserve">
+    <value>443</value>
+  </data>
+  <data name="textBox_ListenPortRange.AutoCompleteCustomSource3" xml:space="preserve">
+    <value>853</value>
+  </data>
+  <data name="textBox_ListenPortRange.AutoCompleteCustomSource4" xml:space="preserve">
+    <value>2375</value>
+  </data>
+  <data name="textBox_ListenPortRange.AutoCompleteCustomSource5" xml:space="preserve">
+    <value>2376</value>
+  </data>
+  <data name="textBox_ListenPortRange.AutoCompleteCustomSource6" xml:space="preserve">
+    <value>2377</value>
+  </data>
+  <data name="textBox_ListenPortRange.AutoCompleteCustomSource7" xml:space="preserve">
+    <value>2736</value>
+  </data>
+  <data name="textBox_ListenPortRange.AutoCompleteCustomSource8" xml:space="preserve">
+    <value>3000</value>
+  </data>
+  <data name="textBox_ListenPortRange.AutoCompleteCustomSource9" xml:space="preserve">
+    <value>3306</value>
+  </data>
+  <data name="textBox_ListenPortRange.AutoCompleteCustomSource10" xml:space="preserve">
+    <value>3390</value>
+  </data>
+  <data name="textBox_ListenPortRange.AutoCompleteCustomSource11" xml:space="preserve">
+    <value>4789</value>
+  </data>
+  <data name="textBox_ListenPortRange.AutoCompleteCustomSource12" xml:space="preserve">
+    <value>5443</value>
+  </data>
+  <data name="textBox_ListenPortRange.AutoCompleteCustomSource13" xml:space="preserve">
+    <value>7946</value>
+  </data>
+  <data name="textBox_ListenPortRange.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 9pt</value>
+  </data>
+  <data name="textBox_ListenPortRange.Location" type="System.Drawing.Point, System.Drawing">
+    <value>577, 56</value>
+  </data>
+  <data name="textBox_ListenPortRange.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="textBox_ListenPortRange.Size" type="System.Drawing.Size, System.Drawing">
+    <value>84, 23</value>
+  </data>
+  <data name="textBox_ListenPortRange.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="textBox_ListenPortRange.ToolTip" xml:space="preserve">
+    <value>Ending Port to listen on.
+
+Note:
+&lt;- If using a port range, this ending port must be higher than the starting port to the left.</value>
+  </data>
+  <data name="textBox_ListenPortRange.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;textBox_ListenPortRange.Name" xml:space="preserve">
+    <value>textBox_ListenPortRange</value>
+  </data>
+  <data name="&gt;&gt;textBox_ListenPortRange.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBox_ListenPortRange.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;textBox_ListenPortRange.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="lblDash.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblDash.Location" type="System.Drawing.Point, System.Drawing">
+    <value>558, 60</value>
+  </data>
+  <data name="lblDash.Size" type="System.Drawing.Size, System.Drawing">
+    <value>13, 13</value>
+  </data>
+  <data name="lblDash.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="lblDash.Text" xml:space="preserve">
+    <value>--</value>
+  </data>
+  <data name="lblDash.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;lblDash.Name" xml:space="preserve">
+    <value>lblDash</value>
+  </data>
+  <data name="&gt;&gt;lblDash.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblDash.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lblDash.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="chkBox_ListenPortRange.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="chkBox_ListenPortRange.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 9pt</value>
+  </data>
+  <data name="chkBox_ListenPortRange.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="chkBox_ListenPortRange.Location" type="System.Drawing.Point, System.Drawing">
+    <value>466, 29</value>
+  </data>
+  <data name="chkBox_ListenPortRange.Size" type="System.Drawing.Size, System.Drawing">
+    <value>64, 21</value>
+  </data>
+  <data name="chkBox_ListenPortRange.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="chkBox_ListenPortRange.Text" xml:space="preserve">
+    <value>Range</value>
+  </data>
+  <data name="chkBox_ListenPortRange.ToolTip" xml:space="preserve">
+    <value>Add a range of ports for the 'Listen On' IP.
+
+Note:
+Starting port on the left must be lower than the Ending port on the right.</value>
+  </data>
+  <data name="&gt;&gt;chkBox_ListenPortRange.Name" xml:space="preserve">
+    <value>chkBox_ListenPortRange</value>
+  </data>
+  <data name="&gt;&gt;chkBox_ListenPortRange.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkBox_ListenPortRange.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;chkBox_ListenPortRange.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="lblRequired.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblRequired.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 9pt</value>
+  </data>
+  <data name="lblRequired.Location" type="System.Drawing.Point, System.Drawing">
+    <value>33, 29</value>
+  </data>
+  <data name="lblRequired.Size" type="System.Drawing.Size, System.Drawing">
+    <value>70, 17</value>
+  </data>
+  <data name="lblRequired.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="lblRequired.Text" xml:space="preserve">
+    <value>Required *</value>
+  </data>
+  <data name="lblRequired.ToolTip" xml:space="preserve">
+    <value>All items with a red label are required; black labeled items are optional.</value>
+  </data>
+  <data name="&gt;&gt;lblRequired.Name" xml:space="preserve">
+    <value>lblRequired</value>
+  </data>
+  <data name="&gt;&gt;lblRequired.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblRequired.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lblRequired.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="lblWSLIP.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblWSLIP.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 9pt</value>
+  </data>
+  <data name="lblWSLIP.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 258</value>
+  </data>
+  <data name="lblWSLIP.Size" type="System.Drawing.Size, System.Drawing">
+    <value>133, 17</value>
+  </data>
+  <data name="lblWSLIP.TabIndex" type="System.Int32, mscorlib">
+    <value>21</value>
+  </data>
+  <data name="lblWSLIP.Text" xml:space="preserve">
+    <value>WSL: 255.255.255.255</value>
+  </data>
+  <data name="lblWSLIP.ToolTip" xml:space="preserve">
+    <value>Currently detected WSL IP Address
+(Double-Click to refresh)</value>
+  </data>
+  <data name="&gt;&gt;lblWSLIP.Name" xml:space="preserve">
+    <value>lblWSLIP</value>
+  </data>
+  <data name="&gt;&gt;lblWSLIP.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblWSLIP.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lblWSLIP.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="lblType.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblType.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 9pt</value>
+  </data>
+  <data name="lblType.Location" type="System.Drawing.Point, System.Drawing">
+    <value>249, 258</value>
+  </data>
+  <data name="lblType.Size" type="System.Drawing.Size, System.Drawing">
+    <value>46, 17</value>
+  </data>
+  <data name="lblType.TabIndex" type="System.Int32, mscorlib">
+    <value>23</value>
+  </data>
+  <data name="lblType.Text" xml:space="preserve">
+    <value>v4tov4</value>
+  </data>
+  <data name="lblType.ToolTip" xml:space="preserve">
+    <value>Proxy Type</value>
+  </data>
+  <data name="&gt;&gt;lblType.Name" xml:space="preserve">
+    <value>lblType</value>
+  </data>
+  <data name="&gt;&gt;lblType.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblType.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lblType.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="lblRangeCount.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblRangeCount.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 9pt</value>
+  </data>
+  <data name="lblRangeCount.Location" type="System.Drawing.Point, System.Drawing">
+    <value>405, 258</value>
+  </data>
+  <data name="lblRangeCount.Size" type="System.Drawing.Size, System.Drawing">
+    <value>64, 17</value>
+  </data>
+  <data name="lblRangeCount.TabIndex" type="System.Int32, mscorlib">
+    <value>24</value>
+  </data>
+  <data name="lblRangeCount.Text" xml:space="preserve">
+    <value>Adding: 0</value>
+  </data>
+  <data name="lblRangeCount.ToolTip" xml:space="preserve">
+    <value>Total Proxies to be added based on your settings</value>
+  </data>
+  <data name="lblRangeCount.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;lblRangeCount.Name" xml:space="preserve">
+    <value>lblRangeCount</value>
+  </data>
+  <data name="&gt;&gt;lblRangeCount.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblRangeCount.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lblRangeCount.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="progBarRange.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="progBarRange.Location" type="System.Drawing.Point, System.Drawing">
+    <value>576, 252</value>
+  </data>
+  <data name="progBarRange.Size" type="System.Drawing.Size, System.Drawing">
+    <value>86, 23</value>
+  </data>
+  <data name="progBarRange.TabIndex" type="System.Int32, mscorlib">
+    <value>25</value>
+  </data>
+  <data name="progBarRange.ToolTip" xml:space="preserve">
+    <value>Progress when adding a port range.
+Adding usually happens so fast you won't see this (for long) though.</value>
+  </data>
+  <data name="progBarRange.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;progBarRange.Name" xml:space="preserve">
+    <value>progBarRange</value>
+  </data>
+  <data name="&gt;&gt;progBarRange.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ProgressBar, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;progBarRange.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;progBarRange.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="comboBox_ConnectTo.AutoCompleteCustomSource" xml:space="preserve">
+    <value>0.0.0.0</value>
+  </data>
+  <data name="comboBox_ConnectTo.AutoCompleteCustomSource1" xml:space="preserve">
+    <value>127.0.0.1</value>
+  </data>
+  <data name="comboBox_ConnectTo.AutoCompleteCustomSource2" xml:space="preserve">
+    <value>192.168.</value>
+  </data>
+  <data name="comboBox_ConnectTo.AutoCompleteCustomSource3" xml:space="preserve">
+    <value>192.168.0.</value>
+  </data>
+  <data name="comboBox_ConnectTo.AutoCompleteCustomSource4" xml:space="preserve">
+    <value>192.168.0.1</value>
+  </data>
+  <data name="comboBox_ConnectTo.AutoCompleteCustomSource5" xml:space="preserve">
+    <value>192.168.1.</value>
+  </data>
+  <data name="comboBox_ConnectTo.AutoCompleteCustomSource6" xml:space="preserve">
+    <value>192.168.1.0</value>
+  </data>
+  <data name="comboBox_ConnectTo.AutoCompleteCustomSource7" xml:space="preserve">
+    <value>::1</value>
+  </data>
+  <data name="comboBox_ConnectTo.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="comboBox_ConnectTo.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 9pt</value>
+  </data>
+  <data name="comboBox_ConnectTo.Items" xml:space="preserve">
+    <value>*</value>
+  </data>
+  <data name="comboBox_ConnectTo.Items1" xml:space="preserve">
+    <value>0.0.0.0</value>
+  </data>
+  <data name="comboBox_ConnectTo.Items2" xml:space="preserve">
+    <value>127.0.0.1</value>
+  </data>
+  <data name="comboBox_ConnectTo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>115, 90</value>
+  </data>
+  <data name="comboBox_ConnectTo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>281, 25</value>
+  </data>
+  <data name="comboBox_ConnectTo.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <data name="&gt;&gt;comboBox_ConnectTo.Name" xml:space="preserve">
+    <value>comboBox_ConnectTo</value>
+  </data>
+  <data name="&gt;&gt;comboBox_ConnectTo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBox_ConnectTo.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;comboBox_ConnectTo.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="lblDupe.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblDupe.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 8.25pt, style=Bold</value>
+  </data>
+  <data name="lblDupe.Location" type="System.Drawing.Point, System.Drawing">
+    <value>576, 31</value>
+  </data>
+  <data name="lblDupe.Size" type="System.Drawing.Size, System.Drawing">
+    <value>86, 16</value>
+  </data>
+  <data name="lblDupe.TabIndex" type="System.Int32, mscorlib">
+    <value>22</value>
+  </data>
+  <data name="lblDupe.Text" xml:space="preserve">
+    <value>* DUPLICATE *</value>
+  </data>
+  <data name="lblDupe.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;lblDupe.Name" xml:space="preserve">
+    <value>lblDupe</value>
+  </data>
+  <data name="&gt;&gt;lblDupe.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblDupe.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lblDupe.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -665,7 +1115,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>398, 180</value>
+    <value>705, 279</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -2833,6 +3283,12 @@
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Set Proxy</value>
+  </data>
+  <data name="&gt;&gt;tTipSetProxy.Name" xml:space="preserve">
+    <value>tTipSetProxy</value>
+  </data>
+  <data name="&gt;&gt;tTipSetProxy.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>SetProxy</value>
