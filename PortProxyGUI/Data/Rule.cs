@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PortProxyGUI.Data
+namespace PortProxyGooey.Data
 {
     public class Rule : IEquatable<Rule>
     {

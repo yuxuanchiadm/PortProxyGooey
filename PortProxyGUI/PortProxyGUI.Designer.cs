@@ -1,6 +1,6 @@
-﻿namespace PortProxyGUI
+﻿namespace PortProxyGooey
 {
-    partial class PortProxyGUI
+    partial class PortProxyGooey
     {
         /// <summary>
         ///  Required designer variable.
@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PortProxyGUI));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PortProxyGooey));
             listViewProxies = new System.Windows.Forms.ListView();
-            columnHeader1 = new System.Windows.Forms.ColumnHeader();
+            columnHeaderState = new System.Windows.Forms.ColumnHeader();
             columnHeader2 = new System.Windows.Forms.ColumnHeader();
             columnHeader3 = new System.Windows.Forms.ColumnHeader();
             columnHeader4 = new System.Windows.Forms.ColumnHeader();
@@ -81,7 +81,7 @@
             NetSHDelViewCline = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             toolStripMenuItem_About = new System.Windows.Forms.ToolStripMenuItem();
-            imageListProxies = new System.Windows.Forms.ImageList(components);
+            imgListProxies = new System.Windows.Forms.ImageList(components);
             saveFileDialog_Export = new System.Windows.Forms.SaveFileDialog();
             openFileDialog_Import = new System.Windows.Forms.OpenFileDialog();
             contextMenuStrip_RightClick.SuspendLayout();
@@ -91,13 +91,13 @@
             // 
             listViewProxies.BackColor = System.Drawing.Color.FromArgb(46, 52, 64);
             listViewProxies.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            listViewProxies.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader4, columnHeader5, columnHeader6, columnHeader7 });
+            listViewProxies.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { columnHeaderState, columnHeader2, columnHeader3, columnHeader4, columnHeader5, columnHeader6, columnHeader7 });
             listViewProxies.ContextMenuStrip = contextMenuStrip_RightClick;
             resources.ApplyResources(listViewProxies, "listViewProxies");
             listViewProxies.ForeColor = System.Drawing.Color.FromArgb(216, 222, 233);
             listViewProxies.FullRowSelect = true;
             listViewProxies.Name = "listViewProxies";
-            listViewProxies.SmallImageList = imageListProxies;
+            listViewProxies.SmallImageList = imgListProxies;
             listViewProxies.UseCompatibleStateImageBehavior = false;
             listViewProxies.View = System.Windows.Forms.View.Details;
             listViewProxies.ColumnClick += listViewProxies_ColumnClick;
@@ -105,9 +105,9 @@
             listViewProxies.DoubleClick += listViewProxies_DoubleClick;
             listViewProxies.MouseUp += listViewProxies_MouseUp;
             // 
-            // columnHeader1
+            // columnHeaderState
             // 
-            resources.ApplyResources(columnHeader1, "columnHeader1");
+            resources.ApplyResources(columnHeaderState, "columnHeaderState");
             // 
             // columnHeader2
             // 
@@ -388,13 +388,13 @@
             toolStripMenuItem_About.Name = "toolStripMenuItem_About";
             resources.ApplyResources(toolStripMenuItem_About, "toolStripMenuItem_About");
             // 
-            // imageListProxies
+            // imgListProxies
             // 
-            imageListProxies.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            imageListProxies.ImageStream = (System.Windows.Forms.ImageListStreamer)resources.GetObject("imageListProxies.ImageStream");
-            imageListProxies.TransparentColor = System.Drawing.Color.Transparent;
-            imageListProxies.Images.SetKeyName(0, "disable.png");
-            imageListProxies.Images.SetKeyName(1, "enable.png");
+            imgListProxies.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
+            imgListProxies.ImageStream = (System.Windows.Forms.ImageListStreamer)resources.GetObject("imgListProxies.ImageStream");
+            imgListProxies.TransparentColor = System.Drawing.Color.Transparent;
+            imgListProxies.Images.SetKeyName(0, "disable.png");
+            imgListProxies.Images.SetKeyName(1, "enable.png");
             // 
             // saveFileDialog_Export
             // 
@@ -405,13 +405,13 @@
             openFileDialog_Import.FileName = "openFileDialog1";
             resources.ApplyResources(openFileDialog_Import, "openFileDialog_Import");
             // 
-            // PortProxyGUI
+            // PortProxyGooey
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.FromArgb(46, 52, 64);
             Controls.Add(listViewProxies);
-            Name = "PortProxyGUI";
+            Name = "PortProxyGooey";
             FormClosing += PortProxyGUI_FormClosing;
             Load += PortProxyGUI_Load;
             Shown += PortProxyGUI_Shown;
@@ -434,8 +434,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_About;
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_Modify;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ImageList imageListProxies;
+        private System.Windows.Forms.ColumnHeader columnHeaderState;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_Enable;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_Disable;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
@@ -475,6 +474,7 @@
         private System.Windows.Forms.ToolStripMenuItem NetSHAddViewCline;
         private System.Windows.Forms.ToolStripMenuItem NetSHDelCopyToClipboard;
         private System.Windows.Forms.ToolStripMenuItem NetSHDelViewCline;
+        private System.Windows.Forms.ImageList imgListProxies;
     }
 }
 

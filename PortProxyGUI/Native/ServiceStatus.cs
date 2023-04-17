@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace PortProxyGUI.Native
+namespace PortProxyGooey.Native
 {
     [StructLayout(LayoutKind.Sequential)]
     public struct ServiceStatus

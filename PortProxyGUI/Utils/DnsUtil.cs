@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace PortProxyGUI.Utils
+namespace PortProxyGooey.Utils
 {
     internal class DnsUtil
     {

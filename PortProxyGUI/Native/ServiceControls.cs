@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PortProxyGUI.Native
+namespace PortProxyGooey.Native
 {
     [Flags]
     public enum ServiceControls : uint

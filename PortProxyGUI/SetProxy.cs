@@ -1,9 +1,10 @@
 ﻿#region + -- NAMESPACE IMPORTS -- +
 
 using NStandard;
-using PortProxyGUI.Data;
-using PortProxyGUI.Utils;
+using PortProxyGooey.Data;
+using PortProxyGooey.Utils;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Diagnostics.Eventing.Reader;
@@ -14,7 +15,7 @@ using System.Text.RegularExpressions;
 //using System.Web.UI.WebControls;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using Rule = PortProxyGUI.Data.Rule;
+using Rule = PortProxyGooey.Data.Rule;
 
 #endregion
 
@@ -22,13 +23,13 @@ using Rule = PortProxyGUI.Data.Rule;
 // TODO: 1) After adding a range of ports, unchecking, then checking, the count in the label gets set to 1 even though the range is larger.
 //       2) I added a range of 45 to 54 and label said 10?
 //       3) 0.0.0.0 in both fields, w/port 53 is saying dupe, even though that specifically isn't in the list.
-namespace PortProxyGUI
+namespace PortProxyGooey
 {
     public partial class SetProxy : Form
     {
         #region + -- VAR DECLARATIONS -- +
 
-        public readonly PortProxyGUI ParentWindow;
+        public readonly PortProxyGooey ParentWindow;
         private string AutoTypeString { get; }
 
         private bool _updateMode;
@@ -37,7 +38,7 @@ namespace PortProxyGUI
 
         #endregion
 
-        public SetProxy(PortProxyGUI parent)
+        public SetProxy(PortProxyGooey parent)
         {
             ParentWindow = parent;
 
@@ -121,6 +122,7 @@ namespace PortProxyGUI
             catch (NotSupportedException ex)
             {
                 MessageBox.Show(ex.Message, "Invalid port", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                progBarRange.Visible = false;
                 this.Enabled = true;
                 return;
             }
@@ -168,10 +170,10 @@ namespace PortProxyGUI
                 // Update/Edit/Modify Existing Rule
 
                 Rule oldRule = Program.Database.GetRule(_itemRule.Type, _itemRule.ListenOn, _itemRule.ListenPort);
-                PortPorxyUtil.DeleteProxy(oldRule);
+                PortProxyUtil.DeleteProxy(oldRule);
                 Program.Database.Remove(oldRule);
 
-                PortPorxyUtil.AddOrUpdateProxy(rule);
+                PortProxyUtil.AddOrUpdateProxy(rule);
                 Program.Database.Add(rule);
 
                 ParentWindow.UpdateListViewItem(_listViewItem, rule, 1);
@@ -200,7 +202,7 @@ namespace PortProxyGUI
                     else
                     {
 
-                        PortPorxyUtil.AddOrUpdateProxy(rule);
+                        PortProxyUtil.AddOrUpdateProxy(rule);
                         Program.Database.Add(rule);
                     }
 
@@ -208,11 +210,11 @@ namespace PortProxyGUI
                 }
 
                 // Alert the user if any were skipped due to duping
-                if (intDupes > 0) MessageBox.Show(string.Format("{0} duplicates skipped.", intDupes), "Didn't add some", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (intDupes > 0) MessageBox.Show(string.Format("{0} duplicates skipped.", intDupes), "Didn't add some ...", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 ParentWindow.RefreshProxyList();
             }
-            PortPorxyUtil.ParamChange();
+            PortProxyUtil.ParamChange();
 
             progBarRange.Visible = false;
             this.Enabled = true;
@@ -228,7 +230,7 @@ namespace PortProxyGUI
 
             // Current WSL IP
             lblWSLIP.Text = "Refreshing ...";
-            string strWSLIP = PortPorxyUtil.GetWSLIP();
+            string strWSLIP = PortProxyUtil.GetWSLIP();
 
             if (strWSLIP.Length > 0)
             {
@@ -256,7 +258,7 @@ namespace PortProxyGUI
                 lblDash.Visible = true;
                 textBox_ListenPortRange.Visible = true;
                 lblRangeCount.Visible = true;
-                lblRangeCount.Text = String.IsNullOrEmpty(textBox_ListenPortRange.Text) ? "Adding: 0" : "Adding: 1";
+                lblRangeCount.Text = String.IsNullOrEmpty(textBox_ListenPortRange.Text) ? "Adding: 0" : "Adding: " + CalcRange().ToString();
             }
             else
             {
@@ -272,15 +274,22 @@ namespace PortProxyGUI
             textBox_ConnectPort.Text = textBox_ListenPort.Text;
 
             lblDupe.Visible = DupeCheck() ? true : false;
+
+            AutoComment();
         }
 
         private void textBox_ListenPortRange_TextChanged(object sender, EventArgs e)
         {
-
-            int intRangeCount = Convert.ToInt32(textBox_ListenPortRange.Text) - Convert.ToInt32(textBox_ListenPort.Text) + 1;
-            string strBase = "Total Proxies:";
+            // TODO: I think I can create a single Call for this sub and line 260 called somethign like "UpdateRangeLabel"
+            int intRangeCount = CalcRange();
+            string strBase = "Adding:";
 
             lblRangeCount.Text = intRangeCount < 0 ? strBase + " 0" : string.Format("{0} {1}", strBase, intRangeCount);
+        }
+
+        private int CalcRange()
+        {
+            return (Convert.ToInt32(textBox_ListenPortRange.Text.Trim()) - Convert.ToInt32(textBox_ListenPort.Text.Trim()) + 1);
         }
 
         /// <summary>
@@ -293,9 +302,9 @@ namespace PortProxyGUI
         {
             bool bResult = true;
 
-            if (PortPorxyUtil.IsIPv4(strIP) == false && strIP != "*")
+            if (PortProxyUtil.IsIPv4(strIP) == false && strIP != "*")
             {
-                MessageBox.Show(string.Format("{0} is not a valid IP", strIP), "What are you up to?", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(string.Format("{0} is not a valid IP", strIP), "What are you up to here?", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
                 if (intField == 2)
                 {
@@ -309,9 +318,40 @@ namespace PortProxyGUI
                     bResult = false;
                     comboBox_ListenOn.Select();
                 }
+                progBarRange.Visible = bResult;
                 this.Enabled = true;
             }
             return bResult;
+        }
+
+        /// <summary>
+        /// Automatically enters info in the Comment field for recognized ports.
+        /// </summary>
+        private void AutoComment()
+        {
+            Dictionary<string, string> port = new()
+            {
+                {"MySQL/MariaDB", "3306"},
+                {"key2", "value2"},
+                {"key3", "value3"}
+            };
+
+            // TODO: Also need to figure out the other port fields and how they'll fit into this.
+            string searchValue = textBox_ListenPort.Text.Trim();
+            string matchingKey = port.FirstOrDefault(x => x.Value == searchValue).Key;
+
+            if (matchingKey != null)
+            {
+                Debug.WriteLine($"The key for value '{searchValue}' is '{matchingKey}'.");
+                textBox_Comment.Text = matchingKey;
+            }
+            else
+            {
+                Debug.WriteLine($"No key found for value '{searchValue}'.");
+                // TODO: Currently, if user already typed something here, then types in the ports field, their comment wll get erased; we don't want that.
+                textBox_Comment.Text = string.Empty;
+            }
+
         }
 
         /// <summary>
@@ -321,7 +361,13 @@ namespace PortProxyGUI
         /// <returns>True if Dupe found; False if no Dupe.</returns>
         private bool DupeCheck([Optional] Rule rule)
         {
-            // NOTE: I haven't thought through all possible dupe scenarios, so they may or may not still need some tweaking.
+            // + ------------------------------------------------------------------------------------------------------------------- +
+            // | NOTES:                                                                                                              |
+            // |   - I haven't thought through all possible dupe scenarios, so they may or may not still need some tweaking.         |
+            // |   - I only check Type & Listen Fields, because once you're already listening on an IP + Port Number + Specific Type |
+            // |     it doesn't matter if you change the ConnectTo IP of the same Type, because you can only listen on 1 at a time;  |
+            // |     i.e. 0.0.0.0 Port 53 4to4 can only be changed to something like 0.0.0.0 53 ::1 4to6                             |
+            // + ------------------------------------------------------------------------------------------------------------------- +
 
             string strType = rule != null ? rule.Type : comboBox_Type.Text.Trim();
             string strListen = rule != null ? rule.ListenOn : comboBox_ListenOn.Text.Trim();
@@ -384,9 +430,10 @@ namespace PortProxyGUI
         {
             this.Cursor = Cursors.WaitCursor;
             lblWSLIP.Text = "Refreshing ...";
-            string strWSLIP = PortPorxyUtil.GetWSLIP();
+            string strWSLIP = PortProxyUtil.GetWSLIP();
             lblWSLIP.Text = strWSLIP.Length > 0 ? string.Format("WSL: {0}", strWSLIP) : "WSL: Dunno";
             this.Cursor = Cursors.Default;
         }
+
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace PortProxyGUI.Utils
+namespace PortProxyGooey.Utils
 {
     public class InterfaceUtil
     {

@@ -1,18 +1,22 @@
-﻿using PortProxyGUI.Utils;
+﻿#region +--NAMESPACE IMPORTS-- +
+
+using PortProxyGooey.Utils;
 using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace PortProxyGUI
+#endregion
+
+namespace PortProxyGooey
 {
     public partial class About : Form
     {
-        public readonly PortProxyGUI PortProxyGUI;
+        public readonly PortProxyGooey PortProxyGooey;
 
-        public About(PortProxyGUI portProxyGUI)
+        public About(PortProxyGooey PortProxyGooey)
         {
-            PortProxyGUI = portProxyGUI;
+            this.PortProxyGooey = PortProxyGooey;
 
             InitializeComponent();
             Font = InterfaceUtil.UiFont;
@@ -30,7 +34,7 @@ namespace PortProxyGUI
 
         private void About_FormClosing(object sender, FormClosingEventArgs e)
         {
-            PortProxyGUI.AboutForm = null;
+            PortProxyGooey.AboutForm = null;
         }
     }
 }

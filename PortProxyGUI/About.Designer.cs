@@ -1,4 +1,4 @@
-﻿namespace PortProxyGUI
+﻿namespace PortProxyGooey
 {
     partial class About
     {
@@ -37,9 +37,12 @@
             // 
             // linkLabel1
             // 
+            linkLabel1.ActiveLinkColor = System.Drawing.Color.FromArgb(191, 97, 106);
             resources.ApplyResources(linkLabel1, "linkLabel1");
+            linkLabel1.LinkColor = System.Drawing.Color.FromArgb(94, 129, 172);
             linkLabel1.Name = "linkLabel1";
             linkLabel1.TabStop = true;
+            linkLabel1.VisitedLinkColor = System.Drawing.Color.FromArgb(180, 142, 173);
             linkLabel1.Click += linkLabel1_Click;
             // 
             // label1
@@ -61,11 +64,12 @@
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            BackColor = System.Drawing.Color.White;
+            BackColor = System.Drawing.Color.FromArgb(46, 52, 64);
             Controls.Add(label_Star);
             Controls.Add(label_version);
             Controls.Add(label1);
             Controls.Add(linkLabel1);
+            ForeColor = System.Drawing.Color.FromArgb(216, 222, 233);
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             MinimizeBox = false;

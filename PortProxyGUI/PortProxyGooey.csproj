@@ -2,22 +2,22 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFrameworks>net6.0-windows;net35;net481</TargetFrameworks>
+    <TargetFrameworks>net7.0-windows</TargetFrameworks>
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationManifest>app.manifest</ApplicationManifest>
-    <Authors>zmjack</Authors>
-    <Company>nstandard.net</Company>
+    <Authors>zmjack and J. Scott Elblein</Authors>
+    <Company></Company>
     <Description>A manager of the netsh interface portproxy which is to evaluate TCP/IP port redirect on windows.</Description>
     <PackageProjectUrl>https://github.com/zmjack/PortProxyGUI</PackageProjectUrl>
     <RepositoryUrl>https://github.com/zmjack/PortProxyGUI</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>portproxy TCP/IP redirector</PackageTags>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
-    <Copyright>Copyright © nstandard.net 2020</Copyright>
-    <Version>1.4.0</Version>
+    <Copyright>Copyright © 2020</Copyright>
+    <Version>2.0.0</Version>
     <ApplicationIcon>icon.ico</ApplicationIcon>
     <ApplicationDefaultFont>Microsoft Sans Serif, 8pt</ApplicationDefaultFont>
-    <AssemblyName>PPGUI</AssemblyName>
+    <AssemblyName>PortProxyGooey</AssemblyName>
     <LangVersion>preview</LangVersion>
   </PropertyGroup>
 
@@ -37,6 +37,10 @@
 
   <ItemGroup>
     <None Remove="Resources\flushdns.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="icon.ico" />
   </ItemGroup>
 
   <ItemGroup>

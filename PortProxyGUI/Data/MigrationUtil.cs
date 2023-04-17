@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 #endregion
 
-namespace PortProxyGUI.Data
+namespace PortProxyGooey.Data
 {
     public class MigrationUtil
     {
@@ -40,11 +40,11 @@ namespace PortProxyGUI.Data
             {
                 if (MessageBox.Show(@"The current software version cannot use the configuration.
 
-You need to use a newer version of PortProxyGUI.
+You need to use a newer version of PortProxyGooey.
 
 Would you like to download it now?", "Upgrade", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                 {
-                    Process.Start("explorer.exe", "https://github.com/zmjack/PortProxyGUI/releases");
+                    Process.Start("explorer.exe", "https://github.com/zmjack/PortProxyGooey/releases");
                 }
 
                 Environment.Exit(0);

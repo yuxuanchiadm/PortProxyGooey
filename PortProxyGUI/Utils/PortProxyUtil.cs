@@ -2,8 +2,8 @@
 
 using Microsoft.Win32;
 using NStandard;
-using PortProxyGUI.Data;
-using PortProxyGUI.Native;
+using PortProxyGooey.Data;
+using PortProxyGooey.Native;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,9 +12,9 @@ using System.Text.RegularExpressions;
 
 #endregion
 
-namespace PortProxyGUI.Utils
+namespace PortProxyGooey.Utils
 {
-    public static class PortPorxyUtil
+    public static class PortProxyUtil
     {
         private static InvalidOperationException InvalidPortProxyType(string type) => new($"Invalid port proxy type ({type}).");
         private static readonly string[] ProxyTypes = new[] { "v4tov4", "v4tov6", "v6tov4", "v6tov6" };

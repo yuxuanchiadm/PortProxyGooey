@@ -8,7 +8,7 @@
 
 #endregion
 
-namespace PortProxyGUI.Data
+namespace PortProxyGooey.Data
 {
     public class AppConfig
     {

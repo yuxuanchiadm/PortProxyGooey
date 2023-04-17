@@ -1,13 +1,13 @@
 #region Namespace Imports
 
-    using PortProxyGUI.Data;
+    using PortProxyGooey.Data;
     using System;
     using System.IO;
     using System.Windows.Forms;
 
 #endregion
 
-namespace PortProxyGUI
+namespace PortProxyGooey
 {
     static class Program
     {
@@ -15,7 +15,7 @@ namespace PortProxyGUI
             Path.Combine(
                 Path.Combine(
                     Environment.ExpandEnvironmentVariables("%ALLUSERSPROFILE%"),
-                    "PortProxyGUI"
+                    "PortProxyGooey"
                 ), "config.db"
             ));
 
@@ -37,7 +37,7 @@ namespace PortProxyGUI
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 #endif
-            Application.Run(new PortProxyGUI());
+            Application.Run(new PortProxyGooey());
         }
     }
 }

@@ -9,13 +9,13 @@
 
 #endregion
 
-namespace PortProxyGUI.Data
+namespace PortProxyGooey.Data
 {
     public class ApplicationDbScope : SqliteScope<ApplicationDbScope>
     {
         #region + -- VAR DECLARATIONS -- +
 
-            public static readonly string AppDbDirectory = Path.Combine(Environment.ExpandEnvironmentVariables("%ALLUSERSPROFILE%"), "PortProxyGUI");
+            public static readonly string AppDbDirectory = Path.Combine(Environment.ExpandEnvironmentVariables("%ALLUSERSPROFILE%"), "PortProxyGooey");
             public static readonly string AppDbFile = Path.Combine(AppDbDirectory, "config.db");
 
         #endregion

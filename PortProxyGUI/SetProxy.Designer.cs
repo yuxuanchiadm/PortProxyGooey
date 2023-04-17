@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace PortProxyGUI
+namespace PortProxyGooey
 {
     partial class SetProxy
     {
@@ -62,6 +62,7 @@ namespace PortProxyGUI
             // label_ListenOn
             // 
             resources.ApplyResources(label_ListenOn, "label_ListenOn");
+            label_ListenOn.Cursor = Cursors.Help;
             label_ListenOn.ForeColor = System.Drawing.Color.FromArgb(191, 97, 106);
             label_ListenOn.Name = "label_ListenOn";
             tTipSetProxy.SetToolTip(label_ListenOn, resources.GetString("label_ListenOn.ToolTip"));
@@ -69,6 +70,7 @@ namespace PortProxyGUI
             // label_ConnectTo
             // 
             resources.ApplyResources(label_ConnectTo, "label_ConnectTo");
+            label_ConnectTo.Cursor = Cursors.Help;
             label_ConnectTo.ForeColor = System.Drawing.Color.FromArgb(191, 97, 106);
             label_ConnectTo.Name = "label_ConnectTo";
             tTipSetProxy.SetToolTip(label_ConnectTo, resources.GetString("label_ConnectTo.ToolTip"));
@@ -87,6 +89,7 @@ namespace PortProxyGUI
             // label_ConnectPort
             // 
             resources.ApplyResources(label_ConnectPort, "label_ConnectPort");
+            label_ConnectPort.Cursor = Cursors.Help;
             label_ConnectPort.ForeColor = System.Drawing.Color.FromArgb(191, 97, 106);
             label_ConnectPort.Name = "label_ConnectPort";
             tTipSetProxy.SetToolTip(label_ConnectPort, resources.GetString("label_ConnectPort.ToolTip"));
@@ -102,6 +105,7 @@ namespace PortProxyGUI
             // label_Type
             // 
             resources.ApplyResources(label_Type, "label_Type");
+            label_Type.Cursor = Cursors.Help;
             label_Type.ForeColor = System.Drawing.Color.FromArgb(191, 97, 106);
             label_Type.Name = "label_Type";
             tTipSetProxy.SetToolTip(label_Type, resources.GetString("label_Type.ToolTip"));
@@ -109,6 +113,7 @@ namespace PortProxyGUI
             // label_ListenPort
             // 
             resources.ApplyResources(label_ListenPort, "label_ListenPort");
+            label_ListenPort.Cursor = Cursors.Help;
             label_ListenPort.ForeColor = System.Drawing.Color.FromArgb(191, 97, 106);
             label_ListenPort.Name = "label_ListenPort";
             tTipSetProxy.SetToolTip(label_ListenPort, resources.GetString("label_ListenPort.ToolTip"));
@@ -139,12 +144,16 @@ namespace PortProxyGUI
             // label_Comment
             // 
             resources.ApplyResources(label_Comment, "label_Comment");
+            label_Comment.Cursor = Cursors.Help;
             label_Comment.ForeColor = System.Drawing.Color.FromArgb(216, 222, 233);
             label_Comment.Name = "label_Comment";
             tTipSetProxy.SetToolTip(label_Comment, resources.GetString("label_Comment.ToolTip"));
             // 
             // textBox_Comment
             // 
+            textBox_Comment.AutoCompleteCustomSource.AddRange(new string[] { resources.GetString("textBox_Comment.AutoCompleteCustomSource"), resources.GetString("textBox_Comment.AutoCompleteCustomSource1"), resources.GetString("textBox_Comment.AutoCompleteCustomSource2"), resources.GetString("textBox_Comment.AutoCompleteCustomSource3") });
+            textBox_Comment.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            textBox_Comment.AutoCompleteSource = AutoCompleteSource.CustomSource;
             textBox_Comment.BackColor = System.Drawing.Color.FromArgb(46, 52, 64);
             textBox_Comment.BorderStyle = BorderStyle.FixedSingle;
             resources.ApplyResources(textBox_Comment, "textBox_Comment");
@@ -154,6 +163,7 @@ namespace PortProxyGUI
             // label_Group
             // 
             resources.ApplyResources(label_Group, "label_Group");
+            label_Group.Cursor = Cursors.Help;
             label_Group.ForeColor = System.Drawing.Color.FromArgb(216, 222, 233);
             label_Group.Name = "label_Group";
             tTipSetProxy.SetToolTip(label_Group, resources.GetString("label_Group.ToolTip"));
@@ -204,6 +214,7 @@ namespace PortProxyGUI
             // chkBox_ListenPortRange
             // 
             resources.ApplyResources(chkBox_ListenPortRange, "chkBox_ListenPortRange");
+            chkBox_ListenPortRange.Cursor = Cursors.Help;
             chkBox_ListenPortRange.ForeColor = System.Drawing.Color.FromArgb(216, 222, 233);
             chkBox_ListenPortRange.Name = "chkBox_ListenPortRange";
             tTipSetProxy.SetToolTip(chkBox_ListenPortRange, resources.GetString("chkBox_ListenPortRange.ToolTip"));
@@ -213,6 +224,7 @@ namespace PortProxyGUI
             // lblRequired
             // 
             resources.ApplyResources(lblRequired, "lblRequired");
+            lblRequired.Cursor = Cursors.Help;
             lblRequired.ForeColor = System.Drawing.Color.FromArgb(191, 97, 106);
             lblRequired.Name = "lblRequired";
             tTipSetProxy.SetToolTip(lblRequired, resources.GetString("lblRequired.ToolTip"));
@@ -220,6 +232,7 @@ namespace PortProxyGUI
             // lblWSLIP
             // 
             resources.ApplyResources(lblWSLIP, "lblWSLIP");
+            lblWSLIP.Cursor = Cursors.Hand;
             lblWSLIP.ForeColor = System.Drawing.Color.FromArgb(129, 161, 193);
             lblWSLIP.Name = "lblWSLIP";
             tTipSetProxy.SetToolTip(lblWSLIP, resources.GetString("lblWSLIP.ToolTip"));
@@ -228,6 +241,7 @@ namespace PortProxyGUI
             // lblType
             // 
             resources.ApplyResources(lblType, "lblType");
+            lblType.Cursor = Cursors.Help;
             lblType.ForeColor = System.Drawing.Color.FromArgb(143, 188, 187);
             lblType.Name = "lblType";
             tTipSetProxy.SetToolTip(lblType, resources.GetString("lblType.ToolTip"));
@@ -235,6 +249,7 @@ namespace PortProxyGUI
             // lblRangeCount
             // 
             resources.ApplyResources(lblRangeCount, "lblRangeCount");
+            lblRangeCount.Cursor = Cursors.Help;
             lblRangeCount.ForeColor = System.Drawing.Color.FromArgb(163, 190, 140);
             lblRangeCount.Name = "lblRangeCount";
             tTipSetProxy.SetToolTip(lblRangeCount, resources.GetString("lblRangeCount.ToolTip"));
@@ -242,12 +257,12 @@ namespace PortProxyGUI
             // progBarRange
             // 
             resources.ApplyResources(progBarRange, "progBarRange");
+            progBarRange.Cursor = Cursors.Help;
             progBarRange.ForeColor = System.Drawing.Color.FromArgb(180, 142, 173);
             progBarRange.Name = "progBarRange";
             progBarRange.Step = 1;
             progBarRange.Style = ProgressBarStyle.Continuous;
             tTipSetProxy.SetToolTip(progBarRange, resources.GetString("progBarRange.ToolTip"));
-            progBarRange.Value = 80;
             // 
             // comboBox_ConnectTo
             // 

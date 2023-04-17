@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 #endregion
 
-namespace PortProxyGUI.UI
+namespace PortProxyGooey.UI
 {
     public class ListViewColumnSorter : IComparer
     {

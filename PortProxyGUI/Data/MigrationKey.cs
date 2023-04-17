@@ -1,4 +1,4 @@
-﻿namespace PortProxyGUI.Data
+﻿namespace PortProxyGooey.Data
 {
     public struct MigrationKey
     {

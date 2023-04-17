@@ -2,9 +2,9 @@
 
 using Microsoft.Win32;
 using NStandard;
-using PortProxyGUI.Data;
-using PortProxyGUI.UI;
-using PortProxyGUI.Utils;
+using PortProxyGooey.Data;
+using PortProxyGooey.UI;
+using PortProxyGooey.Utils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -17,9 +17,9 @@ using static System.Windows.Forms.ListViewItem;
 
 #endregion
 
-namespace PortProxyGUI
+namespace PortProxyGooey
 {
-    public partial class PortProxyGUI : Form
+    public partial class PortProxyGooey : Form
     {
 
         #region Variable Declarations
@@ -31,12 +31,12 @@ namespace PortProxyGUI
 
         #endregion
 
-        public PortProxyGUI()
+        public PortProxyGooey()
         {
             InitializeComponent();
             Font = InterfaceUtil.UiFont;
 
-            this.Text = "Port Proxy GUI  v" + Application.ProductVersion;
+            this.Text = "PortProxyGooey  v" + Application.ProductVersion;
 
             listViewProxies.ListViewItemSorter = lvwColumnSorter;
         }
@@ -71,7 +71,7 @@ namespace PortProxyGUI
                     break;
             }
 
-            // Perform the sort with these new sort options.
+            // Perform the sort with these new sort options
             listViewProxies.Sort();
         }
 
@@ -121,7 +121,7 @@ namespace PortProxyGUI
                 try
                 {
                     Rule rule = ParseRule(item);
-                    PortPorxyUtil.AddOrUpdateProxy(rule);
+                    PortProxyUtil.AddOrUpdateProxy(rule);
                 }
                 catch (NotSupportedException ex)
                 {
@@ -129,7 +129,7 @@ namespace PortProxyGUI
                     return;
                 }
             }
-            PortPorxyUtil.ParamChange();
+            PortProxyUtil.ParamChange();
         }
 
         private void DisableSelectedProxies()
@@ -142,7 +142,7 @@ namespace PortProxyGUI
                 try
                 {
                     Rule rule = ParseRule(item);
-                    PortPorxyUtil.DeleteProxy(rule);
+                    PortProxyUtil.DeleteProxy(rule);
                 }
                 catch (NotSupportedException ex)
                 {
@@ -150,7 +150,7 @@ namespace PortProxyGUI
                     return;
                 }
             }
-            PortPorxyUtil.ParamChange();
+            PortProxyUtil.ParamChange();
         }
 
         /// <summary>
@@ -176,6 +176,7 @@ namespace PortProxyGUI
         private void SetProxyForUpdate(SetProxy form)
         {
             ListViewItem item = listViewProxies.SelectedItems.OfType<ListViewItem>().FirstOrDefault();
+
             try
             {
                 Rule rule = ParseRule(item);
@@ -188,9 +189,14 @@ namespace PortProxyGUI
             }
         }
 
+        /// <summary>
+        /// Add Groups to ListView
+        /// </summary>
+        /// <param name="rules"></param>
         private void InitProxyGroups(Rule[] rules)
         {
             listViewProxies.Groups.Clear();
+
             ListViewGroup[] groups = (
                 from g in rules.GroupBy(x => x.Group)
                 let name = g.Key
@@ -198,12 +204,14 @@ namespace PortProxyGUI
                 orderby name
                 select new ListViewGroup(name)
             ).ToArray();
+
             listViewProxies.Groups.AddRange(groups);
         }
 
         private void InitProxyItems(Rule[] rules, Rule[] proxies)
         {
             listViewProxies.Items.Clear();
+
             foreach (Rule rule in rules)
             {
                 int imageIndex = proxies.Any(p => p.EqualsWithKeys(rule)) ? 1 : 0;
@@ -227,7 +235,7 @@ namespace PortProxyGUI
                 new ListViewSubItem(item, rule.ListenPort.ToString()) { Tag = "Number" },
                 new ListViewSubItem(item, rule.ConnectTo),
                 new ListViewSubItem(item, rule.ConnectPort.ToString ()) { Tag = "Number" },
-                new ListViewSubItem(item, rule.Comment ?? ""),
+                new ListViewSubItem(item, rule.Comment ?? string.Empty),
             });
 
             if (rule.Group.IsNullOrWhiteSpace()) item.Group = null;
@@ -247,7 +255,7 @@ namespace PortProxyGUI
         {
             listViewProxies.Cursor = Cursors.WaitCursor;
 
-            Rule[] proxies = PortPorxyUtil.GetProxies();
+            Rule[] proxies = PortProxyUtil.GetProxies();
             Rule[] rules = Program.Database.Rules.ToArray();
             foreach (Rule proxy in proxies)
             {
@@ -276,8 +284,6 @@ namespace PortProxyGUI
         /// <summary>
         /// Context-Menu Actions
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void contextMenuStrip_RightClick_MouseClick(object sender, MouseEventArgs e)
         {
             if (sender is ContextMenuStrip strip)
@@ -395,6 +401,9 @@ namespace PortProxyGUI
             }
         }
 
+        /// <summary>
+        /// Double-clicking an item in the list of proxies opens up it's Edit/Modify form
+        /// </summary>
         private void listViewProxies_DoubleClick(object sender, EventArgs e)
         {
             if (sender is ListView listView)
@@ -543,7 +552,7 @@ namespace PortProxyGUI
 
             // Autogenerate a name they can use if they want
             string t2 = DateTime.Now.ToString("MM-dd-yyyy-hh-mm-ss");
-            string strGen = "PortProxyGUI-" + t2;
+            string strGen = "PortProxyGooey-" + t2;
 
             saveFileDialog.Title = "Export Current Proxy List ...";
             saveFileDialog.Filter = "db files (*.db)|*.db";
@@ -727,8 +736,6 @@ namespace PortProxyGUI
         /// <summary>
         /// FlushDNS
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void toolStripMenuItem_FlushDnsCache_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Flush DNS?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
