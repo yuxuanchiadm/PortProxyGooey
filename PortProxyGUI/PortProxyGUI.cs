@@ -8,12 +8,13 @@ using PortProxyGooey.Utils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using static System.Windows.Forms.ListViewItem;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using ListView = System.Windows.Forms.ListView;
 
 #endregion
 
@@ -21,13 +22,14 @@ namespace PortProxyGooey
 {
     public partial class PortProxyGooey : Form
     {
-
         #region Variable Declarations
 
         private readonly ListViewColumnSorter lvwColumnSorter = new();
         public SetProxy SetProxyForm;
         public About AboutForm;
         private AppConfig AppConfig;
+        private DateTime ClickStartTime;
+        private int ClickCount;
 
         #endregion
 
@@ -36,7 +38,7 @@ namespace PortProxyGooey
             InitializeComponent();
             Font = InterfaceUtil.UiFont;
 
-            this.Text = "PortProxyGooey  v" + Application.ProductVersion;
+            this.Text = string.Format("Port Proxy Gooey  v{0}", Application.ProductVersion);
 
             listViewProxies.ListViewItemSorter = lvwColumnSorter;
         }
@@ -45,10 +47,19 @@ namespace PortProxyGooey
         {
             AppConfig = Program.Database.GetAppConfig();
 
+            // Set Main Window Size from saved settings
             Size size = AppConfig.MainWindowSize;
-            Left -= (size.Width - Width) / 2;
-            Top -= (size.Height - Height) / 2;
+            this.Left -= (size.Width - Width) / 2;
+            this.Top -= (size.Height - Height) / 2;
             ResetWindowSize();
+
+            // Set Main Window Location from saved settings
+            if (AppConfig.MainWindowLocationX != 0 && AppConfig.MainWindowLocationY != 0)
+            {
+                this.StartPosition = FormStartPosition.Manual;
+                this.Left = AppConfig.MainWindowLocationX;
+                this.Top = AppConfig.MainWindowLocationY;
+            }
         }
 
         private void PortProxyGUI_Shown(object sender, EventArgs e)
@@ -204,7 +215,6 @@ namespace PortProxyGooey
                 orderby name
                 select new ListViewGroup(name)
             ).ToArray();
-
             listViewProxies.Groups.AddRange(groups);
         }
 
@@ -297,9 +307,7 @@ namespace PortProxyGooey
                     case ToolStripMenuItem item when item == toolStripMenuItem_Disable: DisableSelectedProxies(); break;
 
                     // New Item
-                    case ToolStripMenuItem item when item == toolStripMenuItem_New:
-                        NewItem();
-                        break;
+                    case ToolStripMenuItem item when item == toolStripMenuItem_New: NewItem(); break;
 
                     // Clone Item
                     case ToolStripMenuItem item when item == toolStripMenuItem_Clone:
@@ -314,14 +322,10 @@ namespace PortProxyGooey
                         break;
 
                     // Refresh List
-                    case ToolStripMenuItem item when item == toolStripMenuItem_Refresh:
-                        RefreshProxyList();
-                        break;
+                    case ToolStripMenuItem item when item == toolStripMenuItem_Refresh: RefreshProxyList(); break;
 
-                    // Clear List (Delete All)
-                    case ToolStripMenuItem item when item == clearToolStripMenuItem:
-                        MessageBox.Show("TODO");
-                        break;
+                    // Clear All Proxies (have to manually hide the context menu or it'll often sit on top of the dialog)
+                    case ToolStripMenuItem item when item == clearToolStripMenuItem: contextMenuStrip_RightClick.Visible = false; ClearProxies(); break;
 
                     // Delete Item(s)
                     case ToolStripMenuItem item when item == toolStripMenuItem_Delete: DeleteSelectedProxies(); break;
@@ -336,6 +340,21 @@ namespace PortProxyGooey
                         else AboutForm.Show();
                         break;
                 }
+            }
+        }
+
+        private static void ClearProxies()
+        {// LEFT OFF: need to clear the list AND remove all proxies from registry. then re-create the blank db.
+            if (MessageBox.Show(
+                        string.Format("This will literally delete:{0}{0}- EVERY PROXY{0}- All Groups{0}- All Comments{0}{0}that you have in this list and on your machine and start from scratch.{0}{0}Proceed?", Environment.NewLine),
+                        "* FOCUS! *",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question,
+                        MessageBoxDefaultButton.Button2
+                        ) == DialogResult.Yes)
+            {
+                // TODO
+                MessageBox.Show("TODO");
             }
         }
 
@@ -378,8 +397,27 @@ namespace PortProxyGooey
                 {
                     if (e.Button == MouseButtons.Left)
                     {
-                        // Left-licking an empty space opens the New Item dialog
-                        NewItem();
+                        ClickCount++;
+
+                        if (ClickCount == 1)
+                        {
+                            ClickStartTime = DateTime.Now;
+                        }
+                        else if (ClickCount == 2)
+                        {
+
+                            ClickCount = 0;
+
+                            DateTime endTime = DateTime.Now;
+                            TimeSpan elapsed = endTime - ClickStartTime;
+                            double elapsedMilliseconds = elapsed.TotalMilliseconds;
+
+                            if (elapsedMilliseconds < SystemInformation.DoubleClickTime)
+                            {
+                                // Double-clicking an empty space opens the New Item dialog
+                                NewItem();
+                            }
+                        }
                     }
                 }
 
@@ -432,7 +470,8 @@ namespace PortProxyGooey
                 lvwColumnSorter.SortColumn = e.Column;
                 lvwColumnSorter.Order = SortOrder.Ascending;
             }
-            // LEFT OFF: Making sure the sorting saves and restores, as well as the handlers here are all ok
+
+            // Store them
             if (AppConfig is not null && sender is ListView listView)
             {
                 AppConfig.SortColumn = lvwColumnSorter.SortColumn;
@@ -478,9 +517,9 @@ namespace PortProxyGooey
                     DnsUtil.FlushCache();
                     return true;
 
-                // Clear List
+                // Clear All Proxies
                 case Keys.Control | Keys.C:
-                    // TODO
+                    ClearProxies();
                     return true;
 
                 // Edit Proxy
@@ -511,8 +550,16 @@ namespace PortProxyGooey
             }
         }
 
+        /// <summary>
+        /// Saves all current configs
+        /// </summary>
         private void PortProxyGUI_FormClosing(object sender, FormClosingEventArgs e)
         {
+            // Save Main Window Location
+            AppConfig.MainWindowLocationX = this.Location.X;
+            AppConfig.MainWindowLocationY = this.Location.Y;
+
+            // Save everything else
             Program.Database.SaveAppConfig(AppConfig);
         }
 
@@ -535,7 +582,6 @@ namespace PortProxyGooey
                 FileName = strURL,
                 UseShellExecute = true
             };
-
             Process.Start(psi);
         }
 
@@ -569,7 +615,7 @@ namespace PortProxyGooey
                 catch (Exception ex)
                 {
                     intErrCheck = true;
-                    Debug.WriteLine("Save File issue: " + ex.Message);
+                    Debug.WriteLine(string.Format("Save File issue: {0}", ex.Message));
                 }
 
                 // Give some user feedback
@@ -587,34 +633,33 @@ namespace PortProxyGooey
         /// <summary>
         /// Imports saved proxy list from .db
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void toolStripMenuItem_Import_Click(object sender, EventArgs e)
         {
-
             using OpenFileDialog openFileDialog = new();
             openFileDialog.Title = "Import Proxy List ...";
             openFileDialog.Filter = "db files (*.db)|*.db";
+            int intAdded = 0;
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-
-                if (MessageBox.Show("Overwrite current list with the selected list? " + openFileDialog.FileName, "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                if (MessageBox.Show(string.Format("Overwrite current list with the selected list? {0}", openFileDialog.FileName), "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
                     using (ApplicationDbScope scope = ApplicationDbScope.FromFile(openFileDialog.FileName))
                     {
-                        foreach (Data.Rule rule in scope.Rules)
+                        foreach (Rule rule in scope.Rules)
                         {
-                            Data.Rule exsist = Program.Database.GetRule(rule.Type, rule.ListenOn, rule.ListenPort);
-                            if (exsist is null)
+                            Rule exist = Program.Database.GetRule(rule.Type, rule.ListenOn, rule.ListenPort);
+
+                            if (exist is null)
                             {
                                 rule.Id = Guid.NewGuid().ToString();
                                 Program.Database.Add(rule);
+                                intAdded++;
                             }
                         }
                     }
-                    // TODO: Could be nice to add success/failure mbox here.
                     RefreshProxyList();
+                    MessageBox.Show(string.Format("{0} rules imported.", intAdded), "Import Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
         }
@@ -632,8 +677,6 @@ namespace PortProxyGooey
         /// <summary>
         /// External App: Network Adapters
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void adaptersToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start("explorer", "/e,::{26EE0668-A00A-44D7-9371-BEB064C98683}\\0\\::{7007ACC7-3202-11D1-AAD2-00805FC1270E}");
@@ -642,8 +685,6 @@ namespace PortProxyGooey
         /// <summary>
         /// External App: Windows Firewall Control (Rules Panel)
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void rulesPanelToolStripMenuItem_Click(object sender, EventArgs e)
         {
             WFC("-rp");
@@ -652,8 +693,6 @@ namespace PortProxyGooey
         /// <summary>
         /// External App: Windows Firewall Control (Connections Log)
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void connectionsPanelToolStripMenuItem_Click(object sender, EventArgs e)
         {
             WFC("-cl");
@@ -691,8 +730,6 @@ namespace PortProxyGooey
         /// <summary>
         /// External App: Windows Firewall (Basic)
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void basicToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -708,8 +745,6 @@ namespace PortProxyGooey
         /// <summary>
         /// External App: Windows Firewall (Advanced)
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void advancedToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
@@ -843,6 +878,5 @@ namespace PortProxyGooey
         }
 
         #endregion
-
     }
 }

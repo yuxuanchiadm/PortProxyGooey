@@ -18,6 +18,10 @@ namespace PortProxyGooey.Data
             public Size MainWindowSize = new(720, 500);
             public int[] PortProxyColumnWidths = new int[] { 24, 64, 140, 100, 140, 100, 100 };
 
+            // Main Window Startup Location TODO: default these to centerscreen
+            public int MainWindowLocationX = 0;
+            public int MainWindowLocationY = 0;
+
             // Column Sorting 
             public int SortColumn = 0;
             public int SortOrder = 0;
@@ -37,7 +41,7 @@ namespace PortProxyGooey.Data
 
             IEnumerable<Config> item = null;
 
-            // Window Dimensions
+            // Main Window Dimensions
             item = rows.Where(x => x.Item == "MainWindow");
             if (int.TryParse(item.FirstOrDefault(x => x.Key == "Width")?.Value, out int width)
                 && int.TryParse(item.FirstOrDefault(x => x.Key == "Height")?.Value, out int height))
@@ -47,6 +51,14 @@ namespace PortProxyGooey.Data
             else
             {
                 MainWindowSize = new Size(720, 500);
+            }
+
+            // Main Window Location
+            if (int.TryParse(item.FirstOrDefault(x => x.Key == "LocX")?.Value, out int LocX)
+                && int.TryParse(item.FirstOrDefault(x => x.Key == "LocY")?.Value, out int LocY))
+            {
+                MainWindowLocationX = LocX;
+                MainWindowLocationY = LocY;
             }
 
             // Columns
@@ -72,7 +84,7 @@ namespace PortProxyGooey.Data
             }
 
             // Column Sorting
-            item = rows.Where(x => x.Item == "PortProxy");
+            //item = rows.Where(x => x.Item == "PortProxy");
             if (int.TryParse(item.FirstOrDefault(x => x.Key == "Column")?.Value, out int Column)
                 && int.TryParse(item.FirstOrDefault(x => x.Key == "Order")?.Value, out int Order))
             {

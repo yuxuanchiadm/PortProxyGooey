@@ -124,6 +124,8 @@ Would you like to download it now?", "Upgrade", MessageBoxButtons.YesNo, Message
 
 "INSERT INTO configs ( Item, `Key`, Value ) VALUES ( 'MainWindow', 'Width', '720' );",
 "INSERT INTO configs ( Item, `Key`, Value ) VALUES ( 'MainWindow', 'Height', '500' );",
+"INSERT INTO configs ( Item, `Key`, Value ) VALUES ( 'MainWindow', 'LocX', '0' );",
+"INSERT INTO configs ( Item, `Key`, Value ) VALUES ( 'MainWindow', 'LocY', '0' );",
 "INSERT INTO configs ( Item, `Key`, Value ) VALUES ( 'PortProxy', 'ColumnWidths', '[24, 64, 140, 100, 140, 100, 100]' );",
 "INSERT INTO configs ( Item, `Key`, Value ) VALUES ( 'PortProxy', 'Column', '0' );",
 "INSERT INTO configs ( Item, `Key`, Value ) VALUES ( 'PortProxy', 'Order', '0' );",

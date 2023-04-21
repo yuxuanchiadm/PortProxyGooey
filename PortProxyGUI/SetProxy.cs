@@ -20,9 +20,8 @@ using Rule = PortProxyGooey.Data.Rule;
 #endregion
 
 // NOTE: I think this entire form isn't really "needed"; it could all be done right from the listview itself on the main form.
-// TODO: 1) After adding a range of ports, unchecking, then checking, the count in the label gets set to 1 even though the range is larger.
+// TODO:
 //       2) I added a range of 45 to 54 and label said 10?
-//       3) 0.0.0.0 in both fields, w/port 53 is saying dupe, even though that specifically isn't in the list.
 namespace PortProxyGooey
 {
     public partial class SetProxy : Form
@@ -110,7 +109,6 @@ namespace PortProxyGooey
 
             // Don't let em funk with anything while we're doin work
             this.Enabled = false;
-            progBarRange.Visible = true;
 
             // Validate the Ports
             try
@@ -121,7 +119,8 @@ namespace PortProxyGooey
             }
             catch (NotSupportedException ex)
             {
-                MessageBox.Show(ex.Message, "Invalid port", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                Debug.WriteLine(ex.Message);
+                MessageBox.Show("You're trying to set either a bad port, or no port. Do better.", "Uh, no ...", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 progBarRange.Visible = false;
                 this.Enabled = true;
                 return;
@@ -130,13 +129,15 @@ namespace PortProxyGooey
             // If adding a range ...
             if (chkBox_ListenPortRange.Checked && listenPortRange < listenPort)
             {
-                MessageBox.Show("Ending Port is LOWER than the Starting Port", "You need to fix this:", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Ending Port is LOWER than the Starting Port", "You need to fix this ...", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
                 // Set focus of the 'offending' error target to better help the user understand the source of the issue.
                 textBox_ListenPortRange.Select();
                 this.Enabled = true;
                 return;
             }
+
+            progBarRange.Visible = true;
 
             // Do a single trim here rather than multiple trims (save a few cpu cycles)
             string strListen = comboBox_ListenOn.Text.Trim();
@@ -332,8 +333,13 @@ namespace PortProxyGooey
             Dictionary<string, string> port = new()
             {
                 {"MySQL/MariaDB", "3306"},
-                {"key2", "value2"},
-                {"key3", "value3"}
+                {"SSH", "22"},
+                {"HTTP", "80"},
+                {"DNS", "53"},
+                {"Docker Socket", "2375"},
+                {"Docker Socket (Secure)", "2376"},
+                {"Glances", "61208"},
+                {"HTTPS", "443"}
             };
 
             // TODO: Also need to figure out the other port fields and how they'll fit into this.
@@ -433,6 +439,11 @@ namespace PortProxyGooey
             string strWSLIP = PortProxyUtil.GetWSLIP();
             lblWSLIP.Text = strWSLIP.Length > 0 ? string.Format("WSL: {0}", strWSLIP) : "WSL: Dunno";
             this.Cursor = Cursors.Default;
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
     }

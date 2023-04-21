@@ -57,8 +57,17 @@ namespace PortProxyGooey.Data
 
         #endregion
 
+        #region + -- RULES -- +
+
         public IEnumerable<Rule> Rules => SqlQuery<Rule>($"SELECT * FROM Rules;");
 
+        /// <summary>
+        /// RULE: Get a Rule from the DB
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="listenOn"></param>
+        /// <param name="listenPort"></param>
+        /// <returns></returns>
         public Rule GetRule(string type, string listenOn, int listenPort)
         {
             return SqlQuery<Rule>($"SELECT * FROM Rules WHERE Type={type} AND ListenOn={listenOn} AND ListenPort={listenPort} LIMIT 1;").FirstOrDefault();
@@ -137,10 +146,12 @@ namespace PortProxyGooey.Data
 
         #endregion
 
+        #endregion
+
         #region + -- APP: CONFIG -- +
 
         /// <summary>
-        /// Read config from db
+        /// CONFIG: Read from DB
         /// </summary>
         /// <returns></returns>
         public AppConfig GetAppConfig()
@@ -151,14 +162,18 @@ namespace PortProxyGooey.Data
         }
 
         /// <summary>
-        ///  Save current app config to the db
+        ///  CONFIG: Save current settings to the DB
         /// </summary>
         /// <param name="appConfig"></param>
         public void SaveAppConfig(AppConfig appConfig)
         {
-            // Store Window dimensions
+            // Store Main Window Dimensions
             Sql($"UPDATE Configs SET Value = {appConfig.MainWindowSize.Width} WHERE Item = 'MainWindow' AND `Key` = 'Width';");
             Sql($"UPDATE Configs SET Value = {appConfig.MainWindowSize.Height} WHERE Item = 'MainWindow' AND `Key` = 'Height';");
+
+            // Store Main Window Location
+            Sql($"UPDATE Configs SET Value = {appConfig.MainWindowLocationX} WHERE Item = 'MainWindow' AND `Key` = 'LocX';");
+            Sql($"UPDATE Configs SET Value = {appConfig.MainWindowLocationY} WHERE Item = 'MainWindow' AND `Key` = 'LocY';");
 
             // Store column widths
             string s_portProxyColumnWidths = $"[{appConfig.PortProxyColumnWidths.Select(x => x.ToString()).Join(", ")}]";
@@ -169,7 +184,7 @@ namespace PortProxyGooey.Data
             Sql($"UPDATE Configs SET Value = {appConfig.SortOrder} WHERE Item = 'PortProxy' AND `Key` = 'Order';");
         }
 
-#endregion
+        #endregion
 
     }
 }

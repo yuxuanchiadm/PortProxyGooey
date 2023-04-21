@@ -33,6 +33,7 @@
 
   <ItemGroup>
     <Compile Remove="GlobalSuppressions.cs" />
+    <Compile Remove="UI\ListViewExt.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -103,7 +103,7 @@ Auto-complete is also enabled for some common IP's</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label_ListenOn.ZOrder" xml:space="preserve">
-    <value>23</value>
+    <value>24</value>
   </data>
   <data name="label_ConnectTo.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -146,7 +146,7 @@ Auto-complete is also enabled for some common IP's</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label_ConnectTo.ZOrder" xml:space="preserve">
-    <value>22</value>
+    <value>23</value>
   </data>
   <data name="textBox_ConnectPort.AutoCompleteCustomSource" xml:space="preserve">
     <value>53</value>
@@ -215,7 +215,7 @@ Auto-complete is also enabled for some common IP's</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;textBox_ConnectPort.ZOrder" xml:space="preserve">
-    <value>21</value>
+    <value>22</value>
   </data>
   <data name="label_ConnectPort.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -251,14 +251,14 @@ Auto-complete is also enabled for some common IP's</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label_ConnectPort.ZOrder" xml:space="preserve">
-    <value>20</value>
+    <value>21</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="button_Set.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
   </data>
   <data name="button_Set.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft YaHei UI, 9pt</value>
+    <value>Microsoft YaHei UI, 15.75pt, style=Bold</value>
   </data>
   <data name="button_Set.Location" type="System.Drawing.Point, System.Drawing">
     <value>577, 90</value>
@@ -267,13 +267,13 @@ Auto-complete is also enabled for some common IP's</value>
     <value>4, 5, 4, 5</value>
   </data>
   <data name="button_Set.Size" type="System.Drawing.Size, System.Drawing">
-    <value>84, 126</value>
+    <value>84, 77</value>
   </data>
   <data name="button_Set.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
   </data>
   <data name="button_Set.Text" xml:space="preserve">
-    <value>Set</value>
+    <value>OK</value>
   </data>
   <data name="&gt;&gt;button_Set.Name" xml:space="preserve">
     <value>button_Set</value>
@@ -285,7 +285,7 @@ Auto-complete is also enabled for some common IP's</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;button_Set.ZOrder" xml:space="preserve">
-    <value>19</value>
+    <value>20</value>
   </data>
   <data name="label_Type.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -329,7 +329,7 @@ If set to "auto", it'll try to determine based on the IP's you've entered.</valu
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label_Type.ZOrder" xml:space="preserve">
-    <value>18</value>
+    <value>19</value>
   </data>
   <data name="label_ListenPort.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -368,7 +368,7 @@ If using a port range, this port must be lower than the ending port to the right
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label_ListenPort.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>18</value>
   </data>
   <data name="textBox_ListenPort.AutoCompleteCustomSource" xml:space="preserve">
     <value>53</value>
@@ -437,7 +437,7 @@ If using a port range, this port must be lower than the ending port to the right
     <value>$this</value>
   </data>
   <data name="&gt;&gt;textBox_ListenPort.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>17</value>
   </data>
   <data name="comboBox_Type.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -485,7 +485,7 @@ If using a port range, this port must be lower than the ending port to the right
     <value>$this</value>
   </data>
   <data name="&gt;&gt;comboBox_Type.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>16</value>
   </data>
   <data name="label_Comment.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -530,7 +530,7 @@ to the list.</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label_Comment.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>15</value>
   </data>
   <data name="textBox_Comment.AutoCompleteCustomSource" xml:space="preserve">
     <value>Docker</value>
@@ -572,7 +572,7 @@ to the list.</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;textBox_Comment.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>14</value>
   </data>
   <data name="label_Group.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -612,7 +612,7 @@ Place this (or 'these', if adding a port range) proxy into a named group in the 
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label_Group.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>13</value>
   </data>
   <data name="comboBox_Group.AutoCompleteCustomSource" xml:space="preserve">
     <value>Apache</value>
@@ -663,7 +663,7 @@ Place this (or 'these', if adding a port range) proxy into a named group in the 
     <value>$this</value>
   </data>
   <data name="&gt;&gt;comboBox_Group.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>12</value>
   </data>
   <data name="comboBox_ListenOn.AutoCompleteCustomSource" xml:space="preserve">
     <value>0.0.0.0</value>
@@ -723,7 +723,7 @@ Place this (or 'these', if adding a port range) proxy into a named group in the 
     <value>$this</value>
   </data>
   <data name="&gt;&gt;comboBox_ListenOn.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>11</value>
   </data>
   <data name="textBox_ListenPortRange.AutoCompleteCustomSource" xml:space="preserve">
     <value>53</value>
@@ -801,7 +801,7 @@ Note:
     <value>$this</value>
   </data>
   <data name="&gt;&gt;textBox_ListenPortRange.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>10</value>
   </data>
   <data name="lblDash.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -831,7 +831,7 @@ Note:
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lblDash.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="chkBox_ListenPortRange.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -870,7 +870,7 @@ Starting port on the left must be lower than the Ending port on the right.</valu
     <value>$this</value>
   </data>
   <data name="&gt;&gt;chkBox_ListenPortRange.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="lblRequired.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -903,7 +903,7 @@ Starting port on the left must be lower than the Ending port on the right.</valu
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lblRequired.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="lblWSLIP.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -937,7 +937,7 @@ Starting port on the left must be lower than the Ending port on the right.</valu
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lblWSLIP.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="lblType.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -970,7 +970,7 @@ Starting port on the left must be lower than the Ending port on the right.</valu
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lblType.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="lblRangeCount.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1006,7 +1006,7 @@ Starting port on the left must be lower than the Ending port on the right.</valu
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lblRangeCount.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="progBarRange.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -1037,7 +1037,7 @@ Adding usually happens so fast you won't see this (for long) though.</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;progBarRange.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="comboBox_ConnectTo.AutoCompleteCustomSource" xml:space="preserve">
     <value>0.0.0.0</value>
@@ -1097,7 +1097,7 @@ Adding usually happens so fast you won't see this (for long) though.</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;comboBox_ConnectTo.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="lblDupe.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1130,7 +1130,43 @@ Adding usually happens so fast you won't see this (for long) though.</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lblDupe.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
+  </data>
+  <data name="btnCancel.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="btnCancel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 9.75pt, style=Bold</value>
+  </data>
+  <data name="btnCancel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnCancel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>576, 183</value>
+  </data>
+  <data name="btnCancel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="btnCancel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>84, 36</value>
+  </data>
+  <data name="btnCancel.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
+  </data>
+  <data name="btnCancel.Text" xml:space="preserve">
+    <value>CANCEL</value>
+  </data>
+  <data name="&gt;&gt;btnCancel.Name" xml:space="preserve">
+    <value>btnCancel</value>
+  </data>
+  <data name="&gt;&gt;btnCancel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnCancel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;btnCancel.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -3304,9 +3340,6 @@ Adding usually happens so fast you won't see this (for long) though.</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>Manual</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Set Proxy</value>
   </data>
   <data name="&gt;&gt;tTipSetProxy.Name" xml:space="preserve">
     <value>tTipSetProxy</value>

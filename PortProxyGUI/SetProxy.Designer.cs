@@ -57,6 +57,7 @@ namespace PortProxyGooey
             progBarRange = new ProgressBar();
             comboBox_ConnectTo = new ComboBox();
             lblDupe = new Label();
+            btnCancel = new Button();
             SuspendLayout();
             // 
             // label_ListenOn
@@ -96,6 +97,8 @@ namespace PortProxyGooey
             // 
             // button_Set
             // 
+            button_Set.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(67, 76, 94);
+            button_Set.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(59, 66, 82);
             resources.ApplyResources(button_Set, "button_Set");
             button_Set.ForeColor = System.Drawing.Color.FromArgb(235, 203, 139);
             button_Set.Name = "button_Set";
@@ -284,12 +287,24 @@ namespace PortProxyGooey
             lblDupe.ForeColor = System.Drawing.Color.FromArgb(235, 203, 139);
             lblDupe.Name = "lblDupe";
             // 
+            // btnCancel
+            // 
+            btnCancel.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(67, 76, 94);
+            btnCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(59, 66, 82);
+            resources.ApplyResources(btnCancel, "btnCancel");
+            btnCancel.ForeColor = System.Drawing.Color.FromArgb(191, 97, 106);
+            btnCancel.Name = "btnCancel";
+            btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Click += btnCancel_Click;
+            // 
             // SetProxy
             // 
             AcceptButton = button_Set;
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = System.Drawing.Color.FromArgb(46, 52, 64);
+            ControlBox = false;
+            Controls.Add(btnCancel);
             Controls.Add(progBarRange);
             Controls.Add(lblRangeCount);
             Controls.Add(lblType);
@@ -318,6 +333,7 @@ namespace PortProxyGooey
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "SetProxy";
+            ShowInTaskbar = false;
             TopMost = true;
             FormClosing += SetProxyForm_FormClosing;
             Load += SetProxyForm_Load;
@@ -352,5 +368,6 @@ namespace PortProxyGooey
         private Label lblType;
         private Label lblRangeCount;
         private ProgressBar progBarRange;
+        private Button btnCancel;
     }
 }

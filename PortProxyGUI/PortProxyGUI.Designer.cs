@@ -89,12 +89,12 @@
             // 
             // listViewProxies
             // 
-            listViewProxies.BackColor = System.Drawing.Color.FromArgb(46, 52, 64);
+            listViewProxies.BackColor = System.Drawing.Color.FromArgb(67, 76, 94);
             listViewProxies.BorderStyle = System.Windows.Forms.BorderStyle.None;
             listViewProxies.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { columnHeaderState, columnHeader2, columnHeader3, columnHeader4, columnHeader5, columnHeader6, columnHeader7 });
             listViewProxies.ContextMenuStrip = contextMenuStrip_RightClick;
             resources.ApplyResources(listViewProxies, "listViewProxies");
-            listViewProxies.ForeColor = System.Drawing.Color.FromArgb(216, 222, 233);
+            listViewProxies.ForeColor = System.Drawing.Color.FromArgb(229, 233, 240);
             listViewProxies.FullRowSelect = true;
             listViewProxies.Name = "listViewProxies";
             listViewProxies.SmallImageList = imgListProxies;
