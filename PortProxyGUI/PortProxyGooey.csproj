@@ -8,8 +8,8 @@
     <Authors>zmjack and J. Scott Elblein</Authors>
     <Company></Company>
     <Description>A manager of the netsh interface portproxy which is to evaluate TCP/IP port redirect on windows.</Description>
-    <PackageProjectUrl>https://github.com/zmjack/PortProxyGUI</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/zmjack/PortProxyGUI</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/STaRDoGG/PortProxyGUI</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/STaRDoGG/PortProxyGUI</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>portproxy TCP/IP redirector</PackageTags>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
@@ -34,6 +34,7 @@
   <ItemGroup>
     <Compile Remove="GlobalSuppressions.cs" />
     <Compile Remove="UI\ListViewExt.cs" />
+    <Compile Remove="Utils\DnsUtil.cs" />
   </ItemGroup>
 
   <ItemGroup>

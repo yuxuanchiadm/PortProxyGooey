@@ -14,6 +14,7 @@ using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 //using System.Web.UI.WebControls;
 using System.Windows.Forms;
+using System.Windows.Forms.Design;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Rule = PortProxyGooey.Data.Rule;
 
@@ -89,13 +90,24 @@ namespace PortProxyGooey
             textBox_Comment.Text = rule.Comment;
         }
 
+        /// <summary>
+        /// Validates a potential IPv6 Address
+        /// </summary>
+        /// <param name="ip">IP to validate</param>
+        /// <returns>True if valid; False if Invalid</returns>
         private bool IsIPv6(string ip)
         {
-            // Scott Note: Is this correct? Looks more like a MAC Address regex? Added a better regex below.
-            //return ip.IsMatch(new Regex(@"^[\dABCDEF]{2}(?::(?:[\dABCDEF]{2})){5}$"));
+            // Scott Note to original author: Is this correct? Looks more like a MAC Address regex? I added a better regex below, but leaving original for posterity.
+            // return ip.IsMatch(new Regex(@"^[\dABCDEF]{2}(?::(?:[\dABCDEF]{2})){5}$"));
             return ip.IsMatch(new Regex(@"^(([0-9a-fA-F]{1,4}:){7}([0-9a-fA-F]{1,4}|:))|(([0-9a-fA-F]{1,4}:){0,6}(:[0-9a-fA-F]{1,4}){1,6})$"));
         }
 
+        /// <summary>
+        /// Determine the Type of proxy to pass
+        /// </summary>
+        /// <param name="listenOn">IP to Listen on</param>
+        /// <param name="connectTo">IP to connect to</param>
+        /// <returns>Properly formatted proxy Type</returns>
         private string GetPassType(string listenOn, string connectTo)
         {
             string from = IsIPv6(listenOn) ? "v6" : "v4";
@@ -162,13 +174,13 @@ namespace PortProxyGooey
                 Group = comboBox_Group.Text.Trim(),
             };
 
-            // Validate the Proxy Type ... // TODO: now with proper IP4/6 detection on keypress, this entire combobox may not even be needed. Maybe just add a label showing it?
-            if (rule.Type == AutoTypeString) rule.Type = GetPassType(rule.ListenOn, rule.ConnectTo);
+            // Validate the Proxy Type ...
+            //if (rule.Type == AutoTypeString) rule.Type = GetPassType(rule.ListenOn, rule.ConnectTo);
 
             // Add the rule to the list & db
             if (_updateMode)
             {
-                // Update/Edit/Modify Existing Rule
+                // Update/Edit/Modify an Existing Rule
 
                 Rule oldRule = Program.Database.GetRule(_itemRule.Type, _itemRule.ListenOn, _itemRule.ListenPort);
                 PortProxyUtil.DeleteProxy(oldRule);
@@ -181,40 +193,49 @@ namespace PortProxyGooey
             }
             else
             {
-                // Add New Rule
+                // Add a New Rule
 
                 int intRange = listenPortRange - listenPort + 1;
                 int intDupes = 0;
 
                 progBarRange.Maximum = intRange;
 
-
                 for (int i = 0; i < intRange; i++)
                 {
-
                     rule.ListenPort = listenPort;
                     progBarRange.Value += 1;
 
                     if (DupeCheck(rule))
                     {
-                        // If its a dupe, skip adding it.
+                        // If its a dupe, skip it.
                         intDupes += 1;
                     }
                     else
                     {
-
                         PortProxyUtil.AddOrUpdateProxy(rule);
                         Program.Database.Add(rule);
                     }
-
-                    listenPort += 1;
+                    listenPort++;
                 }
 
                 // Alert the user if any were skipped due to duping
-                if (intDupes > 0) MessageBox.Show(string.Format("{0} duplicates skipped.", intDupes), "Didn't add some ...", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                ParentWindow.RefreshProxyList();
+                if (intDupes > 0) MessageBox.Show(string.Format("{0} duplicates skipped.", intDupes), "Didn't add some ...", MessageBoxButtons.OK, MessageBoxIcon.Information); 
             }
+
+            ParentWindow.RefreshProxyList();
+
+            // Set .EnsureVisible and .Selected to the newest item added, as a convenience.
+            // (Searches listViewProxies .tags for the rule.id)
+            ListViewItem item = ParentWindow.listViewProxies.Items
+                        .Cast<ListViewItem>()
+                        .FirstOrDefault(i => i.Tag != null && i.Tag.ToString().Contains(rule.Id));
+
+            if (item != null)
+            {
+                ParentWindow.listViewProxies.EnsureVisible(item.Index);
+                ParentWindow.listViewProxies.Items[item.Index].Selected = true;
+            }
+
             PortProxyUtil.ParamChange();
 
             progBarRange.Visible = false;
@@ -416,7 +437,6 @@ namespace PortProxyGooey
 
         private void comboBox_ConnectTo_TextChanged(object sender, EventArgs e)
         {
-            // typeCheck
             TypeCheck();
         }
 

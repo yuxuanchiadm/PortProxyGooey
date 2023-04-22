@@ -1,5 +1,6 @@
 ﻿#region + -- NAMESPACE IMPORTS -- +
 
+using PortProxyGooey.Utils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -44,7 +45,7 @@ You need to use a newer version of PortProxyGooey.
 
 Would you like to download it now?", "Upgrade", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                 {
-                    Process.Start("explorer.exe", "https://github.com/zmjack/PortProxyGooey/releases");
+                    PortProxyUtil.Launch("explorer.exe", string.Format("{0}/releases", PortProxyGooey.strAppURL));
                 }
 
                 Environment.Exit(0);

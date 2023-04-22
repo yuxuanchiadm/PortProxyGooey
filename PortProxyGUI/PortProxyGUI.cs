@@ -24,6 +24,9 @@ namespace PortProxyGooey
     {
         #region Variable Declarations
 
+        // Easy place to change app info app-wide as needed
+        public static string strAppURL = "https://github.com/STaRDoGG/PortProxyGUI";
+
         private readonly ListViewColumnSorter lvwColumnSorter = new();
         public SetProxy SetProxyForm;
         public About AboutForm;
@@ -167,21 +170,27 @@ namespace PortProxyGooey
         /// <summary>
         /// Delete Prox(ies)
         /// </summary>
-        private void DeleteSelectedProxies()
+        /// <param name="intShowConfirmation">[optional] display a confirmation first: 1 = Yes, 0 = No (default)</param>
+        private void DeleteSelectedProxies(int intShowConfirmation = 0)
         {
             IEnumerable<ListViewItem> items = listViewProxies.SelectedItems.OfType<ListViewItem>();
 
-            int intCount = listViewProxies.SelectedItems.Count;
-
-            // Pluralize if necessary ;)
-            string strMsg = string.Format("Delete {0} {1}?", intCount, intCount == 1 ? "proxy" : "proxies");
-
-            if (MessageBox.Show(strMsg, "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            if (intShowConfirmation == 1)
             {
-                DisableSelectedProxies();
-                Program.Database.RemoveRange(items.Select(x => new Rule { Id = x.Tag.ToString() }));
-                foreach (ListViewItem item in items) listViewProxies.Items.Remove(item);
+                int intCount = listViewProxies.SelectedItems.Count;
+
+                // Pluralize if necessary ;)
+                string strMsg = string.Format("Delete {0} {1}?", intCount, intCount == 1 ? "proxy" : "proxies");
+
+                if (MessageBox.Show(strMsg, "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.No)
+                {
+                    return;
+                }
             }
+
+            DisableSelectedProxies();
+            Program.Database.RemoveRange(items.Select(x => new Rule { Id = x.Tag.ToString() }));
+            foreach (ListViewItem item in items) listViewProxies.Items.Remove(item);
         }
 
         private void SetProxyForUpdate(SetProxy form)
@@ -276,8 +285,8 @@ namespace PortProxyGooey
             IEnumerable<Rule> pendingAdds = proxies.Where(x => x.Valid && x.Id == null);
             IEnumerable<Rule> pendingUpdates =
                 from proxy in proxies
-                let exsist = rules.FirstOrDefault(r => r.Id == proxy.Id)
-                where exsist is not null
+                let exist = rules.FirstOrDefault(r => r.Id == proxy.Id)
+                where exist is not null
                 where proxy.Valid && proxy.Id is not null
                 select proxy;
 
@@ -328,7 +337,7 @@ namespace PortProxyGooey
                     case ToolStripMenuItem item when item == clearToolStripMenuItem: contextMenuStrip_RightClick.Visible = false; ClearProxies(); break;
 
                     // Delete Item(s)
-                    case ToolStripMenuItem item when item == toolStripMenuItem_Delete: DeleteSelectedProxies(); break;
+                    case ToolStripMenuItem item when item == toolStripMenuItem_Delete: contextMenuStrip_RightClick.Visible = false; DeleteSelectedProxies(1); break;
 
                     // About
                     case ToolStripMenuItem item when item == toolStripMenuItem_About:
@@ -343,8 +352,11 @@ namespace PortProxyGooey
             }
         }
 
-        private static void ClearProxies()
-        {// LEFT OFF: need to clear the list AND remove all proxies from registry. then re-create the blank db.
+        /// <summary>
+        /// Deletes ALL proxies in the list
+        /// </summary>
+        private void ClearProxies()
+        {
             if (MessageBox.Show(
                         string.Format("This will literally delete:{0}{0}- EVERY PROXY{0}- All Groups{0}- All Comments{0}{0}that you have in this list and on your machine and start from scratch.{0}{0}Proceed?", Environment.NewLine),
                         "* FOCUS! *",
@@ -353,8 +365,9 @@ namespace PortProxyGooey
                         MessageBoxDefaultButton.Button2
                         ) == DialogResult.Yes)
             {
-                // TODO
-                MessageBox.Show("TODO");
+                // Select all in the list and delete
+                listViewProxies.Items.Cast<ListViewItem>().ToList().ForEach(item => item.Selected = true);
+                DeleteSelectedProxies();
             }
         }
 
@@ -436,6 +449,11 @@ namespace PortProxyGooey
 
                 toolStripMenuItem_Delete.Enabled = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Any();
                 toolStripMenuItem_Modify.Enabled = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
+
+                // NETSH Menu
+                NetSHToolStripMenuItem.Enabled = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
+                // Registry Key
+                registryKeyToolStripMenuItem.Enabled = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
             }
         }
 
@@ -504,7 +522,7 @@ namespace PortProxyGooey
 
                 // Delete Item(s)
                 case Keys.Delete:
-                    if (listViewProxies.SelectedItems.Count > 0) { DeleteSelectedProxies(); }
+                    if (listViewProxies.SelectedItems.Count > 0) { DeleteSelectedProxies(1); }
                     return true;
 
                 // Add New Item
@@ -514,7 +532,7 @@ namespace PortProxyGooey
 
                 // FlushDNS
                 case Keys.Control | Keys.F:
-                    DnsUtil.FlushCache();
+                    PortProxyUtil.FlushCache();
                     return true;
 
                 // Clear All Proxies
@@ -571,21 +589,7 @@ namespace PortProxyGooey
             }
         }
 
-        /// <summary>
-        /// Central function to open an URL
-        /// </summary>
-        /// <param name="strURL">URL to open</param>
-        private void LaunchURL(string strURL)
-        {
-            ProcessStartInfo psi = new()
-            {
-                FileName = strURL,
-                UseShellExecute = true
-            };
-            Process.Start(psi);
-        }
-
-        #region Import / Export
+        #region IMPORT / EXPORT
 
         /// <summary>
         /// Exports current list of proxies to .db
@@ -704,10 +708,8 @@ namespace PortProxyGooey
         /// <param name="strPanel">The Panel to open</param>
         private void WFC(string strPanel)
         {
-
             try
             {
-
                 RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Windows Firewall Control");
 
                 if (key != null)
@@ -718,12 +720,12 @@ namespace PortProxyGooey
                 else
                 {
                     // If path to WFC isnt found in the registry, as a courtesy, launch the website for them to dl it, if they want.
-                    LaunchURL("https://www.binisoft.org/wfc");
+                    PortProxyUtil.Launch("https://www.binisoft.org/wfc");
                 }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Error in WFC(): " + ex.Message);
+                Debug.WriteLine(string.Format("Error in WFC(): {0}", ex.Message));
             }
         }
 
@@ -734,11 +736,11 @@ namespace PortProxyGooey
         {
             try
             {
-                Process.Start("control", "firewall.cpl");
+                PortProxyUtil.Launch("control", "firewall.cpl");
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Error Launching firewall.cpl: " + ex.Message);
+                Debug.WriteLine(string.Format("Error Launching firewall.cpl: {0}", ex.Message));
             }
         }
 
@@ -747,8 +749,8 @@ namespace PortProxyGooey
         /// </summary>
         private void advancedToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
-            // Were gonna do it this way so the ugly command window doesnt show before opening the fw app.
+            // TODO: Merge this w/PortProxyUtil.Launch() to remove some redundancy?
+            // We're gonna do it this way so the ugly command window doesn't show before opening the fw app.
             var p = new Process();
 
             {
@@ -760,6 +762,7 @@ namespace PortProxyGooey
                 withBlock.Arguments = "/C wf.msc";
                 withBlock.UseShellExecute = false;
                 withBlock.CreateNoWindow = true;
+                //withBlock.WorkingDirectory = Path.Combine(Environment.GetEnvironmentVariable("WINDIR"), "\\System32"); // this ignores the first path
                 withBlock.WorkingDirectory = Environment.GetEnvironmentVariable("WINDIR") + "\\System32";
             }
 
@@ -775,7 +778,7 @@ namespace PortProxyGooey
         {
             if (MessageBox.Show("Flush DNS?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
-                DnsUtil.FlushCache();
+                PortProxyUtil.FlushCache();
             }
         }
 
@@ -878,5 +881,20 @@ namespace PortProxyGooey
         }
 
         #endregion
+
+        /// <summary>
+        /// Open Regedit to the specified Type
+        /// </summary>
+        private void registryKeyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Applets\Regedit", true);
+
+            if (key != null)
+            {
+                key.SetValue("LastKey", string.Format("HKEY_LOCAL_MACHINE\\{0}", PortProxyUtil.GetKeyName(listViewProxies.SelectedItems[0].SubItems[1].Text)), RegistryValueKind.String);
+                key.Close();
+            }
+            Process.Start("regedit.exe");
+        }
     }
 }

@@ -65,5 +65,10 @@ namespace PortProxyGooey.Data
         {
             return Equals(obj as Rule);
         }
+
+        public override int GetHashCode()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

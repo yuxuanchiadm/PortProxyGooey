@@ -54,7 +54,10 @@
             toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem_Export = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem_Import = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            toolStripMenuItem_FlushDnsCache = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem_ResetWindowSize = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             externalAppsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             dockerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
@@ -67,10 +70,6 @@
             rulesPanelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             connectionsPanelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             adaptersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
-            toolStripMenuItem_FlushDnsCache = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripMenuItem_ResetWindowSize = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             advancedToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             NetSHToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             NetSHaddToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -79,6 +78,7 @@
             NetSHdeleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             NetSHDelCopyToClipboard = new System.Windows.Forms.ToolStripMenuItem();
             NetSHDelViewCline = new System.Windows.Forms.ToolStripMenuItem();
+            registryKeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             toolStripMenuItem_About = new System.Windows.Forms.ToolStripMenuItem();
             imgListProxies = new System.Windows.Forms.ImageList(components);
@@ -207,7 +207,7 @@
             // 
             // toolStripMenuItem_More
             // 
-            toolStripMenuItem_More.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem1, toolStripSeparator5, externalAppsToolStripMenuItem, toolStripSeparator6, toolStripMenuItem_FlushDnsCache, toolStripMenuItem_ResetWindowSize, toolStripSeparator9, advancedToolStripMenuItem1 });
+            toolStripMenuItem_More.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem1, toolStripSeparator6, toolStripMenuItem_FlushDnsCache, toolStripMenuItem_ResetWindowSize, toolStripSeparator9, externalAppsToolStripMenuItem, advancedToolStripMenuItem1 });
             toolStripMenuItem_More.Name = "toolStripMenuItem_More";
             resources.ApplyResources(toolStripMenuItem_More, "toolStripMenuItem_More");
             // 
@@ -229,10 +229,28 @@
             resources.ApplyResources(toolStripMenuItem_Import, "toolStripMenuItem_Import");
             toolStripMenuItem_Import.Click += toolStripMenuItem_Import_Click;
             // 
-            // toolStripSeparator5
+            // toolStripSeparator6
             // 
-            toolStripSeparator5.Name = "toolStripSeparator5";
-            resources.ApplyResources(toolStripSeparator5, "toolStripSeparator5");
+            toolStripSeparator6.Name = "toolStripSeparator6";
+            resources.ApplyResources(toolStripSeparator6, "toolStripSeparator6");
+            // 
+            // toolStripMenuItem_FlushDnsCache
+            // 
+            toolStripMenuItem_FlushDnsCache.Image = Properties.Resources.flushdns;
+            toolStripMenuItem_FlushDnsCache.Name = "toolStripMenuItem_FlushDnsCache";
+            resources.ApplyResources(toolStripMenuItem_FlushDnsCache, "toolStripMenuItem_FlushDnsCache");
+            toolStripMenuItem_FlushDnsCache.Click += toolStripMenuItem_FlushDnsCache_Click;
+            // 
+            // toolStripMenuItem_ResetWindowSize
+            // 
+            toolStripMenuItem_ResetWindowSize.Name = "toolStripMenuItem_ResetWindowSize";
+            resources.ApplyResources(toolStripMenuItem_ResetWindowSize, "toolStripMenuItem_ResetWindowSize");
+            toolStripMenuItem_ResetWindowSize.Click += toolStripMenuItem_ResetWindowSize_Click;
+            // 
+            // toolStripSeparator9
+            // 
+            toolStripSeparator9.Name = "toolStripSeparator9";
+            resources.ApplyResources(toolStripSeparator9, "toolStripSeparator9");
             // 
             // externalAppsToolStripMenuItem
             // 
@@ -254,23 +272,27 @@
             // windowsFirewallToolStripMenuItem
             // 
             windowsFirewallToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { windowsFirewallToolStripMenuItem1, toolStripSeparator7, windowsFirewallControlWFCToolStripMenuItem });
+            windowsFirewallToolStripMenuItem.Image = Properties.Resources.firewall;
             windowsFirewallToolStripMenuItem.Name = "windowsFirewallToolStripMenuItem";
             resources.ApplyResources(windowsFirewallToolStripMenuItem, "windowsFirewallToolStripMenuItem");
             // 
             // windowsFirewallToolStripMenuItem1
             // 
             windowsFirewallToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { basicToolStripMenuItem, advancedToolStripMenuItem });
+            windowsFirewallToolStripMenuItem1.Image = Properties.Resources.windows;
             windowsFirewallToolStripMenuItem1.Name = "windowsFirewallToolStripMenuItem1";
             resources.ApplyResources(windowsFirewallToolStripMenuItem1, "windowsFirewallToolStripMenuItem1");
             // 
             // basicToolStripMenuItem
             // 
+            basicToolStripMenuItem.Image = Properties.Resources.windows;
             basicToolStripMenuItem.Name = "basicToolStripMenuItem";
             resources.ApplyResources(basicToolStripMenuItem, "basicToolStripMenuItem");
             basicToolStripMenuItem.Click += basicToolStripMenuItem_Click;
             // 
             // advancedToolStripMenuItem
             // 
+            advancedToolStripMenuItem.Image = Properties.Resources.windows;
             advancedToolStripMenuItem.Name = "advancedToolStripMenuItem";
             resources.ApplyResources(advancedToolStripMenuItem, "advancedToolStripMenuItem");
             advancedToolStripMenuItem.Click += advancedToolStripMenuItem_Click;
@@ -307,40 +329,17 @@
             resources.ApplyResources(adaptersToolStripMenuItem, "adaptersToolStripMenuItem");
             adaptersToolStripMenuItem.Click += adaptersToolStripMenuItem_Click;
             // 
-            // toolStripSeparator6
-            // 
-            toolStripSeparator6.Name = "toolStripSeparator6";
-            resources.ApplyResources(toolStripSeparator6, "toolStripSeparator6");
-            // 
-            // toolStripMenuItem_FlushDnsCache
-            // 
-            toolStripMenuItem_FlushDnsCache.Image = Properties.Resources.flushdns;
-            toolStripMenuItem_FlushDnsCache.Name = "toolStripMenuItem_FlushDnsCache";
-            resources.ApplyResources(toolStripMenuItem_FlushDnsCache, "toolStripMenuItem_FlushDnsCache");
-            toolStripMenuItem_FlushDnsCache.Click += toolStripMenuItem_FlushDnsCache_Click;
-            // 
-            // toolStripMenuItem_ResetWindowSize
-            // 
-            toolStripMenuItem_ResetWindowSize.Name = "toolStripMenuItem_ResetWindowSize";
-            resources.ApplyResources(toolStripMenuItem_ResetWindowSize, "toolStripMenuItem_ResetWindowSize");
-            toolStripMenuItem_ResetWindowSize.Click += toolStripMenuItem_ResetWindowSize_Click;
-            // 
-            // toolStripSeparator9
-            // 
-            toolStripSeparator9.Name = "toolStripSeparator9";
-            resources.ApplyResources(toolStripSeparator9, "toolStripSeparator9");
-            // 
             // advancedToolStripMenuItem1
             // 
-            advancedToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { NetSHToolStripMenuItem });
+            advancedToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { NetSHToolStripMenuItem, registryKeyToolStripMenuItem });
             advancedToolStripMenuItem1.Name = "advancedToolStripMenuItem1";
             resources.ApplyResources(advancedToolStripMenuItem1, "advancedToolStripMenuItem1");
             // 
             // NetSHToolStripMenuItem
             // 
             NetSHToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { NetSHaddToolStripMenuItem, NetSHdeleteToolStripMenuItem });
-            NetSHToolStripMenuItem.Name = "NetSHToolStripMenuItem";
             resources.ApplyResources(NetSHToolStripMenuItem, "NetSHToolStripMenuItem");
+            NetSHToolStripMenuItem.Name = "NetSHToolStripMenuItem";
             // 
             // NetSHaddToolStripMenuItem
             // 
@@ -377,6 +376,13 @@
             NetSHDelViewCline.Name = "NetSHDelViewCline";
             resources.ApplyResources(NetSHDelViewCline, "NetSHDelViewCline");
             NetSHDelViewCline.Click += NetSHDelViewCline_Click;
+            // 
+            // registryKeyToolStripMenuItem
+            // 
+            resources.ApplyResources(registryKeyToolStripMenuItem, "registryKeyToolStripMenuItem");
+            registryKeyToolStripMenuItem.Image = Properties.Resources.regedit_100;
+            registryKeyToolStripMenuItem.Name = "registryKeyToolStripMenuItem";
+            registryKeyToolStripMenuItem.Click += registryKeyToolStripMenuItem_Click;
             // 
             // toolStripSeparator4
             // 
@@ -444,7 +450,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.SaveFileDialog saveFileDialog_Export;
         private System.Windows.Forms.OpenFileDialog openFileDialog_Import;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_ResetWindowSize;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_Import;
@@ -475,6 +480,7 @@
         private System.Windows.Forms.ToolStripMenuItem NetSHDelCopyToClipboard;
         private System.Windows.Forms.ToolStripMenuItem NetSHDelViewCline;
         private System.Windows.Forms.ImageList imgListProxies;
+        private System.Windows.Forms.ToolStripMenuItem registryKeyToolStripMenuItem;
     }
 }
 

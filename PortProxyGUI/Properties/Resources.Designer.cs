@@ -133,6 +133,16 @@ namespace PortProxyGooey.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap firewall {
+            get {
+                object obj = ResourceManager.GetObject("firewall", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap flushdns {
             get {
                 object obj = ResourceManager.GetObject("flushdns", resourceCulture);
@@ -153,6 +163,16 @@ namespace PortProxyGooey.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap regedit_100 {
+            get {
+                object obj = ResourceManager.GetObject("regedit_100", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap wfc {
             get {
                 object obj = ResourceManager.GetObject("wfc", resourceCulture);
@@ -166,6 +186,16 @@ namespace PortProxyGooey.Properties {
         internal static System.Drawing.Bitmap wfc2 {
             get {
                 object obj = ResourceManager.GetObject("wfc2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap windows {
+            get {
+                object obj = ResourceManager.GetObject("windows", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

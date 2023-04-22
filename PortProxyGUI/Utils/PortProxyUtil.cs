@@ -8,7 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 #endregion
 
@@ -19,7 +21,12 @@ namespace PortProxyGooey.Utils
         private static InvalidOperationException InvalidPortProxyType(string type) => new($"Invalid port proxy type ({type}).");
         private static readonly string[] ProxyTypes = new[] { "v4tov4", "v4tov6", "v6tov4", "v6tov6" };
 
-        private static string GetKeyName(string type)
+        /// <summary>
+        /// Gets the path to the registry key for the passed string
+        /// </summary>
+        /// <param name="type">Proxy Type (v4tov4, etc.)</param>
+        /// <returns>(string)Path to registry key</returns>
+        public static string GetKeyName(string type)
         {
             return $@"SYSTEM\CurrentControlSet\Services\PortProxy\{type}\tcp";
         }
@@ -27,7 +34,7 @@ namespace PortProxyGooey.Utils
         /// <summary>
         /// Read proxies from registry
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Array of Proxy Rules</returns>
         public static Rule[] GetProxies()
         {
             List<Rule> ruleList = new();
@@ -135,7 +142,6 @@ namespace PortProxyGooey.Utils
         public static string GetWSLIP()
         {
             Process p = new();
-
             {
                 ProcessStartInfo withBlock = p.StartInfo;
                 withBlock.Verb = "runas";
@@ -164,5 +170,48 @@ namespace PortProxyGooey.Utils
         {
             return ip.IsMatch(new Regex(@"^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$"));
         }
+
+        #region DNS UTILS
+
+        [DllImport("dnsapi.dll", EntryPoint = "DnsFlushResolverCache")]
+        static extern uint DnsFlushResolverCache();
+
+        public static void FlushCache()
+        {
+            uint status = DnsFlushResolverCache();
+            if (status == 0)
+            {
+                throw new InvalidOperationException("Flush DNS Cache failed.");
+            }
+            else
+            {
+                MessageBox.Show("DNS Flushed!", "Whoosh", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        #endregion
+
+        #region MISC
+
+        /// <summary>
+        /// Central function to open an URL/App, whatev.
+        /// </summary>
+        /// <param name="strFileOrURL">URL/App to open</param>
+        /// <param name="strArgs">[optional] Any arguments to pass to the file/app. Defaults to empty string.</param>
+        /// <param name="strStartIn">[optional] Directory to start in. Defaults to empty string.</param>
+        public static void Launch(string strFileOrURL, string strArgs = "", string strStartIn = "")
+        {
+            ProcessStartInfo psi = new()
+            {
+                FileName = strFileOrURL,
+                Arguments = strArgs,
+                WorkingDirectory = strStartIn,
+                UseShellExecute = true
+            };
+            Process.Start(psi);
+        }
+
+        #endregion
+
     }
 }

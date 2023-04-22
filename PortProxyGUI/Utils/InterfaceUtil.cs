@@ -9,7 +9,5 @@ namespace PortProxyGooey.Utils
         /// <see href="https://docs.microsoft.com/en-us/dotnet/core/compatibility/winforms" />
         /// </summary>
         public static readonly Font UiFont = new(new FontFamily("Microsoft Sans Serif"), 8f);
-
     }
 }
-
