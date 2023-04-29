@@ -156,17 +156,6 @@
   <data name="toolStripMenuItem_New.ToolTipText" xml:space="preserve">
     <value>Add a new port to proxy</value>
   </data>
-  <data name="toolStripMenuItem_Clone.Size" type="System.Drawing.Size, System.Drawing">
-    <value>165, 22</value>
-  </data>
-  <data name="toolStripMenuItem_Clone.Text" xml:space="preserve">
-    <value>Clone ...</value>
-  </data>
-  <data name="toolStripMenuItem_Clone.ToolTipText" xml:space="preserve">
-    <value>Duplicates the current item; you'll need to change the port(s) though.
-
-This saves you from having to do repititous form filling.</value>
-  </data>
   <data name="toolStripMenuItem_Modify.ShortcutKeyDisplayString" xml:space="preserve">
     <value />
   </data>
@@ -182,6 +171,23 @@ This saves you from having to do repititous form filling.</value>
   <data name="toolStripMenuItem_Modify.ToolTipText" xml:space="preserve">
     <value>Modify this port proxy</value>
   </data>
+  <data name="toolStripMenuItem_Clone.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>F3</value>
+  </data>
+  <data name="toolStripMenuItem_Clone.Size" type="System.Drawing.Size, System.Drawing">
+    <value>165, 22</value>
+  </data>
+  <data name="toolStripMenuItem_Clone.Text" xml:space="preserve">
+    <value>Clone ...</value>
+  </data>
+  <data name="toolStripMenuItem_Clone.ToolTipText" xml:space="preserve">
+    <value>Duplicates the current item; you'll need to change the port(s) though.
+
+This saves you from having to do repititous form filling.</value>
+  </data>
+  <data name="toolStripSeparator5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>162, 6</value>
+  </data>
   <data name="toolStripMenuItem_Delete.ShortcutKeyDisplayString" xml:space="preserve">
     <value />
   </data>
@@ -195,10 +201,7 @@ This saves you from having to do repititous form filling.</value>
     <value>Delete</value>
   </data>
   <data name="toolStripMenuItem_Delete.ToolTipText" xml:space="preserve">
-    <value>Remove this port proxy</value>
-  </data>
-  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>162, 6</value>
+    <value>Remove selected port proxy(s)</value>
   </data>
   <data name="clearToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+C</value>
@@ -212,6 +215,9 @@ This saves you from having to do repititous form filling.</value>
   <data name="clearToolStripMenuItem.ToolTipText" xml:space="preserve">
     <value>Clears the entire list (a.k.a. Delete All)</value>
   </data>
+  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>162, 6</value>
+  </data>
   <data name="toolStripMenuItem_Refresh.ShortcutKeyDisplayString" xml:space="preserve">
     <value>&amp;F5</value>
   </data>
@@ -223,6 +229,24 @@ This saves you from having to do repititous form filling.</value>
   </data>
   <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
     <value>162, 6</value>
+  </data>
+  <data name="toolStripMenuItem_Export.Size" type="System.Drawing.Size, System.Drawing">
+    <value>116, 22</value>
+  </data>
+  <data name="toolStripMenuItem_Export.Text" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="toolStripMenuItem_Export.ToolTipText" xml:space="preserve">
+    <value>Backup current list</value>
+  </data>
+  <data name="toolStripMenuItem_Import.Size" type="System.Drawing.Size, System.Drawing">
+    <value>116, 22</value>
+  </data>
+  <data name="toolStripMenuItem_Import.Text" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="toolStripMenuItem_Import.ToolTipText" xml:space="preserve">
+    <value>Restore proxies list from backup</value>
   </data>
   <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
     <value>217, 22</value>
@@ -266,8 +290,26 @@ This saves you from having to do repititous form filling.</value>
   <data name="toolStripSeparator8.Size" type="System.Drawing.Size, System.Drawing">
     <value>180, 6</value>
   </data>
+  <data name="basicToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>133, 22</value>
+  </data>
+  <data name="basicToolStripMenuItem.Text" xml:space="preserve">
+    <value>Basic</value>
+  </data>
+  <data name="basicToolStripMenuItem.ToolTipText" xml:space="preserve">
+    <value>Launch Windows Firewall (Basic View)</value>
+  </data>
+  <data name="advancedToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>133, 22</value>
+  </data>
+  <data name="advancedToolStripMenuItem.Text" xml:space="preserve">
+    <value>Advanced</value>
+  </data>
+  <data name="advancedToolStripMenuItem.ToolTipText" xml:space="preserve">
+    <value>Launch Windows Firewall (Advanced View)</value>
+  </data>
   <data name="windowsFirewallToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>176, 22</value>
   </data>
   <data name="windowsFirewallToolStripMenuItem1.Text" xml:space="preserve">
     <value>Windows Firewall</value>
@@ -276,10 +318,28 @@ This saves you from having to do repititous form filling.</value>
     <value>Launch Windows Firewall (Basic View)</value>
   </data>
   <data name="toolStripSeparator7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 6</value>
+    <value>173, 6</value>
+  </data>
+  <data name="rulesPanelToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>147, 22</value>
+  </data>
+  <data name="rulesPanelToolStripMenuItem.Text" xml:space="preserve">
+    <value>Rules</value>
+  </data>
+  <data name="rulesPanelToolStripMenuItem.ToolTipText" xml:space="preserve">
+    <value>Opens the Rules Panel</value>
+  </data>
+  <data name="connectionsPanelToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>147, 22</value>
+  </data>
+  <data name="connectionsPanelToolStripMenuItem.Text" xml:space="preserve">
+    <value>Connections</value>
+  </data>
+  <data name="connectionsPanelToolStripMenuItem.ToolTipText" xml:space="preserve">
+    <value>Opens the Connections Panel</value>
   </data>
   <data name="windowsFirewallControlWFCToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>176, 22</value>
   </data>
   <data name="windowsFirewallControlWFCToolStripMenuItem.Text" xml:space="preserve">
     <value>WFC</value>
@@ -313,6 +373,75 @@ in case you want to download it.</value>
   <data name="externalAppsToolStripMenuItem.Text" xml:space="preserve">
     <value>External Apps</value>
   </data>
+  <data name="NetSHAddCopyToClipboard.Size" type="System.Drawing.Size, System.Drawing">
+    <value>184, 22</value>
+  </data>
+  <data name="NetSHAddCopyToClipboard.Text" xml:space="preserve">
+    <value>Copy to Clipboard</value>
+  </data>
+  <data name="NetSHAddCopyToClipboard.ToolTipText" xml:space="preserve">
+    <value>Copy command line to clipboard</value>
+  </data>
+  <data name="NetSHAddViewCline.Size" type="System.Drawing.Size, System.Drawing">
+    <value>184, 22</value>
+  </data>
+  <data name="NetSHAddViewCline.Text" xml:space="preserve">
+    <value>View Command</value>
+  </data>
+  <data name="NetSHAddViewCline.ToolTipText" xml:space="preserve">
+    <value>Show command line in a messagebox</value>
+  </data>
+  <data name="NetSHaddToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 22</value>
+  </data>
+  <data name="NetSHaddToolStripMenuItem.Text" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="NetSHDelCopyToClipboard.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 22</value>
+  </data>
+  <data name="NetSHDelCopyToClipboard.Text" xml:space="preserve">
+    <value>Copy to Clipboard</value>
+  </data>
+  <data name="NetSHDelCopyToClipboard.ToolTipText" xml:space="preserve">
+    <value>Copy command line to clipboard</value>
+  </data>
+  <data name="NetSHDelViewCline.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 22</value>
+  </data>
+  <data name="NetSHDelViewCline.Text" xml:space="preserve">
+    <value>View netsh command</value>
+  </data>
+  <data name="NetSHDelViewCline.ToolTipText" xml:space="preserve">
+    <value>Show command line in a messagebox</value>
+  </data>
+  <data name="NetSHdeleteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 22</value>
+  </data>
+  <data name="NetSHdeleteToolStripMenuItem.Text" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="NetSHToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="NetSHToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>123, 22</value>
+  </data>
+  <data name="NetSHToolStripMenuItem.Text" xml:space="preserve">
+    <value>Netsh</value>
+  </data>
+  <data name="registryKeyToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="registryKeyToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>123, 22</value>
+  </data>
+  <data name="registryKeyToolStripMenuItem.Text" xml:space="preserve">
+    <value>Registry</value>
+  </data>
+  <data name="registryKeyToolStripMenuItem.ToolTipText" xml:space="preserve">
+    <value>Open the registry key for this item's Type in RegEdit</value>
+  </data>
   <data name="advancedToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
     <value>217, 22</value>
   </data>
@@ -335,7 +464,7 @@ in case you want to download it.</value>
     <value>About</value>
   </data>
   <data name="contextMenuStrip_RightClick.Size" type="System.Drawing.Size, System.Drawing">
-    <value>166, 248</value>
+    <value>166, 254</value>
   </data>
   <data name="&gt;&gt;contextMenuStrip_RightClick.Name" xml:space="preserve">
     <value>contextMenuStrip_RightClick</value>
@@ -366,57 +495,57 @@ in case you want to download it.</value>
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
-        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAmgsAAAJNU0Z0AUkBTAIBAQIB
-        AAHoAQAB6AEAARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARAe
-        AAMqAUADKgFAAyoBQAMqAUADKgFAAyoBQAMqAUADKgFAAyoBQAMqAUDQAAMMARACWQFbAcABPAFNAv8B
-        PAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8CWQFbAcAD
-        DAEQCAADDAEQAlsBWQHAAa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQB
-        FgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8CWwFZAcADDAEQiAACWQFbAcABPAFNAv8B
-        PAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8B
-        PAFNAv8CWQFbAcAIAAJbAVkBwAGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8B
-        rwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wJbAVkB
-        wIgAATwBTQL/ATwBTQL/ATwBTQL/ATwBTQL/ATwBTQL/ATwBTQL/ATwBTQL/ATwBTQL/ATwBTQL/ATwB
-        TQL/ATwBTQL/ATwBTQL/ATwBTQL/ATwBTQL/CAABrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB
-        /wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8B
-        xAEWAf8BrwHEARYB/wGvAcQBFgH/iAABPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BbQF6Av8B5wHpCv8B
-        5wHpAv8BbQF6Av8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8IAAGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB
-        /wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8B
-        xAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf+IAAE8AU0C/wE8AU0C/wE8AU0C/wFtAXoG/wHDAcgC
-        /wFtAXoC/wGFAZAC/wHnAekG/wFtAXoC/wE8AU0C/wE8AU0C/wE8AU0C/wgAAa8BxAEWAf8BrwHEARYB
-        /wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wHWAeEBhwH/Ad0B5gGdAf8BrwHEARYB/wGvAcQBFgH/Aa8B
-        xAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/4gAATwBTQL/ATwBTQL/ATwBTQL/AecB
-        6QL/AcMByAL/ATwBTQL/ATwBTQL/AYUBkAb/AecB6QL/AecB6QL/ATwBTQL/ATwBTQL/ATwBTQL/CAAB
-        rwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wHQAdwBdwn/AeEB6QGoAf8BrwHEARYB/wGvAcQB
-        FgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf+IAAE8AU0C/wE8AU0C/wE8AU0G/wFtAXoC
-        /wE8AU0C/wGFAZAG/wGFAZAC/wGFAZAG/wE8AU0C/wE8AU0C/wE8AU0C/wgAAa8BxAEWAf8BrwHEARYB
-        /wGvAcQBFgH/Ac0B2gFuBf8B4QHpAagB/wHNAdoBbgX/AeEB6QGoAf8BrwHEARYB/wGvAcQBFgH/Aa8B
-        xAEWAf8BrwHEARYB/wGvAcQBFgH/iAABPAFNAv8BPAFNAv8BPAFNBv8BhQGQAv8BhQGQBv8BhQGQAv8B
-        PAFNAv8BbQF6Bv8BPAFNAv8BPAFNAv8BPAFNAv8IAAGvAcQBFgH/Aa8BxAEWAf8BrwHEARYF/wHhAekB
-        qAH/Aa8BxAEWAf8BrwHEARYB/wHNAdoBbgX/AeEB6QGoAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8B
-        rwHEARYB/4gAATwBTQL/ATwBTQL/ATwBTQL/AecB6QL/AecB6Qb/AYUBkAL/ATwBTQL/ATwBTQL/AcMB
-        yAL/AecB6QL/ATwBTQL/ATwBTQL/ATwBTQL/CAABrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB
-        /wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Ac0B2gFuBf8B4QHpAagB/wGvAcQBFgH/Aa8B
-        xAEWAf8BrwHEARYB/4gAATwBTQL/ATwBTQL/ATwBTQL/AXkBhQb/AecB6QL/AYUBkAL/AW0BegL/AcMB
-        yAb/AW0BegL/ATwBTQL/ATwBTQL/ATwBTQL/CAABrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB
-        /wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BzQHaAW4B/wH6AfwB8QH/Aa8B
-        xAEWAf8BrwHEARYB/wGvAcQBFgH/iAABPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BeQGFAv8B5wHpCv8B
-        5wHpAv8BeQGFAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8DDAEQBAABrwHEARYB/wGvAcQBFgH/Aa8B
-        xAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB
-        /wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/AwwBEIQAATwBTQL/ATwBTQL/ATwBTQL/ATwB
+        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAmAsAAAJNU0Z0AUkBTAIBAQIC
+        AAEBAQABAQEQAQABEAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAUADAAEQAwABAQEAASAGAAEQHgAD
+        KgFAAyoBQAMqAUADKgFAAyoBQAMqAUADKgFAAyoBQAMqAUADKgFA0AADDAEQAlkBWwHAATwBTQL/ATwB
+        TQL/ATwBTQL/ATwBTQL/ATwBTQL/ATwBTQL/ATwBTQL/ATwBTQL/ATwBTQL/ATwBTQL/AlkBWwHAAwwB
+        EAgAAwwBEAJbAVkBwAGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB
+        /wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/AlsBWQHAAwwBEIgAAlkBWwHAATwBTQL/ATwB
         TQL/ATwBTQL/ATwBTQL/ATwBTQL/ATwBTQL/ATwBTQL/ATwBTQL/ATwBTQL/ATwBTQL/ATwBTQL/ATwB
-        TQL/AwwBEAQAAa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8B
-        xAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB
-        /wMMARCEAAJZAVsBwAE8AU0C/wE8AU0C/wE8AU0C/wE8AU0C/wE8AU0C/wE8AU0C/wE8AU0C/wE8AU0C
-        /wE8AU0C/wE8AU0C/wE8AU0C/wE8AU0C/wJZAVsBwAgAAlsBWQHAAa8BxAEWAf8BrwHEARYB/wGvAcQB
+        TQL/AlkBWwHACAACWwFZAcABrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8B
+        xAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8CWwFZAcCI
+        AAE8AU0C/wE8AU0C/wE8AU0C/wE8AU0C/wE8AU0C/wE8AU0C/wE8AU0C/wE8AU0C/wE8AU0C/wE8AU0C
+        /wE8AU0C/wE8AU0C/wE8AU0C/wE8AU0C/wgAAa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8B
+        rwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQB
+        FgH/Aa8BxAEWAf8BrwHEARYB/4gAATwBTQL/ATwBTQL/ATwBTQL/ATwBTQL/AW0BegL/AecB6Qr/AecB
+        6QL/AW0BegL/ATwBTQL/ATwBTQL/ATwBTQL/ATwBTQL/CAABrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8B
+        rwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQB
+        FgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/iAABPAFNAv8BPAFNAv8BPAFNAv8BbQF6Bv8BwwHIAv8B
+        bQF6Av8BhQGQAv8B5wHpBv8BbQF6Av8BPAFNAv8BPAFNAv8BPAFNAv8IAAGvAcQBFgH/Aa8BxAEWAf8B
+        rwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8B1gHhAYcB/wHdAeYBnQH/Aa8BxAEWAf8BrwHEARYB/wGvAcQB
+        FgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf+IAAE8AU0C/wE8AU0C/wE8AU0C/wHnAekC
+        /wHDAcgC/wE8AU0C/wE8AU0C/wGFAZAG/wHnAekC/wHnAekC/wE8AU0C/wE8AU0C/wE8AU0C/wgAAa8B
+        xAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8B0AHcAXcJ/wHhAekBqAH/Aa8BxAEWAf8BrwHEARYB
+        /wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/iAABPAFNAv8BPAFNAv8BPAFNBv8BbQF6Av8B
+        PAFNAv8BhQGQBv8BhQGQAv8BhQGQBv8BPAFNAv8BPAFNAv8BPAFNAv8IAAGvAcQBFgH/Aa8BxAEWAf8B
+        rwHEARYB/wHNAdoBbgX/AeEB6QGoAf8BzQHaAW4F/wHhAekBqAH/Aa8BxAEWAf8BrwHEARYB/wGvAcQB
+        FgH/Aa8BxAEWAf8BrwHEARYB/4gAATwBTQL/ATwBTQL/ATwBTQb/AYUBkAL/AYUBkAb/AYUBkAL/ATwB
+        TQL/AW0Begb/ATwBTQL/ATwBTQL/ATwBTQL/CAABrwHEARYB/wGvAcQBFgH/Aa8BxAEWBf8B4QHpAagB
+        /wGvAcQBFgH/Aa8BxAEWAf8BzQHaAW4F/wHhAekBqAH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8B
+        xAEWAf+IAAE8AU0C/wE8AU0C/wE8AU0C/wHnAekC/wHnAekG/wGFAZAC/wE8AU0C/wE8AU0C/wHDAcgC
+        /wHnAekC/wE8AU0C/wE8AU0C/wE8AU0C/wgAAa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8B
+        rwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wHNAdoBbgX/AeEB6QGoAf8BrwHEARYB/wGvAcQB
+        FgH/Aa8BxAEWAf+IAAE8AU0C/wE8AU0C/wE8AU0C/wF5AYUG/wHnAekC/wGFAZAC/wFtAXoC/wHDAcgG
+        /wFtAXoC/wE8AU0C/wE8AU0C/wE8AU0C/wgAAa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8B
+        rwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Ac0B2gFuAf8B+gH8AfEB/wGvAcQB
+        FgH/Aa8BxAEWAf8BrwHEARYB/4gAATwBTQL/ATwBTQL/ATwBTQL/ATwBTQL/AXkBhQL/AecB6Qr/AecB
+        6QL/AXkBhQL/ATwBTQL/ATwBTQL/ATwBTQL/ATwBTQL/AwwBEAQAAa8BxAEWAf8BrwHEARYB/wGvAcQB
         FgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8B
-        rwHEARYB/wGvAcQBFgH/AlsBWQHAiAADDAEQAlkBWwHAATwBTQL/ATwBTQL/ATwBTQL/ATwBTQL/ATwB
-        TQL/ATwBTQL/ATwBTQL/ATwBTQL/ATwBTQL/ATwBTQL/AlkBWwHAAwwBEAgAAwwBEAJbAVkBwAGvAcQB
-        FgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8B
-        rwHEARYB/wGvAcQBFgH/AlsBWQHAAwwBENAAAwwBEAMqAUADKgFAAyoBQAMqAUADKgFAAyoBQAMqAUAD
-        KgFAkAABQgFNAT4HAAE+AwABKAMAAUADAAEQAwABAQEAAQEFAAGAFwAD/wEAAeABBwL/BAABgAEBAYAB
-        AQQAAYABAQGAAQEEAAGAAQEBgAEBBAABgAEBAYABAQQAAYABAQGAAQEEAAGAAQEBgAEBBAABgAEBAYAB
-        AQQAAYABAQGAAQEEAAGAAQEBgAEBBAABgAEBAYABAQQAAYABAAGABQABgAEAAYAFAAGAAQEBgAEBBAAB
-        gAEBAYABAQQAAv8B4AEPBAAL
+        rwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wMMARCEAAE8AU0C/wE8AU0C/wE8AU0C/wE8AU0C
+        /wE8AU0C/wE8AU0C/wE8AU0C/wE8AU0C/wE8AU0C/wE8AU0C/wE8AU0C/wE8AU0C/wE8AU0C/wE8AU0C
+        /wMMARAEAAGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQB
+        FgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8D
+        DAEQhAACWQFbAcABPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8B
+        PAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8CWQFbAcAIAAJbAVkBwAGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB
+        /wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8B
+        xAEWAf8BrwHEARYB/wJbAVkBwIgAAwwBEAJZAVsBwAE8AU0C/wE8AU0C/wE8AU0C/wE8AU0C/wE8AU0C
+        /wE8AU0C/wE8AU0C/wE8AU0C/wE8AU0C/wE8AU0C/wJZAVsBwAMMARAIAAMMARACWwFZAcABrwHEARYB
+        /wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8B
+        xAEWAf8BrwHEARYB/wJbAVkBwAMMARDQAAMMARADKgFAAyoBQAMqAUADKgFAAyoBQAMqAUADKgFAAyoB
+        QJAAAUIBTQE+BwABPgMAASgDAAFAAwABEAMAAQEBAAEBBQABgBcAA/8BAAHgAQcC/wQAAYABAQGAAQEE
+        AAGAAQEBgAEBBAABgAEBAYABAQQAAYABAQGAAQEEAAGAAQEBgAEBBAABgAEBAYABAQQAAYABAQGAAQEE
+        AAGAAQEBgAEBBAABgAEBAYABAQQAAYABAQGAAQEEAAGAAQABgAUAAYABAAGABQABgAEBAYABAQQAAYAB
+        AQGAAQEEAAL/AeABDwQACw==
 </value>
   </data>
   <data name="listViewProxies.TabIndex" type="System.Int32, mscorlib">
@@ -433,129 +562,6 @@ in case you want to download it.</value>
   </data>
   <data name="&gt;&gt;listViewProxies.ZOrder" xml:space="preserve">
     <value>1</value>
-  </data>
-  <data name="toolStripMenuItem_Export.Size" type="System.Drawing.Size, System.Drawing">
-    <value>116, 22</value>
-  </data>
-  <data name="toolStripMenuItem_Export.Text" xml:space="preserve">
-    <value>Export</value>
-  </data>
-  <data name="toolStripMenuItem_Export.ToolTipText" xml:space="preserve">
-    <value>Backup current list</value>
-  </data>
-  <data name="toolStripMenuItem_Import.Size" type="System.Drawing.Size, System.Drawing">
-    <value>116, 22</value>
-  </data>
-  <data name="toolStripMenuItem_Import.Text" xml:space="preserve">
-    <value>Import</value>
-  </data>
-  <data name="toolStripMenuItem_Import.ToolTipText" xml:space="preserve">
-    <value>Restore proxies list from backup</value>
-  </data>
-  <data name="basicToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="basicToolStripMenuItem.Text" xml:space="preserve">
-    <value>Basic</value>
-  </data>
-  <data name="basicToolStripMenuItem.ToolTipText" xml:space="preserve">
-    <value>Launch Windows Firewall (Basic View)</value>
-  </data>
-  <data name="advancedToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="advancedToolStripMenuItem.Text" xml:space="preserve">
-    <value>Advanced</value>
-  </data>
-  <data name="advancedToolStripMenuItem.ToolTipText" xml:space="preserve">
-    <value>Launch Windows Firewall (Advanced View)</value>
-  </data>
-  <data name="rulesPanelToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>147, 22</value>
-  </data>
-  <data name="rulesPanelToolStripMenuItem.Text" xml:space="preserve">
-    <value>Rules</value>
-  </data>
-  <data name="rulesPanelToolStripMenuItem.ToolTipText" xml:space="preserve">
-    <value>Opens the Rules Panel</value>
-  </data>
-  <data name="connectionsPanelToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>147, 22</value>
-  </data>
-  <data name="connectionsPanelToolStripMenuItem.Text" xml:space="preserve">
-    <value>Connections</value>
-  </data>
-  <data name="connectionsPanelToolStripMenuItem.ToolTipText" xml:space="preserve">
-    <value>Opens the Connections Panel</value>
-  </data>
-  <data name="NetSHToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="NetSHToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="NetSHToolStripMenuItem.Text" xml:space="preserve">
-    <value>Netsh</value>
-  </data>
-  <data name="NetSHaddToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 22</value>
-  </data>
-  <data name="NetSHaddToolStripMenuItem.Text" xml:space="preserve">
-    <value>Add</value>
-  </data>
-  <data name="NetSHAddCopyToClipboard.Size" type="System.Drawing.Size, System.Drawing">
-    <value>184, 22</value>
-  </data>
-  <data name="NetSHAddCopyToClipboard.Text" xml:space="preserve">
-    <value>Copy to Clipboard</value>
-  </data>
-  <data name="NetSHAddCopyToClipboard.ToolTipText" xml:space="preserve">
-    <value>Copy command line to clipboard</value>
-  </data>
-  <data name="NetSHAddViewCline.Size" type="System.Drawing.Size, System.Drawing">
-    <value>184, 22</value>
-  </data>
-  <data name="NetSHAddViewCline.Text" xml:space="preserve">
-    <value>View Command</value>
-  </data>
-  <data name="NetSHAddViewCline.ToolTipText" xml:space="preserve">
-    <value>Show command line in a messagebox</value>
-  </data>
-  <data name="NetSHdeleteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 22</value>
-  </data>
-  <data name="NetSHdeleteToolStripMenuItem.Text" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="NetSHDelCopyToClipboard.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 22</value>
-  </data>
-  <data name="NetSHDelCopyToClipboard.Text" xml:space="preserve">
-    <value>Copy to Clipboard</value>
-  </data>
-  <data name="NetSHDelCopyToClipboard.ToolTipText" xml:space="preserve">
-    <value>Copy command line to clipboard</value>
-  </data>
-  <data name="NetSHDelViewCline.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 22</value>
-  </data>
-  <data name="NetSHDelViewCline.Text" xml:space="preserve">
-    <value>View netsh command</value>
-  </data>
-  <data name="NetSHDelViewCline.ToolTipText" xml:space="preserve">
-    <value>Show command line in a messagebox</value>
-  </data>
-  <data name="registryKeyToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="registryKeyToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="registryKeyToolStripMenuItem.Text" xml:space="preserve">
-    <value>Registry Key</value>
-  </data>
-  <data name="registryKeyToolStripMenuItem.ToolTipText" xml:space="preserve">
-    <value>Open the registry key for this item's Type in RegEdit</value>
   </data>
   <metadata name="saveFileDialog_Export.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>225, 17</value>
@@ -2823,10 +2829,22 @@ in case you want to download it.</value>
   <data name="&gt;&gt;toolStripMenuItem_Modify.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;toolStripSeparator5.Name" xml:space="preserve">
+    <value>toolStripSeparator5</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;toolStripMenuItem_Delete.Name" xml:space="preserve">
     <value>toolStripMenuItem_Delete</value>
   </data>
   <data name="&gt;&gt;toolStripMenuItem_Delete.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clearToolStripMenuItem.Name" xml:space="preserve">
+    <value>clearToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;clearToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator1.Name" xml:space="preserve">
@@ -2834,12 +2852,6 @@ in case you want to download it.</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;clearToolStripMenuItem.Name" xml:space="preserve">
-    <value>clearToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;clearToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripMenuItem_Refresh.Name" xml:space="preserve">
     <value>toolStripMenuItem_Refresh</value>

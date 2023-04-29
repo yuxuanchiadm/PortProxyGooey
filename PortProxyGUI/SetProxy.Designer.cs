@@ -58,6 +58,7 @@ namespace PortProxyGooey
             comboBox_ConnectTo = new ComboBox();
             lblDupe = new Label();
             btnCancel = new Button();
+            lblClone = new Label();
             SuspendLayout();
             // 
             // label_ListenOn
@@ -86,6 +87,7 @@ namespace PortProxyGooey
             resources.ApplyResources(textBox_ConnectPort, "textBox_ConnectPort");
             textBox_ConnectPort.ForeColor = System.Drawing.Color.FromArgb(229, 233, 240);
             textBox_ConnectPort.Name = "textBox_ConnectPort";
+            textBox_ConnectPort.KeyDown += textBox_ConnectPort_KeyDown;
             // 
             // label_ConnectPort
             // 
@@ -132,6 +134,7 @@ namespace PortProxyGooey
             textBox_ListenPort.ForeColor = System.Drawing.Color.FromArgb(229, 233, 240);
             textBox_ListenPort.Name = "textBox_ListenPort";
             textBox_ListenPort.TextChanged += textBox_ListenPort_TextChanged;
+            textBox_ListenPort.KeyDown += textBox_ListenPort_KeyDown;
             // 
             // comboBox_Type
             // 
@@ -207,6 +210,7 @@ namespace PortProxyGooey
             textBox_ListenPortRange.Name = "textBox_ListenPortRange";
             tTipSetProxy.SetToolTip(textBox_ListenPortRange, resources.GetString("textBox_ListenPortRange.ToolTip"));
             textBox_ListenPortRange.TextChanged += textBox_ListenPortRange_TextChanged;
+            textBox_ListenPortRange.KeyDown += textBox_ListenPortRange_KeyDown;
             // 
             // lblDash
             // 
@@ -297,6 +301,14 @@ namespace PortProxyGooey
             btnCancel.UseVisualStyleBackColor = true;
             btnCancel.Click += btnCancel_Click;
             // 
+            // lblClone
+            // 
+            resources.ApplyResources(lblClone, "lblClone");
+            lblClone.BackColor = System.Drawing.Color.FromArgb(103, 81, 99);
+            lblClone.Cursor = Cursors.Help;
+            lblClone.ForeColor = System.Drawing.Color.FromArgb(180, 142, 173);
+            lblClone.Name = "lblClone";
+            // 
             // SetProxy
             // 
             AcceptButton = button_Set;
@@ -304,6 +316,7 @@ namespace PortProxyGooey
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = System.Drawing.Color.FromArgb(46, 52, 64);
             ControlBox = false;
+            Controls.Add(lblClone);
             Controls.Add(btnCancel);
             Controls.Add(progBarRange);
             Controls.Add(lblRangeCount);
@@ -369,5 +382,6 @@ namespace PortProxyGooey
         private Label lblRangeCount;
         private ProgressBar progBarRange;
         private Button btnCancel;
+        private Label lblClone;
     }
 }

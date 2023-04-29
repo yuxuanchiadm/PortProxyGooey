@@ -45,6 +45,12 @@ namespace PortProxyGooey
             InitializeComponent();
             Font = InterfaceUtil.UiFont;
 
+            // Init MouseWheel scrolling in textboxes
+            textBox_ListenPort.MouseWheel += TextBox_ListenPort_MouseWheel;
+            textBox_ListenPortRange.MouseWheel += TextBox_ListenPortRange_MouseWheel;
+            textBox_ConnectPort.MouseWheel += TextBox_ConnectPort_MouseWheel;
+
+            //
             AutoTypeString = comboBox_Type.Text = comboBox_Type.Items.OfType<string>().First();
 
             string[] groupNames = (
@@ -53,26 +59,38 @@ namespace PortProxyGooey
                 where !header.IsNullOrWhiteSpace()
                 select header
             ).ToArray();
-
+                
             comboBox_Group.Items.AddRange(groupNames);
         }
 
-        public void UseNormalMode()
+        /// <summary>
+        /// Add a New proxy rule, or Clone a proxy rule.
+        /// </summary>
+        /// <param name="rule">[Optional] Rule object. If null, function acts as a brand new empty proxy; if Rule passed, function acts as a clone.</param>
+        public void UseNormalMode(Rule rule = null)
         {
             _updateMode = false;
             _listViewItem = null;
             _itemRule = null;
 
-            comboBox_Type.Text = AutoTypeString;
-            comboBox_Group.Text = String.Empty;
+            // Show "Clone" label?
+            lblClone.Visible = rule != null;
 
-            comboBox_ListenOn.Text = "*";
-            textBox_ListenPort.Text = String.Empty;
-            comboBox_ConnectTo.Text = String.Empty;
-            textBox_ConnectPort.Text = String.Empty;
-            textBox_Comment.Text = String.Empty;
+            comboBox_Type.Text = rule != null ? rule.Type : AutoTypeString;
+            comboBox_Group.Text = rule != null ? rule.Group : String.Empty;
+
+            comboBox_ListenOn.Text = rule != null ? rule.ListenOn : "*";
+            textBox_ListenPort.Text = rule != null ? rule.ListenPort.ToString() : String.Empty;
+            comboBox_ConnectTo.Text = rule != null ? rule.ConnectTo : String.Empty;
+            textBox_ConnectPort.Text = rule != null ? rule.ConnectPort.ToString() : String.Empty;
+            textBox_Comment.Text = rule != null ? rule.Comment : String.Empty;
         }
 
+        /// <summary>
+        /// Update/Modify an existing proxy
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="rule">A populated Rule object</param>
         public void UseUpdateMode(ListViewItem item, Rule rule)
         {
             _updateMode = true;
@@ -95,7 +113,7 @@ namespace PortProxyGooey
         /// </summary>
         /// <param name="ip">IP to validate</param>
         /// <returns>True if valid; False if Invalid</returns>
-        private bool IsIPv6(string ip)
+        private static bool IsIPv6(string ip)
         {
             // Scott Note to original author: Is this correct? Looks more like a MAC Address regex? I added a better regex below, but leaving original for posterity.
             // return ip.IsMatch(new Regex(@"^[\dABCDEF]{2}(?::(?:[\dABCDEF]{2})){5}$"));
@@ -108,7 +126,7 @@ namespace PortProxyGooey
         /// <param name="listenOn">IP to Listen on</param>
         /// <param name="connectTo">IP to connect to</param>
         /// <returns>Properly formatted proxy Type</returns>
-        private string GetPassType(string listenOn, string connectTo)
+        private static string GetPassType(string listenOn, string connectTo)
         {
             string from = IsIPv6(listenOn) ? "v6" : "v4";
             string to = IsIPv6(connectTo) ? "v6" : "v4";
@@ -219,7 +237,7 @@ namespace PortProxyGooey
                 }
 
                 // Alert the user if any were skipped due to duping
-                if (intDupes > 0) MessageBox.Show(string.Format("{0} duplicates skipped.", intDupes), "Didn't add some ...", MessageBoxButtons.OK, MessageBoxIcon.Information); 
+                if (intDupes > 0) MessageBox.Show(string.Format("{0} duplicates skipped.", intDupes), "Didn't add some ...", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
             ParentWindow.RefreshProxyList();
@@ -295,7 +313,8 @@ namespace PortProxyGooey
             textBox_ListenPortRange.Text = textBox_ListenPort.Text;
             textBox_ConnectPort.Text = textBox_ListenPort.Text;
 
-            lblDupe.Visible = DupeCheck() ? true : false;
+            // If it's a dupe port shwo the label; else hide it.
+            lblDupe.Visible = DupeCheck();
 
             AutoComment();
         }
@@ -432,7 +451,7 @@ namespace PortProxyGooey
 
         private void comboBox_Type_SelectedIndexChanged(object sender, EventArgs e)
         {
-            lblDupe.Visible = DupeCheck() ? true : false;
+            lblDupe.Visible = DupeCheck();
         }
 
         private void comboBox_ConnectTo_TextChanged(object sender, EventArgs e)
@@ -443,7 +462,7 @@ namespace PortProxyGooey
         private void comboBox_ListenOn_TextChanged(object sender, EventArgs e)
         {
             // Dupecheck
-            lblDupe.Visible = DupeCheck() ? true : false;
+            lblDupe.Visible = DupeCheck();
 
             // typeCheck
             TypeCheck();
@@ -465,6 +484,91 @@ namespace PortProxyGooey
         {
             this.Close();
         }
+
+        #region TextBox Increase / Decrease
+
+        private void TextBox_ListenPortRange_MouseWheel(object sender, MouseEventArgs e)
+        {
+            bool bUp = (e.Delta > 0);
+            IncreaseDecrease(bUp, textBox_ListenPortRange);
+        }
+
+        private void TextBox_ListenPort_MouseWheel(object sender, MouseEventArgs e)
+        {
+            bool bUp = (e.Delta > 0);
+            IncreaseDecrease(bUp, textBox_ListenPort);
+        }
+
+        private void TextBox_ConnectPort_MouseWheel(object sender, MouseEventArgs e)
+        {
+            bool bUp = (e.Delta > 0);
+            IncreaseDecrease(bUp, textBox_ConnectPort);
+        }
+
+        private void textBox_ConnectPort_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode.Equals(Keys.Up))
+            {
+                IncreaseDecrease(true, textBox_ConnectPort);
+            }
+            else if (e.KeyCode.Equals(Keys.Down))
+            {
+                IncreaseDecrease(false, textBox_ConnectPort);
+            }
+        }
+
+        private void textBox_ListenPort_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode.Equals(Keys.Up))
+            {
+                IncreaseDecrease(true, textBox_ListenPort);
+            }
+            else if (e.KeyCode.Equals(Keys.Down))
+            {
+                IncreaseDecrease(false, textBox_ListenPort);
+            }
+        }
+
+        private void textBox_ListenPortRange_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode.Equals(Keys.Up))
+            {
+                IncreaseDecrease(true, textBox_ListenPortRange);
+            }
+            else if (e.KeyCode.Equals(Keys.Down))
+            {
+                IncreaseDecrease(false, textBox_ListenPortRange);
+            }
+        }
+
+        /// <summary>
+        /// Increase / Decrease the number in a Textbox
+        /// </summary>
+        /// <param name="bUp">[boolean] true = Up; false = Down</param>
+        /// <param name="textBox">A Textbox control</param>
+        private static void IncreaseDecrease(bool bUp, System.Windows.Forms.TextBox textBox)
+        {
+            if (string.IsNullOrEmpty(textBox.Text)) textBox.Text = "0";
+            int intCurrentVal = Convert.ToInt32(textBox.Text);
+
+            if (bUp)
+            {
+                intCurrentVal++;
+            }
+            else
+            {
+                // Don't allow negative numbers
+                if (intCurrentVal != 0) intCurrentVal--;
+            }
+
+            textBox.Text = intCurrentVal.ToString();
+
+            // Move the cursor to the end, or else it just looks weird to me.
+            textBox.SelectionStart = textBox.TextLength;
+            textBox.SelectionLength = 0;
+        }
+
+        #endregion
 
     }
 }

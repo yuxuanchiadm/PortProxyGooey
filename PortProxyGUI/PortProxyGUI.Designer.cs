@@ -45,9 +45,10 @@
             toolStripMenuItem_New = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem_Clone = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem_Modify = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             toolStripMenuItem_Delete = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             toolStripMenuItem_Refresh = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             toolStripMenuItem_More = new System.Windows.Forms.ToolStripMenuItem();
@@ -138,7 +139,7 @@
             // contextMenuStrip_RightClick
             // 
             resources.ApplyResources(contextMenuStrip_RightClick, "contextMenuStrip_RightClick");
-            contextMenuStrip_RightClick.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem_Enable, toolStripMenuItem_Disable, toolStripSeparator3, toolStripMenuItem_New, toolStripMenuItem_Clone, toolStripMenuItem_Modify, toolStripMenuItem_Delete, toolStripSeparator1, clearToolStripMenuItem, toolStripMenuItem_Refresh, toolStripSeparator2, toolStripMenuItem_More, toolStripSeparator4, toolStripMenuItem_About });
+            contextMenuStrip_RightClick.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem_Enable, toolStripMenuItem_Disable, toolStripSeparator3, toolStripMenuItem_New, toolStripMenuItem_Modify, toolStripMenuItem_Clone, toolStripSeparator5, toolStripMenuItem_Delete, clearToolStripMenuItem, toolStripSeparator1, toolStripMenuItem_Refresh, toolStripSeparator2, toolStripMenuItem_More, toolStripSeparator4, toolStripMenuItem_About });
             contextMenuStrip_RightClick.Name = "contextMenuStrip1";
             contextMenuStrip_RightClick.Closed += contextMenuStrip_RightClick_Closed;
             contextMenuStrip_RightClick.MouseClick += contextMenuStrip_RightClick_MouseClick;
@@ -177,22 +178,27 @@
             toolStripMenuItem_Modify.Name = "toolStripMenuItem_Modify";
             resources.ApplyResources(toolStripMenuItem_Modify, "toolStripMenuItem_Modify");
             // 
+            // toolStripSeparator5
+            // 
+            toolStripSeparator5.Name = "toolStripSeparator5";
+            resources.ApplyResources(toolStripSeparator5, "toolStripSeparator5");
+            // 
             // toolStripMenuItem_Delete
             // 
             toolStripMenuItem_Delete.Image = Properties.Resources.delete;
             toolStripMenuItem_Delete.Name = "toolStripMenuItem_Delete";
             resources.ApplyResources(toolStripMenuItem_Delete, "toolStripMenuItem_Delete");
             // 
-            // toolStripSeparator1
-            // 
-            toolStripSeparator1.Name = "toolStripSeparator1";
-            resources.ApplyResources(toolStripSeparator1, "toolStripSeparator1");
-            // 
             // clearToolStripMenuItem
             // 
             clearToolStripMenuItem.Image = Properties.Resources.clear;
             clearToolStripMenuItem.Name = "clearToolStripMenuItem";
             resources.ApplyResources(clearToolStripMenuItem, "clearToolStripMenuItem");
+            // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            resources.ApplyResources(toolStripSeparator1, "toolStripSeparator1");
             // 
             // toolStripMenuItem_Refresh
             // 
@@ -481,6 +487,7 @@
         private System.Windows.Forms.ToolStripMenuItem NetSHDelViewCline;
         private System.Windows.Forms.ImageList imgListProxies;
         private System.Windows.Forms.ToolStripMenuItem registryKeyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
     }
 }
 
