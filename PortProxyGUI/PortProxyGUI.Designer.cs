@@ -43,8 +43,8 @@
             toolStripMenuItem_Disable = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             toolStripMenuItem_New = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripMenuItem_Clone = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem_Modify = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem_Clone = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             toolStripMenuItem_Delete = new System.Windows.Forms.ToolStripMenuItem();
             clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -71,6 +71,9 @@
             rulesPanelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             connectionsPanelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             adaptersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
+            sitesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            portForwardingTesterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             advancedToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             NetSHToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             NetSHaddToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -167,16 +170,16 @@
             toolStripMenuItem_New.Name = "toolStripMenuItem_New";
             resources.ApplyResources(toolStripMenuItem_New, "toolStripMenuItem_New");
             // 
-            // toolStripMenuItem_Clone
-            // 
-            toolStripMenuItem_Clone.Name = "toolStripMenuItem_Clone";
-            resources.ApplyResources(toolStripMenuItem_Clone, "toolStripMenuItem_Clone");
-            // 
             // toolStripMenuItem_Modify
             // 
             toolStripMenuItem_Modify.Image = Properties.Resources.edit;
             toolStripMenuItem_Modify.Name = "toolStripMenuItem_Modify";
             resources.ApplyResources(toolStripMenuItem_Modify, "toolStripMenuItem_Modify");
+            // 
+            // toolStripMenuItem_Clone
+            // 
+            toolStripMenuItem_Clone.Name = "toolStripMenuItem_Clone";
+            resources.ApplyResources(toolStripMenuItem_Clone, "toolStripMenuItem_Clone");
             // 
             // toolStripSeparator5
             // 
@@ -260,7 +263,7 @@
             // 
             // externalAppsToolStripMenuItem
             // 
-            externalAppsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { dockerToolStripMenuItem, toolStripSeparator8, windowsFirewallToolStripMenuItem, adaptersToolStripMenuItem });
+            externalAppsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { dockerToolStripMenuItem, toolStripSeparator8, windowsFirewallToolStripMenuItem, adaptersToolStripMenuItem, toolStripSeparator10, sitesToolStripMenuItem });
             externalAppsToolStripMenuItem.Name = "externalAppsToolStripMenuItem";
             resources.ApplyResources(externalAppsToolStripMenuItem, "externalAppsToolStripMenuItem");
             // 
@@ -334,6 +337,24 @@
             adaptersToolStripMenuItem.Name = "adaptersToolStripMenuItem";
             resources.ApplyResources(adaptersToolStripMenuItem, "adaptersToolStripMenuItem");
             adaptersToolStripMenuItem.Click += adaptersToolStripMenuItem_Click;
+            // 
+            // toolStripSeparator10
+            // 
+            toolStripSeparator10.Name = "toolStripSeparator10";
+            resources.ApplyResources(toolStripSeparator10, "toolStripSeparator10");
+            // 
+            // sitesToolStripMenuItem
+            // 
+            sitesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { portForwardingTesterToolStripMenuItem });
+            sitesToolStripMenuItem.Name = "sitesToolStripMenuItem";
+            resources.ApplyResources(sitesToolStripMenuItem, "sitesToolStripMenuItem");
+            // 
+            // portForwardingTesterToolStripMenuItem
+            // 
+            portForwardingTesterToolStripMenuItem.Image = Properties.Resources.yougetsignal;
+            portForwardingTesterToolStripMenuItem.Name = "portForwardingTesterToolStripMenuItem";
+            resources.ApplyResources(portForwardingTesterToolStripMenuItem, "portForwardingTesterToolStripMenuItem");
+            portForwardingTesterToolStripMenuItem.Click += portForwardingTesterToolStripMenuItem_Click;
             // 
             // advancedToolStripMenuItem1
             // 
@@ -488,6 +509,9 @@
         private System.Windows.Forms.ImageList imgListProxies;
         private System.Windows.Forms.ToolStripMenuItem registryKeyToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
+        private System.Windows.Forms.ToolStripMenuItem sitesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem portForwardingTesterToolStripMenuItem;
     }
 }
 

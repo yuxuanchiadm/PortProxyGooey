@@ -4,12 +4,15 @@ using NStandard;
 using PortProxyGooey.Data;
 using PortProxyGooey.Utils;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 //using System.Web.UI.WebControls;
@@ -20,9 +23,10 @@ using Rule = PortProxyGooey.Data.Rule;
 
 #endregion
 
-// NOTE: I think this entire form isn't really "needed"; it could all be done right from the listview itself on the main form.
-// TODO:
+// TODO: 1) Remove comboBox_Type and all code refs to it.
 //       2) I added a range of 45 to 54 and label said 10?
+//       3) Add all auto-comment ports to the relevant autocomplete fields as well.
+//       4) BUG: cant enter colons now, in the listenon/connectto fields, which means no ip6.
 namespace PortProxyGooey
 {
     public partial class SetProxy : Form
@@ -36,6 +40,13 @@ namespace PortProxyGooey
         private ListViewItem _listViewItem;
         private Rule _itemRule;
 
+        // Remembers the last label we added for the user
+        private string strLastAutoLabel = string.Empty;
+
+        // Compiled regex = more efficient
+        [GeneratedRegex("^(([0-9a-fA-F]{1,4}:){7}([0-9a-fA-F]{1,4}|:))|(([0-9a-fA-F]{1,4}:){0,6}(:[0-9a-fA-F]{1,4}){1,6})$")]
+        private static partial Regex IPv6RegEx();
+
         #endregion
 
         public SetProxy(PortProxyGooey parent)
@@ -44,11 +55,6 @@ namespace PortProxyGooey
 
             InitializeComponent();
             Font = InterfaceUtil.UiFont;
-
-            // Init MouseWheel scrolling in textboxes
-            textBox_ListenPort.MouseWheel += TextBox_ListenPort_MouseWheel;
-            textBox_ListenPortRange.MouseWheel += TextBox_ListenPortRange_MouseWheel;
-            textBox_ConnectPort.MouseWheel += TextBox_ConnectPort_MouseWheel;
 
             //
             AutoTypeString = comboBox_Type.Text = comboBox_Type.Items.OfType<string>().First();
@@ -59,7 +65,7 @@ namespace PortProxyGooey
                 where !header.IsNullOrWhiteSpace()
                 select header
             ).ToArray();
-                
+
             comboBox_Group.Items.AddRange(groupNames);
         }
 
@@ -117,7 +123,7 @@ namespace PortProxyGooey
         {
             // Scott Note to original author: Is this correct? Looks more like a MAC Address regex? I added a better regex below, but leaving original for posterity.
             // return ip.IsMatch(new Regex(@"^[\dABCDEF]{2}(?::(?:[\dABCDEF]{2})){5}$"));
-            return ip.IsMatch(new Regex(@"^(([0-9a-fA-F]{1,4}:){7}([0-9a-fA-F]{1,4}|:))|(([0-9a-fA-F]{1,4}:){0,6}(:[0-9a-fA-F]{1,4}){1,6})$"));
+            return ip.IsMatch(IPv6RegEx());
         }
 
         /// <summary>
@@ -176,9 +182,6 @@ namespace PortProxyGooey
             // Validate IPv4 (TODO: works great for IP4, but what if we add IP6 in one or both fields?) IP6 regex updated and now working. Look into if it's validation is needed anywwhere else.
             if (!ValidateIPv4(strListen, 1)) return;
             if (!ValidateIPv4(strConnect, 2)) return;
-
-            // TODO: unfinished(?) We might be done now. just go through and confirm. I've confirmed range duping does work.
-            //Debug.Write(DupeCheck());
 
             // Add to Rule
             Rule rule = new()
@@ -282,7 +285,6 @@ namespace PortProxyGooey
             {
                 lblWSLIP.Text = "WSL: Dunno";
             }
-
             this.Cursor = Cursors.Default;
         }
 
@@ -310,27 +312,51 @@ namespace PortProxyGooey
 
         private void textBox_ListenPort_TextChanged(object sender, EventArgs e)
         {
+            // Add the same port to the range box as a starting point
             textBox_ListenPortRange.Text = textBox_ListenPort.Text;
+
+            // Add the same port to the connect port box as a starting point
             textBox_ConnectPort.Text = textBox_ListenPort.Text;
 
-            // If it's a dupe port shwo the label; else hide it.
+            // If it's a dupe port show the label; else hide it.
             lblDupe.Visible = DupeCheck();
 
-            AutoComment();
+            // Auto-comment common ports
+            AutoComment(textBox_ListenPort);
         }
 
         private void textBox_ListenPortRange_TextChanged(object sender, EventArgs e)
         {
-            // TODO: I think I can create a single Call for this sub and line 260 called somethign like "UpdateRangeLabel"
+            // TODO: I think I can create a single Call for this sub and line 260 called something like "UpdateRangeLabel"
             int intRangeCount = CalcRange();
             string strBase = "Adding:";
 
             lblRangeCount.Text = intRangeCount < 0 ? strBase + " 0" : string.Format("{0} {1}", strBase, intRangeCount);
+
+            // Auto-comment common ports
+            AutoComment(textBox_ListenPortRange);
         }
 
+        private void textBox_ConnectPort_TextChanged(object sender, EventArgs e)
+        {
+            // Auto-comment common ports
+            AutoComment(textBox_ConnectPort);
+        }
+
+        /// <summary>
+        /// Calculats how many ports will be added based on the values in the port fields
+        /// </summary>
+        /// <returns>Number of ports</returns>
         private int CalcRange()
         {
-            return (Convert.ToInt32(textBox_ListenPortRange.Text.Trim()) - Convert.ToInt32(textBox_ListenPort.Text.Trim()) + 1);
+            // Make sure we have something to calc first, or else error.
+            if (!string.IsNullOrWhiteSpace(textBox_ListenPortRange.Text) && !string.IsNullOrWhiteSpace(textBox_ListenPort.Text))
+            {
+                int intLPR = Convert.ToInt32(textBox_ListenPortRange.Text.Trim());
+                int intLP = Convert.ToInt32(textBox_ListenPort.Text.Trim());
+                return ((intLPR - intLP) + 1);
+            }
+            return 0;
         }
 
         /// <summary>
@@ -368,36 +394,67 @@ namespace PortProxyGooey
         /// <summary>
         /// Automatically enters info in the Comment field for recognized ports.
         /// </summary>
-        private void AutoComment()
+        private void AutoComment(System.Windows.Forms.TextBox textBox)
         {
+            // Ref: https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers
+
             Dictionary<string, string> port = new()
             {
-                {"MySQL/MariaDB", "3306"},
+                {"FTP", "21"},
                 {"SSH", "22"},
+                {"Telnet", "23"},
+                {"SMTP", "25"},
                 {"HTTP", "80"},
                 {"DNS", "53"},
+                {"POP3", "110"},
+                {"sFTP", "115"},
+                {"RPC", "135"},
+                {"NetBIOS", "139"},
+                {"IMAP", "143"},
+                {"IRC", "194"},
+                {"HTTPS", "443"},
+                {"SMB", "445"},
+                {"MSSQL", "1433"},
                 {"Docker Socket", "2375"},
-                {"Docker Socket (Secure)", "2376"},
-                {"Glances", "61208"},
-                {"HTTPS", "443"}
+                {"Docker Socket (SSL)", "2376"},
+                {"MySQL/MariaDB", "3306"},
+                {"RDP", "3389"},
+                {"PCAnywhere", "5632"},
+                {"VNC", "5900"},
+                {"Jellyfin", "8920"},
+                {"Prometheus", "9090"},
+                {"Transmission", "9091"},
+                {"Syncthing", "8384,22000"},
+                {"Minecraft", "25565"},
+                {"TeamSpeak", "10011,10022,30033"},
+                {"TetriNET", "31457"},
+                {"Plex", "32400"},
+                {"Jenkens", "33848"},
+                {"Glances", "61208"}
             };
 
-            // TODO: Also need to figure out the other port fields and how they'll fit into this.
-            string searchValue = textBox_ListenPort.Text.Trim();
-            string matchingKey = port.FirstOrDefault(x => x.Value == searchValue).Key;
-
-            if (matchingKey != null)
+            // TODO: Add more ports, i.e. the *arr and other docker things.
+            // TODO: Add saving of below option to db
+            if (chkAutoComment.Checked)
             {
-                Debug.WriteLine($"The key for value '{searchValue}' is '{matchingKey}'.");
-                textBox_Comment.Text = matchingKey;
-            }
-            else
-            {
-                Debug.WriteLine($"No key found for value '{searchValue}'.");
-                // TODO: Currently, if user already typed something here, then types in the ports field, their comment wll get erased; we don't want that.
-                textBox_Comment.Text = string.Empty;
-            }
+                // Auto-Labeling of Common Ports
+                string searchValue = textBox.Text.Trim();
+                string matchingKey = port.FirstOrDefault(x => x.Value.Split(',').Contains(searchValue)).Key;
 
+                if (matchingKey != null)
+                {
+                    // If user enters a common port, give it an auto-label as a convenience to them. Non-destructive: this will not delete anything they have manually typed in the comment field.
+                    //Debug.WriteLine($"The key for value '{searchValue}' is '{matchingKey}'.");
+                    textBox_Comment.Text = string.Format("[{0}] {1}", matchingKey, string.IsNullOrEmpty(strLastAutoLabel) ? textBox_Comment.Text.Trim() : textBox_Comment.Text.Replace(strLastAutoLabel, string.Empty).Trim());
+                    strLastAutoLabel = string.Format("[{0}]", matchingKey);
+                }
+                else
+                {
+                    // If no matching port found, just leave whatever text they may have entered, removing any previous auto-label if exists.
+                    //Debug.WriteLine($"No key found for value '{searchValue}'.");
+                    textBox_Comment.Text = string.IsNullOrEmpty(strLastAutoLabel) ? textBox_Comment.Text.Trim() : textBox_Comment.Text.Replace(strLastAutoLabel, string.Empty).Trim();
+                }
+            }
         }
 
         /// <summary>
@@ -436,7 +493,7 @@ namespace PortProxyGooey
         }
 
         /// <summary>
-        /// Autoselects the correct Type based on what the user types into the LisatenOn/ConnectTo fields
+        /// Auto-selects the correct Type based on what the user types into the LisatenOn/ConnectTo fields
         /// </summary>
         private void TypeCheck()
         {
@@ -567,6 +624,63 @@ namespace PortProxyGooey
             textBox.SelectionStart = textBox.TextLength;
             textBox.SelectionLength = 0;
         }
+
+        #endregion
+
+        #region TextBox KeyPress
+
+        private void textBox_ListenPort_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            DigitsOnly(e);
+        }
+
+        private void textBox_ConnectPort_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            DigitsOnly(e);
+        }
+
+        private void textBox_ListenPortRange_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            DigitsOnly(e);
+        }
+
+        /// <summary>
+        /// Cancels the event if anything other than a number is entered
+        /// </summary>
+        private static void DigitsOnly(KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != '\b')
+            {
+                e.Handled = true;
+            }
+        }
+
+        #endregion
+
+        #region ComboBox KeyPress
+
+        private void comboBox_ListenOn_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            OnlyCertainAllowed(e);
+        }
+
+        private void comboBox_ConnectTo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            OnlyCertainAllowed(e);
+        }
+
+        /// <summary>
+        /// Only numbers, period, and asterisk allowed.
+        /// </summary>
+        private static void OnlyCertainAllowed(KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != '.' && e.KeyChar != '*' && e.KeyChar != '\b')
+            {
+                e.Handled = true;
+            }
+        }
+
+
 
         #endregion
 

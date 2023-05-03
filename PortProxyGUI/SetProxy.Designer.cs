@@ -37,7 +37,6 @@ namespace PortProxyGooey
             textBox_ConnectPort = new TextBox();
             label_ConnectPort = new Label();
             button_Set = new Button();
-            label_Type = new Label();
             label_ListenPort = new Label();
             textBox_ListenPort = new TextBox();
             comboBox_Type = new ComboBox();
@@ -55,6 +54,7 @@ namespace PortProxyGooey
             lblType = new Label();
             lblRangeCount = new Label();
             progBarRange = new ProgressBar();
+            chkAutoComment = new CheckBox();
             comboBox_ConnectTo = new ComboBox();
             lblDupe = new Label();
             btnCancel = new Button();
@@ -87,7 +87,10 @@ namespace PortProxyGooey
             resources.ApplyResources(textBox_ConnectPort, "textBox_ConnectPort");
             textBox_ConnectPort.ForeColor = System.Drawing.Color.FromArgb(229, 233, 240);
             textBox_ConnectPort.Name = "textBox_ConnectPort";
+            textBox_ConnectPort.TextChanged += textBox_ConnectPort_TextChanged;
             textBox_ConnectPort.KeyDown += textBox_ConnectPort_KeyDown;
+            textBox_ConnectPort.KeyPress += textBox_ConnectPort_KeyPress;
+            textBox_ConnectPort.MouseWheel += TextBox_ConnectPort_MouseWheel;
             // 
             // label_ConnectPort
             // 
@@ -106,14 +109,6 @@ namespace PortProxyGooey
             button_Set.Name = "button_Set";
             button_Set.UseVisualStyleBackColor = true;
             button_Set.Click += button_Set_Click;
-            // 
-            // label_Type
-            // 
-            resources.ApplyResources(label_Type, "label_Type");
-            label_Type.Cursor = Cursors.Help;
-            label_Type.ForeColor = System.Drawing.Color.FromArgb(191, 97, 106);
-            label_Type.Name = "label_Type";
-            tTipSetProxy.SetToolTip(label_Type, resources.GetString("label_Type.ToolTip"));
             // 
             // label_ListenPort
             // 
@@ -135,6 +130,8 @@ namespace PortProxyGooey
             textBox_ListenPort.Name = "textBox_ListenPort";
             textBox_ListenPort.TextChanged += textBox_ListenPort_TextChanged;
             textBox_ListenPort.KeyDown += textBox_ListenPort_KeyDown;
+            textBox_ListenPort.KeyPress += textBox_ListenPort_KeyPress;
+            textBox_ListenPort.MouseWheel += TextBox_ListenPort_MouseWheel;
             // 
             // comboBox_Type
             // 
@@ -197,6 +194,7 @@ namespace PortProxyGooey
             comboBox_ListenOn.Items.AddRange(new object[] { resources.GetString("comboBox_ListenOn.Items"), resources.GetString("comboBox_ListenOn.Items1"), resources.GetString("comboBox_ListenOn.Items2") });
             comboBox_ListenOn.Name = "comboBox_ListenOn";
             comboBox_ListenOn.TextChanged += comboBox_ListenOn_TextChanged;
+            comboBox_ListenOn.KeyPress += comboBox_ListenOn_KeyPress;
             // 
             // textBox_ListenPortRange
             // 
@@ -211,6 +209,8 @@ namespace PortProxyGooey
             tTipSetProxy.SetToolTip(textBox_ListenPortRange, resources.GetString("textBox_ListenPortRange.ToolTip"));
             textBox_ListenPortRange.TextChanged += textBox_ListenPortRange_TextChanged;
             textBox_ListenPortRange.KeyDown += textBox_ListenPortRange_KeyDown;
+            textBox_ListenPortRange.KeyPress += textBox_ListenPortRange_KeyPress;
+            textBox_ListenPortRange.MouseWheel += TextBox_ListenPortRange_MouseWheel;
             // 
             // lblDash
             // 
@@ -271,6 +271,17 @@ namespace PortProxyGooey
             progBarRange.Style = ProgressBarStyle.Continuous;
             tTipSetProxy.SetToolTip(progBarRange, resources.GetString("progBarRange.ToolTip"));
             // 
+            // chkAutoComment
+            // 
+            resources.ApplyResources(chkAutoComment, "chkAutoComment");
+            chkAutoComment.Checked = true;
+            chkAutoComment.CheckState = CheckState.Checked;
+            chkAutoComment.Cursor = Cursors.Help;
+            chkAutoComment.ForeColor = System.Drawing.Color.FromArgb(216, 222, 233);
+            chkAutoComment.Name = "chkAutoComment";
+            tTipSetProxy.SetToolTip(chkAutoComment, resources.GetString("chkAutoComment.ToolTip"));
+            chkAutoComment.UseVisualStyleBackColor = true;
+            // 
             // comboBox_ConnectTo
             // 
             comboBox_ConnectTo.AutoCompleteCustomSource.AddRange(new string[] { resources.GetString("comboBox_ConnectTo.AutoCompleteCustomSource"), resources.GetString("comboBox_ConnectTo.AutoCompleteCustomSource1"), resources.GetString("comboBox_ConnectTo.AutoCompleteCustomSource2"), resources.GetString("comboBox_ConnectTo.AutoCompleteCustomSource3"), resources.GetString("comboBox_ConnectTo.AutoCompleteCustomSource4"), resources.GetString("comboBox_ConnectTo.AutoCompleteCustomSource5"), resources.GetString("comboBox_ConnectTo.AutoCompleteCustomSource6"), resources.GetString("comboBox_ConnectTo.AutoCompleteCustomSource7") });
@@ -283,11 +294,12 @@ namespace PortProxyGooey
             comboBox_ConnectTo.Items.AddRange(new object[] { resources.GetString("comboBox_ConnectTo.Items"), resources.GetString("comboBox_ConnectTo.Items1"), resources.GetString("comboBox_ConnectTo.Items2") });
             comboBox_ConnectTo.Name = "comboBox_ConnectTo";
             comboBox_ConnectTo.TextChanged += comboBox_ConnectTo_TextChanged;
+            comboBox_ConnectTo.KeyPress += comboBox_ConnectTo_KeyPress;
             // 
             // lblDupe
             // 
-            resources.ApplyResources(lblDupe, "lblDupe");
             lblDupe.BackColor = System.Drawing.Color.FromArgb(208, 135, 112);
+            resources.ApplyResources(lblDupe, "lblDupe");
             lblDupe.ForeColor = System.Drawing.Color.FromArgb(235, 203, 139);
             lblDupe.Name = "lblDupe";
             // 
@@ -303,9 +315,8 @@ namespace PortProxyGooey
             // 
             // lblClone
             // 
-            resources.ApplyResources(lblClone, "lblClone");
             lblClone.BackColor = System.Drawing.Color.FromArgb(103, 81, 99);
-            lblClone.Cursor = Cursors.Help;
+            resources.ApplyResources(lblClone, "lblClone");
             lblClone.ForeColor = System.Drawing.Color.FromArgb(180, 142, 173);
             lblClone.Name = "lblClone";
             // 
@@ -316,6 +327,7 @@ namespace PortProxyGooey
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = System.Drawing.Color.FromArgb(46, 52, 64);
             ControlBox = false;
+            Controls.Add(chkAutoComment);
             Controls.Add(lblClone);
             Controls.Add(btnCancel);
             Controls.Add(progBarRange);
@@ -336,7 +348,6 @@ namespace PortProxyGooey
             Controls.Add(comboBox_Type);
             Controls.Add(textBox_ListenPort);
             Controls.Add(label_ListenPort);
-            Controls.Add(label_Type);
             Controls.Add(button_Set);
             Controls.Add(label_ConnectPort);
             Controls.Add(textBox_ConnectPort);
@@ -361,7 +372,6 @@ namespace PortProxyGooey
         private System.Windows.Forms.TextBox textBox_ConnectPort;
         private System.Windows.Forms.Label label_ConnectPort;
         private System.Windows.Forms.Button button_Set;
-        private System.Windows.Forms.Label label_Type;
         private System.Windows.Forms.Label label_ListenPort;
         private System.Windows.Forms.TextBox textBox_ListenPort;
         private System.Windows.Forms.ComboBox comboBox_Type;
@@ -383,5 +393,6 @@ namespace PortProxyGooey
         private ProgressBar progBarRange;
         private Button btnCancel;
         private Label lblClone;
+        private CheckBox chkAutoComment;
     }
 }

@@ -16,10 +16,18 @@ using System.Windows.Forms;
 
 namespace PortProxyGooey.Utils
 {
-    public static class PortProxyUtil
+    public static partial class PortProxyUtil
     {
+        #region + -- VAR DECLARATIONS -- +
+
         private static InvalidOperationException InvalidPortProxyType(string type) => new($"Invalid port proxy type ({type}).");
         private static readonly string[] ProxyTypes = new[] { "v4tov4", "v4tov6", "v6tov4", "v6tov6" };
+
+        // Compiled regex = more efficient
+        [GeneratedRegex("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}")]
+        private static partial Regex IPv4RegEx();
+
+        #endregion
 
         /// <summary>
         /// Gets the path to the registry key for the passed string
@@ -157,7 +165,7 @@ namespace PortProxyGooey.Utils
             string strOutput = p.StandardOutput.ReadToEnd();
             p.WaitForExit();
 
-            string strWSLIP = Regex.Match(strOutput, "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}").ToString();
+            string strWSLIP = IPv4RegEx().Match(strOutput).ToString();
             return strWSLIP.Length > 0 ? strWSLIP : string.Empty;
         }
 
@@ -168,18 +176,19 @@ namespace PortProxyGooey.Utils
         /// <returns></returns>
         public static bool IsIPv4(string ip)
         {
-            return ip.IsMatch(new Regex(@"^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$"));
+            return ip.IsMatch(IPv4RegEx());
         }
 
         #region DNS UTILS
 
-        [DllImport("dnsapi.dll", EntryPoint = "DnsFlushResolverCache")]
-        static extern uint DnsFlushResolverCache();
+        [return: MarshalAs(UnmanagedType.Bool)]
+        [LibraryImport("dnsapi.dll")]
+        public static partial bool DnsFlushResolverCache();
 
         public static void FlushCache()
         {
-            uint status = DnsFlushResolverCache();
-            if (status == 0)
+            bool status = DnsFlushResolverCache();
+            if (status == false)
             {
                 throw new InvalidOperationException("Flush DNS Cache failed.");
             }

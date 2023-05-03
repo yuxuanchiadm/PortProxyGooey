@@ -913,5 +913,10 @@ namespace PortProxyGooey
             }
             Process.Start("regedit.exe");
         }
+
+        private void portForwardingTesterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PortProxyUtil.Launch("https://www.yougetsignal.com/tools/open-ports");
+        }
     }
 }
