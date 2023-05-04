@@ -30,6 +30,7 @@
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PortProxyGooey));
+            System.Windows.Forms.Label lblPP;
             listViewProxies = new System.Windows.Forms.ListView();
             columnHeaderState = new System.Windows.Forms.ColumnHeader();
             columnHeader2 = new System.Windows.Forms.ColumnHeader();
@@ -88,16 +89,22 @@
             imgListProxies = new System.Windows.Forms.ImageList(components);
             saveFileDialog_Export = new System.Windows.Forms.SaveFileDialog();
             openFileDialog_Import = new System.Windows.Forms.OpenFileDialog();
+            lblProxyCount = new System.Windows.Forms.Label();
+            lblGooey = new System.Windows.Forms.Label();
+            lblJSE = new System.Windows.Forms.Label();
+            pnlBar = new System.Windows.Forms.Panel();
+            tTipPPG = new System.Windows.Forms.ToolTip(components);
+            lblPP = new System.Windows.Forms.Label();
             contextMenuStrip_RightClick.SuspendLayout();
             SuspendLayout();
             // 
             // listViewProxies
             // 
+            resources.ApplyResources(listViewProxies, "listViewProxies");
             listViewProxies.BackColor = System.Drawing.Color.FromArgb(67, 76, 94);
             listViewProxies.BorderStyle = System.Windows.Forms.BorderStyle.None;
             listViewProxies.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { columnHeaderState, columnHeader2, columnHeader3, columnHeader4, columnHeader5, columnHeader6, columnHeader7 });
             listViewProxies.ContextMenuStrip = contextMenuStrip_RightClick;
-            resources.ApplyResources(listViewProxies, "listViewProxies");
             listViewProxies.ForeColor = System.Drawing.Color.FromArgb(229, 233, 240);
             listViewProxies.FullRowSelect = true;
             listViewProxies.Name = "listViewProxies";
@@ -438,12 +445,60 @@
             openFileDialog_Import.FileName = "openFileDialog1";
             resources.ApplyResources(openFileDialog_Import, "openFileDialog_Import");
             // 
+            // lblProxyCount
+            // 
+            resources.ApplyResources(lblProxyCount, "lblProxyCount");
+            lblProxyCount.Cursor = System.Windows.Forms.Cursors.Help;
+            lblProxyCount.ForeColor = System.Drawing.Color.FromArgb(59, 66, 82);
+            lblProxyCount.Name = "lblProxyCount";
+            tTipPPG.SetToolTip(lblProxyCount, resources.GetString("lblProxyCount.ToolTip"));
+            // 
+            // lblGooey
+            // 
+            resources.ApplyResources(lblGooey, "lblGooey");
+            lblGooey.ForeColor = System.Drawing.Color.FromArgb(216, 222, 233);
+            lblGooey.Name = "lblGooey";
+            // 
+            // lblJSE
+            // 
+            resources.ApplyResources(lblJSE, "lblJSE");
+            lblJSE.Cursor = System.Windows.Forms.Cursors.Help;
+            lblJSE.ForeColor = System.Drawing.Color.FromArgb(143, 188, 187);
+            lblJSE.Name = "lblJSE";
+            tTipPPG.SetToolTip(lblJSE, resources.GetString("lblJSE.ToolTip"));
+            // 
+            // pnlBar
+            // 
+            resources.ApplyResources(pnlBar, "pnlBar");
+            pnlBar.BackColor = System.Drawing.Color.FromArgb(143, 188, 187);
+            pnlBar.Name = "pnlBar";
+            // 
+            // tTipPPG
+            // 
+            tTipPPG.AutoPopDelay = 5000;
+            tTipPPG.BackColor = System.Drawing.Color.FromArgb(235, 203, 139);
+            tTipPPG.InitialDelay = 1000;
+            tTipPPG.ReshowDelay = 100;
+            // 
+            // lblPP
+            // 
+            resources.ApplyResources(lblPP, "lblPP");
+            lblPP.Cursor = System.Windows.Forms.Cursors.Help;
+            lblPP.ForeColor = System.Drawing.Color.FromArgb(94, 129, 172);
+            lblPP.Name = "lblPP";
+            tTipPPG.SetToolTip(lblPP, resources.GetString("lblPP.ToolTip"));
+            // 
             // PortProxyGooey
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.FromArgb(46, 52, 64);
+            Controls.Add(lblPP);
+            Controls.Add(pnlBar);
+            Controls.Add(lblJSE);
             Controls.Add(listViewProxies);
+            Controls.Add(lblGooey);
+            Controls.Add(lblProxyCount);
             Name = "PortProxyGooey";
             FormClosing += PortProxyGUI_FormClosing;
             Load += PortProxyGUI_Load;
@@ -512,6 +567,11 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
         private System.Windows.Forms.ToolStripMenuItem sitesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem portForwardingTesterToolStripMenuItem;
+        private System.Windows.Forms.Label lblProxyCount;
+        private System.Windows.Forms.Label lblGooey;
+        private System.Windows.Forms.Label lblJSE;
+        private System.Windows.Forms.Panel pnlBar;
+        private System.Windows.Forms.ToolTip tTipPPG;
     }
 }
 

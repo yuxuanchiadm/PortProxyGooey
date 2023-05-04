@@ -236,6 +236,10 @@ namespace PortProxyGooey
             lblRequired.Name = "lblRequired";
             tTipSetProxy.SetToolTip(lblRequired, resources.GetString("lblRequired.ToolTip"));
             // 
+            // tTipSetProxy
+            // 
+            tTipSetProxy.BackColor = System.Drawing.Color.FromArgb(235, 203, 139);
+            // 
             // lblWSLIP
             // 
             resources.ApplyResources(lblWSLIP, "lblWSLIP");

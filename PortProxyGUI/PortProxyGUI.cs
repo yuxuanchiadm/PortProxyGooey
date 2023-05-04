@@ -11,6 +11,8 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Resources;
 using System.Windows.Forms;
 using static System.Windows.Forms.ListViewItem;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
@@ -48,6 +50,14 @@ namespace PortProxyGooey
 
         private void PortProxyGUI_Load(object sender, EventArgs e)
         {
+            // Get the resource manager for your application.
+            ResourceManager rm = Properties.Resources.ResourceManager;
+
+            // Retrieve the image resource by name.
+            Image img = (Image)rm.GetObject("decoration");
+
+            //e.Graphics.DrawImage(img, 50, 50, 100, 100);
+
             AppConfig = Program.Database.GetAppConfig();
 
             // Set Main Window Size from saved settings
@@ -191,6 +201,7 @@ namespace PortProxyGooey
             DisableSelectedProxies();
             Program.Database.RemoveRange(items.Select(x => new Rule { Id = x.Tag.ToString() }));
             foreach (ListViewItem item in items) listViewProxies.Items.Remove(item);
+            RefreshProxyList();
         }
 
         private void SetProxyForUpdateOrClone(SetProxy form, bool bclone = false)
@@ -307,6 +318,7 @@ namespace PortProxyGooey
             InitProxyGroups(rules);
             InitProxyItems(rules, proxies);
 
+            lblProxyCount.Text = listViewProxies.Items.Count.ToString();
             listViewProxies.Cursor = Cursors.Default;
         }
 
@@ -604,6 +616,8 @@ namespace PortProxyGooey
             {
                 AppConfig.MainWindowSize = form.Size;
             }
+
+            Debug.WriteLine(string.Format("w: {0} h: {1}", this.Width, this.Height));
         }
 
         #region IMPORT / EXPORT

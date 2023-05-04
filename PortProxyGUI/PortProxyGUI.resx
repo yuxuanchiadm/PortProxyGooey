@@ -57,6 +57,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="listViewProxies.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
   <data name="columnHeaderState.Text" xml:space="preserve">
     <value />
   </data>
@@ -110,7 +114,6 @@
   <data name="toolStripMenuItem_Enable.ShortcutKeyDisplayString" xml:space="preserve">
     <value />
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="toolStripMenuItem_Enable.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+E</value>
   </data>
@@ -490,9 +493,6 @@ in case you want to download it.</value>
   <data name="&gt;&gt;contextMenuStrip_RightClick.Type" xml:space="preserve">
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="listViewProxies.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
   <data name="listViewProxies.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft YaHei UI, 9pt</value>
   </data>
@@ -504,7 +504,7 @@ in case you want to download it.</value>
     <value>4, 3, 4, 3</value>
   </data>
   <data name="listViewProxies.Size" type="System.Drawing.Size, System.Drawing">
-    <value>704, 461</value>
+    <value>706, 398</value>
   </data>
   <metadata name="imgListProxies.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>569, 17</value>
@@ -514,7 +514,7 @@ in case you want to download it.</value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAmgsAAAJNU0Z0AUkBTAIBAQIB
-        AAEQAQEBEAEBARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARAe
+        AAHQAQEB0AEBARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARAe
         AAMqAUADKgFAAyoBQAMqAUADKgFAAyoBQAMqAUADKgFAAyoBQAMqAUDQAAMMARACWQFbAcABPAFNAv8B
         PAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8CWQFbAcAD
         DAEQCAADDAEQAlsBWQHAAa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQB
@@ -579,7 +579,7 @@ in case you want to download it.</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;listViewProxies.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>4</value>
   </data>
   <metadata name="saveFileDialog_Export.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>225, 17</value>
@@ -593,6 +593,186 @@ in case you want to download it.</value>
   <data name="openFileDialog_Import.Filter" xml:space="preserve">
     <value>Database File|*.db</value>
   </data>
+  <data name="lblProxyCount.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="lblProxyCount.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe Script, 48pt, style=Bold, Italic</value>
+  </data>
+  <data name="lblProxyCount.Location" type="System.Drawing.Point, System.Drawing">
+    <value>488, 391</value>
+  </data>
+  <data name="lblProxyCount.Size" type="System.Drawing.Size, System.Drawing">
+    <value>213, 102</value>
+  </data>
+  <data name="lblProxyCount.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="lblProxyCount.Text" xml:space="preserve">
+    <value>777</value>
+  </data>
+  <data name="lblProxyCount.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <metadata name="tTipPPG.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>698, 17</value>
+  </metadata>
+  <data name="lblProxyCount.ToolTip" xml:space="preserve">
+    <value>Number of proxies in your list</value>
+  </data>
+  <data name="&gt;&gt;lblProxyCount.Name" xml:space="preserve">
+    <value>lblProxyCount</value>
+  </data>
+  <data name="&gt;&gt;lblProxyCount.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblProxyCount.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lblProxyCount.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="lblGooey.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="lblGooey.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe Print, 48pt, style=Bold</value>
+  </data>
+  <data name="lblGooey.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblGooey.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 384</value>
+  </data>
+  <data name="lblGooey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>292, 102</value>
+  </data>
+  <data name="lblGooey.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="lblGooey.Text" xml:space="preserve">
+    <value>GOOEY</value>
+  </data>
+  <data name="lblGooey.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;lblGooey.Name" xml:space="preserve">
+    <value>lblGooey</value>
+  </data>
+  <data name="&gt;&gt;lblGooey.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblGooey.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lblGooey.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="lblJSE.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="lblJSE.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe Script, 12pt</value>
+  </data>
+  <data name="lblJSE.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblJSE.Location" type="System.Drawing.Point, System.Drawing">
+    <value>252, 446</value>
+  </data>
+  <data name="lblJSE.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 33</value>
+  </data>
+  <data name="lblJSE.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="lblJSE.Text" xml:space="preserve">
+    <value>JSE</value>
+  </data>
+  <data name="lblJSE.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="lblJSE.ToolTip" xml:space="preserve">
+    <value>The J. Scott Elblein Fork</value>
+  </data>
+  <data name="&gt;&gt;lblJSE.Name" xml:space="preserve">
+    <value>lblJSE</value>
+  </data>
+  <data name="&gt;&gt;lblJSE.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblJSE.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lblJSE.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="pnlBar.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="pnlBar.Location" type="System.Drawing.Point, System.Drawing">
+    <value>-1, 398</value>
+  </data>
+  <data name="pnlBar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>705, 3</value>
+  </data>
+  <data name="pnlBar.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;pnlBar.Name" xml:space="preserve">
+    <value>pnlBar</value>
+  </data>
+  <data name="&gt;&gt;pnlBar.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pnlBar.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;pnlBar.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <metadata name="lblPP.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <data name="lblPP.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="lblPP.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe Script, 8.25pt, style=Italic</value>
+  </data>
+  <data name="lblPP.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblPP.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 406</value>
+  </data>
+  <data name="lblPP.Size" type="System.Drawing.Size, System.Drawing">
+    <value>29, 24</value>
+  </data>
+  <data name="lblPP.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="lblPP.Text" xml:space="preserve">
+    <value>PP</value>
+  </data>
+  <data name="lblPP.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="lblPP.ToolTip" xml:space="preserve">
+    <value>The J. Scott Elblein Fork</value>
+  </data>
+  <data name="&gt;&gt;lblPP.Name" xml:space="preserve">
+    <value>lblPP</value>
+  </data>
+  <data name="&gt;&gt;lblPP.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblPP.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lblPP.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -600,7 +780,7 @@ in case you want to download it.</value>
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>704, 461</value>
+    <value>704, 491</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -2763,6 +2943,9 @@ in case you want to download it.</value>
   <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
   </data>
+  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>598, 174</value>
+  </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterScreen</value>
   </data>
@@ -3104,6 +3287,12 @@ in case you want to download it.</value>
   </data>
   <data name="&gt;&gt;openFileDialog_Import.Type" xml:space="preserve">
     <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tTipPPG.Name" xml:space="preserve">
+    <value>tTipPPG</value>
+  </data>
+  <data name="&gt;&gt;tTipPPG.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>PortProxyGooey</value>
