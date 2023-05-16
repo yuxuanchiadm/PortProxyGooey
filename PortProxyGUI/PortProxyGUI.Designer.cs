@@ -1,7 +1,5 @@
-﻿namespace PortProxyGooey
-{
-    partial class PortProxyGooey
-    {
+﻿namespace PortProxyGooey {
+    partial class PortProxyGooey {
         /// <summary>
         ///  Required designer variable.
         /// </summary>
@@ -11,10 +9,8 @@
         ///  Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -26,11 +22,10 @@
         ///  Required method for Designer support - do not modify
         ///  the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
-        {
+        private void InitializeComponent() {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PortProxyGooey));
             System.Windows.Forms.Label lblPP;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PortProxyGooey));
             listViewProxies = new System.Windows.Forms.ListView();
             columnHeaderState = new System.Windows.Forms.ColumnHeader();
             columnHeader2 = new System.Windows.Forms.ColumnHeader();
@@ -84,6 +79,8 @@
             NetSHDelCopyToClipboard = new System.Windows.Forms.ToolStripMenuItem();
             NetSHDelViewCline = new System.Windows.Forms.ToolStripMenuItem();
             registryKeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
+            winsockResetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             toolStripMenuItem_About = new System.Windows.Forms.ToolStripMenuItem();
             imgListProxies = new System.Windows.Forms.ImageList(components);
@@ -97,6 +94,14 @@
             lblPP = new System.Windows.Forms.Label();
             contextMenuStrip_RightClick.SuspendLayout();
             SuspendLayout();
+            // 
+            // lblPP
+            // 
+            resources.ApplyResources(lblPP, "lblPP");
+            lblPP.Cursor = System.Windows.Forms.Cursors.Help;
+            lblPP.ForeColor = System.Drawing.Color.FromArgb(94, 129, 172);
+            lblPP.Name = "lblPP";
+            lblPP.DoubleClick += lblPP_DoubleClick;
             // 
             // listViewProxies
             // 
@@ -185,6 +190,7 @@
             // 
             // toolStripMenuItem_Clone
             // 
+            toolStripMenuItem_Clone.Image = Properties.Resources.clone;
             toolStripMenuItem_Clone.Name = "toolStripMenuItem_Clone";
             resources.ApplyResources(toolStripMenuItem_Clone, "toolStripMenuItem_Clone");
             // 
@@ -224,6 +230,7 @@
             // toolStripMenuItem_More
             // 
             toolStripMenuItem_More.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem1, toolStripSeparator6, toolStripMenuItem_FlushDnsCache, toolStripMenuItem_ResetWindowSize, toolStripSeparator9, externalAppsToolStripMenuItem, advancedToolStripMenuItem1 });
+            toolStripMenuItem_More.Image = Properties.Resources.more;
             toolStripMenuItem_More.Name = "toolStripMenuItem_More";
             resources.ApplyResources(toolStripMenuItem_More, "toolStripMenuItem_More");
             // 
@@ -365,7 +372,7 @@
             // 
             // advancedToolStripMenuItem1
             // 
-            advancedToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { NetSHToolStripMenuItem, registryKeyToolStripMenuItem });
+            advancedToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { NetSHToolStripMenuItem, registryKeyToolStripMenuItem, toolStripSeparator11, winsockResetToolStripMenuItem });
             advancedToolStripMenuItem1.Name = "advancedToolStripMenuItem1";
             resources.ApplyResources(advancedToolStripMenuItem1, "advancedToolStripMenuItem1");
             // 
@@ -418,6 +425,18 @@
             registryKeyToolStripMenuItem.Name = "registryKeyToolStripMenuItem";
             registryKeyToolStripMenuItem.Click += registryKeyToolStripMenuItem_Click;
             // 
+            // toolStripSeparator11
+            // 
+            toolStripSeparator11.Name = "toolStripSeparator11";
+            resources.ApplyResources(toolStripSeparator11, "toolStripSeparator11");
+            // 
+            // winsockResetToolStripMenuItem
+            // 
+            winsockResetToolStripMenuItem.Image = Properties.Resources.winsock;
+            winsockResetToolStripMenuItem.Name = "winsockResetToolStripMenuItem";
+            resources.ApplyResources(winsockResetToolStripMenuItem, "winsockResetToolStripMenuItem");
+            winsockResetToolStripMenuItem.Click += winsockResetToolStripMenuItem_Click;
+            // 
             // toolStripSeparator4
             // 
             toolStripSeparator4.Name = "toolStripSeparator4";
@@ -425,6 +444,7 @@
             // 
             // toolStripMenuItem_About
             // 
+            toolStripMenuItem_About.Image = Properties.Resources.about;
             toolStripMenuItem_About.Name = "toolStripMenuItem_About";
             resources.ApplyResources(toolStripMenuItem_About, "toolStripMenuItem_About");
             // 
@@ -452,12 +472,15 @@
             lblProxyCount.ForeColor = System.Drawing.Color.FromArgb(59, 66, 82);
             lblProxyCount.Name = "lblProxyCount";
             tTipPPG.SetToolTip(lblProxyCount, resources.GetString("lblProxyCount.ToolTip"));
+            lblProxyCount.DoubleClick += lblProxyCount_DoubleClick;
             // 
             // lblGooey
             // 
             resources.ApplyResources(lblGooey, "lblGooey");
             lblGooey.ForeColor = System.Drawing.Color.FromArgb(216, 222, 233);
             lblGooey.Name = "lblGooey";
+            tTipPPG.SetToolTip(lblGooey, resources.GetString("lblGooey.ToolTip"));
+            lblGooey.DoubleClick += lblGooey_DoubleClick;
             // 
             // lblJSE
             // 
@@ -466,12 +489,14 @@
             lblJSE.ForeColor = System.Drawing.Color.FromArgb(143, 188, 187);
             lblJSE.Name = "lblJSE";
             tTipPPG.SetToolTip(lblJSE, resources.GetString("lblJSE.ToolTip"));
+            lblJSE.DoubleClick += lblJSE_DoubleClick;
             // 
             // pnlBar
             // 
             resources.ApplyResources(pnlBar, "pnlBar");
             pnlBar.BackColor = System.Drawing.Color.FromArgb(143, 188, 187);
             pnlBar.Name = "pnlBar";
+            pnlBar.DoubleClick += pnlBar_DoubleClick;
             // 
             // tTipPPG
             // 
@@ -479,14 +504,6 @@
             tTipPPG.BackColor = System.Drawing.Color.FromArgb(235, 203, 139);
             tTipPPG.InitialDelay = 1000;
             tTipPPG.ReshowDelay = 100;
-            // 
-            // lblPP
-            // 
-            resources.ApplyResources(lblPP, "lblPP");
-            lblPP.Cursor = System.Windows.Forms.Cursors.Help;
-            lblPP.ForeColor = System.Drawing.Color.FromArgb(94, 129, 172);
-            lblPP.Name = "lblPP";
-            tTipPPG.SetToolTip(lblPP, resources.GetString("lblPP.ToolTip"));
             // 
             // PortProxyGooey
             // 
@@ -503,6 +520,7 @@
             FormClosing += PortProxyGUI_FormClosing;
             Load += PortProxyGUI_Load;
             Shown += PortProxyGUI_Shown;
+            DoubleClick += PortProxyGooey_DoubleClick;
             Resize += PortProxyGUI_Resize;
             contextMenuStrip_RightClick.ResumeLayout(false);
             ResumeLayout(false);
@@ -572,6 +590,8 @@
         private System.Windows.Forms.Label lblJSE;
         private System.Windows.Forms.Panel pnlBar;
         private System.Windows.Forms.ToolTip tTipPPG;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator11;
+        private System.Windows.Forms.ToolStripMenuItem winsockResetToolStripMenuItem;
     }
 }
 

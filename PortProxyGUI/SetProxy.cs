@@ -43,10 +43,6 @@ namespace PortProxyGooey
         // Remembers the last label we added for the user
         private string strLastAutoLabel = string.Empty;
 
-        // Compiled regex = more efficient
-        [GeneratedRegex("^(([0-9a-fA-F]{1,4}:){7}([0-9a-fA-F]{1,4}|:))|(([0-9a-fA-F]{1,4}:){0,6}(:[0-9a-fA-F]{1,4}){1,6})$")]
-        private static partial Regex IPv6RegEx();
-
         #endregion
 
         public SetProxy(PortProxyGooey parent)
@@ -115,18 +111,6 @@ namespace PortProxyGooey
         }
 
         /// <summary>
-        /// Validates a potential IPv6 Address
-        /// </summary>
-        /// <param name="ip">IP to validate</param>
-        /// <returns>True if valid; False if Invalid</returns>
-        private static bool IsIPv6(string ip)
-        {
-            // Scott Note to original author: Is this correct? Looks more like a MAC Address regex? I added a better regex below, but leaving original for posterity.
-            // return ip.IsMatch(new Regex(@"^[\dABCDEF]{2}(?::(?:[\dABCDEF]{2})){5}$"));
-            return ip.IsMatch(IPv6RegEx());
-        }
-
-        /// <summary>
         /// Determine the Type of proxy to pass
         /// </summary>
         /// <param name="listenOn">IP to Listen on</param>
@@ -134,8 +118,8 @@ namespace PortProxyGooey
         /// <returns>Properly formatted proxy Type</returns>
         private static string GetPassType(string listenOn, string connectTo)
         {
-            string from = IsIPv6(listenOn) ? "v6" : "v4";
-            string to = IsIPv6(connectTo) ? "v6" : "v4";
+            string from = PortProxyUtil.IsIPv6(listenOn) ? "v6" : "v4";
+            string to = PortProxyUtil.IsIPv6(connectTo) ? "v6" : "v4";
             return $"{from}to{to}";
         }
 
@@ -273,7 +257,7 @@ namespace PortProxyGooey
 
             // Current WSL IP
             lblWSLIP.Text = "Refreshing ...";
-            string strWSLIP = PortProxyUtil.GetWSLIP();
+            string strWSLIP = JSE_Utils.WSL.WSL_GetIP();
 
             if (strWSLIP.Length > 0)
             {
@@ -532,7 +516,7 @@ namespace PortProxyGooey
         {
             this.Cursor = Cursors.WaitCursor;
             lblWSLIP.Text = "Refreshing ...";
-            string strWSLIP = PortProxyUtil.GetWSLIP();
+            string strWSLIP = JSE_Utils.WSL.WSL_GetIP();
             lblWSLIP.Text = strWSLIP.Length > 0 ? string.Format("WSL: {0}", strWSLIP) : "WSL: Dunno";
             this.Cursor = Cursors.Default;
         }

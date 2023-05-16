@@ -63,6 +63,16 @@ namespace PortProxyGooey.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap about {
+            get {
+                object obj = ResourceManager.GetObject("about", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap add {
             get {
                 object obj = ResourceManager.GetObject("add", resourceCulture);
@@ -76,6 +86,16 @@ namespace PortProxyGooey.Properties {
         internal static System.Drawing.Bitmap clear {
             get {
                 object obj = ResourceManager.GetObject("clear", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap clone {
+            get {
+                object obj = ResourceManager.GetObject("clone", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -163,6 +183,16 @@ namespace PortProxyGooey.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap more {
+            get {
+                object obj = ResourceManager.GetObject("more", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap refresh {
             get {
                 object obj = ResourceManager.GetObject("refresh", resourceCulture);
@@ -206,6 +236,16 @@ namespace PortProxyGooey.Properties {
         internal static System.Drawing.Bitmap windows {
             get {
                 object obj = ResourceManager.GetObject("windows", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap winsock {
+            get {
+                object obj = ResourceManager.GetObject("winsock", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

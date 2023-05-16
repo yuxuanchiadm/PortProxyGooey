@@ -45,6 +45,7 @@
     <Compile Remove="GlobalSuppressions.cs" />
     <Compile Remove="UI\ListViewExt.cs" />
     <Compile Remove="Utils\DnsUtil.cs" />
+    <Compile Remove="Utils\JSE_WSL.cs" />
   </ItemGroup>
 
   <ItemGroup>
