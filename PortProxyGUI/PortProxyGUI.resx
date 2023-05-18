@@ -157,7 +157,7 @@
     <value>Ctrl+E</value>
   </data>
   <data name="toolStripMenuItem_Enable.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>165, 22</value>
   </data>
   <data name="toolStripMenuItem_Enable.Text" xml:space="preserve">
     <value>&amp;Enable</value>
@@ -172,7 +172,7 @@
     <value>Ctrl+D</value>
   </data>
   <data name="toolStripMenuItem_Disable.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>165, 22</value>
   </data>
   <data name="toolStripMenuItem_Disable.Text" xml:space="preserve">
     <value>&amp;Disable</value>
@@ -181,7 +181,7 @@
     <value>Deactivate this port proxy</value>
   </data>
   <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 6</value>
+    <value>162, 6</value>
   </data>
   <data name="toolStripMenuItem_New.ShortcutKeyDisplayString" xml:space="preserve">
     <value />
@@ -190,7 +190,7 @@
     <value>Ins</value>
   </data>
   <data name="toolStripMenuItem_New.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>165, 22</value>
   </data>
   <data name="toolStripMenuItem_New.Text" xml:space="preserve">
     <value>New ...</value>
@@ -205,7 +205,7 @@
     <value>F2</value>
   </data>
   <data name="toolStripMenuItem_Modify.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>165, 22</value>
   </data>
   <data name="toolStripMenuItem_Modify.Text" xml:space="preserve">
     <value>Edit  ...</value>
@@ -217,7 +217,7 @@
     <value>F3</value>
   </data>
   <data name="toolStripMenuItem_Clone.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>165, 22</value>
   </data>
   <data name="toolStripMenuItem_Clone.Text" xml:space="preserve">
     <value>Clone ...</value>
@@ -228,7 +228,7 @@
 This saves you from having to do repititous form filling.</value>
   </data>
   <data name="toolStripSeparator5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 6</value>
+    <value>162, 6</value>
   </data>
   <data name="toolStripMenuItem_Delete.ShortcutKeyDisplayString" xml:space="preserve">
     <value />
@@ -237,7 +237,7 @@ This saves you from having to do repititous form filling.</value>
     <value>Del</value>
   </data>
   <data name="toolStripMenuItem_Delete.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>165, 22</value>
   </data>
   <data name="toolStripMenuItem_Delete.Text" xml:space="preserve">
     <value>Delete</value>
@@ -249,7 +249,7 @@ This saves you from having to do repititous form filling.</value>
     <value>Ctrl+C</value>
   </data>
   <data name="clearToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>165, 22</value>
   </data>
   <data name="clearToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Clear</value>
@@ -258,19 +258,19 @@ This saves you from having to do repititous form filling.</value>
     <value>Clears the entire list (a.k.a. Delete All)</value>
   </data>
   <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 6</value>
+    <value>162, 6</value>
   </data>
   <data name="toolStripMenuItem_Refresh.ShortcutKeyDisplayString" xml:space="preserve">
     <value>&amp;F5</value>
   </data>
   <data name="toolStripMenuItem_Refresh.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>165, 22</value>
   </data>
   <data name="toolStripMenuItem_Refresh.Text" xml:space="preserve">
     <value>Refresh</value>
   </data>
   <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 6</value>
+    <value>162, 6</value>
   </data>
   <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
     <value>217, 22</value>
@@ -311,6 +311,87 @@ This saves you from having to do repititous form filling.</value>
   <data name="externalAppsToolStripMenuItem.Text" xml:space="preserve">
     <value>External Apps</value>
   </data>
+  <data name="NetSHAddCopyToClipboard.Size" type="System.Drawing.Size, System.Drawing">
+    <value>184, 22</value>
+  </data>
+  <data name="NetSHAddCopyToClipboard.Text" xml:space="preserve">
+    <value>Copy to Clipboard</value>
+  </data>
+  <data name="NetSHAddCopyToClipboard.ToolTipText" xml:space="preserve">
+    <value>Copy command line to clipboard</value>
+  </data>
+  <data name="NetSHAddViewCline.Size" type="System.Drawing.Size, System.Drawing">
+    <value>184, 22</value>
+  </data>
+  <data name="NetSHAddViewCline.Text" xml:space="preserve">
+    <value>View Command</value>
+  </data>
+  <data name="NetSHAddViewCline.ToolTipText" xml:space="preserve">
+    <value>Show command line in a messagebox</value>
+  </data>
+  <data name="NetSHaddToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="NetSHaddToolStripMenuItem.Text" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="NetSHDelCopyToClipboard.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 22</value>
+  </data>
+  <data name="NetSHDelCopyToClipboard.Text" xml:space="preserve">
+    <value>Copy to Clipboard</value>
+  </data>
+  <data name="NetSHDelCopyToClipboard.ToolTipText" xml:space="preserve">
+    <value>Copy command line to clipboard</value>
+  </data>
+  <data name="NetSHDelViewCline.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 22</value>
+  </data>
+  <data name="NetSHDelViewCline.Text" xml:space="preserve">
+    <value>View netsh command</value>
+  </data>
+  <data name="NetSHDelViewCline.ToolTipText" xml:space="preserve">
+    <value>Show command line in a messagebox</value>
+  </data>
+  <data name="NetSHdeleteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="NetSHdeleteToolStripMenuItem.Text" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="NetSHToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="NetSHToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="NetSHToolStripMenuItem.Text" xml:space="preserve">
+    <value>Netsh</value>
+  </data>
+  <data name="registryKeyToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="registryKeyToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="registryKeyToolStripMenuItem.Text" xml:space="preserve">
+    <value>Registry</value>
+  </data>
+  <data name="registryKeyToolStripMenuItem.ToolTipText" xml:space="preserve">
+    <value>Open the registry key for this item's Type in RegEdit</value>
+  </data>
+  <data name="toolStripSeparator11.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 6</value>
+  </data>
+  <data name="winsockResetToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="winsockResetToolStripMenuItem.Text" xml:space="preserve">
+    <value>Winsock Reset</value>
+  </data>
+  <data name="winsockResetToolStripMenuItem.ToolTipText" xml:space="preserve">
+    <value>Run the Windows built-in Winsock Reset Command</value>
+  </data>
   <data name="advancedToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
     <value>217, 22</value>
   </data>
@@ -324,7 +405,7 @@ This saves you from having to do repititous form filling.</value>
     <value>More</value>
   </data>
   <data name="toolStripSeparator4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 6</value>
+    <value>162, 6</value>
   </data>
   <data name="toolStripMenuItem_About.Size" type="System.Drawing.Size, System.Drawing">
     <value>165, 22</value>
@@ -362,7 +443,7 @@ This saves you from having to do repititous form filling.</value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAmgsAAAJNU0Z0AUkBTAIBAQIB
-        AAEgAQIBIAECARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARAe
+        AAFIAQIBSAECARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARAe
         AAMqAUADKgFAAyoBQAMqAUADKgFAAyoBQAMqAUADKgFAAyoBQAMqAUDQAAMMARACWQFbAcABPAFNAv8B
         PAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8CWQFbAcAD
         DAEQCAADDAEQAlsBWQHAAa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQB
@@ -430,7 +511,7 @@ This saves you from having to do repititous form filling.</value>
     <value>4</value>
   </data>
   <data name="toolStripMenuItem_Export.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>116, 22</value>
   </data>
   <data name="toolStripMenuItem_Export.Text" xml:space="preserve">
     <value>Export</value>
@@ -439,7 +520,7 @@ This saves you from having to do repititous form filling.</value>
     <value>Backup current list</value>
   </data>
   <data name="toolStripMenuItem_Import.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>116, 22</value>
   </data>
   <data name="toolStripMenuItem_Import.Text" xml:space="preserve">
     <value>Import</value>
@@ -447,11 +528,32 @@ This saves you from having to do repititous form filling.</value>
   <data name="toolStripMenuItem_Import.ToolTipText" xml:space="preserve">
     <value>Restore proxies list from backup</value>
   </data>
+  <data name="wSLToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>183, 22</value>
+  </data>
+  <data name="wSLToolStripMenuItem.Text" xml:space="preserve">
+    <value>WSL</value>
+  </data>
+  <data name="runningToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>138, 22</value>
+  </data>
+  <data name="runningToolStripMenuItem.Text" xml:space="preserve">
+    <value>Running?</value>
+  </data>
+  <data name="shutDownToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>138, 22</value>
+  </data>
+  <data name="shutDownToolStripMenuItem.Text" xml:space="preserve">
+    <value>Shut Down</value>
+  </data>
   <data name="dockerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>183, 22</value>
   </data>
   <data name="dockerToolStripMenuItem.Text" xml:space="preserve">
     <value>Docker</value>
+  </data>
+  <data name="dockerToolStripMenuItem.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="toolStripSeparator8.Size" type="System.Drawing.Size, System.Drawing">
     <value>180, 6</value>
@@ -550,87 +652,6 @@ in case you want to download it.</value>
   </data>
   <data name="portForwardingTesterToolStripMenuItem.ToolTipText" xml:space="preserve">
     <value>Courtesy of YouGetSignal</value>
-  </data>
-  <data name="NetSHToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="NetSHToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="NetSHToolStripMenuItem.Text" xml:space="preserve">
-    <value>Netsh</value>
-  </data>
-  <data name="NetSHaddToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="NetSHaddToolStripMenuItem.Text" xml:space="preserve">
-    <value>Add</value>
-  </data>
-  <data name="NetSHAddCopyToClipboard.Size" type="System.Drawing.Size, System.Drawing">
-    <value>184, 22</value>
-  </data>
-  <data name="NetSHAddCopyToClipboard.Text" xml:space="preserve">
-    <value>Copy to Clipboard</value>
-  </data>
-  <data name="NetSHAddCopyToClipboard.ToolTipText" xml:space="preserve">
-    <value>Copy command line to clipboard</value>
-  </data>
-  <data name="NetSHAddViewCline.Size" type="System.Drawing.Size, System.Drawing">
-    <value>184, 22</value>
-  </data>
-  <data name="NetSHAddViewCline.Text" xml:space="preserve">
-    <value>View Command</value>
-  </data>
-  <data name="NetSHAddViewCline.ToolTipText" xml:space="preserve">
-    <value>Show command line in a messagebox</value>
-  </data>
-  <data name="NetSHdeleteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="NetSHdeleteToolStripMenuItem.Text" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="NetSHDelCopyToClipboard.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 22</value>
-  </data>
-  <data name="NetSHDelCopyToClipboard.Text" xml:space="preserve">
-    <value>Copy to Clipboard</value>
-  </data>
-  <data name="NetSHDelCopyToClipboard.ToolTipText" xml:space="preserve">
-    <value>Copy command line to clipboard</value>
-  </data>
-  <data name="NetSHDelViewCline.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 22</value>
-  </data>
-  <data name="NetSHDelViewCline.Text" xml:space="preserve">
-    <value>View netsh command</value>
-  </data>
-  <data name="NetSHDelViewCline.ToolTipText" xml:space="preserve">
-    <value>Show command line in a messagebox</value>
-  </data>
-  <data name="registryKeyToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="registryKeyToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="registryKeyToolStripMenuItem.Text" xml:space="preserve">
-    <value>Registry</value>
-  </data>
-  <data name="registryKeyToolStripMenuItem.ToolTipText" xml:space="preserve">
-    <value>Open the registry key for this item's Type in RegEdit</value>
-  </data>
-  <data name="toolStripSeparator11.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 6</value>
-  </data>
-  <data name="winsockResetToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="winsockResetToolStripMenuItem.Text" xml:space="preserve">
-    <value>Winsock Reset</value>
-  </data>
-  <data name="winsockResetToolStripMenuItem.ToolTipText" xml:space="preserve">
-    <value>Run the Windows built-in Winsock Reset Command</value>
   </data>
   <metadata name="saveFileDialog_Export.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>225, 17</value>
@@ -3133,6 +3154,24 @@ in case you want to download it.</value>
     <value>externalAppsToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;externalAppsToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;wSLToolStripMenuItem.Name" xml:space="preserve">
+    <value>wSLToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;wSLToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;runningToolStripMenuItem.Name" xml:space="preserve">
+    <value>runningToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;runningToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;shutDownToolStripMenuItem.Name" xml:space="preserve">
+    <value>shutDownToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;shutDownToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dockerToolStripMenuItem.Name" xml:space="preserve">

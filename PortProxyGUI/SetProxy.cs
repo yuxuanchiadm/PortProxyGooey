@@ -1,4 +1,4 @@
-﻿#region + -- NAMESPACE IMPORTS -- +
+﻿#region + -- IMPORTS -- +
 
 using NStandard;
 using PortProxyGooey.Data;
@@ -645,26 +645,42 @@ namespace PortProxyGooey
 
         private void comboBox_ListenOn_KeyPress(object sender, KeyPressEventArgs e)
         {
-            OnlyCertainAllowed(e);
+            // Check if the Ctrl + V key combination is pressed
+            if ((Control.ModifierKeys & Keys.Control) == Keys.Control && e.KeyChar == 22) {
+
+                // Allow pasting
+                comboBox_ListenOn.Text = Clipboard.GetText();
+                e.Handled = true;
+
+            } else {
+                OnlyCertainAllowed(e);
+            }
         }
 
         private void comboBox_ConnectTo_KeyPress(object sender, KeyPressEventArgs e)
         {
-            OnlyCertainAllowed(e);
+            // Check if the Ctrl + V key combination is pressed
+            if ((Control.ModifierKeys & Keys.Control) == Keys.Control && e.KeyChar == 22) {
+
+                // Allow pasting
+                comboBox_ConnectTo.Text = Clipboard.GetText();
+                e.Handled = true;
+
+            } else {
+                OnlyCertainAllowed(e);
+            }
         }
 
         /// <summary>
-        /// Only numbers, period, and asterisk allowed.
+        /// Only numbers, periods, colons, backspace, and asterisk allowed.
         /// </summary>
         private static void OnlyCertainAllowed(KeyPressEventArgs e)
         {
-            if (!char.IsDigit(e.KeyChar) && e.KeyChar != '.' && e.KeyChar != '*' && e.KeyChar != '\b')
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != '.' && e.KeyChar != '*' && e.KeyChar != ':' && e.KeyChar != '\b')
             {
                 e.Handled = true;
             }
         }
-
-
 
         #endregion
 

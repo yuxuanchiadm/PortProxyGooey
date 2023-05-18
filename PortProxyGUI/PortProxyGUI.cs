@@ -1,4 +1,4 @@
-﻿#region + -- NAMESPACE IMPORTS -- +
+﻿#region + -- IMPORTS -- +
 
 using Microsoft.Win32;
 using NStandard;
@@ -11,11 +11,9 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Resources;
 using System.Windows.Forms;
 using static System.Windows.Forms.ListViewItem;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using ListView = System.Windows.Forms.ListView;
 
 #endregion
@@ -63,11 +61,8 @@ namespace PortProxyGooey {
             Debug.WriteLine(PortProxyUtil.CheckPortOpen("0.0.0.0", 443)); // good (returns false though. is it because 0.0.0.0 isnt a real ip?)
             Debug.WriteLine(PortProxyUtil.CheckPortOpen("127.0.0.1", 443)); // good
 
-
-            //JSE_WSL.WSL_Utils.WSL_GetVersion();
-
-            // Left off: needs testing
-            //JSE_WSL.WSL_Utils.WSL_ShutDown();
+//JSE_Utils.WSL.WSL_Start();
+            //JSE_Utils.WSL.WSL_GetVersion();
 
             AppConfig = Program.Database.GetAppConfig();
 
@@ -871,6 +866,15 @@ namespace PortProxyGooey {
 
         private void winsockResetToolStripMenuItem_Click(object sender, EventArgs e) {
             JSE_Utils.Winsock.Reset();
+        }
+
+        private void runningToolStripMenuItem_Click(object sender, EventArgs e) {
+            //MessageBox.Show(string.Format("WSL {0} running. ", JSE_Utils.WSL.WSL_IsRunning() ? "is" : "is not"), "WSL", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            JSE_Utils.WSL.WSL_IsRunning(true);
+        }
+
+        private void shutDownToolStripMenuItem_Click(object sender, EventArgs e) {
+            JSE_Utils.WSL.WSL_ShutDown();
         }
     }
 }

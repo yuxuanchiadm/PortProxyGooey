@@ -49,6 +49,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Resources\advanced.png" />
     <None Remove="Resources\flushdns.png" />
   </ItemGroup>
 

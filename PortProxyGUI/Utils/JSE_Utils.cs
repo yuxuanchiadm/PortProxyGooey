@@ -1,40 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
+﻿#region + -- IMPORTS -- +
+
+using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
+#endregion
 
 namespace JSE_Utils
 {
-    public static class IPValidation
+    public static partial class IPValidation
     {
         #region + -- RegExes -- +
 
-        public static Regex IPv4RegEx = new("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}");
-        public static Regex IPv6RegEx = new("^(([0-9a-fA-F]{1,4}:){7}([0-9a-fA-F]{1,4}|:))|(([0-9a-fA-F]{1,4}:){0,6}(:[0-9a-fA-F]{1,4}){1,6})$");
+        public static Regex IPv4RegEx = IPv4Pattern();
+        public static Regex IPv6RegEx = IPv6Pattern();
+
+        [GeneratedRegex("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}")]
+        private static partial Regex IPv4Pattern();
+
+        [GeneratedRegex("^(([0-9a-fA-F]{1,4}:){7}([0-9a-fA-F]{1,4}|:))|(([0-9a-fA-F]{1,4}:){0,6}(:[0-9a-fA-F]{1,4}){1,6})$")]
+        private static partial Regex IPv6Pattern();
 
         #endregion
     }
 
-    public static class Misc
-    {
+    public static class Misc {
+
         /// <summary>
         /// Standard Process Start function
         /// </summary>
         /// <param name="strFileName">Filename|Program.exe to run</param>
-        /// <param name="strArgs">Any arguments for the above file|program</param>
+        /// <param name="strArgs">[Optional] Any arguments for the above file|program</param>
         /// <returns>Program output if any, else empty string</returns>
-        public static string RunCommand(string strFileName, string strArgs)
-        {
+        public static string RunCommand(string strFileName, string strArgs = "") {
+
             string strOutput = string.Empty;
 
-            try
-            {
+            try {
+
                 using Process p = new();
                 {
                     ProcessStartInfo withBlock = p.StartInfo;
@@ -50,9 +56,8 @@ namespace JSE_Utils
                 p.Start();
                 strOutput = p.StandardOutput.ReadToEnd().Replace("\0", ""); // Remove any null chars, if exist.
                 p.WaitForExit();
-            }
-            catch (Exception e)
-            {
+
+            } catch (Exception e) {
                 Debug.WriteLine("RunCommand() Error: {0}", e.Message);
                 throw;
             }
@@ -61,19 +66,29 @@ namespace JSE_Utils
         }
 
         /// <summary>
-        /// Creates a custion dialog form so this overall Utils class is more portable
+        /// Checks if a process is running
+        /// </summary>
+        /// <param name="strProcessName">Name of the process</param>
+        /// <returns>True: running; False: not running.</returns>
+        public static bool IsProcessRunning(string strProcessName) {
+
+            Process[] p = Process.GetProcessesByName(strProcessName);
+            return p.Count() > 0;
+
+        }
+
+        /// <summary>
+        /// Creates a custom dialog form so this overall Utils class is more portable
         /// </summary>
         /// <param name="strText">The text to show the user</param>
         /// <param name="strTitle">The title text of the form itself</param>
-        /// <returns>True: on DialogResult.OK; False: on DialogResult.Cancel or X button.</returns>
-        public static bool CustomDialog(string strText, string strTitle)
-        {
-            // TODO (Maybe): This function may work better if retured as DialogResult instead of bool, but, ehhhh. *shrug*
+        /// <returns>DialogResult.OK on "Ok" button click; DialogResult.Cancel on "Cancel" button or X button click.</returns>
+        public static DialogResult CustomDialog(string strText, string strTitle) {
 
-            bool bReturn = false;
+            DialogResult result = DialogResult.Cancel;
 
-            using (Form form = new Form())
-            {
+            using (Form form = new Form()) {
+
                 // Form Props
                 form.Text = strTitle;
                 form.BackColor = Color.FromArgb(67, 76, 94);
@@ -86,8 +101,7 @@ namespace JSE_Utils
                 form.Size = new Size(500, 400);
 
                 // Form Controls
-                Label lblInfo = new()
-                {
+                Label lblInfo = new() {
                     BackColor = Color.FromArgb(67, 76, 94),
                     ForeColor = Color.FromArgb(229, 233, 240),
                     Location = new Point(20, 20),
@@ -98,8 +112,7 @@ namespace JSE_Utils
                 };
 
                 // Buttons
-                System.Windows.Forms.Button btnOK = new()
-                {
+                System.Windows.Forms.Button btnOK = new() {
                     BackColor = Color.FromArgb(46, 52, 64),
                     ForeColor = Color.FromArgb(235, 203, 139),
                     Location = new Point(150, 300),
@@ -111,8 +124,7 @@ namespace JSE_Utils
                 };
 
                 // ...
-                System.Windows.Forms.Button btnCancel = new()
-                {
+                System.Windows.Forms.Button btnCancel = new() {
                     BackColor = Color.FromArgb(46, 52, 64),
                     ForeColor = Color.FromArgb(191, 97, 106),
                     Location = new Point(250, 300),
@@ -132,11 +144,11 @@ namespace JSE_Utils
                 form.ActiveControl = btnCancel;
 
                 // Show the form and get the button they clicked
-                if (form.ShowDialog() == DialogResult.OK) bReturn = true;
+                if (form.ShowDialog() == DialogResult.OK) result = DialogResult.OK;
             }
 
             // Defaults to false, gets set to true above, only if user clicked the OK button.
-            return bReturn;
+            return result;
         }
     }
 
@@ -155,7 +167,7 @@ namespace JSE_Utils
                 Environment.NewLine
             );
 
-            if (Misc.CustomDialog(strInfo, "Winsock Reset"))
+            if (Misc.CustomDialog(strInfo, "Winsock Reset") == DialogResult.OK)
             {
                 // Run the winsock reset command
                 string strOutput = Misc.RunCommand("netsh.exe", "winsock reset");
@@ -172,14 +184,30 @@ namespace JSE_Utils
         }
     }
 
-    public static class WSL
-    {
+    public static class WSL {
+
+        /// <summary>
+        /// Checks if WSL is running
+        /// </summary>
+        /// <param name="bShowMessage">[Optional: default False] will show a messagebox with the result.</param>
+        /// <returns>True: WSL is running; False: WSL isn't running.</returns>
+        public static bool WSL_IsRunning(bool bShowMessage = false) {
+
+            bool bResult = Misc.IsProcessRunning("wsl");
+
+            if (bShowMessage) {
+                MessageBox.Show(string.Format("WSL {0} running. ", bResult ? "is" : "is not"), "WSL", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+            return bResult;
+        }
+
         /// <summary>
         /// Gets a list of all distros installed, their WSL version, and running state.
         /// </summary>
         /// <returns>Success: WSL Distro info; Fail: Empty string.</returns>
-        public static string WSL_GetDistros()
-        {
+        public static string WSL_GetDistros() {
+
             // Run the command in Bash
             string strOutput = Misc.RunCommand("wsl.exe", "-l -v --all");
 
@@ -191,8 +219,8 @@ namespace JSE_Utils
         /// Gets *all* version info of the currently installed WSL version
         /// </summary>
         /// <returns>Success: WSL Version info; Fail: Empty string.</returns>
-        public static string WSL_GetAllVersionInfo()
-        {
+        public static string WSL_GetAllVersionInfo() {
+
             // Run the command
             string strOutput = Misc.RunCommand("wsl.exe", "--version");
 
@@ -204,8 +232,8 @@ namespace JSE_Utils
         /// Gets the currently installed WSL version (WSL version *only*)
         /// </summary>
         /// <returns>Success: WSL Version; Fail: Empty string.</returns>
-        public static string WSL_GetVersion()
-        {
+        public static string WSL_GetVersion() {
+
             // Run the command
             string strOutput = Misc.RunCommand("wsl.exe", "--version");
 
@@ -218,15 +246,15 @@ namespace JSE_Utils
             string strResult = strOutput.Substring(startIndex, endIndex - startIndex);
 
             // TODO: Should be beefed up with validation (make sure an actual version number was fetched)
-            return strResult.Length > 0 ?  strResult : string.Empty;
+            return strResult.Length > 0 ? strResult : string.Empty;
         }
 
         /// <summary>
         /// Fetches the current WSL IP
         /// </summary>
         /// <returns>Success: (string) IP Address; Fail: Empty string</returns>
-        public static string WSL_GetIP()
-        {
+        public static string WSL_GetIP() {
+
             // Run the command in Bash
             string strOutput = Misc.RunCommand("bash.exe", string.Format("{0} {1}", "-c", "\"ifconfig eth0 | grep 'inet '\""));
 
@@ -236,19 +264,39 @@ namespace JSE_Utils
         }
 
         /// <summary>
-        /// 
+        /// Shuts dowm WSL
         /// </summary>
-        /// <returns></returns>
-        public static bool WSL_ShutDown()
-        {
-            bool flag = false;
+        public static void WSL_ShutDown() {
 
-            // Run the command
-            string strOutput = Misc.RunCommand("wsl.exe", "--shutdown");
-            // TODO: finish this. should return True if success; false if error.
-            return flag;
+            if (WSL.WSL_IsRunning() == true) {
+
+                if (MessageBox.Show("Are sure you want to shut WSL down?", "WSL: Shutdown", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes) {
+
+                    // Run the shutdown command
+                    Misc.RunCommand("wsl.exe", "--shutdown");
+
+                    // TODO: Add a timer here to timeout if there's a problem shutting down WSL, so this loop doesn't end up running perpetually.
+                    while (WSL.WSL_IsRunning() == true) {
+
+                        // Loop until WSL is confirmed to be shut down, then show them confirmation.
+                        // TODO: Add some sort of user feedback here to let them know we're doin work?
+                    }
+
+                    MessageBox.Show("WSL is shut down.", "WSL: Shutdown", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            } else {
+
+                // Ya'll tryna shut down somethin that ain't even runnin!
+                MessageBox.Show("WSL isn't running.", "WSL: Shutdown", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
+        public static void WSL_Start() {
+
+            Misc.RunCommand("wsl.exe");
+
+            // TODO: Add check to see if it started
+        }
 
     }
 }

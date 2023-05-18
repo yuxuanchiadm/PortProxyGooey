@@ -1,4 +1,4 @@
-﻿#region + -- NAMESPACE IMPORTS -- +
+﻿#region + -- IMPORTS -- +
 
 using Microsoft.Win32;
 using NStandard;

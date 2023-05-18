@@ -56,6 +56,9 @@
             toolStripMenuItem_ResetWindowSize = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             externalAppsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            wSLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            runningToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            shutDownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             dockerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             windowsFirewallToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -277,9 +280,31 @@
             // 
             // externalAppsToolStripMenuItem
             // 
-            externalAppsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { dockerToolStripMenuItem, toolStripSeparator8, windowsFirewallToolStripMenuItem, adaptersToolStripMenuItem, toolStripSeparator10, sitesToolStripMenuItem });
+            externalAppsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { wSLToolStripMenuItem, dockerToolStripMenuItem, toolStripSeparator8, windowsFirewallToolStripMenuItem, adaptersToolStripMenuItem, toolStripSeparator10, sitesToolStripMenuItem });
+            externalAppsToolStripMenuItem.Image = Properties.Resources.external_apps;
             externalAppsToolStripMenuItem.Name = "externalAppsToolStripMenuItem";
             resources.ApplyResources(externalAppsToolStripMenuItem, "externalAppsToolStripMenuItem");
+            // 
+            // wSLToolStripMenuItem
+            // 
+            wSLToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { runningToolStripMenuItem, shutDownToolStripMenuItem });
+            wSLToolStripMenuItem.Image = Properties.Resources.wsl;
+            wSLToolStripMenuItem.Name = "wSLToolStripMenuItem";
+            resources.ApplyResources(wSLToolStripMenuItem, "wSLToolStripMenuItem");
+            // 
+            // runningToolStripMenuItem
+            // 
+            runningToolStripMenuItem.Image = Properties.Resources.wsl;
+            runningToolStripMenuItem.Name = "runningToolStripMenuItem";
+            resources.ApplyResources(runningToolStripMenuItem, "runningToolStripMenuItem");
+            runningToolStripMenuItem.Click += runningToolStripMenuItem_Click;
+            // 
+            // shutDownToolStripMenuItem
+            // 
+            shutDownToolStripMenuItem.Image = Properties.Resources.wsl;
+            shutDownToolStripMenuItem.Name = "shutDownToolStripMenuItem";
+            resources.ApplyResources(shutDownToolStripMenuItem, "shutDownToolStripMenuItem");
+            shutDownToolStripMenuItem.Click += shutDownToolStripMenuItem_Click;
             // 
             // dockerToolStripMenuItem
             // 
@@ -348,6 +373,7 @@
             // 
             // adaptersToolStripMenuItem
             // 
+            adaptersToolStripMenuItem.Image = Properties.Resources.ethernet;
             adaptersToolStripMenuItem.Name = "adaptersToolStripMenuItem";
             resources.ApplyResources(adaptersToolStripMenuItem, "adaptersToolStripMenuItem");
             adaptersToolStripMenuItem.Click += adaptersToolStripMenuItem_Click;
@@ -360,6 +386,7 @@
             // sitesToolStripMenuItem
             // 
             sitesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { portForwardingTesterToolStripMenuItem });
+            sitesToolStripMenuItem.Image = Properties.Resources.internet;
             sitesToolStripMenuItem.Name = "sitesToolStripMenuItem";
             resources.ApplyResources(sitesToolStripMenuItem, "sitesToolStripMenuItem");
             // 
@@ -373,6 +400,7 @@
             // advancedToolStripMenuItem1
             // 
             advancedToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { NetSHToolStripMenuItem, registryKeyToolStripMenuItem, toolStripSeparator11, winsockResetToolStripMenuItem });
+            advancedToolStripMenuItem1.Image = Properties.Resources.adv;
             advancedToolStripMenuItem1.Name = "advancedToolStripMenuItem1";
             resources.ApplyResources(advancedToolStripMenuItem1, "advancedToolStripMenuItem1");
             // 
@@ -380,22 +408,26 @@
             // 
             NetSHToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { NetSHaddToolStripMenuItem, NetSHdeleteToolStripMenuItem });
             resources.ApplyResources(NetSHToolStripMenuItem, "NetSHToolStripMenuItem");
+            NetSHToolStripMenuItem.Image = Properties.Resources.command_line;
             NetSHToolStripMenuItem.Name = "NetSHToolStripMenuItem";
             // 
             // NetSHaddToolStripMenuItem
             // 
             NetSHaddToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { NetSHAddCopyToClipboard, NetSHAddViewCline });
+            NetSHaddToolStripMenuItem.Image = Properties.Resources.add_button;
             NetSHaddToolStripMenuItem.Name = "NetSHaddToolStripMenuItem";
             resources.ApplyResources(NetSHaddToolStripMenuItem, "NetSHaddToolStripMenuItem");
             // 
             // NetSHAddCopyToClipboard
             // 
+            NetSHAddCopyToClipboard.Image = Properties.Resources.clipboard;
             NetSHAddCopyToClipboard.Name = "NetSHAddCopyToClipboard";
             resources.ApplyResources(NetSHAddCopyToClipboard, "NetSHAddCopyToClipboard");
             NetSHAddCopyToClipboard.Click += NetSHAddCopyToClipboard_Click;
             // 
             // NetSHAddViewCline
             // 
+            NetSHAddViewCline.Image = Properties.Resources.command_line;
             NetSHAddViewCline.Name = "NetSHAddViewCline";
             resources.ApplyResources(NetSHAddViewCline, "NetSHAddViewCline");
             NetSHAddViewCline.Click += NetSHAddViewCline_Click;
@@ -403,17 +435,20 @@
             // NetSHdeleteToolStripMenuItem
             // 
             NetSHdeleteToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { NetSHDelCopyToClipboard, NetSHDelViewCline });
+            NetSHdeleteToolStripMenuItem.Image = Properties.Resources.minus_button;
             NetSHdeleteToolStripMenuItem.Name = "NetSHdeleteToolStripMenuItem";
             resources.ApplyResources(NetSHdeleteToolStripMenuItem, "NetSHdeleteToolStripMenuItem");
             // 
             // NetSHDelCopyToClipboard
             // 
+            NetSHDelCopyToClipboard.Image = Properties.Resources.clipboard;
             NetSHDelCopyToClipboard.Name = "NetSHDelCopyToClipboard";
             resources.ApplyResources(NetSHDelCopyToClipboard, "NetSHDelCopyToClipboard");
             NetSHDelCopyToClipboard.Click += NetSHDelCopyToClipboard_Click;
             // 
             // NetSHDelViewCline
             // 
+            NetSHDelViewCline.Image = Properties.Resources.command_line;
             NetSHDelViewCline.Name = "NetSHDelViewCline";
             resources.ApplyResources(NetSHDelViewCline, "NetSHDelViewCline");
             NetSHDelViewCline.Click += NetSHDelViewCline_Click;
@@ -592,6 +627,9 @@
         private System.Windows.Forms.ToolTip tTipPPG;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator11;
         private System.Windows.Forms.ToolStripMenuItem winsockResetToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem wSLToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem runningToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem shutDownToolStripMenuItem;
     }
 }
 
