@@ -35,7 +35,7 @@ namespace JSE_Utils
         /// <param name="strFileName">Filename|Program.exe to run</param>
         /// <param name="strArgs">[Optional] Any arguments for the above file|program</param>
         /// <returns>Program output if any, else empty string</returns>
-        public static string RunCommand(string strFileName, string strArgs = "") {
+        public static string RunCommand(string strFileName, string strArgs = "", bool bGetOutput = true) {
 
             string strOutput = string.Empty;
 
@@ -54,8 +54,15 @@ namespace JSE_Utils
                 }
 
                 p.Start();
-                strOutput = p.StandardOutput.ReadToEnd().Replace("\0", ""); // Remove any null chars, if exist.
-                p.WaitForExit();
+
+                // If we always do the following, the app will lock up when doing something like starting WSL, so it's optional.
+                if (bGetOutput) {
+
+                    // Remove any null chars, if exist.
+                    strOutput = p.StandardOutput.ReadToEnd().Replace("\0", "");
+                    p.WaitForExit();
+
+                }
 
             } catch (Exception e) {
                 Debug.WriteLine("RunCommand() Error: {0}", e.Message);
@@ -112,7 +119,7 @@ namespace JSE_Utils
                 };
 
                 // Buttons
-                System.Windows.Forms.Button btnOK = new() {
+                Button btnOK = new() {
                     BackColor = Color.FromArgb(46, 52, 64),
                     ForeColor = Color.FromArgb(235, 203, 139),
                     Location = new Point(150, 300),
@@ -124,7 +131,7 @@ namespace JSE_Utils
                 };
 
                 // ...
-                System.Windows.Forms.Button btnCancel = new() {
+                Button btnCancel = new() {
                     BackColor = Color.FromArgb(46, 52, 64),
                     ForeColor = Color.FromArgb(191, 97, 106),
                     Location = new Point(250, 300),
@@ -167,18 +174,20 @@ namespace JSE_Utils
                 Environment.NewLine
             );
 
-            if (Misc.CustomDialog(strInfo, "Winsock Reset") == DialogResult.OK)
-            {
+            if (Misc.CustomDialog(strInfo, "Winsock Reset") == DialogResult.OK) {
+
                 // Run the winsock reset command
                 string strOutput = Misc.RunCommand("netsh.exe", "winsock reset");
 
                 // Report back the result of the reset attempt
-                if (strOutput.ToLower().Contains("sucessfully reset"))
-                {
+                if (strOutput.ToLower().Contains("sucessfully reset")) {
+
                     MessageBox.Show("You must restart the computer in order to complete the reset.", "Sucessfully reset your Winsock", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                } else
-                {
+                
+                } else {
+
                     MessageBox.Show(strOutput, "Couldn't reset your Winsock", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                
                 }
             }
         }
@@ -261,10 +270,11 @@ namespace JSE_Utils
             // Try to parse out a valid IPv4
             string strWSLIP = IPValidation.IPv4RegEx.Match(strOutput).ToString();
             return strWSLIP.Length > 0 ? strWSLIP : string.Empty;
+
         }
 
         /// <summary>
-        /// Shuts dowm WSL
+        /// Shuts down WSL
         /// </summary>
         public static void WSL_ShutDown() {
 
@@ -293,9 +303,9 @@ namespace JSE_Utils
 
         public static void WSL_Start() {
 
-            Misc.RunCommand("wsl.exe");
+            Misc.RunCommand("wsl.exe", string.Empty, false);
 
-            // TODO: Add check to see if it started
+            // TODO: LEFT OFF: Add check and msgbox to see if it started
         }
 
     }

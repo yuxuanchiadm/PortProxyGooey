@@ -48,17 +48,15 @@
             toolStripMenuItem_Refresh = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             toolStripMenuItem_More = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripMenuItem_Export = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripMenuItem_Import = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             toolStripMenuItem_FlushDnsCache = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem_ResetWindowSize = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             externalAppsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            wSLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            runningToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            shutDownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            WSLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            WSLRunningToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
+            WSLStartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            WSLShutDownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             dockerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             windowsFirewallToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -84,6 +82,10 @@
             registryKeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             winsockResetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem_Export = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem_Import = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             toolStripMenuItem_About = new System.Windows.Forms.ToolStripMenuItem();
             imgListProxies = new System.Windows.Forms.ImageList(components);
@@ -232,33 +234,10 @@
             // 
             // toolStripMenuItem_More
             // 
-            toolStripMenuItem_More.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem1, toolStripSeparator6, toolStripMenuItem_FlushDnsCache, toolStripMenuItem_ResetWindowSize, toolStripSeparator9, externalAppsToolStripMenuItem, advancedToolStripMenuItem1 });
+            toolStripMenuItem_More.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem_FlushDnsCache, toolStripMenuItem_ResetWindowSize, toolStripSeparator9, externalAppsToolStripMenuItem, advancedToolStripMenuItem1, toolStripSeparator6, toolStripMenuItem1 });
             toolStripMenuItem_More.Image = Properties.Resources.more;
             toolStripMenuItem_More.Name = "toolStripMenuItem_More";
             resources.ApplyResources(toolStripMenuItem_More, "toolStripMenuItem_More");
-            // 
-            // toolStripMenuItem1
-            // 
-            toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem_Export, toolStripMenuItem_Import });
-            toolStripMenuItem1.Name = "toolStripMenuItem1";
-            resources.ApplyResources(toolStripMenuItem1, "toolStripMenuItem1");
-            // 
-            // toolStripMenuItem_Export
-            // 
-            toolStripMenuItem_Export.Name = "toolStripMenuItem_Export";
-            resources.ApplyResources(toolStripMenuItem_Export, "toolStripMenuItem_Export");
-            toolStripMenuItem_Export.Click += toolStripMenuItem_Export_Click;
-            // 
-            // toolStripMenuItem_Import
-            // 
-            toolStripMenuItem_Import.Name = "toolStripMenuItem_Import";
-            resources.ApplyResources(toolStripMenuItem_Import, "toolStripMenuItem_Import");
-            toolStripMenuItem_Import.Click += toolStripMenuItem_Import_Click;
-            // 
-            // toolStripSeparator6
-            // 
-            toolStripSeparator6.Name = "toolStripSeparator6";
-            resources.ApplyResources(toolStripSeparator6, "toolStripSeparator6");
             // 
             // toolStripMenuItem_FlushDnsCache
             // 
@@ -280,31 +259,43 @@
             // 
             // externalAppsToolStripMenuItem
             // 
-            externalAppsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { wSLToolStripMenuItem, dockerToolStripMenuItem, toolStripSeparator8, windowsFirewallToolStripMenuItem, adaptersToolStripMenuItem, toolStripSeparator10, sitesToolStripMenuItem });
+            externalAppsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { WSLToolStripMenuItem, dockerToolStripMenuItem, toolStripSeparator8, windowsFirewallToolStripMenuItem, adaptersToolStripMenuItem, toolStripSeparator10, sitesToolStripMenuItem });
             externalAppsToolStripMenuItem.Image = Properties.Resources.external_apps;
             externalAppsToolStripMenuItem.Name = "externalAppsToolStripMenuItem";
             resources.ApplyResources(externalAppsToolStripMenuItem, "externalAppsToolStripMenuItem");
             // 
-            // wSLToolStripMenuItem
+            // WSLToolStripMenuItem
             // 
-            wSLToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { runningToolStripMenuItem, shutDownToolStripMenuItem });
-            wSLToolStripMenuItem.Image = Properties.Resources.wsl;
-            wSLToolStripMenuItem.Name = "wSLToolStripMenuItem";
-            resources.ApplyResources(wSLToolStripMenuItem, "wSLToolStripMenuItem");
+            WSLToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { WSLRunningToolStripMenuItem, toolStripSeparator12, WSLStartToolStripMenuItem, WSLShutDownToolStripMenuItem });
+            WSLToolStripMenuItem.Image = Properties.Resources.wsl;
+            WSLToolStripMenuItem.Name = "WSLToolStripMenuItem";
+            resources.ApplyResources(WSLToolStripMenuItem, "WSLToolStripMenuItem");
             // 
-            // runningToolStripMenuItem
+            // WSLRunningToolStripMenuItem
             // 
-            runningToolStripMenuItem.Image = Properties.Resources.wsl;
-            runningToolStripMenuItem.Name = "runningToolStripMenuItem";
-            resources.ApplyResources(runningToolStripMenuItem, "runningToolStripMenuItem");
-            runningToolStripMenuItem.Click += runningToolStripMenuItem_Click;
+            WSLRunningToolStripMenuItem.Image = Properties.Resources.wsl;
+            WSLRunningToolStripMenuItem.Name = "WSLRunningToolStripMenuItem";
+            resources.ApplyResources(WSLRunningToolStripMenuItem, "WSLRunningToolStripMenuItem");
+            WSLRunningToolStripMenuItem.Click += WSLRunningToolStripMenuItem_Click;
             // 
-            // shutDownToolStripMenuItem
+            // toolStripSeparator12
             // 
-            shutDownToolStripMenuItem.Image = Properties.Resources.wsl;
-            shutDownToolStripMenuItem.Name = "shutDownToolStripMenuItem";
-            resources.ApplyResources(shutDownToolStripMenuItem, "shutDownToolStripMenuItem");
-            shutDownToolStripMenuItem.Click += shutDownToolStripMenuItem_Click;
+            toolStripSeparator12.Name = "toolStripSeparator12";
+            resources.ApplyResources(toolStripSeparator12, "toolStripSeparator12");
+            // 
+            // WSLStartToolStripMenuItem
+            // 
+            resources.ApplyResources(WSLStartToolStripMenuItem, "WSLStartToolStripMenuItem");
+            WSLStartToolStripMenuItem.Image = Properties.Resources.wsl;
+            WSLStartToolStripMenuItem.Name = "WSLStartToolStripMenuItem";
+            WSLStartToolStripMenuItem.Click += WSLStartToolStripMenuItem_Click;
+            // 
+            // WSLShutDownToolStripMenuItem
+            // 
+            resources.ApplyResources(WSLShutDownToolStripMenuItem, "WSLShutDownToolStripMenuItem");
+            WSLShutDownToolStripMenuItem.Image = Properties.Resources.wsl;
+            WSLShutDownToolStripMenuItem.Name = "WSLShutDownToolStripMenuItem";
+            WSLShutDownToolStripMenuItem.Click += WSLShutDownToolStripMenuItem_Click;
             // 
             // dockerToolStripMenuItem
             // 
@@ -472,6 +463,29 @@
             resources.ApplyResources(winsockResetToolStripMenuItem, "winsockResetToolStripMenuItem");
             winsockResetToolStripMenuItem.Click += winsockResetToolStripMenuItem_Click;
             // 
+            // toolStripSeparator6
+            // 
+            toolStripSeparator6.Name = "toolStripSeparator6";
+            resources.ApplyResources(toolStripSeparator6, "toolStripSeparator6");
+            // 
+            // toolStripMenuItem1
+            // 
+            toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem_Export, toolStripMenuItem_Import });
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            resources.ApplyResources(toolStripMenuItem1, "toolStripMenuItem1");
+            // 
+            // toolStripMenuItem_Export
+            // 
+            toolStripMenuItem_Export.Name = "toolStripMenuItem_Export";
+            resources.ApplyResources(toolStripMenuItem_Export, "toolStripMenuItem_Export");
+            toolStripMenuItem_Export.Click += toolStripMenuItem_Export_Click;
+            // 
+            // toolStripMenuItem_Import
+            // 
+            toolStripMenuItem_Import.Name = "toolStripMenuItem_Import";
+            resources.ApplyResources(toolStripMenuItem_Import, "toolStripMenuItem_Import");
+            toolStripMenuItem_Import.Click += toolStripMenuItem_Import_Click;
+            // 
             // toolStripSeparator4
             // 
             toolStripSeparator4.Name = "toolStripSeparator4";
@@ -627,9 +641,11 @@
         private System.Windows.Forms.ToolTip tTipPPG;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator11;
         private System.Windows.Forms.ToolStripMenuItem winsockResetToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem wSLToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem runningToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem shutDownToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem WSLToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem WSLRunningToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem WSLShutDownToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
+        private System.Windows.Forms.ToolStripMenuItem WSLStartToolStripMenuItem;
     }
 }
 
