@@ -114,7 +114,7 @@ namespace PortProxyGooey {
             foreach ((ColumnHeader column, int configWidth) in Any.Zip(listViewProxies.Columns.OfType<ColumnHeader>(), AppConfig.PortProxyColumnWidths)) {
                 column.Width = configWidth;
             }
-        
+
         }
 
         private static Rule ParseRule(ListViewItem item) {
@@ -481,12 +481,14 @@ namespace PortProxyGooey {
                 if (WSL.WSL_IsRunning()) {
 
                     WSLShutDownToolStripMenuItem.Enabled = true;
+                    WSLRestartToolStripMenuItem.Enabled = true;
                     WSLStartToolStripMenuItem.Enabled = false;
 
                 } else {
 
                     WSLStartToolStripMenuItem.Enabled = true;
                     WSLShutDownToolStripMenuItem.Enabled = false;
+                    WSLRestartToolStripMenuItem.Enabled = false;
                 }
             }
         }
@@ -687,9 +689,9 @@ namespace PortProxyGooey {
             if (openFileDialog.ShowDialog() == DialogResult.OK) {
 
                 if (MessageBox.Show(string.Format("Overwrite current list with the selected list? {0}", openFileDialog.FileName), "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes) {
-                    
+
                     using (ApplicationDbScope scope = ApplicationDbScope.FromFile(openFileDialog.FileName)) {
-                        
+
                         foreach (Rule rule in scope.Rules) {
 
                             Rule exist = Program.Database.GetRule(rule.Type, rule.ListenOn, rule.ListenPort);
@@ -905,7 +907,7 @@ namespace PortProxyGooey {
             PortProxyUtil.Launch("https://www.yougetsignal.com/tools/open-ports");
         }
 
-        #region + ------ Double-Clicking All of These Opens New Item Dialog  ------ +
+        #region + -- Double-Clicking All of These Opens New Item Dialog  -- +
 
         private void lblGooey_DoubleClick(object sender, EventArgs e) {
             NewItem();
@@ -937,8 +939,9 @@ namespace PortProxyGooey {
             Winsock.Reset();
         }
 
+        #region + -- WSL -- +
+
         private void WSLRunningToolStripMenuItem_Click(object sender, EventArgs e) {
-            //MessageBox.Show(string.Format("WSL {0} running. ", JSE_Utils.WSL.WSL_IsRunning() ? "is" : "is not"), "WSL", MessageBoxButtons.OK, MessageBoxIcon.Information);
             WSL.WSL_IsRunning(true);
         }
 
@@ -949,5 +952,19 @@ namespace PortProxyGooey {
         private void WSLStartToolStripMenuItem_Click(object sender, EventArgs e) {
             WSL.WSL_Start();
         }
+
+        private void WSLRestartToolStripMenuItem_Click(object sender, EventArgs e) {
+            WSL.WSL_Restart();
+        }
+
+        #endregion
+
+        private void tmrCheck_Tick(object sender, EventArgs e) {
+
+            // Always keep the WSL status icon updated
+            picWSL.Visible = WSL.WSL_IsRunning();
+
+        }
+
     }
 }

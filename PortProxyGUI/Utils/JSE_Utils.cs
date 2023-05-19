@@ -13,7 +13,7 @@ namespace JSE_Utils
 {
     public static partial class IPValidation
     {
-        #region + -- RegExes -- +
+        #region + -- REGEX -- +
 
         public static Regex IPv4RegEx = IPv4Pattern();
         public static Regex IPv6RegEx = IPv6Pattern();
@@ -276,9 +276,10 @@ namespace JSE_Utils
         /// <summary>
         /// Shuts down WSL
         /// </summary>
-        public static void WSL_ShutDown() {
+        /// <param name="bShowResult">[Optional: default True] Shows a messagebox confirming WSL has shut down</param>
+        public static void WSL_ShutDown(bool bShowResult = true) {
 
-            if (WSL.WSL_IsRunning() == true) {
+            if (WSL_IsRunning()) {
 
                 if (MessageBox.Show("Are sure you want to shut WSL down?", "WSL: Shutdown", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes) {
 
@@ -286,13 +287,15 @@ namespace JSE_Utils
                     Misc.RunCommand("wsl.exe", "--shutdown");
 
                     // TODO: Add a timer here to timeout if there's a problem shutting down WSL, so this loop doesn't end up running perpetually.
-                    while (WSL.WSL_IsRunning() == true) {
-
+                    while (WSL_IsRunning()) {
                         // Loop until WSL is confirmed to be shut down, then show them confirmation.
                         // TODO: Add some sort of user feedback here to let them know we're doin work?
                     }
 
-                    MessageBox.Show("WSL is shut down.", "WSL: Shutdown", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (bShowResult) {
+                        MessageBox.Show("WSL is shut down.", "WSL: Shutdown", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+
                 }
             } else {
 
@@ -301,11 +304,68 @@ namespace JSE_Utils
             }
         }
 
-        public static void WSL_Start() {
+        /// <summary>
+        /// Starts WSL
+        /// </summary>
+        /// <param name="bShowResult">[Optional: default True] Shows a messagebox confirming WSL has started</param>
+        public static void WSL_Start(bool bShowResult = true) {
 
+            if (!WSL_IsRunning()) {
+
+                // Run the startup command
+                Misc.RunCommand("wsl.exe", string.Empty, false);
+
+                // TODO: Add a timer here to timeout if there's a problem starting up WSL, so this loop doesn't end up running perpetually.
+                while (!WSL_IsRunning()) {
+                    // Loop until WSL is confirmed to be running, then show them confirmation.
+                    // TODO: Add some sort of user feedback here to let them know we're doin work?
+                }
+
+                if (bShowResult) {
+                    MessageBox.Show("WSL is now running.", "WSL: Startup", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+            } else {
+
+                // Ya'll tryna start up somethin that's already runnin!
+                MessageBox.Show("WSL is already running.", "WSL: Startup", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            }
+        }
+
+        /// <summary>
+        /// Restarts WSL
+        /// </summary>
+        /// <param name="bShowResult">[Optional: default True] Shows a messagebox confirming WSL has restarted</param>
+        public static void WSL_Restart(bool bShowResult = true) {
+
+            // Run the shutdown command
+            Misc.RunCommand("wsl.exe", "--shutdown");
+
+            Debug.WriteLine("WSL Restart: Shutdown command sent");
+
+            while (WSL_IsRunning()) {
+                // Loop until WSL is confirmed to be shut down, then start WSL again.
+                // TODO: Add some sort of user feedback here to let them know we're doin work?
+            }
+
+            Debug.WriteLine("WSL Restart: WSL has shutdown");
+
+            // Run the startup command
             Misc.RunCommand("wsl.exe", string.Empty, false);
 
-            // TODO: LEFT OFF: Add check and msgbox to see if it started
+            Debug.WriteLine("WSL Restart: Startup command sent");
+
+            while (!WSL_IsRunning()) {
+                // Loop until WSL is confirmed to be running, then show them confirmation.
+                // TODO: Add some sort of user feedback here to let them know we're doin work?
+            }
+
+            Debug.WriteLine("WSL Restart: WSL has restarted");
+
+            if (bShowResult) {
+                MessageBox.Show("WSL has restarted.", "WSL: Restart", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
     }

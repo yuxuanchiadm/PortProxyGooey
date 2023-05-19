@@ -56,6 +56,8 @@
             WSLRunningToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
             WSLStartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            WSLRestartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
             WSLShutDownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             dockerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
@@ -96,8 +98,11 @@
             lblJSE = new System.Windows.Forms.Label();
             pnlBar = new System.Windows.Forms.Panel();
             tTipPPG = new System.Windows.Forms.ToolTip(components);
+            picWSL = new System.Windows.Forms.PictureBox();
+            tmrCheck = new System.Windows.Forms.Timer(components);
             lblPP = new System.Windows.Forms.Label();
             contextMenuStrip_RightClick.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)picWSL).BeginInit();
             SuspendLayout();
             // 
             // lblPP
@@ -266,7 +271,7 @@
             // 
             // WSLToolStripMenuItem
             // 
-            WSLToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { WSLRunningToolStripMenuItem, toolStripSeparator12, WSLStartToolStripMenuItem, WSLShutDownToolStripMenuItem });
+            WSLToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { WSLRunningToolStripMenuItem, toolStripSeparator12, WSLStartToolStripMenuItem, WSLRestartToolStripMenuItem, toolStripSeparator13, WSLShutDownToolStripMenuItem });
             WSLToolStripMenuItem.Image = Properties.Resources.wsl;
             WSLToolStripMenuItem.Name = "WSLToolStripMenuItem";
             resources.ApplyResources(WSLToolStripMenuItem, "WSLToolStripMenuItem");
@@ -289,6 +294,18 @@
             WSLStartToolStripMenuItem.Image = Properties.Resources.wsl;
             WSLStartToolStripMenuItem.Name = "WSLStartToolStripMenuItem";
             WSLStartToolStripMenuItem.Click += WSLStartToolStripMenuItem_Click;
+            // 
+            // WSLRestartToolStripMenuItem
+            // 
+            resources.ApplyResources(WSLRestartToolStripMenuItem, "WSLRestartToolStripMenuItem");
+            WSLRestartToolStripMenuItem.Image = Properties.Resources.wsl;
+            WSLRestartToolStripMenuItem.Name = "WSLRestartToolStripMenuItem";
+            WSLRestartToolStripMenuItem.Click += WSLRestartToolStripMenuItem_Click;
+            // 
+            // toolStripSeparator13
+            // 
+            toolStripSeparator13.Name = "toolStripSeparator13";
+            resources.ApplyResources(toolStripSeparator13, "toolStripSeparator13");
             // 
             // WSLShutDownToolStripMenuItem
             // 
@@ -554,11 +571,27 @@
             tTipPPG.InitialDelay = 1000;
             tTipPPG.ReshowDelay = 100;
             // 
+            // picWSL
+            // 
+            resources.ApplyResources(picWSL, "picWSL");
+            picWSL.BackColor = System.Drawing.Color.FromArgb(67, 76, 94);
+            picWSL.Image = Properties.Resources.wsl;
+            picWSL.Name = "picWSL";
+            picWSL.TabStop = false;
+            tTipPPG.SetToolTip(picWSL, resources.GetString("picWSL.ToolTip"));
+            // 
+            // tmrCheck
+            // 
+            tmrCheck.Enabled = true;
+            tmrCheck.Interval = 1000;
+            tmrCheck.Tick += tmrCheck_Tick;
+            // 
             // PortProxyGooey
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.FromArgb(46, 52, 64);
+            Controls.Add(picWSL);
             Controls.Add(lblPP);
             Controls.Add(pnlBar);
             Controls.Add(lblJSE);
@@ -572,6 +605,7 @@
             DoubleClick += PortProxyGooey_DoubleClick;
             Resize += PortProxyGUI_Resize;
             contextMenuStrip_RightClick.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)picWSL).EndInit();
             ResumeLayout(false);
         }
 
@@ -646,6 +680,10 @@
         private System.Windows.Forms.ToolStripMenuItem WSLShutDownToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
         private System.Windows.Forms.ToolStripMenuItem WSLStartToolStripMenuItem;
+        private System.Windows.Forms.PictureBox picWSL;
+        private System.Windows.Forms.Timer tmrCheck;
+        private System.Windows.Forms.ToolStripMenuItem WSLRestartToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator13;
     }
 }
 
