@@ -99,10 +99,14 @@
             pnlBar = new System.Windows.Forms.Panel();
             tTipPPG = new System.Windows.Forms.ToolTip(components);
             picWSL = new System.Windows.Forms.PictureBox();
+            contextMenuStrip_WSL = new System.Windows.Forms.ContextMenuStrip(components);
+            toolStripMenuItemWSLRestart = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItemWSLShutDown = new System.Windows.Forms.ToolStripMenuItem();
             tmrCheck = new System.Windows.Forms.Timer(components);
             lblPP = new System.Windows.Forms.Label();
             contextMenuStrip_RightClick.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picWSL).BeginInit();
+            contextMenuStrip_WSL.SuspendLayout();
             SuspendLayout();
             // 
             // lblPP
@@ -253,6 +257,7 @@
             // 
             // toolStripMenuItem_ResetWindowSize
             // 
+            toolStripMenuItem_ResetWindowSize.Image = Properties.Resources.reset;
             toolStripMenuItem_ResetWindowSize.Name = "toolStripMenuItem_ResetWindowSize";
             resources.ApplyResources(toolStripMenuItem_ResetWindowSize, "toolStripMenuItem_ResetWindowSize");
             toolStripMenuItem_ResetWindowSize.Click += toolStripMenuItem_ResetWindowSize_Click;
@@ -488,17 +493,20 @@
             // toolStripMenuItem1
             // 
             toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem_Export, toolStripMenuItem_Import });
+            toolStripMenuItem1.Image = Properties.Resources.backup;
             toolStripMenuItem1.Name = "toolStripMenuItem1";
             resources.ApplyResources(toolStripMenuItem1, "toolStripMenuItem1");
             // 
             // toolStripMenuItem_Export
             // 
+            toolStripMenuItem_Export.Image = Properties.Resources.backup;
             toolStripMenuItem_Export.Name = "toolStripMenuItem_Export";
             resources.ApplyResources(toolStripMenuItem_Export, "toolStripMenuItem_Export");
             toolStripMenuItem_Export.Click += toolStripMenuItem_Export_Click;
             // 
             // toolStripMenuItem_Import
             // 
+            toolStripMenuItem_Import.Image = Properties.Resources.restore;
             toolStripMenuItem_Import.Name = "toolStripMenuItem_Import";
             resources.ApplyResources(toolStripMenuItem_Import, "toolStripMenuItem_Import");
             toolStripMenuItem_Import.Click += toolStripMenuItem_Import_Click;
@@ -575,10 +583,32 @@
             // 
             resources.ApplyResources(picWSL, "picWSL");
             picWSL.BackColor = System.Drawing.Color.FromArgb(67, 76, 94);
+            picWSL.ContextMenuStrip = contextMenuStrip_WSL;
             picWSL.Image = Properties.Resources.wsl;
             picWSL.Name = "picWSL";
             picWSL.TabStop = false;
             tTipPPG.SetToolTip(picWSL, resources.GetString("picWSL.ToolTip"));
+            picWSL.Click += picWSL_Click;
+            // 
+            // contextMenuStrip_WSL
+            // 
+            contextMenuStrip_WSL.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItemWSLRestart, toolStripMenuItemWSLShutDown });
+            contextMenuStrip_WSL.Name = "contextMenuStrip_WSL";
+            resources.ApplyResources(contextMenuStrip_WSL, "contextMenuStrip_WSL");
+            // 
+            // toolStripMenuItemWSLRestart
+            // 
+            toolStripMenuItemWSLRestart.Image = Properties.Resources.wsl;
+            toolStripMenuItemWSLRestart.Name = "toolStripMenuItemWSLRestart";
+            resources.ApplyResources(toolStripMenuItemWSLRestart, "toolStripMenuItemWSLRestart");
+            toolStripMenuItemWSLRestart.Click += toolStripMenuItemWSLRestart_Click;
+            // 
+            // toolStripMenuItemWSLShutDown
+            // 
+            toolStripMenuItemWSLShutDown.Image = Properties.Resources.wsl;
+            toolStripMenuItemWSLShutDown.Name = "toolStripMenuItemWSLShutDown";
+            resources.ApplyResources(toolStripMenuItemWSLShutDown, "toolStripMenuItemWSLShutDown");
+            toolStripMenuItemWSLShutDown.Click += toolStripMenuItemWSLShutDown_Click;
             // 
             // tmrCheck
             // 
@@ -606,6 +636,7 @@
             Resize += PortProxyGUI_Resize;
             contextMenuStrip_RightClick.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)picWSL).EndInit();
+            contextMenuStrip_WSL.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -684,6 +715,9 @@
         private System.Windows.Forms.Timer tmrCheck;
         private System.Windows.Forms.ToolStripMenuItem WSLRestartToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator13;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip_WSL;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemWSLRestart;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemWSLShutDown;
     }
 }
 

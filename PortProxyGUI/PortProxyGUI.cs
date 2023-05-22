@@ -9,6 +9,7 @@ using PortProxyGooey.Utils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -20,8 +21,10 @@ using ListView = System.Windows.Forms.ListView;
 #endregion
 
 namespace PortProxyGooey {
+
     public partial class PortProxyGooey : Form {
-        #region Variable Declarations
+
+        #region + -- VAR DECLARATIONS -- +
 
         // Easy place to change app info app-wide as needed
         public const string strAppURL = "https://github.com/STaRDoGG/PortProxyGUI";
@@ -33,9 +36,14 @@ namespace PortProxyGooey {
         private DateTime ClickStartTime;
         private int ClickCount;
 
+        // Keep track of enable/disabled proxies
+        private int intEnabled = 0;
+        private int intDisabled = 0;
+
         #endregion
 
         public PortProxyGooey() {
+
             InitializeComponent();
             Font = InterfaceUtil.UiFont;
 
@@ -45,6 +53,7 @@ namespace PortProxyGooey {
         }
 
         private void PortProxyGUI_Load(object sender, EventArgs e) {
+
             // Get the resource manager for your application.
             ResourceManager rm = Properties.Resources.ResourceManager;
 
@@ -53,15 +62,12 @@ namespace PortProxyGooey {
 
             //e.Graphics.DrawImage(img, 50, 50, 100, 100);
 
-
-
             //Debug.WriteLine(PortProxyUtil.CheckPortOpen("::1", 3568)); // bad
             //Debug.WriteLine(PortProxyUtil.CheckPortOpen("::1", 443));  // good
             //Debug.WriteLine(PortProxyUtil.CheckPortOpen("24.14.15.201", 3568)); // bad
             //Debug.WriteLine(PortProxyUtil.CheckPortOpen("24.14.15.201", 443));  // good
             //Debug.WriteLine(PortProxyUtil.CheckPortOpen("0.0.0.0", 443)); // good (returns false though. is it because 0.0.0.0 isnt a real ip?)
             //Debug.WriteLine(PortProxyUtil.CheckPortOpen("127.0.0.1", 443)); // good
-
 
             //JSE_Utils.WSL.WSL_GetVersion();
 
@@ -75,13 +81,16 @@ namespace PortProxyGooey {
 
             // Set Main Window Location from saved settings
             if (AppConfig.MainWindowLocationX != 0 && AppConfig.MainWindowLocationY != 0) {
+
                 this.StartPosition = FormStartPosition.Manual;
                 this.Left = AppConfig.MainWindowLocationX;
                 this.Top = AppConfig.MainWindowLocationY;
+
             }
         }
 
         private void PortProxyGUI_Shown(object sender, EventArgs e) {
+
             RefreshProxyList();
 
             // Sort columns based on saved config
@@ -118,6 +127,7 @@ namespace PortProxyGooey {
         }
 
         private static Rule ParseRule(ListViewItem item) {
+
             ListViewSubItem[] subItems = item.SubItems.OfType<ListViewSubItem>().ToArray();
             int listenPort, connectPort;
 
@@ -134,35 +144,49 @@ namespace PortProxyGooey {
                 Group = item.Group?.Header.Trim(),
             };
             return rule;
+
         }
 
-        private void EnableSelectedProxies() {
+        /// <summary>
+        /// Enable/Disable selected Proxies
+        /// </summary>
+        /// <param name="bEnable">[Optional: default True]True: Enable selected; False: Disable selected.</param>
+        private void ToggleSelectedProxies(bool bEnable = true) {
+            // TODO: working on the label tip counter(s)
             IEnumerable<ListViewItem> items = listViewProxies.SelectedItems.OfType<ListViewItem>();
-            foreach (ListViewItem item in items) {
-                item.ImageIndex = 1;
 
-                try {
-                    Rule rule = ParseRule(item);
-                    PortProxyUtil.AddOrUpdateProxy(rule);
-                } catch (NotSupportedException ex) {
-                    MessageBox.Show(ex.Message, "Exclamation", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    return;
+            foreach (ListViewItem item in items) {
+
+                if (bEnable) {
+
+                    item.ImageIndex = 1;
+
+                    intEnabled++;
+                    intDisabled--; // might be wrong
+
+                } else {
+
+                    item.ImageIndex = 0;
+
+                    intEnabled--;
+                    intDisabled++;
                 }
-            }
-            PortProxyUtil.ParamChange();
-        }
-
-        private void DisableSelectedProxies() {
-            IEnumerable<ListViewItem> items = listViewProxies.SelectedItems.OfType<ListViewItem>();
-            foreach (ListViewItem item in items) {
-                item.ImageIndex = 0;
 
                 try {
+
                     Rule rule = ParseRule(item);
-                    PortProxyUtil.DeleteProxy(rule);
+
+                    if (bEnable) {
+                        PortProxyUtil.AddOrUpdateProxy(rule);
+                    } else {
+                        PortProxyUtil.DeleteProxy(rule);
+                    }
+
                 } catch (NotSupportedException ex) {
-                    MessageBox.Show(ex.Message, "Exclamation", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+                    MessageBox.Show(ex.Message, "Scramble the jets!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
+
                 }
             }
             PortProxyUtil.ParamChange();
@@ -173,20 +197,22 @@ namespace PortProxyGooey {
         /// </summary>
         /// <param name="intShowConfirmation">[optional] display a confirmation first: 1 = Yes, 0 = No (default)</param>
         private void DeleteSelectedProxies(int intShowConfirmation = 0) {
+
             IEnumerable<ListViewItem> items = listViewProxies.SelectedItems.OfType<ListViewItem>();
 
             if (intShowConfirmation == 1) {
+
                 int intCount = listViewProxies.SelectedItems.Count;
 
                 // Pluralize if necessary ;)
                 string strMsg = string.Format("Delete {0} {1}?", intCount, intCount == 1 ? "proxy" : "proxies");
 
-                if (MessageBox.Show(strMsg, "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.No) {
+                if (MessageBox.Show(strMsg, "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.No)
                     return;
-                }
+
             }
 
-            DisableSelectedProxies();
+            ToggleSelectedProxies(false);
             Program.Database.RemoveRange(items.Select(x => new Rule { Id = x.Tag.ToString() }));
             foreach (ListViewItem item in items)
                 listViewProxies.Items.Remove(item);
@@ -197,17 +223,18 @@ namespace PortProxyGooey {
             ListViewItem item = listViewProxies.SelectedItems.OfType<ListViewItem>().FirstOrDefault();
 
             try {
+
                 Rule rule = ParseRule(item);
 
                 if (bclone) {
-                    // Cloning a rule
+                    // Clone rule
                     form.UseNormalMode(rule);
                 } else {
-                    // Modifying a rule
+                    // Modify rule
                     form.UseUpdateMode(item, rule);
                 }
             } catch (NotSupportedException ex) {
-                MessageBox.Show(ex.Message, "Exclamation", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(ex.Message, "Ayy Now!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
         }
@@ -217,6 +244,7 @@ namespace PortProxyGooey {
         /// </summary>
         /// <param name="rules"></param>
         private void InitProxyGroups(Rule[] rules) {
+
             listViewProxies.Groups.Clear();
 
             ListViewGroup[] groups = (
@@ -226,23 +254,34 @@ namespace PortProxyGooey {
                 orderby name
                 select new ListViewGroup(name)
             ).ToArray();
+
             listViewProxies.Groups.AddRange(groups);
         }
 
         private void InitProxyItems(Rule[] rules, Rule[] proxies) {
+
+            // Reset when updating the list
+            intEnabled = 0;
+            intDisabled = 0;
+
             listViewProxies.Items.Clear();
 
             foreach (Rule rule in rules) {
+
                 int imageIndex = proxies.Any(p => p.EqualsWithKeys(rule)) ? 1 : 0;
+
                 ListViewGroup group = listViewProxies.Groups.OfType<ListViewGroup>().FirstOrDefault(x => x.Header == rule.Group);
 
                 ListViewItem item = new();
                 UpdateListViewItem(item, rule, imageIndex);
                 listViewProxies.Items.Add(item);
+
             }
+
         }
 
         public void UpdateListViewItem(ListViewItem item, Rule rule, int imageIndex) {
+
             item.ImageIndex = imageIndex;
             item.Tag = rule.Id;
             item.SubItems.Clear();
@@ -266,16 +305,40 @@ namespace PortProxyGooey {
                 }
                 item.Group = group;
             }
+
+            // Keep track of how many enabled/disabled
+            if (imageIndex == 1) {
+                intEnabled++;
+            } else {
+                intDisabled++;
+            }
+
+            UpdateProxyCountToolTip();
+
+        }
+
+        private void UpdateProxyCountToolTip() {
+
+            lblProxyCount.Text = listViewProxies.Items.Count.ToString();
+
+            // LEFT OFF: setting the ttip. Everything seems to be working here EXCEPT when I toggle en/disabled on a proxy; then the tip isnt being updated cuz this func isnt called.
+            // Total count is off.
+            tTipPPG.SetToolTip(lblProxyCount, string.Format("Total Proxies: {0}{3}Enabled: {1}{3}Disabled: {2}", listViewProxies.Items.Count, intEnabled, intDisabled, Environment.NewLine));
+
         }
 
         public void RefreshProxyList() {
+
             listViewProxies.Cursor = Cursors.WaitCursor;
 
             Rule[] proxies = PortProxyUtil.GetProxies();
             Rule[] rules = Program.Database.Rules.ToArray();
+
             foreach (Rule proxy in proxies) {
+
                 Rule matchedRule = rules.FirstOrDefault(r => r.EqualsWithKeys(proxy));
                 proxy.Id = matchedRule?.Id;
+
             }
 
             IEnumerable<Rule> pendingAdds = proxies.Where(x => x.Valid && x.Id == null);
@@ -293,8 +356,8 @@ namespace PortProxyGooey {
             InitProxyGroups(rules);
             InitProxyItems(rules, proxies);
 
-            lblProxyCount.Text = listViewProxies.Items.Count.ToString();
             listViewProxies.Cursor = Cursors.Default;
+
         }
 
         /// <summary>
@@ -315,12 +378,12 @@ namespace PortProxyGooey {
 
                     case ToolStripMenuItem item when item == toolStripMenuItem_Enable:
 
-                        EnableSelectedProxies();
+                        ToggleSelectedProxies(true);
                         break;
 
                     case ToolStripMenuItem item when item == toolStripMenuItem_Disable:
 
-                        DisableSelectedProxies();
+                        ToggleSelectedProxies(false);
                         break;
 
                     // New Item
@@ -377,9 +440,11 @@ namespace PortProxyGooey {
         /// </summary>
         /// <param name="bClone">[Optional] True = Clone; else = Modify</param>
         private void ModOrClone(bool bClone = false) {
+
             SetProxyForm ??= new SetProxy(this);
             SetProxyForUpdateOrClone(SetProxyForm, bClone);
             SetProxyForm.ShowDialog();
+
         }
 
         /// <summary>
@@ -394,6 +459,7 @@ namespace PortProxyGooey {
                         MessageBoxIcon.Question,
                         MessageBoxDefaultButton.Button2
                         ) == DialogResult.Yes) {
+
                 // Select all in the list and delete
                 listViewProxies.Items.Cast<ListViewItem>().ToList().ForEach(item => item.Selected = true);
                 DeleteSelectedProxies();
@@ -419,16 +485,19 @@ namespace PortProxyGooey {
 
                 // If a ListView item was clicked ...
                 if (hit.Item != null) {
-                    // Fetch which colum the user clicked in
+
+                    // Fetch which column the user clicked in
                     int columnindex = hit.Item.SubItems.IndexOf(hit.SubItem);
 
                     // If it's the first column (checkbox icon column) then toggle it's state
                     if (columnindex == 0) {
+
                         if (hit.Item.ImageIndex == 1) {
-                            DisableSelectedProxies();
+                            ToggleSelectedProxies(false);
                         } else {
-                            EnableSelectedProxies();
+                            ToggleSelectedProxies(true);
                         }
+
                     }
 
                 } else {
@@ -554,13 +623,13 @@ namespace PortProxyGooey {
                 // Enable Item
                 case Keys.Control | Keys.E:
 
-                    if (listViewProxies.SelectedItems.Count > 0) { EnableSelectedProxies(); }
+                    if (listViewProxies.SelectedItems.Count > 0) { ToggleSelectedProxies(true); }
                     return true;
 
                 // Disable Item
                 case Keys.Control | Keys.D:
 
-                    if (listViewProxies.SelectedItems.Count > 0) { DisableSelectedProxies(); }
+                    if (listViewProxies.SelectedItems.Count > 0) { ToggleSelectedProxies(false); }
                     return true;
 
                 // Delete Item(s)
@@ -631,14 +700,13 @@ namespace PortProxyGooey {
 
         private void PortProxyGUI_Resize(object sender, EventArgs e) {
 
-            if (AppConfig is not null && sender is Form form) {
+            if (AppConfig is not null && sender is Form form)
                 AppConfig.MainWindowSize = form.Size;
-            }
 
             Debug.WriteLine(string.Format("w: {0} h: {1}", this.Width, this.Height));
         }
 
-        #region IMPORT / EXPORT
+        #region + -- IMPORT / EXPORT -- +
 
         /// <summary>
         /// Exports current list of proxies to .db
@@ -660,16 +728,21 @@ namespace PortProxyGooey {
             bool intErrCheck = false;
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK) {
+
                 try {
+
                     File.Copy(ApplicationDbScope.AppDbFile, saveFileDialog.FileName, true);
+
                 } catch (Exception ex) {
+
                     intErrCheck = true;
                     Debug.WriteLine(string.Format("Save File issue: {0}", ex.Message));
+
                 }
 
                 // Give some user feedback
                 if (intErrCheck == true) {
-                    MessageBox.Show("Couldnt Export Proxy List", "Oops", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Couldn't Export Proxy List", "Oops", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 } else {
                     MessageBox.Show("Proxy List Exported", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -697,12 +770,15 @@ namespace PortProxyGooey {
                             Rule exist = Program.Database.GetRule(rule.Type, rule.ListenOn, rule.ListenPort);
 
                             if (exist is null) {
+
                                 rule.Id = Guid.NewGuid().ToString();
                                 Program.Database.Add(rule);
                                 intAdded++;
+
                             }
                         }
                     }
+
                     RefreshProxyList();
                     MessageBox.Show(string.Format("{0} rules imported.", intAdded), "Import Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -712,8 +788,10 @@ namespace PortProxyGooey {
         #endregion
 
         private void toolStripMenuItem_ResetWindowSize_Click(object sender, EventArgs e) {
+
             AppConfig = new AppConfig();
             ResetWindowSize();
+
         }
 
         #region External Apps
@@ -744,16 +822,23 @@ namespace PortProxyGooey {
         /// </summary>
         /// <param name="strPanel">The Panel to open</param>
         private static void WFC(string strPanel) {
+
             try {
+
                 RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Windows Firewall Control");
 
                 if (key != null) {
+
                     Process.Start(key.GetValue("InstallationPath").ToString(), strPanel);
                     key.Close();
+
                 } else {
+
                     // If path to WFC isnt found in the registry, as a courtesy, launch the website for them to dl it, if they want.
                     PortProxyUtil.Launch("https://www.binisoft.org/wfc");
+
                 }
+
             } catch (Exception ex) {
                 Debug.WriteLine(string.Format("Error in WFC(): {0}", ex.Message));
             }
@@ -800,18 +885,22 @@ namespace PortProxyGooey {
         /// FlushDNS
         /// </summary>
         private void toolStripMenuItem_FlushDnsCache_Click(object sender, EventArgs e) {
+
             if (MessageBox.Show("Flush DNS?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes) {
                 PortProxyUtil.FlushCache();
             }
+
         }
 
         /// <summary>
         /// Resets the counts on the right-click context menu when the menu closes
         /// </summary>
         private void contextMenuStrip_RightClick_Closed(object sender, ToolStripDropDownClosedEventArgs e) {
+
             toolStripMenuItem_Enable.Text = "Enable";
             toolStripMenuItem_Disable.Text = "Disable";
             toolStripMenuItem_Delete.Text = "Delete";
+
         }
 
         #region Clipboard & View Cline
@@ -894,12 +983,14 @@ namespace PortProxyGooey {
         /// Open Regedit to the specified Type
         /// </summary>
         private void registryKeyToolStripMenuItem_Click(object sender, EventArgs e) {
+
             RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Applets\Regedit", true);
 
             if (key != null) {
                 key.SetValue("LastKey", string.Format("HKEY_LOCAL_MACHINE\\{0}", PortProxyUtil.GetKeyName(listViewProxies.SelectedItems[0].SubItems[1].Text)), RegistryValueKind.String);
                 key.Close();
             }
+
             Process.Start("regedit.exe");
         }
 
@@ -949,12 +1040,30 @@ namespace PortProxyGooey {
             WSL.WSL_ShutDown();
         }
 
+        /// <summary>
+        /// WSL Mini Menu: Shutdown
+        /// </summary>
+        private void toolStripMenuItemWSLShutDown_Click(object sender, EventArgs e) {
+            WSL.WSL_ShutDown();
+        }
+
         private void WSLStartToolStripMenuItem_Click(object sender, EventArgs e) {
             WSL.WSL_Start();
         }
 
         private void WSLRestartToolStripMenuItem_Click(object sender, EventArgs e) {
             WSL.WSL_Restart();
+        }
+
+        /// <summary>
+        /// WSL Mini Menu: Restart
+        /// </summary>
+        private void toolStripMenuItemWSLRestart_Click(object sender, EventArgs e) {
+            WSL.WSL_Restart();
+        }
+
+        private void picWSL_Click(object sender, EventArgs e) {
+            contextMenuStrip_WSL.Show();
         }
 
         #endregion

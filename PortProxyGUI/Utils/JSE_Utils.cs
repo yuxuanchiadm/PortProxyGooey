@@ -339,7 +339,7 @@ namespace JSE_Utils
         /// <param name="bShowResult">[Optional: default True] Shows a messagebox confirming WSL has restarted</param>
         public static void WSL_Restart(bool bShowResult = true) {
 
-            // Run the shutdown command
+            // Run the shutdown command TODO: need to add confirmation when run fromt he mini menu.
             Misc.RunCommand("wsl.exe", "--shutdown");
 
             Debug.WriteLine("WSL Restart: Shutdown command sent");

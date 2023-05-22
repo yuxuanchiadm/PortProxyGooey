@@ -97,7 +97,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lblPP.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="listViewProxies.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -297,19 +297,19 @@ This saves you from having to do repititous form filling.</value>
     <value>214, 6</value>
   </data>
   <data name="WSLRunningToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>138, 22</value>
   </data>
   <data name="WSLRunningToolStripMenuItem.Text" xml:space="preserve">
     <value>Running?</value>
   </data>
   <data name="toolStripSeparator12.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 6</value>
+    <value>135, 6</value>
   </data>
   <data name="WSLStartToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="WSLStartToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>138, 22</value>
   </data>
   <data name="WSLStartToolStripMenuItem.Text" xml:space="preserve">
     <value>Start</value>
@@ -318,19 +318,19 @@ This saves you from having to do repititous form filling.</value>
     <value>False</value>
   </data>
   <data name="WSLRestartToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>138, 22</value>
   </data>
   <data name="WSLRestartToolStripMenuItem.Text" xml:space="preserve">
     <value>Restart</value>
   </data>
   <data name="toolStripSeparator13.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 6</value>
+    <value>135, 6</value>
   </data>
   <data name="WSLShutDownToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="WSLShutDownToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>138, 22</value>
   </data>
   <data name="WSLShutDownToolStripMenuItem.Text" xml:space="preserve">
     <value>Shut Down</value>
@@ -606,14 +606,14 @@ in case you want to download it.</value>
     <value>706, 398</value>
   </data>
   <metadata name="imgListProxies.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>569, 17</value>
+    <value>747, 17</value>
   </metadata>
   <data name="imgListProxies.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAmgsAAAJNU0Z0AUkBTAIBAQIB
-        AAGwAQIBsAECARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARAe
+        AAHYAQIB2AECARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARAe
         AAMqAUADKgFAAyoBQAMqAUADKgFAAyoBQAMqAUADKgFAAyoBQAMqAUDQAAMMARACWQFbAcABPAFNAv8B
         PAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8CWQFbAcAD
         DAEQCAADDAEQAlsBWQHAAa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQB
@@ -678,16 +678,16 @@ in case you want to download it.</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;listViewProxies.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <metadata name="saveFileDialog_Export.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>225, 17</value>
+    <value>403, 17</value>
   </metadata>
   <data name="saveFileDialog_Export.Filter" xml:space="preserve">
     <value>Database File|*.db</value>
   </data>
   <metadata name="openFileDialog_Import.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>394, 17</value>
+    <value>572, 17</value>
   </metadata>
   <data name="openFileDialog_Import.Filter" xml:space="preserve">
     <value>Database File|*.db</value>
@@ -714,7 +714,7 @@ in case you want to download it.</value>
     <value>MiddleRight</value>
   </data>
   <metadata name="tTipPPG.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>698, 17</value>
+    <value>876, 17</value>
   </metadata>
   <data name="lblProxyCount.ToolTip" xml:space="preserve">
     <value>Number of proxies in your list</value>
@@ -729,7 +729,7 @@ in case you want to download it.</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lblProxyCount.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="lblGooey.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -768,7 +768,7 @@ in case you want to download it.</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lblGooey.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="lblJSE.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -807,7 +807,7 @@ in case you want to download it.</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lblJSE.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="pnlBar.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
@@ -831,10 +831,34 @@ in case you want to download it.</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;pnlBar.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="picWSL.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
+  </data>
+  <metadata name="contextMenuStrip_WSL.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>225, 17</value>
+  </metadata>
+  <data name="toolStripMenuItemWSLRestart.Size" type="System.Drawing.Size, System.Drawing">
+    <value>132, 22</value>
+  </data>
+  <data name="toolStripMenuItemWSLRestart.Text" xml:space="preserve">
+    <value>Restart</value>
+  </data>
+  <data name="toolStripMenuItemWSLShutDown.Size" type="System.Drawing.Size, System.Drawing">
+    <value>132, 22</value>
+  </data>
+  <data name="toolStripMenuItemWSLShutDown.Text" xml:space="preserve">
+    <value>Shut Down</value>
+  </data>
+  <data name="contextMenuStrip_WSL.Size" type="System.Drawing.Size, System.Drawing">
+    <value>133, 48</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStrip_WSL.Name" xml:space="preserve">
+    <value>contextMenuStrip_WSL</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStrip_WSL.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="picWSL.Location" type="System.Drawing.Point, System.Drawing">
     <value>687, 380</value>
@@ -864,10 +888,10 @@ in case you want to download it.</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;picWSL.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <metadata name="tmrCheck.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>793, 17</value>
+    <value>971, 17</value>
   </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -3443,6 +3467,18 @@ in case you want to download it.</value>
   </data>
   <data name="&gt;&gt;tTipPPG.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItemWSLRestart.Name" xml:space="preserve">
+    <value>toolStripMenuItemWSLRestart</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItemWSLRestart.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItemWSLShutDown.Name" xml:space="preserve">
+    <value>toolStripMenuItemWSLShutDown</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItemWSLShutDown.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tmrCheck.Name" xml:space="preserve">
     <value>tmrCheck</value>
