@@ -698,7 +698,7 @@ namespace PortProxyGooey {
                 // FlushDNS
                 case Keys.Control | Keys.F:
 
-                    PortProxyUtil.FlushCache();
+                    DNS.FlushCache();
                     return true;
 
                 // Clear All Proxies
@@ -936,11 +936,7 @@ namespace PortProxyGooey {
         /// FlushDNS
         /// </summary>
         private void toolStripMenuItem_FlushDnsCache_Click(object sender, EventArgs e) {
-
-            if (MessageBox.Show("Flush DNS?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes) {
-                PortProxyUtil.FlushCache();
-            }
-
+            DNS.FlushCache();
         }
 
         /// <summary>

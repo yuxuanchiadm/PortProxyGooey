@@ -16,10 +16,10 @@ using System.Windows.Forms;
 
 #endregion
 
-namespace PortProxyGooey.Utils
-{
-    public static partial class PortProxyUtil
-    {
+namespace PortProxyGooey.Utils {
+
+    public static partial class PortProxyUtil {
+
         #region + -- VAR DECLARATIONS -- +
 
         private static InvalidOperationException InvalidPortProxyType(string type) => new($"Invalid port proxy type ({type}).");
@@ -79,8 +79,8 @@ namespace PortProxyGooey.Utils
         /// Write proxy to registry
         /// </summary>
         /// <param name="rule"></param>
-        public static void AddOrUpdateProxy(Rule rule)
-        {
+        public static void AddOrUpdateProxy(Rule rule) {
+
             // $"netsh interface portproxy add {rule.Type} listenaddress={rule.ListenOn} listenport={rule.ListenPort} connectaddress={rule.ConnectTo} connectport={rule.ConnectPort}"
 
             if (!ProxyTypes.Contains(rule.Type)) throw InvalidPortProxyType(rule.Type);
@@ -93,14 +93,15 @@ namespace PortProxyGooey.Utils
             if (key is null) Registry.LocalMachine.CreateSubKey(keyName);
             key = Registry.LocalMachine.OpenSubKey(keyName, true);
             key?.SetValue(name, value);
+
         }
 
         /// <summary>
         /// Delete proxy from registry
         /// </summary>
         /// <param name="rule"></param>
-        public static void DeleteProxy(Rule rule)
-        {
+        public static void DeleteProxy(Rule rule) {
+
             // $"netsh interface portproxy delete {rule.Type} listenaddress={rule.ListenOn} listenport={rule.ListenPort}"
 
             if (!ProxyTypes.Contains(rule.Type)) throw InvalidPortProxyType(rule.Type);
@@ -109,22 +110,23 @@ namespace PortProxyGooey.Utils
             RegistryKey key = Registry.LocalMachine.OpenSubKey(keyName, true);
             string name = $"{rule.ListenOn}/{rule.ListenPort}";
 
-            try
-            {
+            try {
                 key?.DeleteValue(name);
             }
             catch { }
+
         }
 
-        public static void ParamChange()
-        {
+        public static void ParamChange() {
+
             IntPtr hManager = NativeMethods.OpenSCManager(null, null, (uint)GenericRights.GENERIC_READ);
+
             if (hManager == IntPtr.Zero) throw new InvalidOperationException("Open SC Manager failed.");
 
             string serviceName = "iphlpsvc";
             IntPtr hService = NativeMethods.OpenService(hManager, serviceName, ServiceRights.SERVICE_PAUSE_CONTINUE);
-            if (hService == IntPtr.Zero)
-            {
+
+            if (hService == IntPtr.Zero)  {
                 NativeMethods.CloseServiceHandle(hManager);
                 throw new InvalidOperationException($"Open Service ({serviceName}) failed.");
             }
@@ -135,10 +137,10 @@ namespace PortProxyGooey.Utils
             NativeMethods.CloseServiceHandle(hService);
             NativeMethods.CloseServiceHandle(hManager);
 
-            if (!success)
-            {
+            if (!success) {
                 throw new InvalidOperationException($"Control Service ({serviceName}) ParamChange failed.");
             }
+
         }
 
         /// <summary>
@@ -146,8 +148,7 @@ namespace PortProxyGooey.Utils
         /// </summary>
         /// <param name="ip"><string> IP Address to check</string></param>
         /// <returns></returns>
-        public static bool IsIPv4(string ip)
-        {
+        public static bool IsIPv4(string ip) {
             return ip.IsMatch(JSE_Utils.IPValidation.IPv4RegEx);
         }
 
@@ -156,33 +157,13 @@ namespace PortProxyGooey.Utils
         /// </summary>
         /// <param name="ip">IP to validate</param>
         /// <returns>True if valid; False if Invalid</returns>
-        public static bool IsIPv6(string ip)
-        {
+        public static bool IsIPv6(string ip) {
+
             // Scott Note to original author: Is this correct? Looks more like a MAC Address regex? I added a better regex below, but leaving original for posterity.
             // return ip.IsMatch(new Regex(@"^[\dABCDEF]{2}(?::(?:[\dABCDEF]{2})){5}$"));
             return ip.IsMatch(JSE_Utils.IPValidation.IPv6RegEx);
+
         }
-
-        #region DNS UTILS
-
-        [return: MarshalAs(UnmanagedType.Bool)]
-        [LibraryImport("dnsapi.dll")]
-        public static partial bool DnsFlushResolverCache();
-
-        public static void FlushCache()
-        {
-            bool status = DnsFlushResolverCache();
-            if (status == false)
-            {
-                throw new InvalidOperationException("Flush DNS Cache failed.");
-            }
-            else
-            {
-                MessageBox.Show("DNS Flushed!", "Whoosh", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
-
-        #endregion
 
         #region MISC
 
@@ -192,15 +173,16 @@ namespace PortProxyGooey.Utils
         /// <param name="strFileOrURL">URL/App to open</param>
         /// <param name="strArgs">[optional] Any arguments to pass to the file/app. Defaults to empty string.</param>
         /// <param name="strStartIn">[optional] Directory to start in. Defaults to empty string.</param>
-        public static void Launch(string strFileOrURL, string strArgs = "", string strStartIn = "")
-        {
-            ProcessStartInfo psi = new()
-            {
+        public static void Launch(string strFileOrURL, string strArgs = "", string strStartIn = "") {
+
+            ProcessStartInfo psi = new() {
+
                 FileName = strFileOrURL,
                 Arguments = strArgs,
                 WorkingDirectory = strStartIn,
                 UseShellExecute = true
             };
+
             Process.Start(psi);
         }
 
@@ -210,23 +192,24 @@ namespace PortProxyGooey.Utils
         /// <param name="strHost">hostname or IP</param>
         /// <param name="intPort">[Optional] Port to test. default: 80</param>
         /// <returns>True = Connected; Else = Can't Connect</returns>
-        public static bool CheckPortOpen(string strHost, int intPort = 80)
-        {
+        public static bool CheckPortOpen(string strHost, int intPort = 80) {
+
             bool bIPv6 = false;
 
-            if (IsIPv6(strHost))
-            {
+            if (IsIPv6(strHost)) {
+
                 bIPv6 = true;
-            }
-            else if (IsIPv4(strHost))
-            {
+
+            } else if (IsIPv4(strHost)) {
+
                 bIPv6 = false;
-            }
-            else 
-            {
+
+            } else {
+
                 // Not a valid IP; exit function
                 Debug.WriteLine("CheckPortOpen(): Invalid IP {0}", strHost);
                 return false;
+
             }
 
             // + -----------------------------------------------------------
@@ -242,23 +225,21 @@ namespace PortProxyGooey.Utils
             sock.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
 
             // Attempt to connect
-            try
-            {
+            try {
+
                 Debug.WriteLine("TESTING: IP{2}:Port {0}:{1}", strHost, intPort, bIPv6 ? "6" : "4");
                 sock.Connect(endpoint);
 
                 // If success, these get called, else, passed over for SocketException below.
                 Debug.WriteLine("TESTING (SUCCESS): IP{2} Port {0} is open on {1}.", intPort, strHost, bIPv6 ? "6" : "4");
                 return true;
-            }
-            catch (SocketException sx)
-            {                
+
+            } catch (SocketException sx) {                
                 Debug.WriteLine("TESTING (FAILED): IP{2} Port {0} is closed on {1}. (Code: {3})", intPort, strHost, bIPv6 ? "6" : "4", sx.ErrorCode.ToString());
-            }
-            finally
-            {
+            } finally {
                 sock.Close();
             }
+
             return false;
         }
 
