@@ -198,6 +198,9 @@
   <data name="toolStripMenuItem_New.ToolTipText" xml:space="preserve">
     <value>Add a new port to proxy</value>
   </data>
+  <data name="toolStripSeparator14.Size" type="System.Drawing.Size, System.Drawing">
+    <value>162, 6</value>
+  </data>
   <data name="toolStripMenuItem_Modify.ShortcutKeyDisplayString" xml:space="preserve">
     <value />
   </data>
@@ -226,6 +229,15 @@
     <value>Duplicates the current item; you'll need to change the port(s) though.
 
 This saves you from having to do repititous form filling.</value>
+  </data>
+  <data name="toolStripSeparator15.Size" type="System.Drawing.Size, System.Drawing">
+    <value>162, 6</value>
+  </data>
+  <data name="moveToToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>165, 22</value>
+  </data>
+  <data name="moveToToolStripMenuItem.Text" xml:space="preserve">
+    <value>Move to ...</value>
   </data>
   <data name="toolStripSeparator5.Size" type="System.Drawing.Size, System.Drawing">
     <value>162, 6</value>
@@ -271,30 +283,6 @@ This saves you from having to do repititous form filling.</value>
   </data>
   <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
     <value>162, 6</value>
-  </data>
-  <data name="toolStripMenuItem_FlushDnsCache.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+F</value>
-  </data>
-  <data name="toolStripMenuItem_FlushDnsCache.Size" type="System.Drawing.Size, System.Drawing">
-    <value>217, 22</value>
-  </data>
-  <data name="toolStripMenuItem_FlushDnsCache.Text" xml:space="preserve">
-    <value>&amp;Flush DNS Cache</value>
-  </data>
-  <data name="toolStripMenuItem_FlushDnsCache.ToolTipText" xml:space="preserve">
-    <value>Perform ipconfig /flushDNS</value>
-  </data>
-  <data name="toolStripMenuItem_ResetWindowSize.Size" type="System.Drawing.Size, System.Drawing">
-    <value>217, 22</value>
-  </data>
-  <data name="toolStripMenuItem_ResetWindowSize.Text" xml:space="preserve">
-    <value>Reset Window</value>
-  </data>
-  <data name="toolStripMenuItem_ResetWindowSize.ToolTipText" xml:space="preserve">
-    <value>Reset the Window Size to it's default</value>
-  </data>
-  <data name="toolStripSeparator9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>214, 6</value>
   </data>
   <data name="WSLRunningToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>138, 22</value>
@@ -541,7 +529,7 @@ in case you want to download it.</value>
   <data name="advancedToolStripMenuItem1.Text" xml:space="preserve">
     <value>Advanced</value>
   </data>
-  <data name="toolStripSeparator6.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="toolStripSeparator9.Size" type="System.Drawing.Size, System.Drawing">
     <value>214, 6</value>
   </data>
   <data name="toolStripMenuItem_Export.Size" type="System.Drawing.Size, System.Drawing">
@@ -568,6 +556,30 @@ in case you want to download it.</value>
   <data name="toolStripMenuItem1.Text" xml:space="preserve">
     <value>Backup / Restore</value>
   </data>
+  <data name="toolStripSeparator6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>214, 6</value>
+  </data>
+  <data name="toolStripMenuItem_ResetWindowSize.Size" type="System.Drawing.Size, System.Drawing">
+    <value>217, 22</value>
+  </data>
+  <data name="toolStripMenuItem_ResetWindowSize.Text" xml:space="preserve">
+    <value>Reset Window</value>
+  </data>
+  <data name="toolStripMenuItem_ResetWindowSize.ToolTipText" xml:space="preserve">
+    <value>Reset the Window Size to it's default</value>
+  </data>
+  <data name="toolStripMenuItem_FlushDnsCache.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+F</value>
+  </data>
+  <data name="toolStripMenuItem_FlushDnsCache.Size" type="System.Drawing.Size, System.Drawing">
+    <value>217, 22</value>
+  </data>
+  <data name="toolStripMenuItem_FlushDnsCache.Text" xml:space="preserve">
+    <value>&amp;Flush DNS Cache</value>
+  </data>
+  <data name="toolStripMenuItem_FlushDnsCache.ToolTipText" xml:space="preserve">
+    <value>Perform ipconfig /flushDNS</value>
+  </data>
   <data name="toolStripMenuItem_More.Size" type="System.Drawing.Size, System.Drawing">
     <value>165, 22</value>
   </data>
@@ -584,7 +596,7 @@ in case you want to download it.</value>
     <value>About</value>
   </data>
   <data name="contextMenuStrip_RightClick.Size" type="System.Drawing.Size, System.Drawing">
-    <value>166, 254</value>
+    <value>166, 288</value>
   </data>
   <data name="&gt;&gt;contextMenuStrip_RightClick.Name" xml:space="preserve">
     <value>contextMenuStrip_RightClick</value>
@@ -613,7 +625,7 @@ in case you want to download it.</value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAmgsAAAJNU0Z0AUkBTAIBAQIB
-        AAHYAQIB2AECARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARAe
+        AAHoAQIB6AECARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARAe
         AAMqAUADKgFAAyoBQAMqAUADKgFAAyoBQAMqAUADKgFAAyoBQAMqAUDQAAMMARACWQFbAcABPAFNAv8B
         PAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8CWQFbAcAD
         DAEQCAADDAEQAlsBWQHAAa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQB
@@ -3192,24 +3204,6 @@ in case you want to download it.</value>
   <data name="&gt;&gt;toolStripMenuItem_More.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStripMenuItem_FlushDnsCache.Name" xml:space="preserve">
-    <value>toolStripMenuItem_FlushDnsCache</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem_FlushDnsCache.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem_ResetWindowSize.Name" xml:space="preserve">
-    <value>toolStripMenuItem_ResetWindowSize</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem_ResetWindowSize.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator9.Name" xml:space="preserve">
-    <value>toolStripSeparator9</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator9.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;externalAppsToolStripMenuItem.Name" xml:space="preserve">
     <value>externalAppsToolStripMenuItem</value>
   </data>
@@ -3408,10 +3402,10 @@ in case you want to download it.</value>
   <data name="&gt;&gt;winsockResetToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator6.Name" xml:space="preserve">
-    <value>toolStripSeparator6</value>
+  <data name="&gt;&gt;toolStripSeparator9.Name" xml:space="preserve">
+    <value>toolStripSeparator9</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator6.Type" xml:space="preserve">
+  <data name="&gt;&gt;toolStripSeparator9.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripMenuItem1.Name" xml:space="preserve">
@@ -3430,6 +3424,24 @@ in case you want to download it.</value>
     <value>toolStripMenuItem_Import</value>
   </data>
   <data name="&gt;&gt;toolStripMenuItem_Import.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator6.Name" xml:space="preserve">
+    <value>toolStripSeparator6</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem_ResetWindowSize.Name" xml:space="preserve">
+    <value>toolStripMenuItem_ResetWindowSize</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem_ResetWindowSize.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem_FlushDnsCache.Name" xml:space="preserve">
+    <value>toolStripMenuItem_FlushDnsCache</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem_FlushDnsCache.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator4.Name" xml:space="preserve">
@@ -3485,6 +3497,24 @@ in case you want to download it.</value>
   </data>
   <data name="&gt;&gt;tmrCheck.Type" xml:space="preserve">
     <value>System.Windows.Forms.Timer, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;moveToToolStripMenuItem.Name" xml:space="preserve">
+    <value>moveToToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;moveToToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator14.Name" xml:space="preserve">
+    <value>toolStripSeparator14</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator14.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator15.Name" xml:space="preserve">
+    <value>toolStripSeparator15</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator15.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>PortProxyGooey</value>

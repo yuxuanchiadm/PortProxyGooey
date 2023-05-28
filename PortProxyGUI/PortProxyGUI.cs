@@ -16,6 +16,7 @@ using System.Linq;
 using System.Resources;
 using System.Windows.Forms;
 using static System.Windows.Forms.ListViewItem;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 using ListView = System.Windows.Forms.ListView;
 
 #endregion
@@ -97,6 +98,7 @@ namespace PortProxyGooey {
             lvwColumnSorter.SortColumn = AppConfig.SortColumn;
 
             switch (AppConfig.SortOrder) {
+
                 case 2:
                     lvwColumnSorter.Order = SortOrder.Descending;
                     break;
@@ -106,6 +108,7 @@ namespace PortProxyGooey {
                 case 0:
                     lvwColumnSorter.Order = SortOrder.None;
                     break;
+
             }
 
             // Perform the sort with these new sort options
@@ -135,6 +138,7 @@ namespace PortProxyGooey {
             connectPort = Rule.ParsePort(subItems[5].Text);
 
             Rule rule = new() {
+
                 Type = subItems[1].Text.Trim(),
                 ListenOn = subItems[2].Text.Trim(),
                 ListenPort = listenPort,
@@ -142,7 +146,9 @@ namespace PortProxyGooey {
                 ConnectPort = connectPort,
                 Comment = subItems[6].Text.Trim(),
                 Group = item.Group?.Header.Trim(),
+
             };
+
             return rule;
 
         }
@@ -220,6 +226,7 @@ namespace PortProxyGooey {
         }
 
         private void SetProxyForUpdateOrClone(SetProxy form, bool bclone = false) {
+
             ListViewItem item = listViewProxies.SelectedItems.OfType<ListViewItem>().FirstOrDefault();
 
             try {
@@ -227,12 +234,17 @@ namespace PortProxyGooey {
                 Rule rule = ParseRule(item);
 
                 if (bclone) {
+
                     // Clone rule
                     form.UseNormalMode(rule);
+
                 } else {
+
                     // Modify rule
                     form.UseUpdateMode(item, rule);
+
                 }
+
             } catch (NotSupportedException ex) {
                 MessageBox.Show(ex.Message, "Ayy Now!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
@@ -256,6 +268,9 @@ namespace PortProxyGooey {
             ).ToArray();
 
             listViewProxies.Groups.AddRange(groups);
+
+            // Add group names to menu item
+            CreateGroupsMenuItem(groups);
         }
 
         private void InitProxyItems(Rule[] rules, Rule[] proxies) {
@@ -298,11 +313,16 @@ namespace PortProxyGooey {
             if (rule.Group.IsNullOrWhiteSpace())
                 item.Group = null;
             else {
+
                 ListViewGroup group = listViewProxies.Groups.OfType<ListViewGroup>().FirstOrDefault(x => x.Header == rule.Group);
+
                 if (group == null) {
+
                     group = new ListViewGroup(rule.Group);
                     listViewProxies.Groups.Add(group);
+
                 }
+
                 item.Group = group;
             }
 
@@ -315,6 +335,31 @@ namespace PortProxyGooey {
 
             UpdateProxyCountToolTip();
 
+        }
+
+        /// <summary>
+        /// Adds all group labels to the Move menu
+        /// </summary>
+        /// <param name="lvGroups">The list of group names</param>
+        private void CreateGroupsMenuItem(ListViewGroup[] lvGroups) {
+
+            // Default group doesn't get added to the ListViewGroup[]; manually add it.
+            ToolStripMenuItem toolStripMenuItem_Move = new ToolStripMenuItem("Default");
+            toolStripMenuItem_Move.Click += ToolStripMenuItem_Move_Click;
+            moveToToolStripMenuItem.DropDownItems.Add(toolStripMenuItem_Move);
+
+            //toolStripMenuItem_Move.ToolTipText = "Move selected proxy(s) to the Default group";
+
+            // Add all the other groups
+            foreach (ListViewGroup header in lvGroups) {
+
+                toolStripMenuItem_Move = new ToolStripMenuItem(header.Header);
+                toolStripMenuItem_Move.Click += ToolStripMenuItem_Move_Click;
+                moveToToolStripMenuItem.DropDownItems.Add(toolStripMenuItem_Move);
+
+                // Set any other properties of the menu item
+                //toolStripMenuItem_Move.ToolTipText = string.Format("Move proxy(s) to the {0} group", header.Header);
+            }
         }
 
         private void UpdateProxyCountToolTip() {
@@ -410,7 +455,7 @@ namespace PortProxyGooey {
                         RefreshProxyList();
                         break;
 
-                    // Clear All Proxies (have to manually hide the context menu or it'll often sit on top of the dialog)
+                    // Clear All Proxies
                     case ToolStripMenuItem item when item == clearToolStripMenuItem:
 
                         ClearProxies();
@@ -503,10 +548,13 @@ namespace PortProxyGooey {
                 } else {
 
                     if (e.Button == MouseButtons.Left) {
+
                         ClickCount++;
 
                         if (ClickCount == 1) {
+
                             ClickStartTime = DateTime.Now;
+
                         } else if (ClickCount == 2) {
 
                             ClickCount = 0;
@@ -516,8 +564,10 @@ namespace PortProxyGooey {
                             double elapsedMilliseconds = elapsed.TotalMilliseconds;
 
                             if (elapsedMilliseconds < SystemInformation.DoubleClickTime) {
+
                                 // Double-clicking an empty space opens the New Item dialog
                                 NewItem();
+
                             }
                         }
                     }
@@ -539,6 +589,7 @@ namespace PortProxyGooey {
 
                 toolStripMenuItem_Delete.Enabled = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Any();
                 toolStripMenuItem_Modify.Enabled = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
+                toolStripMenuItem_Clone.Enabled = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
 
                 // NETSH Menu
                 NetSHToolStripMenuItem.Enabled = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
@@ -1063,7 +1114,7 @@ namespace PortProxyGooey {
         }
 
         private void picWSL_Click(object sender, EventArgs e) {
-            contextMenuStrip_WSL.Show();
+            contextMenuStrip_WSL.Show(Cursor.Position);
         }
 
         #endregion
@@ -1073,6 +1124,15 @@ namespace PortProxyGooey {
             // Always keep the WSL status icon updated
             picWSL.Visible = WSL.WSL_IsRunning();
 
+        }
+
+
+        private void ToolStripMenuItem_Move_Click(object sender, EventArgs e) {
+            // LEFT OFF: Need to add the actual MOVE code now ...
+            // Pluralize if necessary ;)
+            //string strMsg = string.Format("Delete {0} {1}?", intCount, intCount == 1 ? "proxy" : "proxies");
+
+            Debug.WriteLine(sender.ToString());
         }
 
     }

@@ -48,9 +48,6 @@
             toolStripMenuItem_Refresh = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             toolStripMenuItem_More = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripMenuItem_FlushDnsCache = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripMenuItem_ResetWindowSize = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             externalAppsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             WSLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             WSLRunningToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -84,10 +81,13 @@
             registryKeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             winsockResetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem_Export = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem_Import = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            toolStripMenuItem_ResetWindowSize = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem_FlushDnsCache = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             toolStripMenuItem_About = new System.Windows.Forms.ToolStripMenuItem();
             imgListProxies = new System.Windows.Forms.ImageList(components);
@@ -103,6 +103,9 @@
             toolStripMenuItemWSLRestart = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItemWSLShutDown = new System.Windows.Forms.ToolStripMenuItem();
             tmrCheck = new System.Windows.Forms.Timer(components);
+            moveToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
+            toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
             lblPP = new System.Windows.Forms.Label();
             contextMenuStrip_RightClick.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picWSL).BeginInit();
@@ -168,7 +171,7 @@
             // contextMenuStrip_RightClick
             // 
             resources.ApplyResources(contextMenuStrip_RightClick, "contextMenuStrip_RightClick");
-            contextMenuStrip_RightClick.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem_Enable, toolStripMenuItem_Disable, toolStripSeparator3, toolStripMenuItem_New, toolStripMenuItem_Modify, toolStripMenuItem_Clone, toolStripSeparator5, toolStripMenuItem_Delete, clearToolStripMenuItem, toolStripSeparator1, toolStripMenuItem_Refresh, toolStripSeparator2, toolStripMenuItem_More, toolStripSeparator4, toolStripMenuItem_About });
+            contextMenuStrip_RightClick.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem_Enable, toolStripMenuItem_Disable, toolStripSeparator3, toolStripMenuItem_New, toolStripSeparator14, toolStripMenuItem_Modify, toolStripMenuItem_Clone, toolStripSeparator15, moveToToolStripMenuItem, toolStripSeparator5, toolStripMenuItem_Delete, clearToolStripMenuItem, toolStripSeparator1, toolStripMenuItem_Refresh, toolStripSeparator2, toolStripMenuItem_More, toolStripSeparator4, toolStripMenuItem_About });
             contextMenuStrip_RightClick.Name = "contextMenuStrip1";
             contextMenuStrip_RightClick.Closed += contextMenuStrip_RightClick_Closed;
             contextMenuStrip_RightClick.MouseClick += contextMenuStrip_RightClick_MouseClick;
@@ -243,29 +246,10 @@
             // 
             // toolStripMenuItem_More
             // 
-            toolStripMenuItem_More.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem_FlushDnsCache, toolStripMenuItem_ResetWindowSize, toolStripSeparator9, externalAppsToolStripMenuItem, advancedToolStripMenuItem1, toolStripSeparator6, toolStripMenuItem1 });
+            toolStripMenuItem_More.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { externalAppsToolStripMenuItem, advancedToolStripMenuItem1, toolStripSeparator9, toolStripMenuItem1, toolStripSeparator6, toolStripMenuItem_ResetWindowSize, toolStripMenuItem_FlushDnsCache });
             toolStripMenuItem_More.Image = Properties.Resources.more;
             toolStripMenuItem_More.Name = "toolStripMenuItem_More";
             resources.ApplyResources(toolStripMenuItem_More, "toolStripMenuItem_More");
-            // 
-            // toolStripMenuItem_FlushDnsCache
-            // 
-            toolStripMenuItem_FlushDnsCache.Image = Properties.Resources.flushdns;
-            toolStripMenuItem_FlushDnsCache.Name = "toolStripMenuItem_FlushDnsCache";
-            resources.ApplyResources(toolStripMenuItem_FlushDnsCache, "toolStripMenuItem_FlushDnsCache");
-            toolStripMenuItem_FlushDnsCache.Click += toolStripMenuItem_FlushDnsCache_Click;
-            // 
-            // toolStripMenuItem_ResetWindowSize
-            // 
-            toolStripMenuItem_ResetWindowSize.Image = Properties.Resources.reset;
-            toolStripMenuItem_ResetWindowSize.Name = "toolStripMenuItem_ResetWindowSize";
-            resources.ApplyResources(toolStripMenuItem_ResetWindowSize, "toolStripMenuItem_ResetWindowSize");
-            toolStripMenuItem_ResetWindowSize.Click += toolStripMenuItem_ResetWindowSize_Click;
-            // 
-            // toolStripSeparator9
-            // 
-            toolStripSeparator9.Name = "toolStripSeparator9";
-            resources.ApplyResources(toolStripSeparator9, "toolStripSeparator9");
             // 
             // externalAppsToolStripMenuItem
             // 
@@ -485,10 +469,10 @@
             resources.ApplyResources(winsockResetToolStripMenuItem, "winsockResetToolStripMenuItem");
             winsockResetToolStripMenuItem.Click += winsockResetToolStripMenuItem_Click;
             // 
-            // toolStripSeparator6
+            // toolStripSeparator9
             // 
-            toolStripSeparator6.Name = "toolStripSeparator6";
-            resources.ApplyResources(toolStripSeparator6, "toolStripSeparator6");
+            toolStripSeparator9.Name = "toolStripSeparator9";
+            resources.ApplyResources(toolStripSeparator9, "toolStripSeparator9");
             // 
             // toolStripMenuItem1
             // 
@@ -510,6 +494,25 @@
             toolStripMenuItem_Import.Name = "toolStripMenuItem_Import";
             resources.ApplyResources(toolStripMenuItem_Import, "toolStripMenuItem_Import");
             toolStripMenuItem_Import.Click += toolStripMenuItem_Import_Click;
+            // 
+            // toolStripSeparator6
+            // 
+            toolStripSeparator6.Name = "toolStripSeparator6";
+            resources.ApplyResources(toolStripSeparator6, "toolStripSeparator6");
+            // 
+            // toolStripMenuItem_ResetWindowSize
+            // 
+            toolStripMenuItem_ResetWindowSize.Image = Properties.Resources.reset;
+            toolStripMenuItem_ResetWindowSize.Name = "toolStripMenuItem_ResetWindowSize";
+            resources.ApplyResources(toolStripMenuItem_ResetWindowSize, "toolStripMenuItem_ResetWindowSize");
+            toolStripMenuItem_ResetWindowSize.Click += toolStripMenuItem_ResetWindowSize_Click;
+            // 
+            // toolStripMenuItem_FlushDnsCache
+            // 
+            toolStripMenuItem_FlushDnsCache.Image = Properties.Resources.flushdns;
+            toolStripMenuItem_FlushDnsCache.Name = "toolStripMenuItem_FlushDnsCache";
+            resources.ApplyResources(toolStripMenuItem_FlushDnsCache, "toolStripMenuItem_FlushDnsCache");
+            toolStripMenuItem_FlushDnsCache.Click += toolStripMenuItem_FlushDnsCache_Click;
             // 
             // toolStripSeparator4
             // 
@@ -616,6 +619,21 @@
             tmrCheck.Interval = 1000;
             tmrCheck.Tick += tmrCheck_Tick;
             // 
+            // moveToToolStripMenuItem
+            // 
+            moveToToolStripMenuItem.Name = "moveToToolStripMenuItem";
+            resources.ApplyResources(moveToToolStripMenuItem, "moveToToolStripMenuItem");
+            // 
+            // toolStripSeparator14
+            // 
+            toolStripSeparator14.Name = "toolStripSeparator14";
+            resources.ApplyResources(toolStripSeparator14, "toolStripSeparator14");
+            // 
+            // toolStripSeparator15
+            // 
+            toolStripSeparator15.Name = "toolStripSeparator15";
+            resources.ApplyResources(toolStripSeparator15, "toolStripSeparator15");
+            // 
             // PortProxyGooey
             // 
             resources.ApplyResources(this, "$this");
@@ -718,6 +736,9 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip_WSL;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemWSLRestart;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemWSLShutDown;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator14;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator15;
+        private System.Windows.Forms.ToolStripMenuItem moveToToolStripMenuItem;
     }
 }
 

@@ -69,8 +69,8 @@ namespace PortProxyGooey
         /// Add a New proxy rule, or Clone a proxy rule.
         /// </summary>
         /// <param name="rule">[Optional] Rule object. If null, function acts as a brand new empty proxy; if Rule passed, function acts as a clone.</param>
-        public void UseNormalMode(Rule rule = null)
-        {
+        public void UseNormalMode(Rule rule = null) {
+
             _updateMode = false;
             _listViewItem = null;
             _itemRule = null;
@@ -86,6 +86,7 @@ namespace PortProxyGooey
             comboBox_ConnectTo.Text = rule != null ? rule.ConnectTo : String.Empty;
             textBox_ConnectPort.Text = rule != null ? rule.ConnectPort.ToString() : String.Empty;
             textBox_Comment.Text = rule != null ? rule.Comment : String.Empty;
+
         }
 
         /// <summary>
@@ -93,8 +94,8 @@ namespace PortProxyGooey
         /// </summary>
         /// <param name="item"></param>
         /// <param name="rule">A populated Rule object</param>
-        public void UseUpdateMode(ListViewItem item, Rule rule)
-        {
+        public void UseUpdateMode(ListViewItem item, Rule rule) {
+
             _updateMode = true;
             _listViewItem = item;
 
@@ -108,6 +109,7 @@ namespace PortProxyGooey
             comboBox_ConnectTo.Text = rule.ConnectTo;
             textBox_ConnectPort.Text = rule.ConnectPort.ToString();
             textBox_Comment.Text = rule.Comment;
+
         }
 
         /// <summary>
@@ -116,15 +118,16 @@ namespace PortProxyGooey
         /// <param name="listenOn">IP to Listen on</param>
         /// <param name="connectTo">IP to connect to</param>
         /// <returns>Properly formatted proxy Type</returns>
-        private static string GetPassType(string listenOn, string connectTo)
-        {
+        private static string GetPassType(string listenOn, string connectTo) {
+
             string from = PortProxyUtil.IsIPv6(listenOn) ? "v6" : "v4";
             string to = PortProxyUtil.IsIPv6(connectTo) ? "v6" : "v4";
             return $"{from}to{to}";
+
         }
 
-        private void button_Set_Click(object sender, EventArgs e)
-        {
+        private void button_Set_Click(object sender, EventArgs e) {
+
             int listenPort, listenPortRange, connectPort;
 
             // Don't let em funk with anything while we're doin work
@@ -183,8 +186,8 @@ namespace PortProxyGooey
             //if (rule.Type == AutoTypeString) rule.Type = GetPassType(rule.ListenOn, rule.ConnectTo);
 
             // Add the rule to the list & db
-            if (_updateMode)
-            {
+            if (_updateMode) {
+
                 // Update/Edit/Modify an Existing Rule
 
                 Rule oldRule = Program.Database.GetRule(_itemRule.Type, _itemRule.ListenOn, _itemRule.ListenPort);
@@ -195,9 +198,9 @@ namespace PortProxyGooey
                 Program.Database.Add(rule);
 
                 ParentWindow.UpdateListViewItem(_listViewItem, rule, 1);
-            }
-            else
-            {
+
+            } else {
+
                 // Add a New Rule
 
                 int intRange = listenPortRange - listenPort + 1;
