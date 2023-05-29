@@ -347,7 +347,7 @@ namespace PortProxyGooey {
             // Default group doesn't get added to the ListViewGroup[]; manually add it.
             ToolStripMenuItem toolStripMenuItem_Move = new ToolStripMenuItem("Default");
             toolStripMenuItem_Move.Click += ToolStripMenuItem_Move_Click;
-            moveToToolStripMenuItem.DropDownItems.Add(toolStripMenuItem_Move);
+            toolStripMenuItem_MoveTo.DropDownItems.Add(toolStripMenuItem_Move);
 
             //toolStripMenuItem_Move.ToolTipText = "Move selected proxy(s) to the Default group";
 
@@ -356,7 +356,7 @@ namespace PortProxyGooey {
 
                 toolStripMenuItem_Move = new ToolStripMenuItem(header.Header);
                 toolStripMenuItem_Move.Click += ToolStripMenuItem_Move_Click;
-                moveToToolStripMenuItem.DropDownItems.Add(toolStripMenuItem_Move);
+                toolStripMenuItem_MoveTo.DropDownItems.Add(toolStripMenuItem_Move);
 
                 // Set any other properties of the menu item
                 //toolStripMenuItem_Move.ToolTipText = string.Format("Move proxy(s) to the {0} group", header.Header);
@@ -585,8 +585,12 @@ namespace PortProxyGooey {
                 if (toolStripMenuItem_Disable.Enabled && intCount > 1) { toolStripMenuItem_Disable.Text = string.Format("Disable ({0})", intCount); }
 
                 // Add count to let users know how many they're about to nuke
-                if (intCount > 1)
+                if (intCount > 1) {
+
                     toolStripMenuItem_Delete.Text = string.Format("Delete ({0})", intCount);
+                    toolStripMenuItem_MoveTo.Text = string.Format("Move to ({0}) ...", intCount);
+
+                }
 
                 toolStripMenuItem_Delete.Enabled = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Any();
                 toolStripMenuItem_Modify.Enabled = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
@@ -852,7 +856,7 @@ namespace PortProxyGooey {
 
         }
 
-        #region External Apps
+        #region + -- EXTERNAL APPS -- +
 
         /// <summary>
         /// External App: Network Adapters
@@ -954,10 +958,11 @@ namespace PortProxyGooey {
             toolStripMenuItem_Enable.Text = "Enable";
             toolStripMenuItem_Disable.Text = "Disable";
             toolStripMenuItem_Delete.Text = "Delete";
+            toolStripMenuItem_MoveTo.Text = "Move to ...";
 
         }
 
-        #region Clipboard & View Cline
+        #region + -- CLIPBOARD / VIEW CLINE -- +
 
         /// <summary>
         /// Copies netsh add command to clipboard
@@ -1034,7 +1039,7 @@ namespace PortProxyGooey {
         #endregion
 
         /// <summary>
-        /// Open Regedit to the specified Type
+        /// Open Regedit to the specified proxy 'Type'
         /// </summary>
         private void registryKeyToolStripMenuItem_Click(object sender, EventArgs e) {
 
@@ -1052,7 +1057,7 @@ namespace PortProxyGooey {
             Network.Link_OpenPortTester();
         }
 
-        #region + -- Double-Clicking All of These Opens New Item Dialog  -- +
+        #region + -- DOUBLE-CLICKING ALL OF THESE OPENS NEW ITEM DIALOG  -- +
 
         private void lblGooey_DoubleClick(object sender, EventArgs e) {
             NewItem();
@@ -1144,6 +1149,26 @@ namespace PortProxyGooey {
             //string strMsg = string.Format("Delete {0} {1}?", intCount, intCount == 1 ? "proxy" : "proxies");
 
             Debug.WriteLine(sender.ToString());
+
+            IEnumerable<ListViewItem> items = listViewProxies.SelectedItems.OfType<ListViewItem>();
+
+            foreach (ListViewItem item in items) {
+
+                try {
+
+                    Rule rule = ParseRule(item);
+
+
+
+                } catch (NotSupportedException ex) {
+
+                    MessageBox.Show(ex.Message, "Scramble the jets!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+
+                }
+            }
+            PortProxyUtil.ParamChange();
+
         }
 
 

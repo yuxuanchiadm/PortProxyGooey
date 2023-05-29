@@ -183,6 +183,9 @@
   <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
     <value>162, 6</value>
   </data>
+  <data name="toolStripMenuItem_New.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 9pt, style=Bold</value>
+  </data>
   <data name="toolStripMenuItem_New.ShortcutKeyDisplayString" xml:space="preserve">
     <value />
   </data>
@@ -193,10 +196,13 @@
     <value>165, 22</value>
   </data>
   <data name="toolStripMenuItem_New.Text" xml:space="preserve">
-    <value>New ...</value>
+    <value>New</value>
   </data>
   <data name="toolStripMenuItem_New.ToolTipText" xml:space="preserve">
-    <value>Add a new port to proxy</value>
+    <value>Add a new port to proxy
+
+Tip:
+You can also double-click most blank areas on this window</value>
   </data>
   <data name="toolStripSeparator14.Size" type="System.Drawing.Size, System.Drawing">
     <value>162, 6</value>
@@ -211,7 +217,7 @@
     <value>165, 22</value>
   </data>
   <data name="toolStripMenuItem_Modify.Text" xml:space="preserve">
-    <value>Edit  ...</value>
+    <value>Edit</value>
   </data>
   <data name="toolStripMenuItem_Modify.ToolTipText" xml:space="preserve">
     <value>Modify this port proxy</value>
@@ -223,7 +229,7 @@
     <value>165, 22</value>
   </data>
   <data name="toolStripMenuItem_Clone.Text" xml:space="preserve">
-    <value>Clone ...</value>
+    <value>Clone</value>
   </data>
   <data name="toolStripMenuItem_Clone.ToolTipText" xml:space="preserve">
     <value>Duplicates the current item; you'll need to change the port(s) though.
@@ -233,10 +239,10 @@ This saves you from having to do repititous form filling.</value>
   <data name="toolStripSeparator15.Size" type="System.Drawing.Size, System.Drawing">
     <value>162, 6</value>
   </data>
-  <data name="moveToToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="toolStripMenuItem_MoveTo.Size" type="System.Drawing.Size, System.Drawing">
     <value>165, 22</value>
   </data>
-  <data name="moveToToolStripMenuItem.Text" xml:space="preserve">
+  <data name="toolStripMenuItem_MoveTo.Text" xml:space="preserve">
     <value>Move to ...</value>
   </data>
   <data name="toolStripSeparator5.Size" type="System.Drawing.Size, System.Drawing">
@@ -285,19 +291,19 @@ This saves you from having to do repititous form filling.</value>
     <value>162, 6</value>
   </data>
   <data name="WSLRunningToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>138, 22</value>
   </data>
   <data name="WSLRunningToolStripMenuItem.Text" xml:space="preserve">
     <value>Running?</value>
   </data>
   <data name="toolStripSeparator12.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 6</value>
+    <value>135, 6</value>
   </data>
   <data name="WSLStartToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="WSLStartToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>138, 22</value>
   </data>
   <data name="WSLStartToolStripMenuItem.Text" xml:space="preserve">
     <value>Start</value>
@@ -306,19 +312,19 @@ This saves you from having to do repititous form filling.</value>
     <value>False</value>
   </data>
   <data name="WSLRestartToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>138, 22</value>
   </data>
   <data name="WSLRestartToolStripMenuItem.Text" xml:space="preserve">
     <value>Restart</value>
   </data>
   <data name="toolStripSeparator13.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 6</value>
+    <value>135, 6</value>
   </data>
   <data name="WSLShutDownToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="WSLShutDownToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>138, 22</value>
   </data>
   <data name="WSLShutDownToolStripMenuItem.Text" xml:space="preserve">
     <value>Shut Down</value>
@@ -360,7 +366,7 @@ This saves you from having to do repititous form filling.</value>
     <value>Launch Windows Firewall (Advanced View)</value>
   </data>
   <data name="windowsFirewallToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>176, 22</value>
   </data>
   <data name="windowsFirewallToolStripMenuItem1.Text" xml:space="preserve">
     <value>Windows Firewall</value>
@@ -369,7 +375,7 @@ This saves you from having to do repititous form filling.</value>
     <value>Launch Windows Firewall (Basic View)</value>
   </data>
   <data name="toolStripSeparator7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 6</value>
+    <value>173, 6</value>
   </data>
   <data name="rulesPanelToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>147, 22</value>
@@ -390,7 +396,7 @@ This saves you from having to do repititous form filling.</value>
     <value>Opens the Connections Panel</value>
   </data>
   <data name="windowsFirewallControlWFCToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>176, 22</value>
   </data>
   <data name="windowsFirewallControlWFCToolStripMenuItem.Text" xml:space="preserve">
     <value>WFC</value>
@@ -550,10 +556,10 @@ in case you want to download it.</value>
   <data name="toolStripMenuItem_Import.ToolTipText" xml:space="preserve">
     <value>Restore proxies list from backup</value>
   </data>
-  <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="toolStripMenuItem_BackupRestore.Size" type="System.Drawing.Size, System.Drawing">
     <value>217, 22</value>
   </data>
-  <data name="toolStripMenuItem1.Text" xml:space="preserve">
+  <data name="toolStripMenuItem_BackupRestore.Text" xml:space="preserve">
     <value>Backup / Restore</value>
   </data>
   <data name="toolStripSeparator6.Size" type="System.Drawing.Size, System.Drawing">
@@ -625,7 +631,7 @@ in case you want to download it.</value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAmgsAAAJNU0Z0AUkBTAIBAQIB
-        AAFYAQMBWAEDARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARAe
+        AAGAAQMBgAEDARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARAe
         AAMqAUADKgFAAyoBQAMqAUADKgFAAyoBQAMqAUADKgFAAyoBQAMqAUDQAAMMARACWQFbAcABPAFNAv8B
         PAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8CWQFbAcAD
         DAEQCAADDAEQAlsBWQHAAa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQB
@@ -943,6 +949,9 @@ in case you want to download it.</value>
   </data>
   <data name="picDocker.ToolTip" xml:space="preserve">
     <value>Docker is Running</value>
+  </data>
+  <data name="picDocker.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="&gt;&gt;picDocker.Name" xml:space="preserve">
     <value>picDocker</value>
@@ -3228,10 +3237,10 @@ in case you want to download it.</value>
   <data name="&gt;&gt;toolStripSeparator15.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;moveToToolStripMenuItem.Name" xml:space="preserve">
-    <value>moveToToolStripMenuItem</value>
+  <data name="&gt;&gt;toolStripMenuItem_MoveTo.Name" xml:space="preserve">
+    <value>toolStripMenuItem_MoveTo</value>
   </data>
-  <data name="&gt;&gt;moveToToolStripMenuItem.Type" xml:space="preserve">
+  <data name="&gt;&gt;toolStripMenuItem_MoveTo.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator5.Name" xml:space="preserve">
@@ -3480,10 +3489,10 @@ in case you want to download it.</value>
   <data name="&gt;&gt;toolStripSeparator9.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStripMenuItem1.Name" xml:space="preserve">
-    <value>toolStripMenuItem1</value>
+  <data name="&gt;&gt;toolStripMenuItem_BackupRestore.Name" xml:space="preserve">
+    <value>toolStripMenuItem_BackupRestore</value>
   </data>
-  <data name="&gt;&gt;toolStripMenuItem1.Type" xml:space="preserve">
+  <data name="&gt;&gt;toolStripMenuItem_BackupRestore.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripMenuItem_Export.Name" xml:space="preserve">

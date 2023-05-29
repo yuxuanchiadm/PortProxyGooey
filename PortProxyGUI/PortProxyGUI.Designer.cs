@@ -43,7 +43,7 @@
             toolStripMenuItem_Modify = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem_Clone = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
-            moveToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem_MoveTo = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             toolStripMenuItem_Delete = new System.Windows.Forms.ToolStripMenuItem();
             clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -85,7 +85,7 @@
             toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             winsockResetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
-            toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem_BackupRestore = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem_Export = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem_Import = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
@@ -174,7 +174,7 @@
             // contextMenuStrip_RightClick
             // 
             resources.ApplyResources(contextMenuStrip_RightClick, "contextMenuStrip_RightClick");
-            contextMenuStrip_RightClick.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem_Enable, toolStripMenuItem_Disable, toolStripSeparator3, toolStripMenuItem_New, toolStripSeparator14, toolStripMenuItem_Modify, toolStripMenuItem_Clone, toolStripSeparator15, moveToToolStripMenuItem, toolStripSeparator5, toolStripMenuItem_Delete, clearToolStripMenuItem, toolStripSeparator1, toolStripMenuItem_Refresh, toolStripSeparator2, toolStripMenuItem_More, toolStripSeparator4, toolStripMenuItem_About });
+            contextMenuStrip_RightClick.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem_Enable, toolStripMenuItem_Disable, toolStripSeparator3, toolStripMenuItem_New, toolStripSeparator14, toolStripMenuItem_Modify, toolStripMenuItem_Clone, toolStripSeparator15, toolStripMenuItem_MoveTo, toolStripSeparator5, toolStripMenuItem_Delete, clearToolStripMenuItem, toolStripSeparator1, toolStripMenuItem_Refresh, toolStripSeparator2, toolStripMenuItem_More, toolStripSeparator4, toolStripMenuItem_About });
             contextMenuStrip_RightClick.Name = "contextMenuStrip1";
             contextMenuStrip_RightClick.Closed += contextMenuStrip_RightClick_Closed;
             contextMenuStrip_RightClick.MouseClick += contextMenuStrip_RightClick_MouseClick;
@@ -198,9 +198,9 @@
             // 
             // toolStripMenuItem_New
             // 
+            resources.ApplyResources(toolStripMenuItem_New, "toolStripMenuItem_New");
             toolStripMenuItem_New.Image = Properties.Resources.add;
             toolStripMenuItem_New.Name = "toolStripMenuItem_New";
-            resources.ApplyResources(toolStripMenuItem_New, "toolStripMenuItem_New");
             // 
             // toolStripSeparator14
             // 
@@ -224,11 +224,11 @@
             toolStripSeparator15.Name = "toolStripSeparator15";
             resources.ApplyResources(toolStripSeparator15, "toolStripSeparator15");
             // 
-            // moveToToolStripMenuItem
+            // toolStripMenuItem_MoveTo
             // 
-            moveToToolStripMenuItem.Image = Properties.Resources.moving;
-            moveToToolStripMenuItem.Name = "moveToToolStripMenuItem";
-            resources.ApplyResources(moveToToolStripMenuItem, "moveToToolStripMenuItem");
+            toolStripMenuItem_MoveTo.Image = Properties.Resources.moving;
+            toolStripMenuItem_MoveTo.Name = "toolStripMenuItem_MoveTo";
+            resources.ApplyResources(toolStripMenuItem_MoveTo, "toolStripMenuItem_MoveTo");
             // 
             // toolStripSeparator5
             // 
@@ -265,7 +265,7 @@
             // 
             // toolStripMenuItem_More
             // 
-            toolStripMenuItem_More.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { externalAppsToolStripMenuItem, advancedToolStripMenuItem1, toolStripSeparator9, toolStripMenuItem1, toolStripSeparator6, toolStripMenuItem_ResetWindowSize, toolStripMenuItem_FlushDnsCache });
+            toolStripMenuItem_More.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { externalAppsToolStripMenuItem, advancedToolStripMenuItem1, toolStripSeparator9, toolStripMenuItem_BackupRestore, toolStripSeparator6, toolStripMenuItem_ResetWindowSize, toolStripMenuItem_FlushDnsCache });
             toolStripMenuItem_More.Image = Properties.Resources.more;
             toolStripMenuItem_More.Name = "toolStripMenuItem_More";
             resources.ApplyResources(toolStripMenuItem_More, "toolStripMenuItem_More");
@@ -493,12 +493,12 @@
             toolStripSeparator9.Name = "toolStripSeparator9";
             resources.ApplyResources(toolStripSeparator9, "toolStripSeparator9");
             // 
-            // toolStripMenuItem1
+            // toolStripMenuItem_BackupRestore
             // 
-            toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem_Export, toolStripMenuItem_Import });
-            toolStripMenuItem1.Image = Properties.Resources.backup;
-            toolStripMenuItem1.Name = "toolStripMenuItem1";
-            resources.ApplyResources(toolStripMenuItem1, "toolStripMenuItem1");
+            toolStripMenuItem_BackupRestore.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem_Export, toolStripMenuItem_Import });
+            toolStripMenuItem_BackupRestore.Image = Properties.Resources.backup;
+            toolStripMenuItem_BackupRestore.Name = "toolStripMenuItem_BackupRestore";
+            resources.ApplyResources(toolStripMenuItem_BackupRestore, "toolStripMenuItem_BackupRestore");
             // 
             // toolStripMenuItem_Export
             // 
@@ -705,7 +705,7 @@
         private System.Windows.Forms.SaveFileDialog saveFileDialog_Export;
         private System.Windows.Forms.OpenFileDialog openFileDialog_Import;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_ResetWindowSize;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_BackupRestore;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_Import;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_Export;
         private System.Windows.Forms.ToolStripMenuItem externalAppsToolStripMenuItem;
@@ -759,7 +759,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemWSLShutDown;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator14;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator15;
-        private System.Windows.Forms.ToolStripMenuItem moveToToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_MoveTo;
         private System.Windows.Forms.PictureBox picWSL;
         private System.Windows.Forms.PictureBox picDocker;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip_Docker;
