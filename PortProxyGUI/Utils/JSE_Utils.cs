@@ -4,14 +4,108 @@ using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Net.Sockets;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using NStandard;
+using PortProxyGooey.Utils;
 
 #endregion
 
-namespace JSE_Utils
-{
+namespace JSE_Utils {
+
+    public static class Network {
+
+        /// <summary>
+        /// Check if an IPv4 IP is connectable on a specified port
+        /// </summary>
+        /// <param name="strHost">hostname or IP</param>
+        /// <param name="intPort">[optional: default 80] Port to test</param>
+        /// <returns>True = Connected; Else = Can't Connect</returns>
+        public static bool CheckPortOpen(string strHost, int intPort = 80) {
+
+            bool bIPv6 = false;
+
+            if (IsIPv6(strHost)) {
+
+                bIPv6 = true;
+
+            } else if (IsIPv4(strHost)) {
+
+                bIPv6 = false;
+
+            } else {
+
+                // Not a valid IP; exit function
+                Debug.WriteLine("CheckPortOpen(): Invalid IP {0}", strHost);
+                return false;
+
+            }
+
+            // + --- +
+
+
+            // Create an endpoint with the IPv6 address and port
+            IPEndPoint endpoint = new IPEndPoint(IPAddress.Parse(strHost), intPort);
+
+            Socket sock = new Socket(bIPv6 ? AddressFamily.InterNetworkV6 : AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
+            // Set the socket options to use IPv6 and allow reusing the same port, and also allow receiving IPv4 traffic on the same port
+            sock.SetSocketOption(SocketOptionLevel.IPv6, SocketOptionName.IPv6Only, 0);
+            sock.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
+
+            // Attempt to connect
+            try {
+
+                Debug.WriteLine("TESTING: IP{2}:Port {0}:{1}", strHost, intPort, bIPv6 ? "6" : "4");
+                sock.Connect(endpoint);
+
+                // If success, these get called, else, passed over for SocketException below.
+                Debug.WriteLine("TESTING (SUCCESS): IP{2} Port {0} is open on {1}.", intPort, strHost, bIPv6 ? "6" : "4");
+                return true;
+
+            } catch (SocketException sx) {
+                Debug.WriteLine("TESTING (FAILED): IP{2} Port {0} is closed on {1}. (Code: {3})", intPort, strHost, bIPv6 ? "6" : "4", sx.ErrorCode.ToString());
+            } finally {
+                sock.Close();
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Regex Validates IPv4 string
+        /// </summary>
+        /// <param name="ip"><string> IP Address to check</string></param>
+        /// <returns></returns>
+        public static bool IsIPv4(string ip) {
+            return ip.IsMatch(IPValidation.IPv4RegEx);
+        }
+
+        /// <summary>
+        /// Validates a potential IPv6 Address
+        /// </summary>
+        /// <param name="ip">IP to validate</param>
+        /// <returns>True if valid; False if Invalid</returns>
+        public static bool IsIPv6(string ip) {
+
+            // Scott Note to original author: Is this correct? Looks more like a MAC Address regex? I added a better regex below, but leaving original for posterity.
+            // return ip.IsMatch(new Regex(@"^[\dABCDEF]{2}(?::(?:[\dABCDEF]{2})){5}$"));
+            return ip.IsMatch(IPValidation.IPv6RegEx);
+
+        }
+
+        /// <summary>
+        /// Open a website in the browser to test your ports
+        /// </summary>
+        public static void Link_OpenPortTester() {
+            Misc.RunCommand("https://www.yougetsignal.com/tools/open-ports");
+        }
+    
+    }
+
     public static partial class IPValidation
     {
         #region + -- REGEX -- +
@@ -83,6 +177,20 @@ namespace JSE_Utils
         public static string RunCommand(string strFileName, string strArgs = "", bool bGetOutput = true) {
 
             string strOutput = string.Empty;
+            string pattern = @"(http|https|ftp)://";
+
+            // Determine if a URL has been passed. Using this Process method requires a lil bit of special handling in such case.
+            MatchCollection matches = Regex.Matches(strFileName, pattern);
+
+            if (matches.Count > 0) {
+
+                // Switch the filename (which is a URL) for strArgs, and append any specifically added Args after that.
+                strArgs = strFileName + " " + strArgs;
+
+                // Use Explorer by default
+                strFileName = "explorer.exe";
+
+            }
 
             try {
 
@@ -93,7 +201,7 @@ namespace JSE_Utils
                     withBlock.RedirectStandardOutput = true;
                     withBlock.RedirectStandardError = true;
                     withBlock.FileName = strFileName;
-                    withBlock.Arguments = strArgs;
+                    withBlock.Arguments = strArgs.Trim();
                     withBlock.UseShellExecute = false;
                     withBlock.CreateNoWindow = true;
                 }

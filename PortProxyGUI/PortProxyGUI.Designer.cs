@@ -39,8 +39,11 @@
             toolStripMenuItem_Disable = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             toolStripMenuItem_New = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
             toolStripMenuItem_Modify = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem_Clone = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
+            moveToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             toolStripMenuItem_Delete = new System.Windows.Forms.ToolStripMenuItem();
             clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -102,14 +105,14 @@
             contextMenuStrip_WSL = new System.Windows.Forms.ContextMenuStrip(components);
             toolStripMenuItemWSLRestart = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItemWSLShutDown = new System.Windows.Forms.ToolStripMenuItem();
+            picDocker = new System.Windows.Forms.PictureBox();
+            contextMenuStrip_Docker = new System.Windows.Forms.ContextMenuStrip(components);
             tmrCheck = new System.Windows.Forms.Timer(components);
-            moveToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
-            toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
             lblPP = new System.Windows.Forms.Label();
             contextMenuStrip_RightClick.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picWSL).BeginInit();
             contextMenuStrip_WSL.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)picDocker).BeginInit();
             SuspendLayout();
             // 
             // lblPP
@@ -199,6 +202,11 @@
             toolStripMenuItem_New.Name = "toolStripMenuItem_New";
             resources.ApplyResources(toolStripMenuItem_New, "toolStripMenuItem_New");
             // 
+            // toolStripSeparator14
+            // 
+            toolStripSeparator14.Name = "toolStripSeparator14";
+            resources.ApplyResources(toolStripSeparator14, "toolStripSeparator14");
+            // 
             // toolStripMenuItem_Modify
             // 
             toolStripMenuItem_Modify.Image = Properties.Resources.edit;
@@ -210,6 +218,17 @@
             toolStripMenuItem_Clone.Image = Properties.Resources.clone;
             toolStripMenuItem_Clone.Name = "toolStripMenuItem_Clone";
             resources.ApplyResources(toolStripMenuItem_Clone, "toolStripMenuItem_Clone");
+            // 
+            // toolStripSeparator15
+            // 
+            toolStripSeparator15.Name = "toolStripSeparator15";
+            resources.ApplyResources(toolStripSeparator15, "toolStripSeparator15");
+            // 
+            // moveToToolStripMenuItem
+            // 
+            moveToToolStripMenuItem.Image = Properties.Resources.moving;
+            moveToToolStripMenuItem.Name = "moveToToolStripMenuItem";
+            resources.ApplyResources(moveToToolStripMenuItem, "moveToToolStripMenuItem");
             // 
             // toolStripSeparator5
             // 
@@ -305,7 +324,7 @@
             // 
             // dockerToolStripMenuItem
             // 
-            dockerToolStripMenuItem.Image = Properties.Resources.docker;
+            dockerToolStripMenuItem.Image = Properties.Resources.docker_1;
             dockerToolStripMenuItem.Name = "dockerToolStripMenuItem";
             resources.ApplyResources(dockerToolStripMenuItem, "dockerToolStripMenuItem");
             // 
@@ -585,7 +604,7 @@
             // picWSL
             // 
             resources.ApplyResources(picWSL, "picWSL");
-            picWSL.BackColor = System.Drawing.Color.FromArgb(67, 76, 94);
+            picWSL.BackColor = System.Drawing.Color.FromArgb(46, 52, 64);
             picWSL.ContextMenuStrip = contextMenuStrip_WSL;
             picWSL.Image = Properties.Resources.wsl;
             picWSL.Name = "picWSL";
@@ -613,32 +632,34 @@
             resources.ApplyResources(toolStripMenuItemWSLShutDown, "toolStripMenuItemWSLShutDown");
             toolStripMenuItemWSLShutDown.Click += toolStripMenuItemWSLShutDown_Click;
             // 
+            // picDocker
+            // 
+            resources.ApplyResources(picDocker, "picDocker");
+            picDocker.BackColor = System.Drawing.Color.FromArgb(46, 52, 64);
+            picDocker.ContextMenuStrip = contextMenuStrip_Docker;
+            picDocker.Image = Properties.Resources.docker_1;
+            picDocker.Name = "picDocker";
+            picDocker.TabStop = false;
+            tTipPPG.SetToolTip(picDocker, resources.GetString("picDocker.ToolTip"));
+            picDocker.Click += picDocker_Click;
+            // 
+            // contextMenuStrip_Docker
+            // 
+            contextMenuStrip_Docker.Name = "contextMenuStrip_Docker";
+            resources.ApplyResources(contextMenuStrip_Docker, "contextMenuStrip_Docker");
+            // 
             // tmrCheck
             // 
             tmrCheck.Enabled = true;
             tmrCheck.Interval = 1000;
             tmrCheck.Tick += tmrCheck_Tick;
             // 
-            // moveToToolStripMenuItem
-            // 
-            moveToToolStripMenuItem.Name = "moveToToolStripMenuItem";
-            resources.ApplyResources(moveToToolStripMenuItem, "moveToToolStripMenuItem");
-            // 
-            // toolStripSeparator14
-            // 
-            toolStripSeparator14.Name = "toolStripSeparator14";
-            resources.ApplyResources(toolStripSeparator14, "toolStripSeparator14");
-            // 
-            // toolStripSeparator15
-            // 
-            toolStripSeparator15.Name = "toolStripSeparator15";
-            resources.ApplyResources(toolStripSeparator15, "toolStripSeparator15");
-            // 
             // PortProxyGooey
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.FromArgb(46, 52, 64);
+            Controls.Add(picDocker);
             Controls.Add(picWSL);
             Controls.Add(lblPP);
             Controls.Add(pnlBar);
@@ -655,6 +676,7 @@
             contextMenuStrip_RightClick.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)picWSL).EndInit();
             contextMenuStrip_WSL.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)picDocker).EndInit();
             ResumeLayout(false);
         }
 
@@ -729,7 +751,6 @@
         private System.Windows.Forms.ToolStripMenuItem WSLShutDownToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
         private System.Windows.Forms.ToolStripMenuItem WSLStartToolStripMenuItem;
-        private System.Windows.Forms.PictureBox picWSL;
         private System.Windows.Forms.Timer tmrCheck;
         private System.Windows.Forms.ToolStripMenuItem WSLRestartToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator13;
@@ -739,6 +760,9 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator14;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator15;
         private System.Windows.Forms.ToolStripMenuItem moveToToolStripMenuItem;
+        private System.Windows.Forms.PictureBox picWSL;
+        private System.Windows.Forms.PictureBox picDocker;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip_Docker;
     }
 }
 

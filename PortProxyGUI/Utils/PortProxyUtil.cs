@@ -143,28 +143,6 @@ namespace PortProxyGooey.Utils {
 
         }
 
-        /// <summary>
-        /// Regex Validates IPv4 string
-        /// </summary>
-        /// <param name="ip"><string> IP Address to check</string></param>
-        /// <returns></returns>
-        public static bool IsIPv4(string ip) {
-            return ip.IsMatch(JSE_Utils.IPValidation.IPv4RegEx);
-        }
-
-        /// <summary>
-        /// Validates a potential IPv6 Address
-        /// </summary>
-        /// <param name="ip">IP to validate</param>
-        /// <returns>True if valid; False if Invalid</returns>
-        public static bool IsIPv6(string ip) {
-
-            // Scott Note to original author: Is this correct? Looks more like a MAC Address regex? I added a better regex below, but leaving original for posterity.
-            // return ip.IsMatch(new Regex(@"^[\dABCDEF]{2}(?::(?:[\dABCDEF]{2})){5}$"));
-            return ip.IsMatch(JSE_Utils.IPValidation.IPv6RegEx);
-
-        }
-
         #region MISC
 
         /// <summary>
@@ -184,63 +162,7 @@ namespace PortProxyGooey.Utils {
             };
 
             Process.Start(psi);
-        }
 
-        /// <summary>
-        /// Check if an IPv4 IP is connectable on a specified port
-        /// </summary>
-        /// <param name="strHost">hostname or IP</param>
-        /// <param name="intPort">[Optional] Port to test. default: 80</param>
-        /// <returns>True = Connected; Else = Can't Connect</returns>
-        public static bool CheckPortOpen(string strHost, int intPort = 80) {
-
-            bool bIPv6 = false;
-
-            if (IsIPv6(strHost)) {
-
-                bIPv6 = true;
-
-            } else if (IsIPv4(strHost)) {
-
-                bIPv6 = false;
-
-            } else {
-
-                // Not a valid IP; exit function
-                Debug.WriteLine("CheckPortOpen(): Invalid IP {0}", strHost);
-                return false;
-
-            }
-
-            // + -----------------------------------------------------------
-
-
-            // Create an endpoint with the IPv6 address and port
-            IPEndPoint endpoint = new IPEndPoint(IPAddress.Parse(strHost), intPort);
-
-            Socket sock = new Socket(bIPv6 ? AddressFamily.InterNetworkV6 : AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-
-            // Set the socket options to use IPv6 and allow reusing the same port, and also allow receiving IPv4 traffic on the same port
-            sock.SetSocketOption(SocketOptionLevel.IPv6, SocketOptionName.IPv6Only, 0);
-            sock.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
-
-            // Attempt to connect
-            try {
-
-                Debug.WriteLine("TESTING: IP{2}:Port {0}:{1}", strHost, intPort, bIPv6 ? "6" : "4");
-                sock.Connect(endpoint);
-
-                // If success, these get called, else, passed over for SocketException below.
-                Debug.WriteLine("TESTING (SUCCESS): IP{2} Port {0} is open on {1}.", intPort, strHost, bIPv6 ? "6" : "4");
-                return true;
-
-            } catch (SocketException sx) {                
-                Debug.WriteLine("TESTING (FAILED): IP{2} Port {0} is closed on {1}. (Code: {3})", intPort, strHost, bIPv6 ? "6" : "4", sx.ErrorCode.ToString());
-            } finally {
-                sock.Close();
-            }
-
-            return false;
         }
 
         #endregion

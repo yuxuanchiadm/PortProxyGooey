@@ -120,8 +120,8 @@ namespace PortProxyGooey
         /// <returns>Properly formatted proxy Type</returns>
         private static string GetPassType(string listenOn, string connectTo) {
 
-            string from = PortProxyUtil.IsIPv6(listenOn) ? "v6" : "v4";
-            string to = PortProxyUtil.IsIPv6(connectTo) ? "v6" : "v4";
+            string from = JSE_Utils.Network.IsIPv6(listenOn) ? "v6" : "v4";
+            string to = JSE_Utils.Network.IsIPv6(connectTo) ? "v6" : "v4";
             return $"{from}to{to}";
 
         }
@@ -251,8 +251,8 @@ namespace PortProxyGooey
             Close();
         }
 
-        private void SetProxyForm_Load(object sender, EventArgs e)
-        {
+        private void SetProxyForm_Load(object sender, EventArgs e) {
+
             this.Cursor = Cursors.WaitCursor;
 
             Top = ParentWindow.Top + (ParentWindow.Height - Height) / 2;
@@ -262,43 +262,44 @@ namespace PortProxyGooey
             lblWSLIP.Text = "Refreshing ...";
             string strWSLIP = JSE_Utils.WSL.WSL_GetIP();
 
-            if (strWSLIP.Length > 0)
-            {
+            if (strWSLIP.Length > 0) {
+
                 lblWSLIP.Text = string.Format("WSL: {0}", strWSLIP);
                 comboBox_ConnectTo.AutoCompleteCustomSource.Add(strWSLIP);
                 comboBox_ListenOn.AutoCompleteCustomSource.Add(strWSLIP);
-            }
-            else
-            {
+            
+            } else {
                 lblWSLIP.Text = "WSL: Dunno";
             }
+
             this.Cursor = Cursors.Default;
         }
 
-        private void SetProxyForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
+        private void SetProxyForm_FormClosing(object sender, FormClosingEventArgs e) {
             ParentWindow.SetProxyForm = null;
         }
 
-        private void chkBox_ListenPortRange_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chkBox_ListenPortRange.Checked)
-            {
+        private void chkBox_ListenPortRange_CheckedChanged(object sender, EventArgs e) {
+
+            if (chkBox_ListenPortRange.Checked) {
+
                 lblDash.Visible = true;
                 textBox_ListenPortRange.Visible = true;
                 lblRangeCount.Visible = true;
                 lblRangeCount.Text = String.IsNullOrEmpty(textBox_ListenPortRange.Text) ? "Adding: 0" : "Adding: " + CalcRange().ToString();
-            }
-            else
-            {
+            
+            } else {
+
                 lblDash.Visible = false;
                 textBox_ListenPortRange.Visible = false;
                 lblRangeCount.Visible = false;
+
             }
+
         }
 
-        private void textBox_ListenPort_TextChanged(object sender, EventArgs e)
-        {
+        private void textBox_ListenPort_TextChanged(object sender, EventArgs e) {
+
             // Add the same port to the range box as a starting point
             textBox_ListenPortRange.Text = textBox_ListenPort.Text;
 
@@ -310,10 +311,11 @@ namespace PortProxyGooey
 
             // Auto-comment common ports
             AutoComment(textBox_ListenPort);
+
         }
 
-        private void textBox_ListenPortRange_TextChanged(object sender, EventArgs e)
-        {
+        private void textBox_ListenPortRange_TextChanged(object sender, EventArgs e) {
+
             // TODO: I think I can create a single Call for this sub and line 260 called something like "UpdateRangeLabel"
             int intRangeCount = CalcRange();
             string strBase = "Adding:";
@@ -322,26 +324,29 @@ namespace PortProxyGooey
 
             // Auto-comment common ports
             AutoComment(textBox_ListenPortRange);
+
         }
 
-        private void textBox_ConnectPort_TextChanged(object sender, EventArgs e)
-        {
+        private void textBox_ConnectPort_TextChanged(object sender, EventArgs e) {
+
             // Auto-comment common ports
             AutoComment(textBox_ConnectPort);
+
         }
 
         /// <summary>
-        /// Calculats how many ports will be added based on the values in the port fields
+        /// Calculates how many ports will be added based on the values in the port fields
         /// </summary>
         /// <returns>Number of ports</returns>
-        private int CalcRange()
-        {
+        private int CalcRange() {
+
             // Make sure we have something to calc first, or else error.
-            if (!string.IsNullOrWhiteSpace(textBox_ListenPortRange.Text) && !string.IsNullOrWhiteSpace(textBox_ListenPort.Text))
-            {
+            if (!string.IsNullOrWhiteSpace(textBox_ListenPortRange.Text) && !string.IsNullOrWhiteSpace(textBox_ListenPort.Text)) {
+
                 int intLPR = Convert.ToInt32(textBox_ListenPortRange.Text.Trim());
                 int intLP = Convert.ToInt32(textBox_ListenPort.Text.Trim());
                 return ((intLPR - intLP) + 1);
+
             }
             return 0;
         }
@@ -352,28 +357,31 @@ namespace PortProxyGooey
         /// <param name="strIP">IPv4 string to check</param>
         /// <param name="intField">Field to focus back on in case of a failure. 2: ConnectTo, any other int:ListenOn.</param>
         /// <returns>true if valid; false if invalid</returns>
-        private bool ValidateIPv4(string strIP, int intField)
-        {
+        private bool ValidateIPv4(string strIP, int intField) {
+
             bool bResult = true;
 
-            if (PortProxyUtil.IsIPv4(strIP) == false && strIP != "*")
-            {
+            if (JSE_Utils.Network.IsIPv4(strIP) == false && strIP != "*") {
+
                 MessageBox.Show(string.Format("{0} is not a valid IP", strIP), "What are you up to here?", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
-                if (intField == 2)
-                {
+                if (intField == 2) {
+
                     // The "ConnectTo" field
                     bResult = false;
                     comboBox_ConnectTo.Select();
-                }
-                else
-                {
+
+                } else {
+
                     // The "ListenOn" field
                     bResult = false;
                     comboBox_ListenOn.Select();
+
                 }
+
                 progBarRange.Visible = bResult;
                 this.Enabled = true;
+
             }
             return bResult;
         }
@@ -381,12 +389,11 @@ namespace PortProxyGooey
         /// <summary>
         /// Automatically enters info in the Comment field for recognized ports.
         /// </summary>
-        private void AutoComment(System.Windows.Forms.TextBox textBox)
-        {
+        private void AutoComment(System.Windows.Forms.TextBox textBox) {
+
             // Ref: https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers
 
-            Dictionary<string, string> port = new()
-            {
+            Dictionary<string, string> port = new() {
                 {"FTP", "21"},
                 {"SSH", "22"},
                 {"Telnet", "23"},
@@ -422,24 +429,25 @@ namespace PortProxyGooey
 
             // TODO: Add more ports, i.e. the *arr and other docker things.
             // TODO: Add saving of below option to db
-            if (chkAutoComment.Checked)
-            {
+            if (chkAutoComment.Checked) {
+
                 // Auto-Labeling of Common Ports
                 string searchValue = textBox.Text.Trim();
                 string matchingKey = port.FirstOrDefault(x => x.Value.Split(',').Contains(searchValue)).Key;
 
-                if (matchingKey != null)
-                {
+                if (matchingKey != null) {
+
                     // If user enters a common port, give it an auto-label as a convenience to them. Non-destructive: this will not delete anything they have manually typed in the comment field.
                     //Debug.WriteLine($"The key for value '{searchValue}' is '{matchingKey}'.");
                     textBox_Comment.Text = string.Format("[{0}] {1}", matchingKey, string.IsNullOrEmpty(strLastAutoLabel) ? textBox_Comment.Text.Trim() : textBox_Comment.Text.Replace(strLastAutoLabel, string.Empty).Trim());
                     strLastAutoLabel = string.Format("[{0}]", matchingKey);
-                }
-                else
-                {
+
+                } else {
+
                     // If no matching port found, just leave whatever text they may have entered, removing any previous auto-label if exists.
                     //Debug.WriteLine($"No key found for value '{searchValue}'.");
                     textBox_Comment.Text = string.IsNullOrEmpty(strLastAutoLabel) ? textBox_Comment.Text.Trim() : textBox_Comment.Text.Replace(strLastAutoLabel, string.Empty).Trim();
+
                 }
             }
         }
@@ -449,8 +457,8 @@ namespace PortProxyGooey
         /// </summary>
         /// <param name="rule">[optional] rule list. If not passed, will read currently entered form fields.</param>
         /// <returns>True if Dupe found; False if no Dupe.</returns>
-        private bool DupeCheck([Optional] Rule rule)
-        {
+        private bool DupeCheck([Optional] Rule rule) {
+
             // + ------------------------------------------------------------------------------------------------------------------- +
             // | NOTES:                                                                                                              |
             // |   - I haven't thought through all possible dupe scenarios, so they may or may not still need some tweaking.         |
@@ -465,8 +473,8 @@ namespace PortProxyGooey
 
             bool bResult = false;
 
-            foreach (ListViewItem item in ParentWindow.listViewProxies.Items)
-            {
+            foreach (ListViewItem item in ParentWindow.listViewProxies.Items) {
+
                 if (item.SubItems[1].Text.Equals(strType) &&
                     item.SubItems[2].Text.Equals(strListen) &&
                     item.SubItems[3].Text.Equals(strListenPort))
@@ -482,8 +490,8 @@ namespace PortProxyGooey
         /// <summary>
         /// Auto-selects the correct Type based on what the user types into the LisatenOn/ConnectTo fields
         /// </summary>
-        private void TypeCheck()
-        {
+        private void TypeCheck() {
+
             // TypeCheck (TODO: Still buggy)
             string strListen = comboBox_ListenOn.Text.Trim();
             string strConnect = comboBox_ConnectTo.Text.Trim();
@@ -491,41 +499,41 @@ namespace PortProxyGooey
 
             comboBox_Type.Text = strResult;
             lblType.Text = strResult;
+
         }
 
-        private void comboBox_Type_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        private void comboBox_Type_SelectedIndexChanged(object sender, EventArgs e) {
             lblDupe.Visible = DupeCheck();
         }
 
-        private void comboBox_ConnectTo_TextChanged(object sender, EventArgs e)
-        {
+        private void comboBox_ConnectTo_TextChanged(object sender, EventArgs e) {
             TypeCheck();
         }
 
-        private void comboBox_ListenOn_TextChanged(object sender, EventArgs e)
-        {
+        private void comboBox_ListenOn_TextChanged(object sender, EventArgs e) {
+
             // Dupecheck
             lblDupe.Visible = DupeCheck();
 
             // typeCheck
             TypeCheck();
+
         }
 
         /// <summary>
         /// Refreshes the WSL IP on double-click
         /// </summary>
-        private void lblWSLIP_DoubleClick(object sender, EventArgs e)
-        {
+        private void lblWSLIP_DoubleClick(object sender, EventArgs e) {
+
             this.Cursor = Cursors.WaitCursor;
             lblWSLIP.Text = "Refreshing ...";
             string strWSLIP = JSE_Utils.WSL.WSL_GetIP();
             lblWSLIP.Text = strWSLIP.Length > 0 ? string.Format("WSL: {0}", strWSLIP) : "WSL: Dunno";
             this.Cursor = Cursors.Default;
+
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
+        private void btnCancel_Click(object sender, EventArgs e) {
             this.Close();
         }
 

@@ -59,6 +59,7 @@ namespace PortProxyGooey {
             ResourceManager rm = Properties.Resources.ResourceManager;
 
             // Retrieve the image resource by name.
+            // TODO: https://stackoverflow.com/questions/4416934/c-how-to-make-a-picture-background-transparent
             Image img = (Image)rm.GetObject("decoration");
 
             //e.Graphics.DrawImage(img, 50, 50, 100, 100);
@@ -731,9 +732,11 @@ namespace PortProxyGooey {
         }
 
         private void listViewProxies_ColumnWidthChanged(object sender, ColumnWidthChangedEventArgs e) {
+
             if (AppConfig is not null && sender is ListView listView) {
                 AppConfig.PortProxyColumnWidths[e.ColumnIndex] = listView.Columns[e.ColumnIndex].Width;
             }
+
         }
 
         /// <summary>
@@ -754,7 +757,7 @@ namespace PortProxyGooey {
             if (AppConfig is not null && sender is Form form)
                 AppConfig.MainWindowSize = form.Size;
 
-            Debug.WriteLine(string.Format("w: {0} h: {1}", this.Width, this.Height));
+            Debug.WriteLine(string.Format("Resized to: [w: {0} h: {1}]", this.Width, this.Height));
         }
 
         #region + -- IMPORT / EXPORT -- +
@@ -840,8 +843,12 @@ namespace PortProxyGooey {
 
         private void toolStripMenuItem_ResetWindowSize_Click(object sender, EventArgs e) {
 
-            AppConfig = new AppConfig();
-            ResetWindowSize();
+            if (MessageBox.Show("Are sure you want to reset the window?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes) {
+
+                AppConfig = new AppConfig();
+                ResetWindowSize();
+
+            }
 
         }
 
@@ -1042,7 +1049,7 @@ namespace PortProxyGooey {
         }
 
         private void portForwardingTesterToolStripMenuItem_Click(object sender, EventArgs e) {
-            PortProxyUtil.Launch("https://www.yougetsignal.com/tools/open-ports");
+            Network.Link_OpenPortTester();
         }
 
         #region + -- Double-Clicking All of These Opens New Item Dialog  -- +
@@ -1115,13 +1122,21 @@ namespace PortProxyGooey {
 
         #endregion
 
-        private void tmrCheck_Tick(object sender, EventArgs e) {
+        #region + -- DOCKER -- +
 
-            // Always keep the WSL status icon updated
-            picWSL.Visible = WSL.WSL_IsRunning();
-
+        private void picDocker_Click(object sender, EventArgs e) {
+            contextMenuStrip_Docker.Show(Cursor.Position);
         }
 
+        #endregion
+
+        private void tmrCheck_Tick(object sender, EventArgs e) {
+
+            // Always keep the WSL/Docker status icons updated
+            picWSL.Visible = WSL.WSL_IsRunning();
+            // TODO picDocker.Visible = WSL.WSL_IsRunning();
+
+        }
 
         private void ToolStripMenuItem_Move_Click(object sender, EventArgs e) {
             // LEFT OFF: Need to add the actual MOVE code now ...
@@ -1130,6 +1145,7 @@ namespace PortProxyGooey {
 
             Debug.WriteLine(sender.ToString());
         }
+
 
     }
 }
