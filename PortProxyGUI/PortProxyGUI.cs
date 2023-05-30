@@ -16,6 +16,7 @@ using System.Linq;
 using System.Resources;
 using System.Windows.Forms;
 using static System.Windows.Forms.ListViewItem;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 using ListView = System.Windows.Forms.ListView;
 
@@ -83,12 +84,11 @@ namespace PortProxyGooey {
 
             // Set Main Window Location from saved settings
             if (AppConfig.MainWindowLocationX != 0 && AppConfig.MainWindowLocationY != 0) {
-
                 this.StartPosition = FormStartPosition.Manual;
                 this.Left = AppConfig.MainWindowLocationX;
                 this.Top = AppConfig.MainWindowLocationY;
-
             }
+
         }
 
         private void PortProxyGUI_Shown(object sender, EventArgs e) {
@@ -527,6 +527,8 @@ namespace PortProxyGooey {
 
             if (sender is ListView listView) {
 
+                GroupRename();
+
                 ListViewHitTestInfo hit = listViewProxies.HitTest(e.Location);
 
                 // If a ListView item was clicked ...
@@ -537,13 +539,7 @@ namespace PortProxyGooey {
 
                     // If it's the first column (checkbox icon column) then toggle it's state
                     if (columnindex == 0) {
-
-                        if (hit.Item.ImageIndex == 1) {
-                            ToggleSelectedProxies(false);
-                        } else {
-                            ToggleSelectedProxies(true);
-                        }
-
+                        ToggleSelectedProxies(hit.Item.ImageIndex != 1);
                     }
 
                 } else {
@@ -588,7 +584,7 @@ namespace PortProxyGooey {
                 if (intCount > 1) {
 
                     toolStripMenuItem_Delete.Text = string.Format("Delete ({0})", intCount);
-                    toolStripMenuItem_MoveTo.Text = string.Format("Move to ({0}) ...", intCount);
+                    toolStripMenuItem_MoveTo.Text = string.Format("Group: Move ({0}) to ...", intCount);
 
                 }
 
@@ -615,6 +611,46 @@ namespace PortProxyGooey {
                     WSLShutDownToolStripMenuItem.Enabled = false;
                     WSLRestartToolStripMenuItem.Enabled = false;
                 }
+            }
+        }
+
+        private void GroupRename(bool bRename = false) {
+
+            ListView.SelectedListViewItemCollection selectedItems = listViewProxies.SelectedItems;
+
+            if (selectedItems.Count > 0) {
+
+                ListViewItem selectedItem = selectedItems[0];
+                ListViewGroup group = selectedItem.Group;
+
+                if (group != null) {
+
+                    string groupHeader = group.Header;
+
+                    toolStripMenuItem_RenameGroup.Visible = true;
+
+                    if (bRename) {
+
+                        // Do something with the group header
+                        Debug.WriteLine("Clicked Group Header: " + groupHeader);
+
+                        string input = "some input";
+                        Dialogs.InputDialog(ref input);
+                        Debug.WriteLine(input);
+
+
+
+
+
+                    }
+
+                } else {
+
+                    toolStripMenuItem_RenameGroup.Visible = false;
+                    Debug.WriteLine("Item in Default Group");
+
+                }
+
             }
         }
 
@@ -958,7 +994,7 @@ namespace PortProxyGooey {
             toolStripMenuItem_Enable.Text = "Enable";
             toolStripMenuItem_Disable.Text = "Disable";
             toolStripMenuItem_Delete.Text = "Delete";
-            toolStripMenuItem_MoveTo.Text = "Move to ...";
+            toolStripMenuItem_MoveTo.Text = "Group: Move to ...";
 
         }
 
@@ -1148,11 +1184,12 @@ namespace PortProxyGooey {
             // Pluralize if necessary ;)
             //string strMsg = string.Format("Delete {0} {1}?", intCount, intCount == 1 ? "proxy" : "proxies");
 
-            Debug.WriteLine(sender.ToString());
-
             IEnumerable<ListViewItem> items = listViewProxies.SelectedItems.OfType<ListViewItem>();
 
             foreach (ListViewItem item in items) {
+
+                Debug.WriteLine("Current: " + item.Group);
+                Debug.WriteLine("Move To: " + sender.ToString());
 
                 try {
 
@@ -1171,6 +1208,13 @@ namespace PortProxyGooey {
 
         }
 
+        private void toolStripMenuItem_Exit_Click(object sender, EventArgs e) {
+            Application.Exit();
+        }
+
+        private void toolStripMenuItem_RenameGroup_Click(object sender, EventArgs e) {
+            GroupRename(true);
+        }
 
     }
 }

@@ -157,10 +157,10 @@
     <value>Ctrl+E</value>
   </data>
   <data name="toolStripMenuItem_Enable.Size" type="System.Drawing.Size, System.Drawing">
-    <value>165, 22</value>
+    <value>182, 22</value>
   </data>
   <data name="toolStripMenuItem_Enable.Text" xml:space="preserve">
-    <value>&amp;Enable</value>
+    <value>Enable</value>
   </data>
   <data name="toolStripMenuItem_Enable.ToolTipText" xml:space="preserve">
     <value>Activate this port proxy</value>
@@ -172,16 +172,16 @@
     <value>Ctrl+D</value>
   </data>
   <data name="toolStripMenuItem_Disable.Size" type="System.Drawing.Size, System.Drawing">
-    <value>165, 22</value>
+    <value>182, 22</value>
   </data>
   <data name="toolStripMenuItem_Disable.Text" xml:space="preserve">
-    <value>&amp;Disable</value>
+    <value>Disable</value>
   </data>
   <data name="toolStripMenuItem_Disable.ToolTipText" xml:space="preserve">
     <value>Deactivate this port proxy</value>
   </data>
   <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>162, 6</value>
+    <value>179, 6</value>
   </data>
   <data name="toolStripMenuItem_New.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft YaHei UI, 9pt, style=Bold</value>
@@ -193,7 +193,7 @@
     <value>Ins</value>
   </data>
   <data name="toolStripMenuItem_New.Size" type="System.Drawing.Size, System.Drawing">
-    <value>165, 22</value>
+    <value>182, 22</value>
   </data>
   <data name="toolStripMenuItem_New.Text" xml:space="preserve">
     <value>New</value>
@@ -205,7 +205,7 @@ Tip:
 You can also double-click most blank areas on this window</value>
   </data>
   <data name="toolStripSeparator14.Size" type="System.Drawing.Size, System.Drawing">
-    <value>162, 6</value>
+    <value>179, 6</value>
   </data>
   <data name="toolStripMenuItem_Modify.ShortcutKeyDisplayString" xml:space="preserve">
     <value />
@@ -214,7 +214,7 @@ You can also double-click most blank areas on this window</value>
     <value>F2</value>
   </data>
   <data name="toolStripMenuItem_Modify.Size" type="System.Drawing.Size, System.Drawing">
-    <value>165, 22</value>
+    <value>182, 22</value>
   </data>
   <data name="toolStripMenuItem_Modify.Text" xml:space="preserve">
     <value>Edit</value>
@@ -226,7 +226,7 @@ You can also double-click most blank areas on this window</value>
     <value>F3</value>
   </data>
   <data name="toolStripMenuItem_Clone.Size" type="System.Drawing.Size, System.Drawing">
-    <value>165, 22</value>
+    <value>182, 22</value>
   </data>
   <data name="toolStripMenuItem_Clone.Text" xml:space="preserve">
     <value>Clone</value>
@@ -237,16 +237,7 @@ You can also double-click most blank areas on this window</value>
 This saves you from having to do repititous form filling.</value>
   </data>
   <data name="toolStripSeparator15.Size" type="System.Drawing.Size, System.Drawing">
-    <value>162, 6</value>
-  </data>
-  <data name="toolStripMenuItem_MoveTo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>165, 22</value>
-  </data>
-  <data name="toolStripMenuItem_MoveTo.Text" xml:space="preserve">
-    <value>Move to ...</value>
-  </data>
-  <data name="toolStripSeparator5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>162, 6</value>
+    <value>179, 6</value>
   </data>
   <data name="toolStripMenuItem_Delete.ShortcutKeyDisplayString" xml:space="preserve">
     <value />
@@ -255,7 +246,7 @@ This saves you from having to do repititous form filling.</value>
     <value>Del</value>
   </data>
   <data name="toolStripMenuItem_Delete.Size" type="System.Drawing.Size, System.Drawing">
-    <value>165, 22</value>
+    <value>182, 22</value>
   </data>
   <data name="toolStripMenuItem_Delete.Text" xml:space="preserve">
     <value>Delete</value>
@@ -263,32 +254,50 @@ This saves you from having to do repititous form filling.</value>
   <data name="toolStripMenuItem_Delete.ToolTipText" xml:space="preserve">
     <value>Remove selected port proxy(s)</value>
   </data>
-  <data name="clearToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+C</value>
-  </data>
-  <data name="clearToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>165, 22</value>
-  </data>
-  <data name="clearToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Clear</value>
-  </data>
-  <data name="clearToolStripMenuItem.ToolTipText" xml:space="preserve">
-    <value>Clears the entire list (a.k.a. Delete All)</value>
-  </data>
   <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>162, 6</value>
+    <value>179, 6</value>
+  </data>
+  <data name="toolStripMenuItem_MoveTo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 22</value>
+  </data>
+  <data name="toolStripMenuItem_MoveTo.Text" xml:space="preserve">
+    <value>Group: Move to ...</value>
+  </data>
+  <data name="toolStripMenuItem_RenameGroup.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 22</value>
+  </data>
+  <data name="toolStripMenuItem_RenameGroup.Text" xml:space="preserve">
+    <value>Group: Rename</value>
+  </data>
+  <data name="toolStripMenuItem_RenameGroup.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="toolStripSeparator16.Size" type="System.Drawing.Size, System.Drawing">
+    <value>179, 6</value>
   </data>
   <data name="toolStripMenuItem_Refresh.ShortcutKeyDisplayString" xml:space="preserve">
     <value>&amp;F5</value>
   </data>
   <data name="toolStripMenuItem_Refresh.Size" type="System.Drawing.Size, System.Drawing">
-    <value>165, 22</value>
+    <value>182, 22</value>
   </data>
   <data name="toolStripMenuItem_Refresh.Text" xml:space="preserve">
-    <value>Refresh</value>
+    <value>List: Refresh</value>
+  </data>
+  <data name="clearToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+C</value>
+  </data>
+  <data name="clearToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 22</value>
+  </data>
+  <data name="clearToolStripMenuItem.Text" xml:space="preserve">
+    <value>List: Clear</value>
+  </data>
+  <data name="clearToolStripMenuItem.ToolTipText" xml:space="preserve">
+    <value>Clears the entire list (a.k.a. Delete All)</value>
   </data>
   <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>162, 6</value>
+    <value>179, 6</value>
   </data>
   <data name="WSLRunningToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>138, 22</value>
@@ -587,22 +596,31 @@ in case you want to download it.</value>
     <value>Perform ipconfig /flushDNS</value>
   </data>
   <data name="toolStripMenuItem_More.Size" type="System.Drawing.Size, System.Drawing">
-    <value>165, 22</value>
+    <value>182, 22</value>
   </data>
   <data name="toolStripMenuItem_More.Text" xml:space="preserve">
     <value>More</value>
   </data>
   <data name="toolStripSeparator4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>162, 6</value>
+    <value>179, 6</value>
   </data>
   <data name="toolStripMenuItem_About.Size" type="System.Drawing.Size, System.Drawing">
-    <value>165, 22</value>
+    <value>182, 22</value>
   </data>
   <data name="toolStripMenuItem_About.Text" xml:space="preserve">
     <value>About</value>
   </data>
+  <data name="toolStripMenuItem_Exit.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Alt+F4</value>
+  </data>
+  <data name="toolStripMenuItem_Exit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 22</value>
+  </data>
+  <data name="toolStripMenuItem_Exit.Text" xml:space="preserve">
+    <value>Exit</value>
+  </data>
   <data name="contextMenuStrip_RightClick.Size" type="System.Drawing.Size, System.Drawing">
-    <value>166, 288</value>
+    <value>183, 332</value>
   </data>
   <data name="&gt;&gt;contextMenuStrip_RightClick.Name" xml:space="preserve">
     <value>contextMenuStrip_RightClick</value>
@@ -631,7 +649,7 @@ in case you want to download it.</value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAmgsAAAJNU0Z0AUkBTAIBAQIB
-        AAGAAQMBgAEDARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARAe
+        AAG4AQMBuAEDARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARAe
         AAMqAUADKgFAAyoBQAMqAUADKgFAAyoBQAMqAUADKgFAAyoBQAMqAUDQAAMMARACWQFbAcABPAFNAv8B
         PAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8CWQFbAcAD
         DAEQCAADDAEQAlsBWQHAAa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQB
@@ -3237,28 +3255,10 @@ in case you want to download it.</value>
   <data name="&gt;&gt;toolStripSeparator15.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStripMenuItem_MoveTo.Name" xml:space="preserve">
-    <value>toolStripMenuItem_MoveTo</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem_MoveTo.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator5.Name" xml:space="preserve">
-    <value>toolStripSeparator5</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator5.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;toolStripMenuItem_Delete.Name" xml:space="preserve">
     <value>toolStripMenuItem_Delete</value>
   </data>
   <data name="&gt;&gt;toolStripMenuItem_Delete.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;clearToolStripMenuItem.Name" xml:space="preserve">
-    <value>clearToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;clearToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator1.Name" xml:space="preserve">
@@ -3267,10 +3267,34 @@ in case you want to download it.</value>
   <data name="&gt;&gt;toolStripSeparator1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;toolStripMenuItem_MoveTo.Name" xml:space="preserve">
+    <value>toolStripMenuItem_MoveTo</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem_MoveTo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem_RenameGroup.Name" xml:space="preserve">
+    <value>toolStripMenuItem_RenameGroup</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem_RenameGroup.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator16.Name" xml:space="preserve">
+    <value>toolStripSeparator16</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator16.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;toolStripMenuItem_Refresh.Name" xml:space="preserve">
     <value>toolStripMenuItem_Refresh</value>
   </data>
   <data name="&gt;&gt;toolStripMenuItem_Refresh.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clearToolStripMenuItem.Name" xml:space="preserve">
+    <value>clearToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;clearToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator2.Name" xml:space="preserve">
@@ -3535,6 +3559,12 @@ in case you want to download it.</value>
     <value>toolStripMenuItem_About</value>
   </data>
   <data name="&gt;&gt;toolStripMenuItem_About.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem_Exit.Name" xml:space="preserve">
+    <value>toolStripMenuItem_Exit</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem_Exit.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;imgListProxies.Name" xml:space="preserve">

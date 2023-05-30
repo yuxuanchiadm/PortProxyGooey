@@ -208,21 +208,23 @@ namespace PortProxyGooey
 
                 progBarRange.Maximum = intRange;
 
-                for (int i = 0; i < intRange; i++)
-                {
+                for (int i = 0; i < intRange; i++) {
+
                     rule.ListenPort = listenPort;
                     progBarRange.Value += 1;
 
-                    if (DupeCheck(rule))
-                    {
+                    if (DupeCheck(rule)) {
+
                         // If its a dupe, skip it.
                         intDupes += 1;
-                    }
-                    else
-                    {
+
+                    } else {
+
                         PortProxyUtil.AddOrUpdateProxy(rule);
                         Program.Database.Add(rule);
+
                     }
+
                     listenPort++;
                 }
 
@@ -238,10 +240,11 @@ namespace PortProxyGooey
                         .Cast<ListViewItem>()
                         .FirstOrDefault(i => i.Tag != null && i.Tag.ToString().Contains(rule.Id));
 
-            if (item != null)
-            {
+            if (item != null) {
+
                 ParentWindow.listViewProxies.EnsureVisible(item.Index);
                 ParentWindow.listViewProxies.Items[item.Index].Selected = true;
+
             }
 
             PortProxyUtil.ParamChange();
