@@ -44,25 +44,27 @@ namespace PortProxyGooey.Utils {
         public static Rule[] GetProxies()
         {
             List<Rule> ruleList = new();
-            foreach (string type in ProxyTypes)
-            {
+
+            foreach (string type in ProxyTypes) {
+
                 string keyName = GetKeyName(type);
                 RegistryKey key = Registry.LocalMachine.OpenSubKey(keyName);
 
-                if (key is not null)
-                {
-                    foreach (string name in key.GetValueNames())
-                    {
+                if (key is not null) {
+
+                    foreach (string name in key.GetValueNames()) {
+
                         string[] listenParts = name.Split('/');
                         string listenOn = listenParts[0];
+                        
                         if (!int.TryParse(listenParts[1], out int listenPort)) continue;
 
                         string[] connectParts = key.GetValue(name).ToString().Split('/');
                         string connectTo = connectParts[0];
+                        
                         if (!int.TryParse(connectParts[1], out int connectPort)) continue;
 
-                        ruleList.Add(new Rule
-                        {
+                        ruleList.Add(new Rule {
                             Type = type,
                             ListenOn = listenOn,
                             ListenPort = listenPort,
@@ -113,7 +115,7 @@ namespace PortProxyGooey.Utils {
             try {
                 key?.DeleteValue(name);
             }
-            catch { }
+            catch {}
 
         }
 
@@ -159,6 +161,7 @@ namespace PortProxyGooey.Utils {
                 Arguments = strArgs,
                 WorkingDirectory = strStartIn,
                 UseShellExecute = true
+
             };
 
             Process.Start(psi);

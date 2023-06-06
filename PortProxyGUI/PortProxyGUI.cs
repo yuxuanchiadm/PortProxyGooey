@@ -9,15 +9,12 @@ using PortProxyGooey.Utils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Resources;
 using System.Windows.Forms;
 using static System.Windows.Forms.ListViewItem;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 using ListView = System.Windows.Forms.ListView;
 
 #endregion
@@ -73,6 +70,8 @@ namespace PortProxyGooey {
             //Debug.WriteLine(PortProxyUtil.CheckPortOpen("127.0.0.1", 443)); // good
 
             //JSE_Utils.WSL.WSL_GetVersion();
+
+
 
             AppConfig = Program.Database.GetAppConfig();
 
@@ -250,6 +249,7 @@ namespace PortProxyGooey {
                 MessageBox.Show(ex.Message, "Ayy Now!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
+
         }
 
         /// <summary>
@@ -293,6 +293,37 @@ namespace PortProxyGooey {
                 listViewProxies.Items.Add(item);
 
             }
+
+
+            // Left off: getting proxy count for group headers; need to figure out how to fetch by group name? Or just use it's index?. Is this the best place for it?
+            ListViewGroup grp = null;
+
+            foreach (ListViewGroup listViewGroup in listViewProxies.Groups) {
+
+                if (listViewGroup.Name == "name") {
+
+                    grp = listViewGroup;
+                    break;
+
+                }
+
+            }
+
+            if (grp != null) {
+
+                int itemCount = grp.Items.Count;
+                // Do something with itemCount
+
+            } else {
+                // The group with the specified name was not found
+            }
+
+
+
+
+
+
+
 
         }
 
@@ -344,10 +375,16 @@ namespace PortProxyGooey {
         /// <param name="lvGroups">The list of group names</param>
         private void CreateGroupsMenuItem(ListViewGroup[] lvGroups) {
 
+            // First, clear out any previous ones in case we're renaming a group, refreshing this list, or something, so we don't get dupes.
+            foreach (ToolStripMenuItem item in toolStripMenuItem_MoveTo.DropDownItems.OfType<ToolStripMenuItem>().ToList()) {
+                toolStripMenuItem_MoveTo.DropDownItems.Remove(item);
+            }
+
             // Default group doesn't get added to the ListViewGroup[]; manually add it.
             ToolStripMenuItem toolStripMenuItem_Move = new ToolStripMenuItem("Default");
             toolStripMenuItem_Move.Click += ToolStripMenuItem_Move_Click;
             toolStripMenuItem_MoveTo.DropDownItems.Add(toolStripMenuItem_Move);
+            toolStripMenuItem_Move.Image = Properties.Resources.add;
 
             //toolStripMenuItem_Move.ToolTipText = "Move selected proxy(s) to the Default group";
 
@@ -357,6 +394,13 @@ namespace PortProxyGooey {
                 toolStripMenuItem_Move = new ToolStripMenuItem(header.Header);
                 toolStripMenuItem_Move.Click += ToolStripMenuItem_Move_Click;
                 toolStripMenuItem_MoveTo.DropDownItems.Add(toolStripMenuItem_Move);
+
+                // Give it an icon for some of the well known things
+                if (header.ToString().ToLower().Contains("docker")) {
+                    toolStripMenuItem_Move.Image = Properties.Resources.docker_1;
+                } else if (header.ToString().ToLower().Contains("wsl")) {
+                    toolStripMenuItem_Move.Image = Properties.Resources.wsl;
+                }
 
                 // Set any other properties of the menu item
                 //toolStripMenuItem_Move.ToolTipText = string.Format("Move proxy(s) to the {0} group", header.Header);
@@ -377,9 +421,13 @@ namespace PortProxyGooey {
 
             listViewProxies.Cursor = Cursors.WaitCursor;
 
+            // Fetch all proxies stored in the registry
             Rule[] proxies = PortProxyUtil.GetProxies();
+
+            // Fetch all proxies from db, store in an array.
             Rule[] rules = Program.Database.Rules.ToArray();
 
+            // Compare list of registry proxies with list of proxies stored in our db (?)
             foreach (Rule proxy in proxies) {
 
                 Rule matchedRule = rules.FirstOrDefault(r => r.EqualsWithKeys(proxy));
@@ -387,6 +435,7 @@ namespace PortProxyGooey {
 
             }
 
+            //
             IEnumerable<Rule> pendingAdds = proxies.Where(x => x.Valid && x.Id == null);
             IEnumerable<Rule> pendingUpdates =
                 from proxy in proxies
@@ -398,7 +447,9 @@ namespace PortProxyGooey {
             Program.Database.AddRange(pendingAdds);
             Program.Database.UpdateRange(pendingUpdates);
 
+            // Fetch all proxies from db (again)
             rules = Program.Database.Rules.ToArray();
+
             InitProxyGroups(rules);
             InitProxyItems(rules, proxies);
 
@@ -614,6 +665,10 @@ namespace PortProxyGooey {
             }
         }
 
+        /// <summary>
+        /// Renames a group by editing all items in that group in the db to match the newly entered name.
+        /// </summary>
+        /// <param name="bRename"></param>
         private void GroupRename(bool bRename = false) {
 
             ListView.SelectedListViewItemCollection selectedItems = listViewProxies.SelectedItems;
@@ -631,16 +686,18 @@ namespace PortProxyGooey {
 
                     if (bRename) {
 
-                        // Do something with the group header
-                        Debug.WriteLine("Clicked Group Header: " + groupHeader);
+                        string input = groupHeader;
 
-                        string input = "some input";
-                        Dialogs.InputDialog(ref input);
-                        Debug.WriteLine(input);
+                        // Can't be the same as current, or empty.
+                        if (Dialogs.InputDialog(ref input, "New group name:") == DialogResult.OK && input != groupHeader && !string.IsNullOrEmpty(input)) {
 
+                            // Rename it in the db
+                            Rule rule = ParseRule(selectedItem);
+                            Program.Database.RenameGroup(rule, input.Trim());
 
+                            RefreshProxyList();
 
-
+                        }
 
                     }
 
@@ -805,8 +862,6 @@ namespace PortProxyGooey {
         /// <summary>
         /// Exports current list of proxies to .db
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void toolStripMenuItem_Export_Click(object sender, EventArgs e) {
 
             SaveFileDialog saveFileDialog = new();
@@ -825,7 +880,7 @@ namespace PortProxyGooey {
 
                 try {
 
-                    File.Copy(ApplicationDbScope.AppDbFile, saveFileDialog.FileName, true);
+                    File.Copy(ApplicationDbScope.AppDB, saveFileDialog.FileName, true);
 
                 } catch (Exception ex) {
 
@@ -1173,9 +1228,26 @@ namespace PortProxyGooey {
 
         private void tmrCheck_Tick(object sender, EventArgs e) {
 
-            // Always keep the WSL/Docker status icons updated
-            picWSL.Visible = WSL.WSL_IsRunning();
-            // TODO picDocker.Visible = WSL.WSL_IsRunning();
+            // Keep Current IP shown to help alert of any potential changes
+            lblCurrentLocalIP.Text = string.Format("Local IP: {0}", Network.GetLocalIPAddress());
+
+            // Always keep the WSL status updated
+            if (WSL.WSL_IsRunning()) {
+                lblWSLRunning.Text = "WSL: Running";
+                picWSL.Visible = true;
+            } else {
+                lblWSLRunning.Text = "WSL: N/A";
+                picWSL.Visible = false;
+            }
+
+            // TODO: Always keep the Docker status updated
+            //if (WSL.WSL_IsRunning()) {
+            //    lblDockerRunning.Text = "Docker: Running";
+            //    picDocker.Visible = true;
+            //} else {
+            //    lblDockerRunning.Text = "Docker: N/A";
+            //    picDocker.Visible = false;
+            //}
 
         }
 

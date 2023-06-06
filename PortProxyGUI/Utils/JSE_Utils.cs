@@ -92,18 +92,32 @@ namespace JSE_Utils {
             return result;
         }
 
-        public static DialogResult InputDialog(ref string strInput) {
+        /// <summary>
+        /// Replicates old school VB InputDialog, for a quick, simple input form.
+        /// </summary>
+        /// <param name="strInput">Will be placed in the text box if pre-filled; useful for suggestion as well.</param>
+        /// <param name="strTitle">Placed on the form's titlebar.</param>
+        /// <returns>DialogResult. Also, the input var passed to it will contain the user text (see example).</returns>
+        public static DialogResult InputDialog(ref string strInput, string strTitle = "") {
+
+            // Example Usage:
+            // 
+            // string input = string.Empty;
+            //
+            // if (Dialogs.InputDialog(ref input, "New name:") == DialogResult.OK && !string.IsNullOrEmpty(input)) {
+            //    Debug.WriteLine(input);
+            // }
+            //
+            // input will contain what user entered after it returns.
 
             Size size = new Size(200, 70);
             Form inputBox = new Form();
 
-            inputBox.FormBorderStyle = FormBorderStyle.FixedDialog;
+            inputBox.FormBorderStyle = FormBorderStyle.FixedToolWindow;
             inputBox.ShowInTaskbar = false;
             inputBox.StartPosition = FormStartPosition.CenterParent;
-            inputBox.MaximizeBox = false;
-            inputBox.MinimizeBox = false;
             inputBox.ClientSize = size;
-            inputBox.Text = "Name";
+            inputBox.Text = strTitle;
 
             TextBox textBox = new TextBox();
             textBox.Size = new Size(size.Width - 10, 23);
@@ -256,6 +270,36 @@ namespace JSE_Utils {
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Shows the current machine's local IP
+        /// </summary>
+        /// <param name="bIPv6">[optional: default false] True to return the IP6 IP, False for IP4 IP.</param>
+        /// <returns>Local IP</returns>
+        /// <exception cref="Exception"></exception>
+        public static string GetLocalIPAddress(bool bIPv6 = false) {
+
+            string strIP = "N/A";
+
+            if (bIPv6) {
+                // TODO
+            } else {
+
+                var host = Dns.GetHostEntry(Dns.GetHostName());
+
+                foreach (var ip in host.AddressList) {
+
+                    if (ip.AddressFamily == AddressFamily.InterNetwork) {
+                        strIP = ip.ToString();
+                    } else {
+                        //throw new Exception("No network adapters with an IPv4 address in the system!");
+                    }
+
+                }
+ 
+            }
+            return strIP;
         }
 
         /// <summary>

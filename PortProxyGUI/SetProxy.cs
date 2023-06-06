@@ -45,8 +45,8 @@ namespace PortProxyGooey
 
         #endregion
 
-        public SetProxy(PortProxyGooey parent)
-        {
+        public SetProxy(PortProxyGooey parent) {
+
             ParentWindow = parent;
 
             InitializeComponent();
@@ -68,7 +68,7 @@ namespace PortProxyGooey
         /// <summary>
         /// Add a New proxy rule, or Clone a proxy rule.
         /// </summary>
-        /// <param name="rule">[Optional] Rule object. If null, function acts as a brand new empty proxy; if Rule passed, function acts as a clone.</param>
+        /// <param name="rule">[optional] Rule object. If null, function acts as a brand new empty proxy; if Rule passed, function acts as a clone.</param>
         public void UseNormalMode(Rule rule = null) {
 
             _updateMode = false;
@@ -134,30 +134,32 @@ namespace PortProxyGooey
             this.Enabled = false;
 
             // Validate the Ports
-            try
-            {
+            try {
+
                 listenPort = Rule.ParsePort(textBox_ListenPort.Text);
                 connectPort = Rule.ParsePort(textBox_ConnectPort.Text);
                 listenPortRange = Rule.ParsePort(textBox_ListenPortRange.Text);
-            }
-            catch (NotSupportedException ex)
-            {
+
+            } catch (NotSupportedException ex) {
+
                 Debug.WriteLine(ex.Message);
                 MessageBox.Show("You're trying to set either a bad port, or no port. Do better.", "Uh, no ...", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 progBarRange.Visible = false;
                 this.Enabled = true;
                 return;
+
             }
 
             // If adding a range ...
-            if (chkBox_ListenPortRange.Checked && listenPortRange < listenPort)
-            {
+            if (chkBox_ListenPortRange.Checked && listenPortRange < listenPort) {
+
                 MessageBox.Show("Ending Port is LOWER than the Starting Port", "You need to fix this ...", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
                 // Set focus of the 'offending' error target to better help the user understand the source of the issue.
                 textBox_ListenPortRange.Select();
                 this.Enabled = true;
                 return;
+
             }
 
             progBarRange.Visible = true;
@@ -171,8 +173,8 @@ namespace PortProxyGooey
             if (!ValidateIPv4(strConnect, 2)) return;
 
             // Add to Rule
-            Rule rule = new()
-            {
+            Rule rule = new() {
+
                 Type = comboBox_Type.Text.Trim(),
                 ListenOn = strListen,
                 ListenPort = listenPort,
@@ -180,6 +182,7 @@ namespace PortProxyGooey
                 ConnectPort = connectPort,
                 Comment = textBox_Comment.Text.Trim(),
                 Group = comboBox_Group.Text.Trim(),
+
             };
 
             // Validate the Proxy Type ...

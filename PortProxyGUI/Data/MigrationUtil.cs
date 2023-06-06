@@ -1,44 +1,46 @@
-﻿#region + -- NAMESPACE IMPORTS -- +
+﻿#region + -- IMPORTS -- +
 
 using PortProxyGooey.Utils;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 
 #endregion
 
-namespace PortProxyGooey.Data
-{
-    public class MigrationUtil
-    {
+namespace PortProxyGooey.Data {
+
+    public class MigrationUtil {
+
         public ApplicationDbScope DbScope { get; private set; }
 
-        public MigrationUtil(ApplicationDbScope context)
-        {
+        public MigrationUtil(ApplicationDbScope context) {
+
             DbScope = context;
             EnsureHistoryTable();
             EnsureUpdateVersion();
+
         }
 
-        public void EnsureHistoryTable()
-        {
-            if (!DbScope.SqlQuery($"SELECT * FROM sqlite_master WHERE type = 'table' AND name = '__history';").Any())
-            {
+        public void EnsureHistoryTable() {
+
+            if (!DbScope.SqlQuery($"SELECT * FROM sqlite_master WHERE type = 'table' AND name = '__history';").Any()) {
+
                 DbScope.UnsafeSql(@"CREATE TABLE __history ( MigrationId text PRIMARY KEY, ProductVersion text);");
                 DbScope.UnsafeSql($"INSERT INTO __history (MigrationId, ProductVersion) VALUES ('000000000000', '0.0');");
+
             }
+
         }
 
-        public void EnsureUpdateVersion()
-        {
+        public void EnsureUpdateVersion() {
+
             Migration migration = DbScope.GetLastMigration();
             Version assemblyVersion = Assembly.GetExecutingAssembly().GetName().Version;
 
-            if (new Version(migration.ProductVersion) > assemblyVersion)
-            {
+            if (new Version(migration.ProductVersion) > assemblyVersion) {
+
                 if (MessageBox.Show(@"The current software version cannot use the configuration.
 
 You need to use a newer version of PortProxyGooey.
@@ -50,28 +52,30 @@ Would you like to download it now?", "Upgrade", MessageBoxButtons.YesNo, Message
 
                 Environment.Exit(0);
             }
+
         }
 
-        public void MigrateToLast()
-        {
+        public void MigrateToLast() {
+
             Migration migration = DbScope.GetLastMigration();
             string migrationId = migration.MigrationId;
             IEnumerable<KeyValuePair<MigrationKey, string[]>> pendingMigrations = migrationId != "000000000000"
                 ? History.SkipWhile(pair => pair.Key.MigrationId != migrationId).Skip(1)
                 : History;
 
-            foreach (KeyValuePair<MigrationKey, string[]> pendingMigration in pendingMigrations)
-            {
-                foreach (string sql in pendingMigration.Value)
-                {
+            foreach (KeyValuePair<MigrationKey, string[]> pendingMigration in pendingMigrations) {
+
+                foreach (string sql in pendingMigration.Value) {
                     DbScope.UnsafeSql(sql);
                 }
+
                 DbScope.Sql($"INSERT INTO __history (MigrationId, ProductVersion) VALUES ({pendingMigration.Key.MigrationId}, {pendingMigration.Key.ProductVersion});");
             }
+
         }
 
-        public Dictionary<MigrationKey, string[]> History = new()
-        {
+        public Dictionary<MigrationKey, string[]> History = new() {
+
             [new MigrationKey { MigrationId = "202103021542", ProductVersion = "1.1.0" }] = new[]
             {
                 @"CREATE TABLE rules
