@@ -15,6 +15,7 @@ using System.Linq;
 using System.Resources;
 using System.Windows.Forms;
 using static System.Windows.Forms.ListViewItem;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using ListView = System.Windows.Forms.ListView;
 
 #endregion
@@ -71,7 +72,7 @@ namespace PortProxyGooey {
 
             //JSE_Utils.WSL.WSL_GetVersion();
 
-
+            Debug.WriteLine("Network Available?: " + Network.IsNetworkAvailable());
 
             AppConfig = Program.Database.GetAppConfig();
 
@@ -292,36 +293,15 @@ namespace PortProxyGooey {
                 UpdateListViewItem(item, rule, imageIndex);
                 listViewProxies.Items.Add(item);
 
+
+                //int itemCount = Listview.CountItemsInGroup(listViewProxies, group);
+                //Debug.WriteLine($"Number of items in group ({group}): {itemCount}");
+
+
             }
 
 
             // Left off: getting proxy count for group headers; need to figure out how to fetch by group name? Or just use it's index?. Is this the best place for it?
-            ListViewGroup grp = null;
-
-            foreach (ListViewGroup listViewGroup in listViewProxies.Groups) {
-
-                if (listViewGroup.Name == "name") {
-
-                    grp = listViewGroup;
-                    break;
-
-                }
-
-            }
-
-            if (grp != null) {
-
-                int itemCount = grp.Items.Count;
-                // Do something with itemCount
-
-            } else {
-                // The group with the specified name was not found
-            }
-
-
-
-
-
 
 
 
@@ -404,6 +384,7 @@ namespace PortProxyGooey {
 
                 // Set any other properties of the menu item
                 //toolStripMenuItem_Move.ToolTipText = string.Format("Move proxy(s) to the {0} group", header.Header);
+
             }
         }
 
@@ -452,6 +433,12 @@ namespace PortProxyGooey {
 
             InitProxyGroups(rules);
             InitProxyItems(rules, proxies);
+
+            // LEFT OFF: Now that I can get the count, need to add it to the actual header as well as handle other areas to remove the count as necessary
+            foreach (ToolStripMenuItem item in toolStripMenuItem_MoveTo.DropDownItems.OfType<ToolStripMenuItem>().ToList()) { 
+                int itemCount = Listview.CountItemsInGroup(listViewProxies, item.Text);
+                Debug.WriteLine($"Number of items in group ({item.Text}): {itemCount}");               
+            }
 
             listViewProxies.Cursor = Cursors.Default;
 
@@ -634,8 +621,8 @@ namespace PortProxyGooey {
                 // Add count to let users know how many they're about to nuke
                 if (intCount > 1) {
 
-                    toolStripMenuItem_Delete.Text = string.Format("Delete ({0})", intCount);
-                    toolStripMenuItem_MoveTo.Text = string.Format("Group: Move ({0}) to ...", intCount);
+                    toolStripMenuItem_Delete.Text = $"Delete ({intCount})";
+                    toolStripMenuItem_MoveTo.Text = $"Group: Move ({intCount}) to ...";
 
                 }
 
@@ -1240,14 +1227,14 @@ namespace PortProxyGooey {
                 picWSL.Visible = false;
             }
 
-            // TODO: Always keep the Docker status updated
-            //if (WSL.WSL_IsRunning()) {
-            //    lblDockerRunning.Text = "Docker: Running";
-            //    picDocker.Visible = true;
-            //} else {
-            //    lblDockerRunning.Text = "Docker: N/A";
-            //    picDocker.Visible = false;
-            //}
+            // Always keep the Docker status updated
+            if (Docker.IsDockerRunning()) {
+                lblDockerRunning.Text = "Docker: Running";
+                picDocker.Visible = true;
+            } else {
+                lblDockerRunning.Text = "Docker: N/A";
+                picDocker.Visible = false;
+            }
 
         }
 

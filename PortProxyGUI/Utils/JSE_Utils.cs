@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using NStandard;
 using PortProxyGooey.Utils;
+using System.Net.NetworkInformation;
 
 #endregion
 
@@ -196,7 +197,19 @@ namespace JSE_Utils {
         }
 
     }
-   
+
+    public static class Docker {
+
+        /// <summary>
+        /// Checks for 'evidence' of Docker running in WSL
+        /// </summary>
+        /// <returns>True if Docker is running; False if not.</returns>
+        public static bool IsDockerRunning() {
+            return Misc.RunCommand("wsl", "docker ps", true).Contains("CONTAINER ID");
+        }
+
+    }
+
     public static partial class IPValidation
     {
         #region + -- REGEX -- +
@@ -211,8 +224,63 @@ namespace JSE_Utils {
         private static partial Regex IPv6Pattern();
 
         #endregion
-    }  
-    
+    }
+
+    public static class Listview {
+
+        /// <summary>
+        /// Returns number of items in a listview group
+        /// </summary>
+        /// <param name="listView">A ListView object</param>
+        /// <param name="group">The Group to count items in</param>
+        /// <returns>Number if items in that group</returns>
+        public static int CountItemsInGroup(ListView listView, ListViewGroup group) {
+
+            int count = 0;
+
+            foreach (ListViewItem item in listView.Items) {
+
+                if (item.Group == group) {
+                    count++;
+                }
+
+            }
+            return count;
+        }
+
+        /// <summary>
+        /// Returns number of items in a listview group based on the group header (similar to group name)
+        /// </summary>
+        /// <param name="listView">A ListView object</param>
+        /// <param name="strHeader">The Group Header to count items in</param>
+        /// <returns>Number if items in that group</returns>
+        public static int CountItemsInGroup(ListView listView, string strHeader) {
+            // TODO: add Default group handling as well; also add example usage comment.
+            ListViewGroup group = null;
+            int itemCount = 0;
+
+            foreach (ListViewGroup listViewGroup in listView.Groups) {
+
+                // NOTE: This entire method could easily be modified to match something else by changing the following line; i.e. listViewGroup.Name
+                if (listViewGroup.Header == strHeader) {
+
+                    group = listViewGroup;
+                    break;
+
+                }
+
+            }
+
+            if (group != null) {
+                itemCount = group.Items.Count;
+            } else {
+                // The group with the specified name was not found
+            }
+            return itemCount;
+        }
+
+    }
+
     public static class Network {
 
         /// <summary>
@@ -279,27 +347,22 @@ namespace JSE_Utils {
         /// <returns>Local IP</returns>
         /// <exception cref="Exception"></exception>
         public static string GetLocalIPAddress(bool bIPv6 = false) {
-
+            // TODO: this isnt done. the list of all addresses shows multiple ip's; not sure which I want returned?
             string strIP = "N/A";
+            IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
 
-            if (bIPv6) {
-                // TODO
-            } else {
+            foreach (IPAddress ip in host.AddressList) {
 
-                var host = Dns.GetHostEntry(Dns.GetHostName());
-
-                foreach (var ip in host.AddressList) {
-
-                    if (ip.AddressFamily == AddressFamily.InterNetwork) {
-                        strIP = ip.ToString();
-                    } else {
-                        //throw new Exception("No network adapters with an IPv4 address in the system!");
-                    }
-
+                if (ip.AddressFamily == AddressFamily.InterNetworkV6 && bIPv6 == true || ip.AddressFamily == AddressFamily.InterNetwork && bIPv6 == false) {
+                    strIP = ip.ToString();
+                } else {
+                    //throw new Exception("No network adapters with an IPv4 address in the system!");
                 }
- 
+
             }
+ 
             return strIP;
+
         }
 
         /// <summary>
@@ -322,6 +385,10 @@ namespace JSE_Utils {
             // return ip.IsMatch(new Regex(@"^[\dABCDEF]{2}(?::(?:[\dABCDEF]{2})){5}$"));
             return ip.IsMatch(IPValidation.IPv6RegEx);
 
+        }
+
+        public static bool IsNetworkAvailable() {
+            return NetworkInterface.GetIsNetworkAvailable();
         }
 
         /// <summary>
@@ -352,7 +419,7 @@ namespace JSE_Utils {
             if (matches.Count > 0) {
 
                 // Switch the filename (which is a URL) for strArgs, and append any specifically added Args after that.
-                strArgs = strFileName + " " + strArgs;
+                strArgs = $"{strFileName} {strArgs}";
 
                 // Use Explorer by default
                 strFileName = "explorer.exe";
