@@ -10,8 +10,8 @@ using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using NStandard;
-using PortProxyGooey.Utils;
 using System.Net.NetworkInformation;
+using System.Threading.Tasks;
 
 #endregion
 
@@ -201,11 +201,27 @@ namespace JSE_Utils {
     public static class Docker {
 
         /// <summary>
-        /// Checks for 'evidence' of Docker running in WSL
+        /// Checks for 'evidence' of Docker running in WSL (async)
         /// </summary>
         /// <returns>True if Docker is running; False if not.</returns>
+        /// <remarks>Will start WSL if WSL isn't already running, which may or may not be desired.</remarks>
         public static bool IsDockerRunning() {
-            return Misc.RunCommand("wsl", "docker ps", true).Contains("CONTAINER ID");
+
+            bool bResult = false;
+
+            Task task = Task.Run(() => {
+
+                //Debug.WriteLine($"IsDockerRunning: Task started (ID: {Task.CurrentId})");
+
+                bResult = Misc.RunCommand("wsl", "docker ps", true).Contains("CONTAINER ID");
+
+                //Debug.WriteLine($"IsDockerRunning: Task complete (ID: {Task.CurrentId})");
+
+            });
+
+            task.Wait();
+            return bResult;
+
         }
 
     }
@@ -452,7 +468,7 @@ namespace JSE_Utils {
                 }
 
             } catch (Exception e) {
-                Debug.WriteLine("RunCommand() Error: {0}", e.Message);
+                Debug.WriteLine($"RunCommand() Error: {e.Message}");
                 throw;
             }
 
@@ -510,55 +526,101 @@ namespace JSE_Utils {
     public static class WSL {
 
         /// <summary>
-        /// Checks if WSL is running
+        /// Checks if WSL is running (async)
         /// </summary>
-        /// <param name="bShowMessage">[Optional: default False] will show a messagebox with the result.</param>
+        /// <param name="bShowMessage">[optional: default False] will show a messagebox with the result.</param>
         /// <returns>True: WSL is running; False: WSL isn't running.</returns>
         public static bool WSL_IsRunning(bool bShowMessage = false) {
 
-            bool bResult = Misc.IsProcessRunning("wsl");
+            bool bResult = false;
+
+            Task task = Task.Run(() =>
+            {
+                //Debug.WriteLine($"WSL_IsRunning: Task started (ID: {Task.CurrentId})");
+                bResult = Misc.IsProcessRunning("wsl");
+                //Debug.WriteLine($"WSL_IsRunning: Task complete (ID: {Task.CurrentId})");
+            });
+
+            task.Wait();
 
             if (bShowMessage) {
                 MessageBox.Show(string.Format("WSL {0} running. ", bResult ? "is" : "is not"), "WSL", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
             return bResult;
+
         }
 
         /// <summary>
-        /// Gets a list of all distros installed, their WSL version, and running state.
+        /// Gets a list of all distros installed, their WSL version, and running state. (async)
         /// </summary>
         /// <returns>Success: WSL Distro info; Fail: Empty string.</returns>
         public static string WSL_GetDistros() {
 
-            // Run the command in Bash
-            string strOutput = Misc.RunCommand("wsl.exe", "-l -v --all");
+            string strOutput = string.Empty;
+
+            Task task = Task.Run(() => {
+
+                Debug.WriteLine($"WSL_GetDistros: Task started (ID: {Task.CurrentId})");
+
+               // Run the command in Bash
+               strOutput = Misc.RunCommand("wsl.exe", "-l -v --all");
+
+                Debug.WriteLine($"WSL_GetDistros: Task complete (ID: {Task.CurrentId})");
+
+            });
+
+            task.Wait();
 
             // TODO: Should be beefed up with validation (make sure proper info was fetched)
             return strOutput.Length > 0 ? strOutput : string.Empty;
         }
 
         /// <summary>
-        /// Gets *all* version info of the currently installed WSL version
+        /// Gets *all* version info of the currently installed WSL version (async)
         /// </summary>
         /// <returns>Success: WSL Version info; Fail: Empty string.</returns>
         public static string WSL_GetAllVersionInfo() {
 
-            // Run the command
-            string strOutput = Misc.RunCommand("wsl.exe", "--version");
+            string strOutput = string.Empty;
+
+            Task task = Task.Run(() => {
+
+                Debug.WriteLine($"WSL_GetAllVersionInfo: Task started (ID: {Task.CurrentId})");
+
+                // Run the command
+                strOutput = Misc.RunCommand("wsl.exe", "--version");
+
+                Debug.WriteLine($"WSL_GetAllVersionInfo: Task complete (ID: {Task.CurrentId})");
+
+            });
+
+            task.Wait();
 
             // TODO: Should be beefed up with validation (make sure proper info was fetched)
             return strOutput.Length > 0 ? strOutput : string.Empty;
         }
 
         /// <summary>
-        /// Gets the currently installed WSL version (WSL version *only*)
+        /// Gets the currently installed WSL version (WSL *version only*) (async)
         /// </summary>
         /// <returns>Success: WSL Version; Fail: Empty string.</returns>
         public static string WSL_GetVersion() {
 
-            // Run the command
-            string strOutput = Misc.RunCommand("wsl.exe", "--version");
+            string strOutput = string.Empty;
+
+            Task task = Task.Run(() => {
+
+                Debug.WriteLine($"WSL_GetVersion: Task started (ID: {Task.CurrentId})");
+
+                // Run the command
+                strOutput = Misc.RunCommand("wsl.exe", "--version");
+
+                Debug.WriteLine($"WSL_GetVersion: Task complete (ID: {Task.CurrentId})");
+
+            });
+
+            task.Wait();
 
             string start = "wsl version: ";
             string end = "\r\n";
@@ -573,38 +635,61 @@ namespace JSE_Utils {
         }
 
         /// <summary>
-        /// Fetches the current WSL IP
+        /// Fetches the current WSL IP (async)
         /// </summary>
         /// <returns>Success: (string) IP Address; Fail: Empty string</returns>
         public static string WSL_GetIP() {
+            // TODO: Does running this START WSL if it's not already running?
+            string strOutput = string.Empty;
+            string strWSLIP = string.Empty;
 
-            // Run the command in Bash
-            string strOutput = Misc.RunCommand("bash.exe", string.Format("{0} {1}", "-c", "\"ifconfig eth0 | grep 'inet '\""));
+            Task task = Task.Run(() => {
 
-            // Try to parse out a valid IPv4
-            string strWSLIP = IPValidation.IPv4RegEx.Match(strOutput).ToString();
+                //Debug.WriteLine($"WSL_GetIP: Task started (ID: {Task.CurrentId})");
+
+                // Run the command in Bash
+                strOutput = Misc.RunCommand("bash.exe", string.Format("{0} {1}", "-c", "\"ifconfig eth0 | grep 'inet '\""));
+                
+                // Try to parse out a valid IPv4
+                strWSLIP = IPValidation.IPv4RegEx.Match(strOutput).ToString();  
+                
+                //Debug.WriteLine($"WSL_GetIP: Task complete (ID: {Task.CurrentId})");
+            });
+
+            task.Wait();
+
             return strWSLIP.Length > 0 ? strWSLIP : string.Empty;
 
         }
 
         /// <summary>
-        /// Shuts down WSL
+        /// Shut down WSL (async)
         /// </summary>
-        /// <param name="bShowResult">[Optional: default True] Shows a messagebox confirming WSL has shut down</param>
+        /// <param name="bShowResult">[optional: default True] Shows a messagebox confirming WSL has shut down</param>
         public static void WSL_ShutDown(bool bShowResult = true) {
 
             if (WSL_IsRunning()) {
 
                 if (MessageBox.Show("Are sure you want to shut WSL down?", "WSL: Shutdown", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes) {
+            
+                    Task task = Task.Run(() => {
 
-                    // Run the shutdown command
-                    Misc.RunCommand("wsl.exe", "--shutdown");
+                        Debug.WriteLine($"WSL_ShutDown: Task started (ID: {Task.CurrentId})");
+
+                        // Run the shutdown command
+                        Misc.RunCommand("wsl.exe", "--shutdown");
+
+                        Debug.WriteLine($"WSL_ShutDown: Task complete (ID: {Task.CurrentId})");
+
+                    });
 
                     // TODO: Add a timer here to timeout if there's a problem shutting down WSL, so this loop doesn't end up running perpetually.
                     while (WSL_IsRunning()) {
                         // Loop until WSL is confirmed to be shut down, then show them confirmation.
                         // TODO: Add some sort of user feedback here to let them know we're doin work?
                     }
+
+                    task.Wait();
 
                     if (bShowResult) {
                         MessageBox.Show("WSL is shut down.", "WSL: Shutdown", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -619,21 +704,30 @@ namespace JSE_Utils {
         }
 
         /// <summary>
-        /// Starts WSL
+        /// Start WSL (async)
         /// </summary>
-        /// <param name="bShowResult">[Optional: default True] Shows a messagebox confirming WSL has started</param>
+        /// <param name="bShowResult">[optional: default True] Shows a messagebox confirming WSL has started</param>
         public static void WSL_Start(bool bShowResult = true) {
 
             if (!WSL_IsRunning()) {
 
-                // Run the startup command
-                Misc.RunCommand("wsl.exe", string.Empty, false);
+                Task task = Task.Run(() =>
+                {
+                    Debug.WriteLine($"WSL_Start: Task started (ID: {Task.CurrentId})");
+
+                    // Run the startup command
+                    Misc.RunCommand("wsl.exe", string.Empty, false);
+
+                    Debug.WriteLine($"WSL_Start: Task complete (ID: {Task.CurrentId})");
+                });
 
                 // TODO: Add a timer here to timeout if there's a problem starting up WSL, so this loop doesn't end up running perpetually.
                 while (!WSL_IsRunning()) {
                     // Loop until WSL is confirmed to be running, then show them confirmation.
                     // TODO: Add some sort of user feedback here to let them know we're doin work?
                 }
+
+                task.Wait();
 
                 if (bShowResult) {
                     MessageBox.Show("WSL is now running.", "WSL: Startup", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -645,15 +739,18 @@ namespace JSE_Utils {
                 MessageBox.Show("WSL is already running.", "WSL: Startup", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             }
+
         }
 
         /// <summary>
-        /// Restarts WSL
+        /// Restart WSL
         /// </summary>
         /// <param name="bShowResult">[Optional: default True] Shows a messagebox confirming WSL has restarted</param>
         public static void WSL_Restart(bool bShowResult = true) {
 
-            // Run the shutdown command TODO: need to add confirmation when run fromt he mini menu.
+            // TODO: add Task code
+
+            // Run the shutdown command TODO: need to add confirmation when run from the mini menu.
             Misc.RunCommand("wsl.exe", "--shutdown");
 
             Debug.WriteLine("WSL Restart: Shutdown command sent");

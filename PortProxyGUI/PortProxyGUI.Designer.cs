@@ -111,6 +111,7 @@
             contextMenuStrip_Docker = new System.Windows.Forms.ContextMenuStrip(components);
             tmrCheck = new System.Windows.Forms.Timer(components);
             pnlStatusBar = new System.Windows.Forms.Panel();
+            lblWSLIP = new System.Windows.Forms.Label();
             lblDockerRunning = new System.Windows.Forms.Label();
             lblWSLRunning = new System.Windows.Forms.Label();
             lblCurrentLocalIP = new System.Windows.Forms.Label();
@@ -670,17 +671,24 @@
             // tmrCheck
             // 
             tmrCheck.Enabled = true;
-            tmrCheck.Interval = 1000;
+            tmrCheck.Interval = 5000;
             tmrCheck.Tick += tmrCheck_Tick;
             // 
             // pnlStatusBar
             // 
             resources.ApplyResources(pnlStatusBar, "pnlStatusBar");
             pnlStatusBar.BackColor = System.Drawing.Color.FromArgb(59, 66, 82);
+            pnlStatusBar.Controls.Add(lblWSLIP);
             pnlStatusBar.Controls.Add(lblDockerRunning);
             pnlStatusBar.Controls.Add(lblWSLRunning);
             pnlStatusBar.Controls.Add(lblCurrentLocalIP);
             pnlStatusBar.Name = "pnlStatusBar";
+            // 
+            // lblWSLIP
+            // 
+            resources.ApplyResources(lblWSLIP, "lblWSLIP");
+            lblWSLIP.ForeColor = System.Drawing.Color.FromArgb(235, 203, 139);
+            lblWSLIP.Name = "lblWSLIP";
             // 
             // lblDockerRunning
             // 
@@ -817,6 +825,7 @@
         private System.Windows.Forms.Label lblCurrentLocalIP;
         private System.Windows.Forms.Label lblWSLRunning;
         private System.Windows.Forms.Label lblDockerRunning;
+        private System.Windows.Forms.Label lblWSLIP;
     }
 }
 

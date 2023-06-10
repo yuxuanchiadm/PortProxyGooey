@@ -435,9 +435,9 @@ namespace PortProxyGooey {
             InitProxyItems(rules, proxies);
 
             // LEFT OFF: Now that I can get the count, need to add it to the actual header as well as handle other areas to remove the count as necessary
-            foreach (ToolStripMenuItem item in toolStripMenuItem_MoveTo.DropDownItems.OfType<ToolStripMenuItem>().ToList()) { 
+            foreach (ToolStripMenuItem item in toolStripMenuItem_MoveTo.DropDownItems.OfType<ToolStripMenuItem>().ToList()) {
                 int itemCount = Listview.CountItemsInGroup(listViewProxies, item.Text);
-                Debug.WriteLine($"Number of items in group ({item.Text}): {itemCount}");               
+                Debug.WriteLine($"Number of items in group ({item.Text}): {itemCount}");
             }
 
             listViewProxies.Cursor = Cursors.Default;
@@ -1215,24 +1215,25 @@ namespace PortProxyGooey {
 
         private void tmrCheck_Tick(object sender, EventArgs e) {
 
-            // Keep Current IP shown to help alert of any potential changes
-            lblCurrentLocalIP.Text = string.Format("Local IP: {0}", Network.GetLocalIPAddress());
+            // Keep Current Local Machine & WSL IPs shown to help alert of any potential changes
+            lblCurrentLocalIP.Text = $"LOCAL IP: {Network.GetLocalIPAddress()}";
+            lblWSLIP.Text = $"WSL IP: {WSL.WSL_GetIP()}";
 
-            // Always keep the WSL status updated
+            // Keep WSL status updated
             if (WSL.WSL_IsRunning()) {
-                lblWSLRunning.Text = "WSL: Running";
+                lblWSLRunning.Text = "WSL: RUNNING";
                 picWSL.Visible = true;
             } else {
                 lblWSLRunning.Text = "WSL: N/A";
                 picWSL.Visible = false;
             }
 
-            // Always keep the Docker status updated
+            // Keep Docker status updated
             if (Docker.IsDockerRunning()) {
-                lblDockerRunning.Text = "Docker: Running";
+                lblDockerRunning.Text = "DOCKER: RUNNING";
                 picDocker.Visible = true;
             } else {
-                lblDockerRunning.Text = "Docker: N/A";
+                lblDockerRunning.Text = "DOCKER: N/A";
                 picDocker.Visible = false;
             }
 
