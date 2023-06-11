@@ -13,6 +13,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Resources;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.ListViewItem;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
@@ -1215,9 +1216,12 @@ namespace PortProxyGooey {
 
         private void tmrCheck_Tick(object sender, EventArgs e) {
 
+            //_ = UpdateAsyncTasks();
+
             // Keep Current Local Machine & WSL IPs shown to help alert of any potential changes
             lblCurrentLocalIP.Text = $"LOCAL IP: {Network.GetLocalIPAddress()}";
-            lblWSLIP.Text = $"WSL IP: {WSL.WSL_GetIP()}";
+
+            WSL.WSL_GetIP_BackgroundWorker((ip) => lblWSLIP.Text = $"WSL IP: {ip}");
 
             // Keep WSL status updated
             if (WSL.WSL_IsRunning()) {
@@ -1238,6 +1242,14 @@ namespace PortProxyGooey {
             }
 
         }
+
+        private async Task UpdateAsyncTasks() {
+
+            //string ip = await WSL.WSL_GetIPAsync();
+            lblWSLIP.Text = $"WSL IP: {await WSL.WSL_GetIP_Task_Async()}";
+
+        }
+
 
         private void ToolStripMenuItem_Move_Click(object sender, EventArgs e) {
             // LEFT OFF: Need to add the actual MOVE code now ...

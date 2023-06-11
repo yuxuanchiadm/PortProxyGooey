@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using NStandard;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 #endregion
 
@@ -422,7 +423,7 @@ namespace JSE_Utils {
         /// Standard Process Start function
         /// </summary>
         /// <param name="strFileName">Filename|Program.exe to run</param>
-        /// <param name="strArgs">[Optional] Any arguments for the above file|program</param>
+        /// <param name="strArgs">[optional] Any arguments for the above file|program</param>
         /// <returns>Program output if any, else empty string</returns>
         public static string RunCommand(string strFileName, string strArgs = "", bool bGetOutput = true) {
 
@@ -470,6 +471,63 @@ namespace JSE_Utils {
             } catch (Exception e) {
                 Debug.WriteLine($"RunCommand() Error: {e.Message}");
                 throw;
+            }
+
+            return strOutput;
+        }
+
+        /// <summary>
+        /// Standard Process Start function (async)
+        /// </summary>
+        /// <param name="strFileName">Filename|Program.exe to run</param>
+        /// <param name="strArgs">[optional] Any arguments for the above file|program</param>
+        /// <returns>Program output if any, else empty string</returns>
+        public static async Task<string> RunCommandAsync(string strFileName, string strArgs = "", bool bGetOutput = true) {
+
+            string strOutput = string.Empty;
+            string pattern = @"(http|https|ftp)://";
+
+            // Determine if a URL has been passed. Using this Process method requires a lil bit of special handling in such case.
+            MatchCollection matches = Regex.Matches(strFileName, pattern);
+
+            if (matches.Count > 0) {
+
+                // Switch the filename (which is a URL) for strArgs, and append any specifically added Args after that.
+                strArgs = $"{strFileName} {strArgs}";
+
+                // Use Explorer by default
+                strFileName = "explorer.exe";
+
+            }
+
+            try {
+
+                using Process p = new Process();
+                {
+                    ProcessStartInfo withBlock = p.StartInfo;
+                    withBlock.Verb = "runas";
+                    withBlock.RedirectStandardOutput = true;
+                    withBlock.RedirectStandardError = true;
+                    withBlock.FileName = strFileName;
+                    withBlock.Arguments = strArgs.Trim();
+                    withBlock.UseShellExecute = false;
+                    withBlock.CreateNoWindow = true;
+                }
+
+                p.Start();
+
+                if (bGetOutput) {
+
+                    // Remove any null chars, if exist.
+                    strOutput = await p.StandardOutput.ReadToEndAsync();
+                    await p.WaitForExitAsync();
+                }
+
+            } catch (Exception e) {
+
+                Debug.WriteLine($"RunCommand() Error: {e.Message}");
+                throw;
+
             }
 
             return strOutput;
@@ -635,10 +693,10 @@ namespace JSE_Utils {
         }
 
         /// <summary>
-        /// Fetches the current WSL IP (async)
+        /// Fetches the current WSL IP
         /// </summary>
         /// <returns>Success: (string) IP Address; Fail: Empty string</returns>
-        public static string WSL_GetIP() {
+        public static string WSL_GetIP_Task() {
             // TODO: Does running this START WSL if it's not already running?
             string strOutput = string.Empty;
             string strWSLIP = string.Empty;
@@ -660,6 +718,74 @@ namespace JSE_Utils {
 
             return strWSLIP.Length > 0 ? strWSLIP : string.Empty;
 
+        }
+
+        /// <summary>
+        /// Fetches the current WSL IP (async Task)
+        /// </summary>
+        /// <returns>Success: (string) IP Address; Fail: Empty string</returns>
+        public static async Task<string> WSL_GetIP_Task_Async() {
+
+            string strOutput = string.Empty;
+            string strWSLIP = string.Empty;
+
+            await Task.Run(async () =>
+            {
+                //Debug.WriteLine($"WSL_GetIP: Task started (ID: {Task.CurrentId})");
+
+                // Run the command in Bash
+                strOutput = await Misc.RunCommandAsync("bash.exe", string.Format("{0} {1}", "-c", "\"ifconfig eth0 | grep 'inet '\""));
+
+                // Try to parse out a valid IPv4
+                strWSLIP = IPValidation.IPv4RegEx.Match(strOutput).ToString();
+
+                //Debug.WriteLine($"WSL_GetIP: Task complete (ID: {Task.CurrentId}) Result: {strWSLIP}");
+            });
+
+            return strWSLIP.Length > 0 ? strWSLIP : string.Empty;
+        }
+
+        /// <summary>
+        /// Fetches the current WSL IP (async BackGroundWorker)
+        /// </summary>
+        /// <returns>Success: (string) IP Address; Fail: Empty string</returns>
+        /// <remarks>Ex. Usage: WSL.WSL_GetIP_BackgroundWorker((ip) => lblWSLIP.Text = $"WSL IP: {ip}");</remarks>
+        public static void WSL_GetIP_BackgroundWorker(Action<string> callback) {
+
+            // Another example usage:
+            //
+            // WSL_GetIPWithBackgroundWorker((ip) => {
+            //    Debug.WriteLine(ip);
+            // });
+
+            BackgroundWorker worker = new BackgroundWorker();
+
+            worker.DoWork += (sender, e) => {
+
+                string strOutput = string.Empty;
+                string strWSLIP = string.Empty;
+
+                strOutput = Misc.RunCommand("bash.exe", string.Format("{0} {1}", "-c", "\"ifconfig eth0 | grep 'inet '\""));
+                strWSLIP = IPValidation.IPv4RegEx.Match(strOutput).ToString();
+
+                e.Result = strWSLIP.Length > 0 ? strWSLIP : string.Empty;
+
+            };
+
+            worker.RunWorkerCompleted += (sender, e) => {
+
+                if (e.Error != null) {
+                    // Handle any errors here
+                } else {
+
+                    string ip = e.Result as string;
+                    callback?.Invoke(ip);
+
+                }
+
+            };
+
+            worker.RunWorkerAsync();
         }
 
         /// <summary>

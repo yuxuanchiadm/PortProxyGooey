@@ -1,5 +1,6 @@
 ﻿#region + -- IMPORTS -- +
 
+using JSE_Utils;
 using NStandard;
 using PortProxyGooey.Data;
 using PortProxyGooey.Utils;
@@ -266,17 +267,20 @@ namespace PortProxyGooey
 
             // Current WSL IP
             lblWSLIP.Text = "Refreshing ...";
-            string strWSLIP = JSE_Utils.WSL.WSL_GetIP();
 
-            if (strWSLIP.Length > 0) {
+            WSL.WSL_GetIP_BackgroundWorker((ip) => {
 
-                lblWSLIP.Text = string.Format("WSL: {0}", strWSLIP);
-                comboBox_ConnectTo.AutoCompleteCustomSource.Add(strWSLIP);
-                comboBox_ListenOn.AutoCompleteCustomSource.Add(strWSLIP);
-            
-            } else {
-                lblWSLIP.Text = "WSL: Dunno";
-            }
+                if (ip.Length > 0) {
+
+                    lblWSLIP.Text = string.Format("WSL: {0}", ip);
+                    comboBox_ConnectTo.AutoCompleteCustomSource.Add(ip);
+                    comboBox_ListenOn.AutoCompleteCustomSource.Add(ip);
+
+                } else {
+                    lblWSLIP.Text = "WSL: Dunno";
+                }
+
+            });
 
             this.Cursor = Cursors.Default;
         }
@@ -533,8 +537,9 @@ namespace PortProxyGooey
 
             this.Cursor = Cursors.WaitCursor;
             lblWSLIP.Text = "Refreshing ...";
-            string strWSLIP = JSE_Utils.WSL.WSL_GetIP();
-            lblWSLIP.Text = strWSLIP.Length > 0 ? string.Format("WSL: {0}", strWSLIP) : "WSL: Dunno";
+            //string strWSLIP = WSL.WSL_GetIP_Task();
+            WSL.WSL_GetIP_BackgroundWorker((ip) => lblWSLIP.Text = ip.Length > 0 ? $"WSL: {ip}" : "WSL: Dunno");
+            //lblWSLIP.Text = strWSLIP.Length > 0 ? string.Format("WSL: {0}", strWSLIP) : "WSL: Dunno";
             this.Cursor = Cursors.Default;
 
         }
