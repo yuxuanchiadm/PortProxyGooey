@@ -584,7 +584,7 @@ namespace JSE_Utils {
     public static class WSL {
 
         /// <summary>
-        /// Checks if WSL is running (async)
+        /// Checks if WSL is running
         /// </summary>
         /// <param name="bShowMessage">[optional: default False] will show a messagebox with the result.</param>
         /// <returns>True: WSL is running; False: WSL isn't running.</returns>
@@ -592,14 +592,9 @@ namespace JSE_Utils {
 
             bool bResult = false;
 
-            Task task = Task.Run(() =>
-            {
-                //Debug.WriteLine($"WSL_IsRunning: Task started (ID: {Task.CurrentId})");
-                bResult = Misc.IsProcessRunning("wsl");
-                //Debug.WriteLine($"WSL_IsRunning: Task complete (ID: {Task.CurrentId})");
-            });
-
-            task.Wait();
+            //Debug.WriteLine($"WSL_IsRunning: Task started (ID: {Task.CurrentId})");
+            bResult = Misc.IsProcessRunning("wsl");
+            //Debug.WriteLine($"WSL_IsRunning: Task complete (ID: {Task.CurrentId})");
 
             if (bShowMessage) {
                 MessageBox.Show(string.Format("WSL {0} running. ", bResult ? "is" : "is not"), "WSL", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -607,6 +602,56 @@ namespace JSE_Utils {
 
             return bResult;
 
+        }
+
+        /// <summary>
+        /// Checks if WSL is running (async)
+        /// </summary>
+        /// <param name="bShowMessage">[optional: default False] will show a messagebox with the result.</param>
+        /// <returns>True: WSL is running; False: WSL isn't running.</returns>
+        public static void WSL_IsRunning_BackgroundWorker(Action<bool> callback, bool bShowMessage = false) {
+
+            // Example usage:
+            //
+            // WSL.WSL_IsRunning_BackgroundWorker((result) => {
+            //     if (result) {
+            //         lblWSLRunning.Text = "WSL: RUNNING";
+            //         picWSL.Visible = true;
+            //     } else {
+            //         lblWSLRunning.Text = "WSL: N/A";
+            //         picWSL.Visible = false;
+            //     }
+            // }, false);
+
+            BackgroundWorker worker = new BackgroundWorker();
+
+            worker.DoWork += (sender, e) => {
+
+                Process[] p = Process.GetProcessesByName("wsl");
+                bool isRunning = p.Length > 0;
+                e.Result = isRunning;
+
+            };
+
+            worker.RunWorkerCompleted += (sender, e) => {
+
+                if (e.Error != null) {
+                    // Handle errors
+                } else {
+
+                    bool isRunning = (bool)e.Result;
+
+                    if (bShowMessage) {
+                        MessageBox.Show(string.Format("WSL {0} running. ", isRunning ? "is" : "is not"), "WSL", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+
+                    callback?.Invoke(isRunning);
+
+                }
+
+            };
+
+            worker.RunWorkerAsync();
         }
 
         /// <summary>
@@ -775,7 +820,7 @@ namespace JSE_Utils {
             worker.RunWorkerCompleted += (sender, e) => {
 
                 if (e.Error != null) {
-                    // Handle any errors here
+                    // Handle errors
                 } else {
 
                     string ip = e.Result as string;

@@ -1224,13 +1224,17 @@ namespace PortProxyGooey {
             WSL.WSL_GetIP_BackgroundWorker((ip) => lblWSLIP.Text = $"WSL IP: {ip}");
 
             // Keep WSL status updated
-            if (WSL.WSL_IsRunning()) {
-                lblWSLRunning.Text = "WSL: RUNNING";
-                picWSL.Visible = true;
-            } else {
-                lblWSLRunning.Text = "WSL: N/A";
-                picWSL.Visible = false;
-            }
+            WSL.WSL_IsRunning_BackgroundWorker((result) => {
+
+                if (result) {
+                    lblWSLRunning.Text = "WSL: RUNNING";
+                    picWSL.Visible = true;
+                } else {
+                    lblWSLRunning.Text = "WSL: N/A";
+                    picWSL.Visible = false;
+                }
+
+            }, false);
 
             // Keep Docker status updated
             if (Docker.IsDockerRunning()) {
