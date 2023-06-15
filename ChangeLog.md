@@ -77,7 +77,7 @@
     - UI Refactoring
 	- When filling in a new item; filling in a port dupes that port to the other port fields so user doesn't have to type it multiple times.
 	- Sets focus to the Type field if for some reason it can't be detected. Helps the user out just that little bit more.
-	- Can now add a range of "Listening On" ports. Closes 
+	- Can now add a range of "Listening On" ports. [Closes](https://github.com/zmjack/PortProxyGUI/issues/11)
 	- App now fetches the current WSL IP address. It'll display it in the statusbar, as well as add it to the autocomplete fields. Double clicking the label will re-fetch the IP to check if it changed (not likely).
 	- IPv4 is also validated now.
 	- Duplicate checking now. If trying to add a duplicate proxy (whether a single proxy or a range) you'll be notified. Also fixes an exception/bug when trying to add a dupe.
