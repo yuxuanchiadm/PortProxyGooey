@@ -13,6 +13,8 @@ using NStandard;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using PortProxyGooey.Native;
+using System.Security.Policy;
 
 #endregion
 
@@ -202,12 +204,12 @@ namespace JSE_Utils {
     public static class Docker {
 
         /// <summary>
-        /// Checks for 'evidence' of Docker running in WSL (async)
+        /// Checks for 'evidence' of Docker running in WSL
         /// </summary>
         /// <returns>True if Docker is running; False if not.</returns>
         /// <remarks>Will start WSL if WSL isn't already running, which may or may not be desired.</remarks>
-        public static bool IsDockerRunning() {
-
+        public static bool IsRunning() {
+            // LEFT OFF: don't think I'm returning this properly. RunCommand returns a string, and I'm not testing what it returns before finalyl returning a bool.
             bool bResult = false;
 
             Task task = Task.Run(() => {
@@ -223,6 +225,47 @@ namespace JSE_Utils {
             task.Wait();
             return bResult;
 
+        }
+
+        public static void IsRunning_BackgroundWorker(Action<bool> callback) {
+            // LEFT OFF: Need to test and finish the regular one above first, then add any changes here as well.
+            // Example usage:
+            //
+            // Docker.IsRunning_BackgroundWorker((result) => {
+            //     if (result) {
+            //         lblWSLRunning.Text = "WSL: RUNNING";
+            //         picWSL.Visible = true;
+            //     } else {
+            //         lblWSLRunning.Text = "WSL: N/A";
+            //         picWSL.Visible = false;
+            //     }
+            // }, false);
+
+            BackgroundWorker worker = new BackgroundWorker();
+
+            worker.DoWork += (sender, e) => {
+
+                Process[] p = Process.GetProcessesByName("wsl");
+                bool isRunning = p.Length > 0;
+                e.Result = isRunning;
+
+            };
+
+            worker.RunWorkerCompleted += (sender, e) => {
+
+                if (e.Error != null) {
+                    // Handle errors
+                } else {
+
+                    bool isRunning = (bool)e.Result;
+
+                    callback?.Invoke(isRunning);
+
+                }
+
+            };
+
+            worker.RunWorkerAsync();
         }
 
     }
@@ -547,6 +590,47 @@ namespace JSE_Utils {
 
     }
 
+    public static class Services {
+
+        /// <summary>
+        /// Changes/Reloads a Service's Startup Parameters
+        /// </summary>
+        /// <param name="serviceName">Name of the service</param>
+        /// <exception cref="InvalidOperationException">
+        /// SC Manager Open: failed.
+        /// or
+        /// Service Open: ({serviceName}) failed.
+        /// or
+        /// Service Control: ({serviceName}) ParamChange failed.
+        /// </exception>
+        public static void ParamChange(string serviceName) {
+
+            IntPtr hManager = NativeMethods.OpenSCManager(null, null, (uint)GenericRights.GENERIC_READ);
+
+            if (hManager == IntPtr.Zero)
+                throw new InvalidOperationException("SC Manager Open: failed.");
+
+            IntPtr hService = NativeMethods.OpenService(hManager, serviceName, ServiceRights.SERVICE_PAUSE_CONTINUE);
+
+            if (hService == IntPtr.Zero) {
+                NativeMethods.CloseServiceHandle(hManager);
+                throw new InvalidOperationException($"Service Open: ({serviceName}) failed.");
+            }
+
+            ServiceStatus serviceStatus = new();
+            bool success = NativeMethods.ControlService(hService, ServiceControls.SERVICE_CONTROL_PARAMCHANGE, ref serviceStatus);
+
+            NativeMethods.CloseServiceHandle(hService);
+            NativeMethods.CloseServiceHandle(hManager);
+
+            if (!success) {
+                throw new InvalidOperationException($"Service Control: ({serviceName}) ParamChange failed.");
+            }
+
+        }
+
+    }
+
     public static class Winsock {
 
         /// <summary>
@@ -588,7 +672,7 @@ namespace JSE_Utils {
         /// </summary>
         /// <param name="bShowMessage">[optional: default False] will show a messagebox with the result.</param>
         /// <returns>True: WSL is running; False: WSL isn't running.</returns>
-        public static bool WSL_IsRunning(bool bShowMessage = false) {
+        public static bool IsRunning(bool bShowMessage = false) {
 
             bool bResult = false;
 
@@ -609,11 +693,11 @@ namespace JSE_Utils {
         /// </summary>
         /// <param name="bShowMessage">[optional: default False] will show a messagebox with the result.</param>
         /// <returns>True: WSL is running; False: WSL isn't running.</returns>
-        public static void WSL_IsRunning_BackgroundWorker(Action<bool> callback, bool bShowMessage = false) {
+        public static void IsRunning_BackgroundWorker(Action<bool> callback, bool bShowMessage = false) {
 
             // Example usage:
             //
-            // WSL.WSL_IsRunning_BackgroundWorker((result) => {
+            // WSL.IsRunning_BackgroundWorker((result) => {
             //     if (result) {
             //         lblWSLRunning.Text = "WSL: RUNNING";
             //         picWSL.Visible = true;
@@ -658,18 +742,18 @@ namespace JSE_Utils {
         /// Gets a list of all distros installed, their WSL version, and running state. (async)
         /// </summary>
         /// <returns>Success: WSL Distro info; Fail: Empty string.</returns>
-        public static string WSL_GetDistros() {
+        public static string GetDistros() {
 
             string strOutput = string.Empty;
 
             Task task = Task.Run(() => {
 
-                Debug.WriteLine($"WSL_GetDistros: Task started (ID: {Task.CurrentId})");
+                Debug.WriteLine($"WSL.GetDistros: Task started (ID: {Task.CurrentId})");
 
                // Run the command in Bash
                strOutput = Misc.RunCommand("wsl.exe", "-l -v --all");
 
-                Debug.WriteLine($"WSL_GetDistros: Task complete (ID: {Task.CurrentId})");
+                Debug.WriteLine($"WSL.GetDistros: Task complete (ID: {Task.CurrentId})");
 
             });
 
@@ -683,18 +767,18 @@ namespace JSE_Utils {
         /// Gets *all* version info of the currently installed WSL version (async)
         /// </summary>
         /// <returns>Success: WSL Version info; Fail: Empty string.</returns>
-        public static string WSL_GetAllVersionInfo() {
+        public static string GetAllVersionInfo() {
 
             string strOutput = string.Empty;
 
             Task task = Task.Run(() => {
 
-                Debug.WriteLine($"WSL_GetAllVersionInfo: Task started (ID: {Task.CurrentId})");
+                Debug.WriteLine($"WSL.GetAllVersionInfo: Task started (ID: {Task.CurrentId})");
 
                 // Run the command
                 strOutput = Misc.RunCommand("wsl.exe", "--version");
 
-                Debug.WriteLine($"WSL_GetAllVersionInfo: Task complete (ID: {Task.CurrentId})");
+                Debug.WriteLine($"WSL.GetAllVersionInfo: Task complete (ID: {Task.CurrentId})");
 
             });
 
@@ -708,18 +792,18 @@ namespace JSE_Utils {
         /// Gets the currently installed WSL version (WSL *version only*) (async)
         /// </summary>
         /// <returns>Success: WSL Version; Fail: Empty string.</returns>
-        public static string WSL_GetVersion() {
+        public static string GetVersion() {
 
             string strOutput = string.Empty;
 
             Task task = Task.Run(() => {
 
-                Debug.WriteLine($"WSL_GetVersion: Task started (ID: {Task.CurrentId})");
+                Debug.WriteLine($"WSL.GetVersion: Task started (ID: {Task.CurrentId})");
 
                 // Run the command
                 strOutput = Misc.RunCommand("wsl.exe", "--version");
 
-                Debug.WriteLine($"WSL_GetVersion: Task complete (ID: {Task.CurrentId})");
+                Debug.WriteLine($"WSL.GetVersion: Task complete (ID: {Task.CurrentId})");
 
             });
 
@@ -741,8 +825,11 @@ namespace JSE_Utils {
         /// Fetches the current WSL IP
         /// </summary>
         /// <returns>Success: (string) IP Address; Fail: Empty string</returns>
-        public static string WSL_GetIP_Task() {
+        public static string GetIP_Task() {
+
             // TODO: Does running this START WSL if it's not already running?
+            // TODO: Need to update this to fit the new ParseIP(out strOutput, out strWSLIP);
+
             string strOutput = string.Empty;
             string strWSLIP = string.Empty;
 
@@ -752,7 +839,8 @@ namespace JSE_Utils {
 
                 // Run the command in Bash
                 strOutput = Misc.RunCommand("bash.exe", string.Format("{0} {1}", "-c", "\"ifconfig eth0 | grep 'inet '\""));
-                
+                //strOutput = ParseIP(out strOutput, out strWSLIP);
+
                 // Try to parse out a valid IPv4
                 strWSLIP = IPValidation.IPv4RegEx.Match(strOutput).ToString();  
                 
@@ -769,7 +857,9 @@ namespace JSE_Utils {
         /// Fetches the current WSL IP (async Task)
         /// </summary>
         /// <returns>Success: (string) IP Address; Fail: Empty string</returns>
-        public static async Task<string> WSL_GetIP_Task_Async() {
+        public static async Task<string> GetIP_Task_Async() {
+
+            // TODO: Need to update this to fit the new ParseIP(out strOutput, out strWSLIP);
 
             string strOutput = string.Empty;
             string strWSLIP = string.Empty;
@@ -780,6 +870,7 @@ namespace JSE_Utils {
 
                 // Run the command in Bash
                 strOutput = await Misc.RunCommandAsync("bash.exe", string.Format("{0} {1}", "-c", "\"ifconfig eth0 | grep 'inet '\""));
+                //strOutput = await ParseIP(out strOutput, out strWSLIP);
 
                 // Try to parse out a valid IPv4
                 strWSLIP = IPValidation.IPv4RegEx.Match(strOutput).ToString();
@@ -794,12 +885,12 @@ namespace JSE_Utils {
         /// Fetches the current WSL IP (async BackGroundWorker)
         /// </summary>
         /// <returns>Success: (string) IP Address; Fail: Empty string</returns>
-        /// <remarks>Ex. Usage: WSL.WSL_GetIP_BackgroundWorker((ip) => lblWSLIP.Text = $"WSL IP: {ip}");</remarks>
-        public static void WSL_GetIP_BackgroundWorker(Action<string> callback) {
+        /// <remarks>Ex. Usage: WSL.GetIP_BackgroundWorker((ip) => lblWSLIP.Text = $"WSL IP: {ip}");</remarks>
+        public static void GetIP_BackgroundWorker(Action<string> callback) {
 
             // Another example usage:
             //
-            // WSL_GetIPWithBackgroundWorker((ip) => {
+            // WSL.GetIPWithBackgroundWorker((ip) => {
             //    Debug.WriteLine(ip);
             // });
 
@@ -810,8 +901,7 @@ namespace JSE_Utils {
                 string strOutput = string.Empty;
                 string strWSLIP = string.Empty;
 
-                strOutput = Misc.RunCommand("bash.exe", string.Format("{0} {1}", "-c", "\"ifconfig eth0 | grep 'inet '\""));
-                strWSLIP = IPValidation.IPv4RegEx.Match(strOutput).ToString();
+                ParseIP(out strOutput, out strWSLIP);
 
                 e.Result = strWSLIP.Length > 0 ? strWSLIP : string.Empty;
 
@@ -834,12 +924,48 @@ namespace JSE_Utils {
         }
 
         /// <summary>
+        /// Parses the IP (or at least tries to) out of WSL.
+        /// </summary>
+        /// <param name="strOutput">Contains the raw result of the bash command</param>
+        /// <param name="strWSLIP">Contains the parsed out IP on success, or empty string on failure, to test against.</param>
+        private static void ParseIP(out string strOutput, out string strWSLIP) {
+
+            bool bFound = false;
+
+            // Ubuntu
+            strOutput = Misc.RunCommand("bash.exe", $"-c {"\"ifconfig eth0 | grep 'inet '\""}");
+
+            // Check if the "Ubuntu" ifconfig worked; if not, try using Debian's ip addr instead.
+            // TBH: Originally I just had the Ubuntu ver and it was fine, but later read that Debian doesnt have that by default, so added it in for redundancy.
+            //      Technically, the ip addr ver works on both systems during my tests, but since I already coded ifconfig in, I'm leaving it for posterity;
+            //      can't hurt anything and at least this way I don't feel like I wasted my time. ;)
+            if (IPValidation.IPv4RegEx.Match(strOutput).Success) {
+                bFound = true;
+            } else {
+
+                // For Debian, which does not come with ifconfig out of the box, you can try:
+                strOutput = Misc.RunCommand("bash.exe", $"-c {"\"ip addr | grep -Ee 'inet.*eth0'\""}");
+
+                if (IPValidation.IPv4RegEx.Match(strOutput).Success) {
+                    bFound = true;
+                }
+
+            }
+
+            if (bFound) {
+                strWSLIP = IPValidation.IPv4RegEx.Match(strOutput).ToString();
+                return;
+            }
+            strWSLIP = string.Empty;
+        }
+
+        /// <summary>
         /// Shut down WSL (async)
         /// </summary>
         /// <param name="bShowResult">[optional: default True] Shows a messagebox confirming WSL has shut down</param>
-        public static void WSL_ShutDown(bool bShowResult = true) {
+        public static void ShutDown(bool bShowResult = true) {
 
-            if (WSL_IsRunning()) {
+            if (IsRunning()) {
 
                 if (MessageBox.Show("Are sure you want to shut WSL down?", "WSL: Shutdown", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes) {
             
@@ -855,7 +981,7 @@ namespace JSE_Utils {
                     });
 
                     // TODO: Add a timer here to timeout if there's a problem shutting down WSL, so this loop doesn't end up running perpetually.
-                    while (WSL_IsRunning()) {
+                    while (IsRunning()) {
                         // Loop until WSL is confirmed to be shut down, then show them confirmation.
                         // TODO: Add some sort of user feedback here to let them know we're doin work?
                     }
@@ -878,9 +1004,9 @@ namespace JSE_Utils {
         /// Start WSL (async)
         /// </summary>
         /// <param name="bShowResult">[optional: default True] Shows a messagebox confirming WSL has started</param>
-        public static void WSL_Start(bool bShowResult = true) {
+        public static void Start(bool bShowResult = true) {
 
-            if (!WSL_IsRunning()) {
+            if (!IsRunning()) {
 
                 Task task = Task.Run(() =>
                 {
@@ -893,7 +1019,7 @@ namespace JSE_Utils {
                 });
 
                 // TODO: Add a timer here to timeout if there's a problem starting up WSL, so this loop doesn't end up running perpetually.
-                while (!WSL_IsRunning()) {
+                while (!IsRunning()) {
                     // Loop until WSL is confirmed to be running, then show them confirmation.
                     // TODO: Add some sort of user feedback here to let them know we're doin work?
                 }
@@ -917,7 +1043,7 @@ namespace JSE_Utils {
         /// Restart WSL
         /// </summary>
         /// <param name="bShowResult">[Optional: default True] Shows a messagebox confirming WSL has restarted</param>
-        public static void WSL_Restart(bool bShowResult = true) {
+        public static void Restart(bool bShowResult = true) {
 
             // TODO: add Task code
 
@@ -926,7 +1052,7 @@ namespace JSE_Utils {
 
             Debug.WriteLine("WSL Restart: Shutdown command sent");
 
-            while (WSL_IsRunning()) {
+            while (IsRunning()) {
                 // Loop until WSL is confirmed to be shut down, then start WSL again.
                 // TODO: Add some sort of user feedback here to let them know we're doin work?
             }
@@ -938,7 +1064,7 @@ namespace JSE_Utils {
 
             Debug.WriteLine("WSL Restart: Startup command sent");
 
-            while (!WSL_IsRunning()) {
+            while (!IsRunning()) {
                 // Loop until WSL is confirmed to be running, then show them confirmation.
                 // TODO: Add some sort of user feedback here to let them know we're doin work?
             }

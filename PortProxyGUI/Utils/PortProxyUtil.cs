@@ -119,32 +119,6 @@ namespace PortProxyGooey.Utils {
 
         }
 
-        public static void ParamChange() {
-
-            IntPtr hManager = NativeMethods.OpenSCManager(null, null, (uint)GenericRights.GENERIC_READ);
-
-            if (hManager == IntPtr.Zero) throw new InvalidOperationException("Open SC Manager failed.");
-
-            string serviceName = "iphlpsvc";
-            IntPtr hService = NativeMethods.OpenService(hManager, serviceName, ServiceRights.SERVICE_PAUSE_CONTINUE);
-
-            if (hService == IntPtr.Zero)  {
-                NativeMethods.CloseServiceHandle(hManager);
-                throw new InvalidOperationException($"Open Service ({serviceName}) failed.");
-            }
-
-            ServiceStatus serviceStatus = new();
-            bool success = NativeMethods.ControlService(hService, ServiceControls.SERVICE_CONTROL_PARAMCHANGE, ref serviceStatus);
-
-            NativeMethods.CloseServiceHandle(hService);
-            NativeMethods.CloseServiceHandle(hManager);
-
-            if (!success) {
-                throw new InvalidOperationException($"Control Service ({serviceName}) ParamChange failed.");
-            }
-
-        }
-
         #region MISC
 
         /// <summary>

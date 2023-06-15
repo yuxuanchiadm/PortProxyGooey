@@ -197,7 +197,7 @@ namespace PortProxyGooey {
 
                 }
             }
-            PortProxyUtil.ParamChange();
+            Services.ParamChange("iphlpsvc");
         }
 
         /// <summary>
@@ -638,7 +638,7 @@ namespace PortProxyGooey {
                 registryKeyToolStripMenuItem.Enabled = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
 
                 // WSL
-                if (WSL.WSL_IsRunning()) {
+                if (WSL.IsRunning()) {
 
                     WSLShutDownToolStripMenuItem.Enabled = true;
                     WSLRestartToolStripMenuItem.Enabled = true;
@@ -1171,33 +1171,33 @@ namespace PortProxyGooey {
         #region + -- WSL -- +
 
         private void WSLRunningToolStripMenuItem_Click(object sender, EventArgs e) {
-            WSL.WSL_IsRunning(true);
+            WSL.IsRunning(true);
         }
 
         private void WSLShutDownToolStripMenuItem_Click(object sender, EventArgs e) {
-            WSL.WSL_ShutDown();
+            WSL.ShutDown();
         }
 
         /// <summary>
         /// WSL Mini Menu: Shutdown
         /// </summary>
         private void toolStripMenuItemWSLShutDown_Click(object sender, EventArgs e) {
-            WSL.WSL_ShutDown();
+            WSL.ShutDown();
         }
 
         private void WSLStartToolStripMenuItem_Click(object sender, EventArgs e) {
-            WSL.WSL_Start();
+            WSL.Start();
         }
 
         private void WSLRestartToolStripMenuItem_Click(object sender, EventArgs e) {
-            WSL.WSL_Restart();
+            WSL.Restart();
         }
 
         /// <summary>
         /// WSL Mini Menu: Restart
         /// </summary>
         private void toolStripMenuItemWSLRestart_Click(object sender, EventArgs e) {
-            WSL.WSL_Restart();
+            WSL.Restart();
         }
 
         private void picWSL_Click(object sender, EventArgs e) {
@@ -1221,10 +1221,10 @@ namespace PortProxyGooey {
             // Keep Current Local Machine & WSL IPs shown to help alert of any potential changes
             lblCurrentLocalIP.Text = $"LOCAL IP: {Network.GetLocalIPAddress()}";
 
-            WSL.WSL_GetIP_BackgroundWorker((ip) => lblWSLIP.Text = $"WSL IP: {ip}");
+            WSL.GetIP_BackgroundWorker((ip) => lblWSLIP.Text = $"WSL IP: {ip}");
 
             // Keep WSL status updated
-            WSL.WSL_IsRunning_BackgroundWorker((result) => {
+            WSL.IsRunning_BackgroundWorker((result) => {
 
                 if (result) {
                     lblWSLRunning.Text = "WSL: RUNNING";
@@ -1237,7 +1237,7 @@ namespace PortProxyGooey {
             }, false);
 
             // Keep Docker status updated
-            if (Docker.IsDockerRunning()) {
+            if (Docker.IsRunning()) {
                 lblDockerRunning.Text = "DOCKER: RUNNING";
                 picDocker.Visible = true;
             } else {
@@ -1250,7 +1250,7 @@ namespace PortProxyGooey {
         private async Task UpdateAsyncTasks() {
 
             //string ip = await WSL.WSL_GetIPAsync();
-            lblWSLIP.Text = $"WSL IP: {await WSL.WSL_GetIP_Task_Async()}";
+            lblWSLIP.Text = $"WSL IP: {await WSL.GetIP_Task_Async()}";
 
         }
 
@@ -1280,8 +1280,7 @@ namespace PortProxyGooey {
 
                 }
             }
-            PortProxyUtil.ParamChange();
-
+            Services.ParamChange("iphlpsvc");
         }
 
         private void toolStripMenuItem_Exit_Click(object sender, EventArgs e) {
@@ -1292,5 +1291,22 @@ namespace PortProxyGooey {
             GroupRename(true);
         }
 
+        /// <summary>
+        /// "Restart" the IpHlpSvc. Technically not a real service restart, but more of a param reload.
+        /// </summary>
+        private void toolStripMenuItem_ReloadIpHlpSvc_Click(object sender, EventArgs e) {
+
+            // Source: https://github.com/swagfin/PortProxyGUI/commit/af6cfdcafe66883def4a9305149c6a48afbfb8f9
+
+            try {
+                Services.ParamChange("iphlpsvc");
+            } catch (Exception ex) {
+                MessageBox.Show(ex.Message, "IpHlpSvc Restart Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            MessageBox.Show("IpHlpSvc Restarted", "IpHlpSvc Restart", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+        }
     }
 }

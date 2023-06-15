@@ -84,14 +84,15 @@
             NetSHDelViewCline = new System.Windows.Forms.ToolStripMenuItem();
             registryKeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
+            toolStripMenuItem_FlushDnsCache = new System.Windows.Forms.ToolStripMenuItem();
             winsockResetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem_ReloadIpHlpSvc = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             toolStripMenuItem_BackupRestore = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem_Export = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem_Import = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             toolStripMenuItem_ResetWindowSize = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripMenuItem_FlushDnsCache = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             toolStripMenuItem_About = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem_Exit = new System.Windows.Forms.ToolStripMenuItem();
@@ -251,6 +252,7 @@
             // 
             // toolStripMenuItem_RenameGroup
             // 
+            toolStripMenuItem_RenameGroup.Image = Properties.Resources.rename;
             toolStripMenuItem_RenameGroup.Name = "toolStripMenuItem_RenameGroup";
             resources.ApplyResources(toolStripMenuItem_RenameGroup, "toolStripMenuItem_RenameGroup");
             toolStripMenuItem_RenameGroup.Click += toolStripMenuItem_RenameGroup_Click;
@@ -279,7 +281,7 @@
             // 
             // toolStripMenuItem_More
             // 
-            toolStripMenuItem_More.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { externalAppsToolStripMenuItem, advancedToolStripMenuItem1, toolStripSeparator9, toolStripMenuItem_BackupRestore, toolStripSeparator6, toolStripMenuItem_ResetWindowSize, toolStripMenuItem_FlushDnsCache });
+            toolStripMenuItem_More.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { externalAppsToolStripMenuItem, advancedToolStripMenuItem1, toolStripSeparator9, toolStripMenuItem_BackupRestore, toolStripSeparator6, toolStripMenuItem_ResetWindowSize });
             toolStripMenuItem_More.Image = Properties.Resources.more;
             toolStripMenuItem_More.Name = "toolStripMenuItem_More";
             resources.ApplyResources(toolStripMenuItem_More, "toolStripMenuItem_More");
@@ -429,7 +431,7 @@
             // 
             // advancedToolStripMenuItem1
             // 
-            advancedToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { NetSHToolStripMenuItem, registryKeyToolStripMenuItem, toolStripSeparator11, winsockResetToolStripMenuItem });
+            advancedToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { NetSHToolStripMenuItem, registryKeyToolStripMenuItem, toolStripSeparator11, toolStripMenuItem_FlushDnsCache, winsockResetToolStripMenuItem, toolStripMenuItem_ReloadIpHlpSvc });
             advancedToolStripMenuItem1.Image = Properties.Resources.adv;
             advancedToolStripMenuItem1.Name = "advancedToolStripMenuItem1";
             resources.ApplyResources(advancedToolStripMenuItem1, "advancedToolStripMenuItem1");
@@ -495,12 +497,26 @@
             toolStripSeparator11.Name = "toolStripSeparator11";
             resources.ApplyResources(toolStripSeparator11, "toolStripSeparator11");
             // 
+            // toolStripMenuItem_FlushDnsCache
+            // 
+            toolStripMenuItem_FlushDnsCache.Image = Properties.Resources.flushdns;
+            toolStripMenuItem_FlushDnsCache.Name = "toolStripMenuItem_FlushDnsCache";
+            resources.ApplyResources(toolStripMenuItem_FlushDnsCache, "toolStripMenuItem_FlushDnsCache");
+            toolStripMenuItem_FlushDnsCache.Click += toolStripMenuItem_FlushDnsCache_Click;
+            // 
             // winsockResetToolStripMenuItem
             // 
             winsockResetToolStripMenuItem.Image = Properties.Resources.winsock;
             winsockResetToolStripMenuItem.Name = "winsockResetToolStripMenuItem";
             resources.ApplyResources(winsockResetToolStripMenuItem, "winsockResetToolStripMenuItem");
             winsockResetToolStripMenuItem.Click += winsockResetToolStripMenuItem_Click;
+            // 
+            // toolStripMenuItem_ReloadIpHlpSvc
+            // 
+            toolStripMenuItem_ReloadIpHlpSvc.Image = Properties.Resources.service;
+            toolStripMenuItem_ReloadIpHlpSvc.Name = "toolStripMenuItem_ReloadIpHlpSvc";
+            resources.ApplyResources(toolStripMenuItem_ReloadIpHlpSvc, "toolStripMenuItem_ReloadIpHlpSvc");
+            toolStripMenuItem_ReloadIpHlpSvc.Click += toolStripMenuItem_ReloadIpHlpSvc_Click;
             // 
             // toolStripSeparator9
             // 
@@ -539,13 +555,6 @@
             toolStripMenuItem_ResetWindowSize.Name = "toolStripMenuItem_ResetWindowSize";
             resources.ApplyResources(toolStripMenuItem_ResetWindowSize, "toolStripMenuItem_ResetWindowSize");
             toolStripMenuItem_ResetWindowSize.Click += toolStripMenuItem_ResetWindowSize_Click;
-            // 
-            // toolStripMenuItem_FlushDnsCache
-            // 
-            toolStripMenuItem_FlushDnsCache.Image = Properties.Resources.flushdns;
-            toolStripMenuItem_FlushDnsCache.Name = "toolStripMenuItem_FlushDnsCache";
-            resources.ApplyResources(toolStripMenuItem_FlushDnsCache, "toolStripMenuItem_FlushDnsCache");
-            toolStripMenuItem_FlushDnsCache.Click += toolStripMenuItem_FlushDnsCache_Click;
             // 
             // toolStripSeparator4
             // 
@@ -776,7 +785,6 @@
         private System.Windows.Forms.ToolStripMenuItem basicToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem advancedToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_FlushDnsCache;
         private System.Windows.Forms.ToolStripMenuItem dockerToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_Clone;
@@ -826,6 +834,8 @@
         private System.Windows.Forms.Label lblWSLRunning;
         private System.Windows.Forms.Label lblDockerRunning;
         private System.Windows.Forms.Label lblWSLIP;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_ReloadIpHlpSvc;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_FlushDnsCache;
     }
 }
 

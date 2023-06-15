@@ -251,7 +251,7 @@ namespace PortProxyGooey
 
             }
 
-            PortProxyUtil.ParamChange();
+            Services.ParamChange("iphlpsvc");
 
             progBarRange.Visible = false;
             this.Enabled = true;
@@ -268,7 +268,7 @@ namespace PortProxyGooey
             // Current WSL IP
             lblWSLIP.Text = "Refreshing ...";
 
-            WSL.WSL_GetIP_BackgroundWorker((ip) => {
+            WSL.GetIP_BackgroundWorker((ip) => {
 
                 if (ip.Length > 0) {
 
@@ -538,7 +538,7 @@ namespace PortProxyGooey
             this.Cursor = Cursors.WaitCursor;
             lblWSLIP.Text = "Refreshing ...";
             //string strWSLIP = WSL.WSL_GetIP_Task();
-            WSL.WSL_GetIP_BackgroundWorker((ip) => lblWSLIP.Text = ip.Length > 0 ? $"WSL: {ip}" : "WSL: Dunno");
+            WSL.GetIP_BackgroundWorker((ip) => lblWSLIP.Text = ip.Length > 0 ? $"WSL: {ip}" : "WSL: Dunno");
             //lblWSLIP.Text = strWSLIP.Length > 0 ? string.Format("WSL: {0}", strWSLIP) : "WSL: Dunno";
             this.Cursor = Cursors.Default;
 
