@@ -8,11 +8,11 @@ I made the changes strictly for my own purposes, and just for the helluvit thoug
 
 My specific purposes are basically using it as a tool for the combination uses of Windows, WSL, and Docker, so they can co-exist as peacefully and easily as possible (*cough*, yea right).
 
-For the users of the original v1.4.0, every single thin in it is still in Gooey; plus all of the fixes and requests that I saw in it's issue queue as of this release. I'll try to stay up any any changes the original makes as well, as long as they're in harmoney with each other.
+For the users of the original v1.4.0, every single thing in it is still in Gooey; plus all of the fixes and requests that I saw in it's issue queue as of this release. I'll try to stay up any any changes the original makes as well, as long as they're in harmoney with each other.
 
-That all said, I have literally a quadrillion other projects that I'm always working on, so unless this gets a lot of user activity, once I'm satisfied with it for my own uses, it may just stop development in the blink of an eye so that I can focus my energies on some other project.
+That all said, I have literally a quadzillion other projects that I'm always working on, so unless this gets a lot of user activity, once I'm satisfied with it for my own uses, it may just stop development in the blink of an eye so that I can focus my energies on some other project.
 
-Here're just a few current screenshots of v2 (a.k.a PortProxyGooey), bear in mind, the screenshots most likely won't always be updated with every single change/fix/version.
+Here're just a few current screenshots of v2 (a.k.a PortProxyGooey), bear in mind, the screenshots most likely won't always be updated with every single change/fix/version; I'm usually pretty lazy in that regard.
 
 ## Screenshots
 
