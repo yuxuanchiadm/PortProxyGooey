@@ -2,7 +2,9 @@
 
 A manager for netsh interface portproxy, which is to evaluate TCP/IP port redirect on windows.
 
-![UI](https://raw.githubusercontent.com/zmjack/PortProxyGUI/master/docs/ui.png)
+<img src="https://raw.githubusercontent.com/STaRDoGG/PortProxyGUI/master/screenshots/01.png" width="50%" height="50%"><img src="https://raw.githubusercontent.com/STaRDoGG/PortProxyGUI/master/screenshots/02.png" width="50%" height="50%">
+
+<img src="https://raw.githubusercontent.com/STaRDoGG/PortProxyGUI/master/screenshots/03.png" width="50%" height="50%">
 
 <br/>
 
