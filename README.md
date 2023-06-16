@@ -19,33 +19,16 @@ Here're just a few current screenshots of v2 (a.k.a PortProxyGooey), bear in min
 
 <img src="https://raw.githubusercontent.com/STaRDoGG/PortProxyGUI/master/screenshots/01.png" width="50%" height="50%"><img src="https://raw.githubusercontent.com/STaRDoGG/PortProxyGUI/master/screenshots/02.png" width="50%" height="50%">
 
-<img src="https://raw.githubusercontent.com/STaRDoGG/PortProxyGUI/master/screenshots/03.png" width="50%" height="50%">
+
 
 <br/>
 
-## Upgrade
 
-- **v2.0.0**
+## v2.0.0 - G00ey
 
   - Forked from PortProxyGUI, and had too many specific ideas I needed for my own purposes that I figured there would be no way that the original author would want to merge each and every one of them, so I renamed it to "PortPorxyGooey" (*shrug*) to avoid any potential confusion now and in the future.
   It currently contains all fixes and requests in the originals' issues queue, plus way too many other things to list right here.
-  - You can always view (most of) the changes in the [ChangeLog](https://github.com/STaRDoGG/PortProxyGUI/blob/master/ChangeLog.md).
-
-- **v1.4.0**
-
-  - Command line calls have been removed to provide better performance.
-  - New Feature Added: **Remember Window/Column Size**.
-  - New Feature Added: **Flush DNS Cache**.
-  - New Feature Added: **Support import and export configuration database**.
-
-- **v1.3.1 - v1.3.2**
-
-  - Fix program crash caused by wrong rules.
-
-- **v1.3.0**
-
-  - Update display, provide comments and grouping.
-  - Fix the problem that the window size is not the same in different runtimes.
+  - You can always view (most of) the changes in the Release Tags, [i.e. v2.0.0](https://github.com/STaRDoGG/PortProxyGUI/releases/tag/v2.0.0)
 
 <br/>
 
@@ -57,4 +40,4 @@ The configuration file will be generated at:
 C:\ProgramData\ScottElblein\PortProxyGooey\config.db
 ```
 
-The configuration database will be migrated **automatically** if the newer version software is used.
+For the record, as this isn't released under some company name (or fake company name) or some super-rad-l33t nickname, I just decided from now on to use my own name as the root folder for any of my software releases, so don't let that spook ya, if for any reason it should.
