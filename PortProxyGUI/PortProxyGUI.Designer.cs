@@ -112,6 +112,10 @@
             contextMenuStrip_Docker = new System.Windows.Forms.ContextMenuStrip(components);
             tmrCheck = new System.Windows.Forms.Timer(components);
             pnlStatusBar = new System.Windows.Forms.Panel();
+            picIpHlpSvcStatus = new System.Windows.Forms.PictureBox();
+            lblIpHlpSvcRunning = new System.Windows.Forms.Label();
+            picDockerStatus = new System.Windows.Forms.PictureBox();
+            picWSLStatus = new System.Windows.Forms.PictureBox();
             lblWSLIP = new System.Windows.Forms.Label();
             lblDockerRunning = new System.Windows.Forms.Label();
             lblWSLRunning = new System.Windows.Forms.Label();
@@ -122,6 +126,9 @@
             contextMenuStrip_WSL.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picDocker).BeginInit();
             pnlStatusBar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)picIpHlpSvcStatus).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picDockerStatus).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picWSLStatus).BeginInit();
             SuspendLayout();
             // 
             // lblPP
@@ -190,13 +197,13 @@
             // 
             // toolStripMenuItem_Enable
             // 
-            toolStripMenuItem_Enable.Image = Properties.Resources.enable;
+            toolStripMenuItem_Enable.Image = Properties.Resources.green;
             toolStripMenuItem_Enable.Name = "toolStripMenuItem_Enable";
             resources.ApplyResources(toolStripMenuItem_Enable, "toolStripMenuItem_Enable");
             // 
             // toolStripMenuItem_Disable
             // 
-            toolStripMenuItem_Disable.Image = Properties.Resources.disable;
+            toolStripMenuItem_Disable.Image = Properties.Resources.red;
             toolStripMenuItem_Disable.Name = "toolStripMenuItem_Disable";
             resources.ApplyResources(toolStripMenuItem_Disable, "toolStripMenuItem_Disable");
             // 
@@ -446,7 +453,7 @@
             // NetSHaddToolStripMenuItem
             // 
             NetSHaddToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { NetSHAddCopyToClipboard, NetSHAddViewCline });
-            NetSHaddToolStripMenuItem.Image = Properties.Resources.add_button;
+            NetSHaddToolStripMenuItem.Image = Properties.Resources.enable;
             NetSHaddToolStripMenuItem.Name = "NetSHaddToolStripMenuItem";
             resources.ApplyResources(NetSHaddToolStripMenuItem, "NetSHaddToolStripMenuItem");
             // 
@@ -467,7 +474,7 @@
             // NetSHdeleteToolStripMenuItem
             // 
             NetSHdeleteToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { NetSHDelCopyToClipboard, NetSHDelViewCline });
-            NetSHdeleteToolStripMenuItem.Image = Properties.Resources.minus_button;
+            NetSHdeleteToolStripMenuItem.Image = Properties.Resources.disable;
             NetSHdeleteToolStripMenuItem.Name = "NetSHdeleteToolStripMenuItem";
             resources.ApplyResources(NetSHdeleteToolStripMenuItem, "NetSHdeleteToolStripMenuItem");
             // 
@@ -578,8 +585,12 @@
             imgListProxies.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
             imgListProxies.ImageStream = (System.Windows.Forms.ImageListStreamer)resources.GetObject("imgListProxies.ImageStream");
             imgListProxies.TransparentColor = System.Drawing.Color.Transparent;
-            imgListProxies.Images.SetKeyName(0, "disable.png");
-            imgListProxies.Images.SetKeyName(1, "enable.png");
+            imgListProxies.Images.SetKeyName(0, "red.png");
+            imgListProxies.Images.SetKeyName(1, "green.png");
+            imgListProxies.Images.SetKeyName(2, "orange.png");
+            imgListProxies.Images.SetKeyName(3, "yellow.png");
+            imgListProxies.Images.SetKeyName(4, "enable.png");
+            imgListProxies.Images.SetKeyName(5, "disable.png");
             // 
             // saveFileDialog_Export
             // 
@@ -687,11 +698,42 @@
             // 
             resources.ApplyResources(pnlStatusBar, "pnlStatusBar");
             pnlStatusBar.BackColor = System.Drawing.Color.FromArgb(59, 66, 82);
+            pnlStatusBar.Controls.Add(picIpHlpSvcStatus);
+            pnlStatusBar.Controls.Add(lblIpHlpSvcRunning);
+            pnlStatusBar.Controls.Add(picDockerStatus);
+            pnlStatusBar.Controls.Add(picWSLStatus);
             pnlStatusBar.Controls.Add(lblWSLIP);
             pnlStatusBar.Controls.Add(lblDockerRunning);
             pnlStatusBar.Controls.Add(lblWSLRunning);
             pnlStatusBar.Controls.Add(lblCurrentLocalIP);
             pnlStatusBar.Name = "pnlStatusBar";
+            // 
+            // picIpHlpSvcStatus
+            // 
+            picIpHlpSvcStatus.Image = Properties.Resources.red;
+            resources.ApplyResources(picIpHlpSvcStatus, "picIpHlpSvcStatus");
+            picIpHlpSvcStatus.Name = "picIpHlpSvcStatus";
+            picIpHlpSvcStatus.TabStop = false;
+            // 
+            // lblIpHlpSvcRunning
+            // 
+            resources.ApplyResources(lblIpHlpSvcRunning, "lblIpHlpSvcRunning");
+            lblIpHlpSvcRunning.ForeColor = System.Drawing.Color.FromArgb(235, 203, 139);
+            lblIpHlpSvcRunning.Name = "lblIpHlpSvcRunning";
+            // 
+            // picDockerStatus
+            // 
+            picDockerStatus.Image = Properties.Resources.red;
+            resources.ApplyResources(picDockerStatus, "picDockerStatus");
+            picDockerStatus.Name = "picDockerStatus";
+            picDockerStatus.TabStop = false;
+            // 
+            // picWSLStatus
+            // 
+            resources.ApplyResources(picWSLStatus, "picWSLStatus");
+            picWSLStatus.Image = Properties.Resources.red;
+            picWSLStatus.Name = "picWSLStatus";
+            picWSLStatus.TabStop = false;
             // 
             // lblWSLIP
             // 
@@ -742,6 +784,9 @@
             contextMenuStrip_WSL.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)picDocker).EndInit();
             pnlStatusBar.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)picIpHlpSvcStatus).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picDockerStatus).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picWSLStatus).EndInit();
             ResumeLayout(false);
         }
 
@@ -836,6 +881,10 @@
         private System.Windows.Forms.Label lblWSLIP;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_ReloadIpHlpSvc;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_FlushDnsCache;
+        private System.Windows.Forms.PictureBox picWSLStatus;
+        private System.Windows.Forms.PictureBox picDockerStatus;
+        private System.Windows.Forms.Label lblIpHlpSvcRunning;
+        private System.Windows.Forms.PictureBox picIpHlpSvcStatus;
     }
 }
 

@@ -16,7 +16,7 @@ using System.Resources;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.ListViewItem;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+//using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using ListView = System.Windows.Forms.ListView;
 
 #endregion
@@ -361,8 +361,20 @@ namespace PortProxyGooey {
                 toolStripMenuItem_MoveTo.DropDownItems.Remove(item);
             }
 
+            // Add a "New" item
             // Default group doesn't get added to the ListViewGroup[]; manually add it.
-            ToolStripMenuItem toolStripMenuItem_Move = new ToolStripMenuItem("Default");
+            ToolStripMenuItem toolStripMenuItem_Move = new ToolStripMenuItem("New ...");
+            toolStripMenuItem_Move.Click += ToolStripMenuItem_Move_Click;
+            toolStripMenuItem_MoveTo.DropDownItems.Add(toolStripMenuItem_Move);
+            toolStripMenuItem_Move.Image = Properties.Resources._new;
+            toolStripMenuItem_Move.ToolTipText = "Move proxy(s) to a new group";
+
+            // Add a seperator
+            ToolStripSeparator toolStripSeparatorNewGroup = new ToolStripSeparator();
+            toolStripMenuItem_MoveTo.DropDownItems.Add(toolStripSeparatorNewGroup);
+
+            // Default group doesn't get added to the ListViewGroup[]; manually add it.
+            toolStripMenuItem_Move = new ToolStripMenuItem("Default");
             toolStripMenuItem_Move.Click += ToolStripMenuItem_Move_Click;
             toolStripMenuItem_MoveTo.DropDownItems.Add(toolStripMenuItem_Move);
             toolStripMenuItem_Move.Image = Properties.Resources.add;
@@ -537,18 +549,25 @@ namespace PortProxyGooey {
         /// </summary>
         private void ClearProxies() {
 
-            if (MessageBox.Show(
-                        string.Format("This will literally delete:{0}{0}- EVERY PROXY{0}- All Groups{0}- All Comments{0}{0}that you have in this list and on your machine and start from scratch.{0}{0}Proceed?", Environment.NewLine),
-                        "* FOCUS! *",
-                        MessageBoxButtons.YesNo,
-                        MessageBoxIcon.Question,
-                        MessageBoxDefaultButton.Button2
-                        ) == DialogResult.Yes) {
+            if (listViewProxies.Items.Count > 0) {
 
-                // Select all in the list and delete
-                listViewProxies.Items.Cast<ListViewItem>().ToList().ForEach(item => item.Selected = true);
-                DeleteSelectedProxies();
+                if (MessageBox.Show(
+                            string.Format("This will literally delete:{0}{0}- EVERY PROXY{0}- All Groups{0}- All Comments{0}{0}that you have in this list and on your machine and start from scratch.{0}{0}Proceed?", Environment.NewLine),
+                            "* FOCUS! *",
+                            MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Question,
+                            MessageBoxDefaultButton.Button2
+                            ) == DialogResult.Yes) {
+
+                    // Select all in the list and delete
+                    listViewProxies.Items.Cast<ListViewItem>().ToList().ForEach(item => item.Selected = true);
+                    DeleteSelectedProxies();
+                }
+
+            } else {
+                MessageBox.Show("Nothing to clear, dumdum.", "Hey ... you tried. *shrug*", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+
         }
 
         /// <summary>
@@ -611,15 +630,15 @@ namespace PortProxyGooey {
 
                 int intCount = listViewProxies.SelectedItems.Count;
 
-                // Set enabled state of toolstrip items based on the selected item's image index
+                // Enable/Disable (state): Set enabled state of toolstrip items based on the selected item's image index
                 toolStripMenuItem_Enable.Enabled = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Any(x => x.ImageIndex == 0);
                 toolStripMenuItem_Disable.Enabled = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Any(x => x.ImageIndex == 1);
 
-                // Add count to label if more than 1
+                // Enable/Disable (count): Add count to label if more than 1
                 if (toolStripMenuItem_Enable.Enabled && intCount > 1) { toolStripMenuItem_Enable.Text = string.Format("Enable ({0})", intCount); }
                 if (toolStripMenuItem_Disable.Enabled && intCount > 1) { toolStripMenuItem_Disable.Text = string.Format("Disable ({0})", intCount); }
 
-                // Add count to let users know how many they're about to nuke
+                // Delete/Move (count): Add count to let users know how many they're about to nuke (or move)
                 if (intCount > 1) {
 
                     toolStripMenuItem_Delete.Text = $"Delete ({intCount})";
@@ -630,6 +649,12 @@ namespace PortProxyGooey {
                 toolStripMenuItem_Delete.Enabled = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Any();
                 toolStripMenuItem_Modify.Enabled = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
                 toolStripMenuItem_Clone.Enabled = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
+
+                // Clear List: Only visible if Items exist in the list
+                clearToolStripMenuItem.Visible = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
+
+                // Move: Only visible if Items exist in the list
+                toolStripMenuItem_MoveTo.Visible = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
 
                 // NETSH Menu
                 NetSHToolStripMenuItem.Enabled = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
@@ -658,7 +683,7 @@ namespace PortProxyGooey {
         /// </summary>
         /// <param name="bRename"></param>
         private void GroupRename(bool bRename = false) {
-
+            // TODO: need to finish when items are in teh Default group....
             ListView.SelectedListViewItemCollection selectedItems = listViewProxies.SelectedItems;
 
             if (selectedItems.Count > 0) {
@@ -1227,10 +1252,12 @@ namespace PortProxyGooey {
             WSL.IsRunning_BackgroundWorker((result) => {
 
                 if (result) {
-                    lblWSLRunning.Text = "WSL: RUNNING";
+                    picWSLStatus.Image = Properties.Resources.green;
+                    tTipPPG.SetToolTip(picWSLStatus, "WSL: RUNNING");
                     picWSL.Visible = true;
                 } else {
-                    lblWSLRunning.Text = "WSL: N/A";
+                    picWSLStatus.Image = Properties.Resources.red;
+                    tTipPPG.SetToolTip(picWSLStatus, "WSL: N/A");
                     picWSL.Visible = false;
                 }
 
@@ -1238,12 +1265,27 @@ namespace PortProxyGooey {
 
             // Keep Docker status updated
             if (Docker.IsRunning()) {
-                lblDockerRunning.Text = "DOCKER: RUNNING";
+                picDockerStatus.Image = Properties.Resources.green;
+                tTipPPG.SetToolTip(picDockerStatus, "DOCKER: RUNNING");
                 picDocker.Visible = true;
             } else {
-                lblDockerRunning.Text = "DOCKER: N/A";
+                picDockerStatus.Image = Properties.Resources.red;
+                tTipPPG.SetToolTip(picDockerStatus, "DOCKER: N/A");
                 picDocker.Visible = false;
             }
+
+            // Keep IpHlpSvc status updated
+            Services.IsRunning_BackgroundWorker((result) => {
+
+                if (result) {
+                    picIpHlpSvcStatus.Image = Properties.Resources.green;
+                    tTipPPG.SetToolTip(picIpHlpSvcStatus, "IPHLPSVC SERVICE: RUNNING");
+                } else {
+                    picIpHlpSvcStatus.Image = Properties.Resources.red;
+                    tTipPPG.SetToolTip(picIpHlpSvcStatus, "IPHLPSVC SERVICE: N/A");
+                }
+
+            }, "iphlpsvc", false);
 
         }
 
@@ -1260,12 +1302,18 @@ namespace PortProxyGooey {
             // Pluralize if necessary ;)
             //string strMsg = string.Format("Delete {0} {1}?", intCount, intCount == 1 ? "proxy" : "proxies");
 
+            // If a New group is chosen to be created
+            if (sender.ToString() == "New ...") {
+                GroupRename(true);
+            }
+
+            Debug.WriteLine("Move To: " + sender.ToString());
+
             IEnumerable<ListViewItem> items = listViewProxies.SelectedItems.OfType<ListViewItem>();
 
             foreach (ListViewItem item in items) {
 
                 Debug.WriteLine("Current: " + item.Group);
-                Debug.WriteLine("Move To: " + sender.ToString());
 
                 try {
 

@@ -14,7 +14,7 @@ using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using PortProxyGooey.Native;
-using System.Security.Policy;
+using System.ServiceProcess;
 
 #endregion
 
@@ -591,6 +591,66 @@ namespace JSE_Utils {
     }
 
     public static class Services {
+
+        public static void IsRunning_BackgroundWorker(Action<bool> callback, string strServiceName, bool bShowMessage = false) {
+
+            // Example usage:
+            //
+            // Services.IsRunning_BackgroundWorker((result) => {
+            //
+            //     if (result) {
+            //         picIpHlpSvcStatus.Image = Properties.Resources.green;
+            //         tTipPPG.SetToolTip(picIpHlpSvcStatus, "IPHLPSVC SERVICE: RUNNING");
+            //     } else {
+            //         picIpHlpSvcStatus.Image = Properties.Resources.red;
+            //         tTipPPG.SetToolTip(picIpHlpSvcStatus, "IPHLPSVC SERVICE: N/A");
+            //     }
+            //
+            // }, "iphlpsvc", false);
+
+            BackgroundWorker worker = new BackgroundWorker();
+
+            worker.DoWork += (sender, e) => {
+
+                bool isRunning = false;
+
+                ServiceController service = new ServiceController(strServiceName);
+
+                try {
+
+                    // Check the status of the service
+                    isRunning = service.Status == ServiceControllerStatus.Running;
+
+                } catch (Exception) {
+
+                    // The service does not exist or an error occurred
+                   isRunning = false;
+
+                }
+                
+                e.Result = isRunning;
+
+            };
+
+            worker.RunWorkerCompleted += (sender, e) => {
+
+                if (e.Error != null) {
+                    // Handle errors
+                } else {
+
+                    bool isRunning = (bool)e.Result;
+
+                    if (bShowMessage) {
+                        MessageBox.Show(string.Format("{1} {0} running. ", isRunning ? "is" : "is not", strServiceName), "Service", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+
+                    callback?.Invoke(isRunning);
+
+                }
+
+            };
+            worker.RunWorkerAsync();
+        }
 
         /// <summary>
         /// Changes/Reloads a Service's Startup Parameters
