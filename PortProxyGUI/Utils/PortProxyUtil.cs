@@ -1,18 +1,17 @@
 ﻿#region + -- IMPORTS -- +
 
 using Microsoft.Win32;
-using NStandard;
+//using NStandard;
 using PortProxyGooey.Data;
-using PortProxyGooey.Native;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Net.Sockets;
-using System.Net;
-using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
-using System.Windows.Forms;
+//using System.Net.Sockets;
+//using System.Net;
+//using System.Runtime.InteropServices;
+//using System.Text.RegularExpressions;
+//using System.Windows.Forms;
 
 #endregion
 
@@ -21,6 +20,9 @@ namespace PortProxyGooey.Utils {
     public static partial class PortProxyUtil {
 
         #region + -- VAR DECLARATIONS -- +
+
+        internal static readonly string ServiceName = "iphlpsvc";
+        internal static readonly string ServiceFriendlyName = "IP Helper";
 
         private static InvalidOperationException InvalidPortProxyType(string type) => new($"Invalid port proxy type ({type}).");
         private static readonly string[] ProxyTypes = new[] { "v4tov4", "v4tov6", "v6tov4", "v6tov6" };

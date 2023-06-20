@@ -13,6 +13,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Resources;
+using System.ServiceProcess;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.ListViewItem;
@@ -75,6 +76,15 @@ namespace PortProxyGooey {
 
             Debug.WriteLine("Network Available?: " + Network.IsNetworkAvailable());
 
+            Debug.WriteLine(Services.GetInfo(PortProxyUtil.ServiceName));
+
+
+
+
+
+
+
+
             AppConfig = Program.Database.GetAppConfig();
 
             // Set Main Window Size from saved settings
@@ -115,6 +125,9 @@ namespace PortProxyGooey {
 
             // Perform the sort with these new sort options
             listViewProxies.Sort();
+
+            // Update labels
+            UpdateProxyCount();
         }
 
         private void ResetWindowSize() {
@@ -158,7 +171,7 @@ namespace PortProxyGooey {
         /// <summary>
         /// Enable/Disable selected Proxies
         /// </summary>
-        /// <param name="bEnable">[Optional: default True]True: Enable selected; False: Disable selected.</param>
+        /// <param name="bEnable">[optional: default True] True: Enable selected; False: Disable selected.</param>
         private void ToggleSelectedProxies(bool bEnable = true) {
             // TODO: working on the label tip counter(s)
             IEnumerable<ListViewItem> items = listViewProxies.SelectedItems.OfType<ListViewItem>();
@@ -178,6 +191,7 @@ namespace PortProxyGooey {
 
                     intEnabled--;
                     intDisabled++;
+
                 }
 
                 try {
@@ -197,7 +211,9 @@ namespace PortProxyGooey {
 
                 }
             }
-            Services.ParamChange("iphlpsvc");
+
+            UpdateProxyCount();
+            Services.ParamChange(PortProxyUtil.ServiceName);
         }
 
         /// <summary>
@@ -224,7 +240,9 @@ namespace PortProxyGooey {
             Program.Database.RemoveRange(items.Select(x => new Rule { Id = x.Tag.ToString() }));
             foreach (ListViewItem item in items)
                 listViewProxies.Items.Remove(item);
+            
             RefreshProxyList();
+            UpdateProxyCount();
         }
 
         private void SetProxyForUpdateOrClone(SetProxy form, bool bclone = false) {
@@ -346,8 +364,6 @@ namespace PortProxyGooey {
                 intDisabled++;
             }
 
-            UpdateProxyCountToolTip();
-
         }
 
         /// <summary>
@@ -378,8 +394,7 @@ namespace PortProxyGooey {
             toolStripMenuItem_Move.Click += ToolStripMenuItem_Move_Click;
             toolStripMenuItem_MoveTo.DropDownItems.Add(toolStripMenuItem_Move);
             toolStripMenuItem_Move.Image = Properties.Resources.add;
-
-            //toolStripMenuItem_Move.ToolTipText = "Move selected proxy(s) to the Default group";
+            toolStripMenuItem_Move.ToolTipText = "Move selected proxy(s) to the Default group";
 
             // Add all the other groups
             foreach (ListViewGroup header in lvGroups) {
@@ -401,12 +416,12 @@ namespace PortProxyGooey {
             }
         }
 
-        private void UpdateProxyCountToolTip() {
+        /// <summary>
+        /// Updates the proxy count label and tooltip
+        /// </summary>
+        public void UpdateProxyCount() {
 
             lblProxyCount.Text = listViewProxies.Items.Count.ToString();
-
-            // LEFT OFF: setting the ttip. Everything seems to be working here EXCEPT when I toggle en/disabled on a proxy; then the tip isnt being updated cuz this func isnt called.
-            // Total count is off.
             tTipPPG.SetToolTip(lblProxyCount, string.Format("Total Proxies: {0}{3}Enabled: {1}{3}Disabled: {2}", listViewProxies.Items.Count, intEnabled, intDisabled, Environment.NewLine));
 
         }
@@ -809,7 +824,7 @@ namespace PortProxyGooey {
                 // FlushDNS
                 case Keys.Control | Keys.F:
 
-                    DNS.FlushCache();
+                    Network.DNS.FlushCache();
                     return true;
 
                 // Clear All Proxies
@@ -1051,7 +1066,7 @@ namespace PortProxyGooey {
         /// FlushDNS
         /// </summary>
         private void toolStripMenuItem_FlushDnsCache_Click(object sender, EventArgs e) {
-            DNS.FlushCache();
+            Network.DNS.FlushCache();
         }
 
         /// <summary>
@@ -1248,6 +1263,8 @@ namespace PortProxyGooey {
 
             WSL.GetIP_BackgroundWorker((ip) => lblWSLIP.Text = $"WSL IP: {ip}");
 
+            // -----
+
             // Keep WSL status updated
             WSL.IsRunning_BackgroundWorker((result) => {
 
@@ -1263,6 +1280,8 @@ namespace PortProxyGooey {
 
             }, false);
 
+            // -----
+
             // Keep Docker status updated
             if (Docker.IsRunning()) {
                 picDockerStatus.Image = Properties.Resources.green;
@@ -1274,18 +1293,20 @@ namespace PortProxyGooey {
                 picDocker.Visible = false;
             }
 
+            // -----
+
             // Keep IpHlpSvc status updated
             Services.IsRunning_BackgroundWorker((result) => {
 
                 if (result) {
                     picIpHlpSvcStatus.Image = Properties.Resources.green;
-                    tTipPPG.SetToolTip(picIpHlpSvcStatus, "IPHLPSVC SERVICE: RUNNING");
+                    tTipPPG.SetToolTip(picIpHlpSvcStatus, $"{PortProxyUtil.ServiceFriendlyName.ToUpper()} SERVICE: RUNNING");
                 } else {
                     picIpHlpSvcStatus.Image = Properties.Resources.red;
-                    tTipPPG.SetToolTip(picIpHlpSvcStatus, "IPHLPSVC SERVICE: N/A");
+                    tTipPPG.SetToolTip(picIpHlpSvcStatus, $"{PortProxyUtil.ServiceFriendlyName.ToUpper()} SERVICE: N/A");
                 }
 
-            }, "iphlpsvc", false);
+            }, PortProxyUtil.ServiceName, false);
 
         }
 
@@ -1328,7 +1349,7 @@ namespace PortProxyGooey {
 
                 }
             }
-            Services.ParamChange("iphlpsvc");
+            Services.ParamChange(PortProxyUtil.ServiceName);
         }
 
         private void toolStripMenuItem_Exit_Click(object sender, EventArgs e) {
@@ -1340,20 +1361,20 @@ namespace PortProxyGooey {
         }
 
         /// <summary>
-        /// "Restart" the IpHlpSvc. Technically not a real service restart, but more of a param reload.
+        /// "Restart" IpHlpSvc. Technically not a real service restart, but more of a param reload.
         /// </summary>
         private void toolStripMenuItem_ReloadIpHlpSvc_Click(object sender, EventArgs e) {
 
             // Source: https://github.com/swagfin/PortProxyGUI/commit/af6cfdcafe66883def4a9305149c6a48afbfb8f9
 
             try {
-                Services.ParamChange("iphlpsvc");
+                Services.ParamChange(PortProxyUtil.ServiceName);
             } catch (Exception ex) {
-                MessageBox.Show(ex.Message, "IpHlpSvc Restart Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, $"{PortProxyUtil.ServiceFriendlyName} Restart Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            MessageBox.Show("IpHlpSvc Restarted", "IpHlpSvc Restart", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show($"{PortProxyUtil.ServiceFriendlyName} Restarted", $"{PortProxyUtil.ServiceFriendlyName} Restart", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         }
     }

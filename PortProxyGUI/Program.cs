@@ -2,7 +2,7 @@
 
     using PortProxyGooey.Data;
     using System;
-    using System.IO;
+    //using System.IO;
     using System.Windows.Forms;
 
 #endregion
@@ -23,7 +23,7 @@ namespace PortProxyGooey {
             // see https://aka.ms/applicationconfiguration.
 #if NET6_0_OR_GREATER
             ApplicationConfiguration.Initialize();
-#elif NETCOREAPP3_1_OR_GREATER    
+#elif NETCOREAPP3_1_OR_GREATER
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

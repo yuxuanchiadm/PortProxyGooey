@@ -3,7 +3,6 @@
 using PortProxyGooey.Utils;
 using System;
 using System.Diagnostics;
-using System.Drawing;
 using System.Windows.Forms;
 
 #endregion

@@ -2,24 +2,24 @@
 
 using JSE_Utils;
 using NStandard;
-using PortProxyGooey.Data;
+//using PortProxyGooey.Data;
 using PortProxyGooey.Utils;
 using System;
-using System.Collections;
+//using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
-using System.Diagnostics.Eventing.Reader;
-using System.Drawing;
-using System.Drawing.Drawing2D;
+//using System.Diagnostics.Eventing.Reader;
+//using System.Drawing;
+//using System.Drawing.Drawing2D;
 using System.Linq;
-using System.Reflection.Emit;
+//using System.Reflection.Emit;
 using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
+//using System.Text.RegularExpressions;
 //using System.Web.UI.WebControls;
 using System.Windows.Forms;
-using System.Windows.Forms.Design;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+//using System.Windows.Forms.Design;
+//using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Rule = PortProxyGooey.Data.Rule;
 
 #endregion
@@ -27,7 +27,6 @@ using Rule = PortProxyGooey.Data.Rule;
 // TODO: 1) Remove comboBox_Type and all code refs to it.
 //       2) I added a range of 45 to 54 and label said 10?
 //       3) Add all auto-comment ports to the relevant autocomplete fields as well.
-//       4) BUG: cant enter colons now, in the listenon/connectto fields, which means no ip6.
 namespace PortProxyGooey
 {
     public partial class SetProxy : Form
@@ -233,10 +232,11 @@ namespace PortProxyGooey
                 }
 
                 // Alert the user if any were skipped due to duping
-                if (intDupes > 0) MessageBox.Show(string.Format("{0} duplicates skipped.", intDupes), "Didn't add some ...", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (intDupes > 0) MessageBox.Show($"{intDupes} duplicates skipped.", "Didn't add some ...", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
             ParentWindow.RefreshProxyList();
+            ParentWindow.UpdateProxyCount();
 
             // Set .EnsureVisible and .Selected to the newest item added, as a convenience.
             // (Searches listViewProxies .tags for the rule.id)
@@ -251,7 +251,7 @@ namespace PortProxyGooey
 
             }
 
-            Services.ParamChange("iphlpsvc");
+            Services.ParamChange(PortProxyUtil.ServiceName);
 
             progBarRange.Visible = false;
             this.Enabled = true;
@@ -296,7 +296,7 @@ namespace PortProxyGooey
                 lblDash.Visible = true;
                 textBox_ListenPortRange.Visible = true;
                 lblRangeCount.Visible = true;
-                lblRangeCount.Text = String.IsNullOrEmpty(textBox_ListenPortRange.Text) ? "Adding: 0" : "Adding: " + CalcRange().ToString();
+                lblRangeCount.Text = String.IsNullOrEmpty(textBox_ListenPortRange.Text) ? "Adding: 0" : $"Adding: {CalcRange()}";
             
             } else {
 

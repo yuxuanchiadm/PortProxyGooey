@@ -1,20 +1,21 @@
 ﻿#region + -- IMPORTS -- +
 
+using NStandard;
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Net.Sockets;
+using System.Management;
 using System.Net;
-using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
-using System.Windows.Forms;
-using NStandard;
 using System.Net.NetworkInformation;
-using System.Threading.Tasks;
-using System.ComponentModel;
-using PortProxyGooey.Native;
+using System.Net.Sockets;
+using System.Runtime.InteropServices;
 using System.ServiceProcess;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 #endregion
 
@@ -157,50 +158,6 @@ namespace JSE_Utils {
     
     }
 
-    public static partial class DNS {
-
-        [return: MarshalAs(UnmanagedType.Bool)]
-        [LibraryImport("dnsapi.dll")]
-        public static partial bool DnsFlushResolverCache();
-
-        /// <summary>
-        /// Flushes the system's DNS cache
-        /// </summary>
-        /// <param name="bConfirm">[optional: default true] Show a confirmation MessageBox first</param>
-        /// <param name="bResult">[optional: default true] Show a sussessful confirmation MessageBox when done</param>
-        /// <exception cref="InvalidOperationException"></exception>
-        public static void FlushCache(bool bConfirm = true, bool bResult = true) {
-
-            // Show dialog asking for Flush confirmation, giving them a change to bail out if it was a misclick.
-            if (bConfirm) {
-
-                // If Yes, continue below; if no, bail out of method.
-                if (MessageBox.Show("Flush DNS?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.No) {
-
-                    Debug.WriteLine("FlushCache: User chose to not flush cache; exiting method.");
-                    return;
-                }
-
-            }
-
-            // If use either clicked Yes yes above, or bConfirm was False, flush.
-            bool status = DnsFlushResolverCache();
-
-            if (status == false) {
-                throw new InvalidOperationException("FlushDNS Cache failed.");
-            } else {
-
-                // Show a confirmation dialog if desired
-                if (bResult) {
-                    MessageBox.Show("DNS Flushed!", "Whoosh", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-
-            }
-
-        }
-
-    }
-
     public static class Docker {
 
         /// <summary>
@@ -341,7 +298,51 @@ namespace JSE_Utils {
 
     }
 
-    public static class Network {
+    public static partial class Network {
+
+        public static partial class DNS {
+
+            [return: MarshalAs(UnmanagedType.Bool)]
+            [LibraryImport("dnsapi.dll")]
+            internal static partial bool DnsFlushResolverCache();
+
+            /// <summary>
+            /// Flushes the system's DNS cache
+            /// </summary>
+            /// <param name="bConfirm">[optional: default true] Show a confirmation MessageBox first</param>
+            /// <param name="bResult">[optional: default true] Show a sussessful confirmation MessageBox when done</param>
+            /// <exception cref="InvalidOperationException"></exception>
+            public static void FlushCache(bool bConfirm = true, bool bResult = true) {
+
+                // Show dialog asking for Flush confirmation, giving them a change to bail out if it was a misclick.
+                if (bConfirm) {
+
+                    // If Yes, continue below; if no, bail out of method.
+                    if (MessageBox.Show("Flush DNS?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.No) {
+
+                        Debug.WriteLine("FlushCache: User chose to not flush cache; exiting method.");
+                        return;
+                    }
+
+                }
+
+                // If use either clicked Yes yes above, or bConfirm was False, flush.
+                bool status = DnsFlushResolverCache();
+
+                if (status == false) {
+                    throw new InvalidOperationException("FlushDNS Cache failed.");
+                } else {
+
+                    // Show a confirmation dialog if desired
+                    if (bResult) {
+                        MessageBox.Show("DNS Flushed!", "Whoosh", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+
+                }
+
+            }
+
+        }
 
         /// <summary>
         /// Check if an IPv4 IP is connectable on a specified port
@@ -592,6 +593,180 @@ namespace JSE_Utils {
 
     public static class Services {
 
+        #region "WIN32API DECLARATIONS"
+
+        internal enum GenericRights : uint {
+            GENERIC_READ = 0x80000000,
+            GENERIC_WRITE = 0x40000000,
+            GENERIC_EXECUTE = 0x20000000,
+            GENERIC_ALL = 0x10000000,
+        }
+
+        internal class NativeMethods {
+
+            [DllImport("advapi32.dll", EntryPoint = "OpenSCManagerW", ExactSpelling = true, CharSet = CharSet.Unicode, SetLastError = true)]
+            internal static extern IntPtr OpenSCManager(string machineName, string databaseName, uint dwAccess);
+
+            [DllImport("advapi32.dll", EntryPoint = "OpenServiceW", SetLastError = true, CharSet = CharSet.Unicode)]
+            internal static extern IntPtr OpenService(IntPtr hSCManager, string lpServiceName, ServiceRights dwDesiredAccess);
+
+            [DllImport("advapi32.dll", EntryPoint = "QueryServiceStatus", CharSet = CharSet.Auto)]
+            internal static extern bool QueryServiceStatus(IntPtr hService, ref ServiceStatus dwServiceStatus);
+
+            [DllImport("advapi32.dll", SetLastError = true)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            internal static extern bool ControlService(IntPtr hService, ServiceControls dwControl, ref ServiceStatus lpServiceStatus);
+
+            [DllImport("advapi32.dll", SetLastError = true)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            internal static extern bool CloseServiceHandle(IntPtr hSCObject);
+
+            [DllImport("advapi32.dll", SetLastError = true)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            internal static extern bool StartService(IntPtr hService, int dwNumServiceArgs, string[] lpServiceArgVectors);
+
+        }
+
+        internal enum ScmRights : uint {
+            SC_MANAGER_CONNECT = 0x0001,
+            SC_MANAGER_CREATE_SERVICE = 0x0002,
+            SC_MANAGER_ENUMERATE_SERVICE = 0x0004,
+            SC_MANAGER_LOCK = 0x0008,
+            SC_MANAGER_QUERY_LOCK_STATUS = 0x0010,
+            SC_MANAGER_MODIFY_BOOT_CONFIG = 0x0020,
+
+            SC_MANAGER_ALL_ACCESS =
+                StandardRights.STANDARD_RIGHTS_REQUIRED
+                | SC_MANAGER_CONNECT
+                | SC_MANAGER_CREATE_SERVICE
+                | SC_MANAGER_ENUMERATE_SERVICE
+                | SC_MANAGER_LOCK
+                | SC_MANAGER_QUERY_LOCK_STATUS
+                | SC_MANAGER_MODIFY_BOOT_CONFIG
+        }
+
+        [Flags]
+        internal enum ServiceControls : uint {
+            SERVICE_CONTROL_PARAMCHANGE = 0x00000006,
+        }
+
+        [Flags]
+        internal enum ServiceRights : uint {
+            SERVICE_QUERY_CONFIG = 0x0001,
+            SERVICE_CHANGE_CONFIG = 0x0002,
+            SERVICE_QUERY_STATUS = 0x0004,
+            SERVICE_ENUMERATE_DEPENDENTS = 0x0008,
+            SERVICE_START = 0x0010,
+            SERVICE_STOP = 0x0020,
+            SERVICE_PAUSE_CONTINUE = 0x0040,
+            SERVICE_INTERROGATE = 0x0080,
+            SERVICE_USER_DEFINED_CONTROL = 0x0100,
+
+            SERVICE_ALL_ACCESS =
+                SERVICE_QUERY_CONFIG
+                | SERVICE_CHANGE_CONFIG
+                | SERVICE_QUERY_STATUS
+                | SERVICE_ENUMERATE_DEPENDENTS
+                | SERVICE_START
+                | SERVICE_STOP
+                | SERVICE_PAUSE_CONTINUE
+                | SERVICE_INTERROGATE
+                | SERVICE_USER_DEFINED_CONTROL
+        }
+
+        internal enum ServiceState : int {
+            SERVICE_STOPPED = 0x00000001,
+            SERVICE_START_PENDING = 0x00000002,
+            SERVICE_STOP_PENDING = 0x00000003,
+            SERVICE_RUNNING = 0x00000004,
+            SERVICE_CONTINUE_PENDING = 0x00000005,
+            SERVICE_PAUSE_PENDING = 0x00000006,
+            SERVICE_PAUSED = 0x00000007,
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct ServiceStatus {
+            public uint dwServiceType;
+            public ServiceState dwCurrentState;
+            public uint dwControlsAccepted;
+            public uint dwWin32ExitCode;
+            public uint dwServiceSpecificExitCode;
+            public uint dwCheckPoint;
+            public uint dwWaitHint;
+        }
+
+        internal enum StandardRights : uint {
+            STANDARD_RIGHTS_REQUIRED = 0x000F0000,
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Gets information abot a Windows Service. Result in Debug window.
+        /// </summary>
+        /// <param name="serviceName">Name of the service</param>
+        /// <exception cref="System.InvalidOperationException">
+        /// Service '{serviceName}' is not in a running state.
+        /// or
+        /// Failed to pause and continue service '{serviceName}'.
+        /// </exception>
+        /// <returns>Service Information in a String</returns>
+        public static string GetInfo(string serviceName) {
+
+            // Ref: https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-service
+
+            // Usage Example: Debug.WriteLine(Services.GetInfo("iphlpsvc"));
+
+            StringBuilder sbResult = new();
+
+            using (ServiceController serviceController = new ServiceController(serviceName)) {
+
+                if (serviceController.Status != ServiceControllerStatus.Running) {
+                    throw new InvalidOperationException($"Service '{serviceName}' is not in a running state.");
+                }
+
+                try {
+
+                    using (ManagementObject service = new ManagementObject($"Win32_Service.Name='{serviceController.ServiceName}'")) {
+                        
+                        service.Get();
+
+                        sbResult.AppendLine("");
+                        sbResult.AppendLine("+ -------------------------------------------------- +");
+                        sbResult.AppendLine($"| SERVICE INFO FOR: {serviceName}");
+                        sbResult.AppendLine("+ -------------------------------------------------- +");
+                        sbResult.AppendLine($"| Display Name:     {serviceController.DisplayName}");
+                        sbResult.AppendLine($"| Service Name:     {serviceController.ServiceName}");
+                        sbResult.AppendLine($"| Status:           {serviceController.Status}");
+                        sbResult.AppendLine("+ -------------------------------------------------- +");
+                        sbResult.AppendLine($"| ABILITIES:");
+                        sbResult.AppendLine("+ -------------------------------------------------- +");
+                        sbResult.AppendLine($"| Stop?             {serviceController.CanStop}");
+                        sbResult.AppendLine($"| ShutDown?         {serviceController.CanShutdown}");
+                        sbResult.AppendLine($"| Pause & Continue? {serviceController.CanPauseAndContinue}");
+                        sbResult.AppendLine("+ -------------------------------------------------- +");
+                        sbResult.AppendLine($"| EXTRA:");
+                        sbResult.AppendLine("+ -------------------------------------------------- +");
+                        sbResult.AppendLine($"| CMD: {service["PathName"]}");
+                        //sbResult.AppendLine($"| Start Params: {service["StartParameters"]}");
+                        sbResult.AppendLine("+ -------------------------------------------------- +");
+                        sbResult.Append("");
+
+                    }
+
+                } catch (InvalidOperationException ex) {
+                    throw new InvalidOperationException($"Failed to pause and continue service '{serviceName}'.", ex);
+                }
+            }
+            return sbResult.ToString(); 
+        }
+
+        /// <summary>
+        /// Determines whether a Windows Service is running. (async)
+        /// </summary>
+        /// <param name="callback">The callback.</param>
+        /// <param name="strServiceName">Exact name of the service (case-sensitive)</param>
+        /// <param name="bShowMessage">[optional Default: false] If True, show the result in a MessageBox as well.</param>
         public static void IsRunning_BackgroundWorker(Action<bool> callback, string strServiceName, bool bShowMessage = false) {
 
             // Example usage:
@@ -599,11 +774,9 @@ namespace JSE_Utils {
             // Services.IsRunning_BackgroundWorker((result) => {
             //
             //     if (result) {
-            //         picIpHlpSvcStatus.Image = Properties.Resources.green;
-            //         tTipPPG.SetToolTip(picIpHlpSvcStatus, "IPHLPSVC SERVICE: RUNNING");
+            //         Do something if True
             //     } else {
-            //         picIpHlpSvcStatus.Image = Properties.Resources.red;
-            //         tTipPPG.SetToolTip(picIpHlpSvcStatus, "IPHLPSVC SERVICE: N/A");
+            //         Do something if False
             //     }
             //
             // }, "iphlpsvc", false);
@@ -663,7 +836,7 @@ namespace JSE_Utils {
         /// or
         /// Service Control: ({serviceName}) ParamChange failed.
         /// </exception>
-        public static void ParamChange(string serviceName) {
+        public static void ParamChangeWinAPI(string serviceName) {
 
             IntPtr hManager = NativeMethods.OpenSCManager(null, null, (uint)GenericRights.GENERIC_READ);
 
@@ -689,41 +862,116 @@ namespace JSE_Utils {
 
         }
 
+        public static void ParamChange(string serviceName) {
+
+            using (ServiceController serviceController = new ServiceController(serviceName)) {
+
+                if (serviceController.Status != ServiceControllerStatus.Running) {
+                    throw new InvalidOperationException($"Service '{serviceName}' is not in a running state.");
+                }
+
+                try {
+
+                    //serviceController.Pause();
+                    //serviceController.Continue();
+                    serviceController.Refresh();
+                    // LEFT OFF: Not sure if Refresh is doing the same as the previous API.
+                    } catch (InvalidOperationException ex) {
+                    throw new InvalidOperationException($"Failed to pause and continue service '{serviceName}'.", ex);
+                }
+
+            }
+        }
+
+        public static void Start_BackgroundWorker(Action<bool> callback, string strServiceName) {
+
+            // Example usage:
+            //
+            // Services.IsRunning_BackgroundWorker((result) => {
+            //
+            //     if (result) {
+            //         Do something if True
+            //     } else {
+            //         Do something if False
+            //     }
+            //
+            // }, "iphlpsvc", false);
+
+            BackgroundWorker worker = new BackgroundWorker();
+
+            worker.DoWork += (sender, e) => {
+
+                bool isRunning = false;
+
+                ServiceController service = new ServiceController(strServiceName);
+
+                try {
+
+                    // Check the status of the service
+                    isRunning = service.Status == ServiceControllerStatus.Running;
+
+                } catch (Exception) {
+
+                    // The service does not exist or an error occurred
+                    isRunning = false;
+
+                }
+
+                e.Result = isRunning;
+
+            };
+
+            worker.RunWorkerCompleted += (sender, e) => {
+
+                if (e.Error != null) {
+                    // Handle errors
+                } else {
+
+                    bool isRunning = (bool)e.Result;
+
+                    callback?.Invoke(isRunning);
+
+                }
+
+            };
+            worker.RunWorkerAsync();
+        }
+
     }
 
     public static class Winsock {
 
-        /// <summary>
-        /// Resets the Winsock
-        /// </summary>
-        public static void Reset() {
+            /// <summary>
+            /// Resets the Winsock
+            /// </summary>
+            public static void Reset() {
 
-            string strInfo = string.Format(
-                "{0}{3}{3}{1}{3}{3}{2}",
-                "This command also resets other networking components like the TCP/IP stack, which can fix various network issues like connectivity problems, DNS resolution issues, and more.",
-                "Note that resetting the Winsock should be used as a last resort to fix network issues, as it can affect any running network applications and may cause other issues. If you are experiencing network issues, it may be better to diagnose and fix the root cause of the problem rather than resetting the Winsock.",
-                "After running the netsh winsock reset command, you will need to restart your computer for the changes to take effect.",
-                Environment.NewLine
-            );
+                string strInfo = string.Format(
+                    "{0}{3}{3}{1}{3}{3}{2}",
+                    "This command also resets other networking components like the TCP/IP stack, which can fix various network issues like connectivity problems, DNS resolution issues, and more.",
+                    "Note that resetting the Winsock should be used as a last resort to fix network issues, as it can affect any running network applications and may cause other issues. If you are experiencing network issues, it may be better to diagnose and fix the root cause of the problem rather than resetting the Winsock.",
+                    "After running the netsh winsock reset command, you will need to restart your computer for the changes to take effect.",
+                    Environment.NewLine
+                );
 
-            if (Dialogs.CustomDialog(strInfo, "Winsock Reset") == DialogResult.OK) {
+                if (Dialogs.CustomDialog(strInfo, "Winsock Reset") == DialogResult.OK) {
 
-                // Run the winsock reset command
-                string strOutput = Misc.RunCommand("netsh.exe", "winsock reset");
+                    // Run the winsock reset command
+                    string strOutput = Misc.RunCommand("netsh.exe", "winsock reset");
 
-                // Report back the result of the reset attempt
-                if (strOutput.ToLower().Contains("sucessfully reset")) {
+                    // Report back the result of the reset attempt
+                    if (strOutput.ToLower().Contains("sucessfully reset")) {
 
-                    MessageBox.Show("You must restart the computer in order to complete the reset.", "Sucessfully reset your Winsock", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("You must restart the computer in order to complete the reset.", "Sucessfully reset your Winsock", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 
-                } else {
+                    } else {
 
-                    MessageBox.Show(strOutput, "Couldn't reset your Winsock", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(strOutput, "Couldn't reset your Winsock", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 
+                    }
                 }
             }
         }
-    }
 
     public static class WSL {
 

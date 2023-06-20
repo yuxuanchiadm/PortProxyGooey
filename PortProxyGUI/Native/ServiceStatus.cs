@@ -1,12 +1,13 @@
 ﻿using System.Runtime.InteropServices;
+using static JSE_Utils.Services;
 
 namespace PortProxyGooey.Native
 {
     [StructLayout(LayoutKind.Sequential)]
-    public struct ServiceStatus
+    internal struct ServiceStatus
     {
         public uint dwServiceType;
-        public uint dwCurrentState;
+        public ServiceState dwCurrentState;
         public uint dwControlsAccepted;
         public uint dwWin32ExitCode;
         public uint dwServiceSpecificExitCode;
