@@ -714,6 +714,7 @@
             resources.ApplyResources(picIpHlpSvcStatus, "picIpHlpSvcStatus");
             picIpHlpSvcStatus.Name = "picIpHlpSvcStatus";
             picIpHlpSvcStatus.TabStop = false;
+            picIpHlpSvcStatus.Click += picIpHlpSvcStatus_Click;
             // 
             // lblIpHlpSvcRunning
             // 

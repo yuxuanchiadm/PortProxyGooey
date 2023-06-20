@@ -240,7 +240,7 @@ namespace PortProxyGooey {
             Program.Database.RemoveRange(items.Select(x => new Rule { Id = x.Tag.ToString() }));
             foreach (ListViewItem item in items)
                 listViewProxies.Items.Remove(item);
-            
+
             RefreshProxyList();
             UpdateProxyCount();
         }
@@ -1303,7 +1303,7 @@ namespace PortProxyGooey {
                     tTipPPG.SetToolTip(picIpHlpSvcStatus, $"{PortProxyUtil.ServiceFriendlyName.ToUpper()} SERVICE: RUNNING");
                 } else {
                     picIpHlpSvcStatus.Image = Properties.Resources.red;
-                    tTipPPG.SetToolTip(picIpHlpSvcStatus, $"{PortProxyUtil.ServiceFriendlyName.ToUpper()} SERVICE: N/A");
+                    tTipPPG.SetToolTip(picIpHlpSvcStatus, $"{PortProxyUtil.ServiceFriendlyName.ToUpper()} SERVICE: N/A{Environment.NewLine}Click icon to Start it");
                 }
 
             }, PortProxyUtil.ServiceName, false);
@@ -1375,6 +1375,26 @@ namespace PortProxyGooey {
             }
 
             MessageBox.Show($"{PortProxyUtil.ServiceFriendlyName} Restarted", $"{PortProxyUtil.ServiceFriendlyName} Restart", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+        }
+
+        private void picIpHlpSvcStatus_Click(object sender, EventArgs e) {
+
+            // First, check if the service is already running; we only want to do something if it's not.
+            Services.IsRunning_BackgroundWorker((result) => {
+
+                if (!result) {
+
+                    // TODO: Start the service
+                    Debug.WriteLine($"{PortProxyUtil.ServiceName}: Starting");  
+                    
+                    Services.Start_BackgroundWorker((result) => {
+                        //Debug.WriteLine(result);
+                    }, PortProxyUtil.ServiceName);
+
+                }
+
+            }, PortProxyUtil.ServiceName, false);
 
         }
     }

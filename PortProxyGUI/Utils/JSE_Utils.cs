@@ -1,6 +1,7 @@
 ﻿#region + -- IMPORTS -- +
 
 using NStandard;
+using PortProxyGooey.Utils;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -883,55 +884,71 @@ namespace JSE_Utils {
             }
         }
 
-        public static void Start_BackgroundWorker(Action<bool> callback, string strServiceName) {
+        /// <summary>
+        /// Starts a Windows Service (async).
+        /// </summary>
+        /// <param name="callback">The Result of the Start attempt</param>
+        /// <param name="strServiceName">Name of the Service to start</param>
+        public static void Start_BackgroundWorker(Action<string> callback, string strServiceName) {
 
             // Example usage:
             //
-            // Services.IsRunning_BackgroundWorker((result) => {
-            //
-            //     if (result) {
-            //         Do something if True
-            //     } else {
-            //         Do something if False
-            //     }
-            //
-            // }, "iphlpsvc", false);
+            // Services.Start_BackgroundWorker((result) => {
+            //     Debug.WriteLine(result);
+            // }, "iphlpsrv");
 
             BackgroundWorker worker = new BackgroundWorker();
 
             worker.DoWork += (sender, e) => {
 
-                bool isRunning = false;
+                using (ServiceController serviceController = new ServiceController(strServiceName)) {
 
-                ServiceController service = new ServiceController(strServiceName);
+                    try {
 
-                try {
+                        if (serviceController.Status != ServiceControllerStatus.Running) {
+                            serviceController.Start();
+                            serviceController.WaitForStatus(ServiceControllerStatus.Running, TimeSpan.FromSeconds(10));
+                        }
 
-                    // Check the status of the service
-                    isRunning = service.Status == ServiceControllerStatus.Running;
+                        e.Result = $"{strServiceName} Service started";
 
-                } catch (Exception) {
+                    } catch (InvalidOperationException ex) {
 
-                    // The service does not exist or an error occurred
-                    isRunning = false;
+                        e.Result = $"{strServiceName} Service failed to start: {ex.Message}";
 
+                    } catch (System.ServiceProcess.TimeoutException ex) {
+
+                        e.Result = $"{strServiceName} Service timed out while waiting to start: {ex.Message}";
+
+                    } catch (Exception ex) {
+
+                        e.Result = $"{strServiceName} error occurred while starting Service: {ex.Message}";
+
+                    }
                 }
-
-                e.Result = isRunning;
 
             };
 
             worker.RunWorkerCompleted += (sender, e) => {
 
+                string strResult = string.Empty;
+
                 if (e.Error != null) {
-                    // Handle errors
+                    // Handle any errors that occurred during service start
+                    strResult = $"{strServiceName} Service Error: {e.Error.Message}";
+                } else if (e.Cancelled) {
+                    // Handle cancellation if needed
+                    strResult = $"{strServiceName} Service start canceled";
+                } else if (e.Result != null) {
+                    // Handle any results returned from the background operation
+                    strResult = $"{strServiceName} {e.Result}";
                 } else {
-
-                    bool isRunning = (bool)e.Result;
-
-                    callback?.Invoke(isRunning);
-
+                    // Service start completed successfully
+                    strResult = $"{strServiceName} Service started";
                 }
+
+                Debug.WriteLine(strResult);
+                callback?.Invoke(e.Result.ToString());
 
             };
             worker.RunWorkerAsync();
@@ -1350,7 +1367,7 @@ namespace JSE_Utils {
         /// <summary>
         /// Restart WSL
         /// </summary>
-        /// <param name="bShowResult">[Optional: default True] Shows a messagebox confirming WSL has restarted</param>
+        /// <param name="bShowResult">[optional: default True] Shows a messagebox confirming WSL has restarted</param>
         public static void Restart(bool bShowResult = true) {
 
             // TODO: add Task code

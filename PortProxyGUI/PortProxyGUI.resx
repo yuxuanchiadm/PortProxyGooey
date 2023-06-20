@@ -210,6 +210,484 @@
   <data name="contextMenuStrip_RightClick.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft YaHei UI, 9pt</value>
   </data>
+  <data name="toolStripMenuItem_Enable.ShortcutKeyDisplayString" xml:space="preserve">
+    <value />
+  </data>
+  <data name="toolStripMenuItem_Enable.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+E</value>
+  </data>
+  <data name="toolStripMenuItem_Enable.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 22</value>
+  </data>
+  <data name="toolStripMenuItem_Enable.Text" xml:space="preserve">
+    <value>Enable</value>
+  </data>
+  <data name="toolStripMenuItem_Enable.ToolTipText" xml:space="preserve">
+    <value>Activate this port proxy</value>
+  </data>
+  <data name="toolStripMenuItem_Disable.ShortcutKeyDisplayString" xml:space="preserve">
+    <value />
+  </data>
+  <data name="toolStripMenuItem_Disable.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+D</value>
+  </data>
+  <data name="toolStripMenuItem_Disable.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 22</value>
+  </data>
+  <data name="toolStripMenuItem_Disable.Text" xml:space="preserve">
+    <value>Disable</value>
+  </data>
+  <data name="toolStripMenuItem_Disable.ToolTipText" xml:space="preserve">
+    <value>Deactivate this port proxy</value>
+  </data>
+  <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>179, 6</value>
+  </data>
+  <data name="toolStripMenuItem_New.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 9pt, style=Bold</value>
+  </data>
+  <data name="toolStripMenuItem_New.ShortcutKeyDisplayString" xml:space="preserve">
+    <value />
+  </data>
+  <data name="toolStripMenuItem_New.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ins</value>
+  </data>
+  <data name="toolStripMenuItem_New.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 22</value>
+  </data>
+  <data name="toolStripMenuItem_New.Text" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="toolStripMenuItem_New.ToolTipText" xml:space="preserve">
+    <value>Add a new port to proxy
+
+Tip:
+You can also double-click most blank areas on this window</value>
+  </data>
+  <data name="toolStripSeparator14.Size" type="System.Drawing.Size, System.Drawing">
+    <value>179, 6</value>
+  </data>
+  <data name="toolStripMenuItem_Modify.ShortcutKeyDisplayString" xml:space="preserve">
+    <value />
+  </data>
+  <data name="toolStripMenuItem_Modify.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>F2</value>
+  </data>
+  <data name="toolStripMenuItem_Modify.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 22</value>
+  </data>
+  <data name="toolStripMenuItem_Modify.Text" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="toolStripMenuItem_Modify.ToolTipText" xml:space="preserve">
+    <value>Modify this port proxy</value>
+  </data>
+  <data name="toolStripMenuItem_Clone.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>F3</value>
+  </data>
+  <data name="toolStripMenuItem_Clone.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 22</value>
+  </data>
+  <data name="toolStripMenuItem_Clone.Text" xml:space="preserve">
+    <value>Clone</value>
+  </data>
+  <data name="toolStripMenuItem_Clone.ToolTipText" xml:space="preserve">
+    <value>Duplicates the current item; you'll need to change the port(s) though.
+
+This saves you from having to do repititous form filling.</value>
+  </data>
+  <data name="toolStripSeparator15.Size" type="System.Drawing.Size, System.Drawing">
+    <value>179, 6</value>
+  </data>
+  <data name="toolStripMenuItem_Delete.ShortcutKeyDisplayString" xml:space="preserve">
+    <value />
+  </data>
+  <data name="toolStripMenuItem_Delete.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Del</value>
+  </data>
+  <data name="toolStripMenuItem_Delete.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 22</value>
+  </data>
+  <data name="toolStripMenuItem_Delete.Text" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="toolStripMenuItem_Delete.ToolTipText" xml:space="preserve">
+    <value>Remove selected port proxy(s)</value>
+  </data>
+  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>179, 6</value>
+  </data>
+  <data name="toolStripMenuItem_MoveTo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 22</value>
+  </data>
+  <data name="toolStripMenuItem_MoveTo.Text" xml:space="preserve">
+    <value>Group: Move to ...</value>
+  </data>
+  <data name="toolStripMenuItem_RenameGroup.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 22</value>
+  </data>
+  <data name="toolStripMenuItem_RenameGroup.Text" xml:space="preserve">
+    <value>Group: Rename</value>
+  </data>
+  <data name="toolStripMenuItem_RenameGroup.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="toolStripSeparator16.Size" type="System.Drawing.Size, System.Drawing">
+    <value>179, 6</value>
+  </data>
+  <data name="toolStripMenuItem_Refresh.ShortcutKeyDisplayString" xml:space="preserve">
+    <value>&amp;F5</value>
+  </data>
+  <data name="toolStripMenuItem_Refresh.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 22</value>
+  </data>
+  <data name="toolStripMenuItem_Refresh.Text" xml:space="preserve">
+    <value>List: Refresh</value>
+  </data>
+  <data name="clearToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+C</value>
+  </data>
+  <data name="clearToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 22</value>
+  </data>
+  <data name="clearToolStripMenuItem.Text" xml:space="preserve">
+    <value>List: Clear</value>
+  </data>
+  <data name="clearToolStripMenuItem.ToolTipText" xml:space="preserve">
+    <value>Clears the entire list (a.k.a. Delete All)</value>
+  </data>
+  <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>179, 6</value>
+  </data>
+  <data name="WSLRunningToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>138, 22</value>
+  </data>
+  <data name="WSLRunningToolStripMenuItem.Text" xml:space="preserve">
+    <value>Running?</value>
+  </data>
+  <data name="toolStripSeparator12.Size" type="System.Drawing.Size, System.Drawing">
+    <value>135, 6</value>
+  </data>
+  <data name="WSLStartToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="WSLStartToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>138, 22</value>
+  </data>
+  <data name="WSLStartToolStripMenuItem.Text" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="WSLRestartToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="WSLRestartToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>138, 22</value>
+  </data>
+  <data name="WSLRestartToolStripMenuItem.Text" xml:space="preserve">
+    <value>Restart</value>
+  </data>
+  <data name="toolStripSeparator13.Size" type="System.Drawing.Size, System.Drawing">
+    <value>135, 6</value>
+  </data>
+  <data name="WSLShutDownToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="WSLShutDownToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>138, 22</value>
+  </data>
+  <data name="WSLShutDownToolStripMenuItem.Text" xml:space="preserve">
+    <value>Shut Down</value>
+  </data>
+  <data name="WSLToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>183, 22</value>
+  </data>
+  <data name="WSLToolStripMenuItem.Text" xml:space="preserve">
+    <value>WSL</value>
+  </data>
+  <data name="dockerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>183, 22</value>
+  </data>
+  <data name="dockerToolStripMenuItem.Text" xml:space="preserve">
+    <value>Docker</value>
+  </data>
+  <data name="dockerToolStripMenuItem.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="toolStripSeparator8.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 6</value>
+  </data>
+  <data name="basicToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>133, 22</value>
+  </data>
+  <data name="basicToolStripMenuItem.Text" xml:space="preserve">
+    <value>Basic</value>
+  </data>
+  <data name="basicToolStripMenuItem.ToolTipText" xml:space="preserve">
+    <value>Launch Windows Firewall (Basic View)</value>
+  </data>
+  <data name="advancedToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>133, 22</value>
+  </data>
+  <data name="advancedToolStripMenuItem.Text" xml:space="preserve">
+    <value>Advanced</value>
+  </data>
+  <data name="advancedToolStripMenuItem.ToolTipText" xml:space="preserve">
+    <value>Launch Windows Firewall (Advanced View)</value>
+  </data>
+  <data name="windowsFirewallToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>176, 22</value>
+  </data>
+  <data name="windowsFirewallToolStripMenuItem1.Text" xml:space="preserve">
+    <value>Windows Firewall</value>
+  </data>
+  <data name="windowsFirewallToolStripMenuItem1.ToolTipText" xml:space="preserve">
+    <value>Launch Windows Firewall (Basic View)</value>
+  </data>
+  <data name="toolStripSeparator7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>173, 6</value>
+  </data>
+  <data name="rulesPanelToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>147, 22</value>
+  </data>
+  <data name="rulesPanelToolStripMenuItem.Text" xml:space="preserve">
+    <value>Rules</value>
+  </data>
+  <data name="rulesPanelToolStripMenuItem.ToolTipText" xml:space="preserve">
+    <value>Opens the Rules Panel</value>
+  </data>
+  <data name="connectionsPanelToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>147, 22</value>
+  </data>
+  <data name="connectionsPanelToolStripMenuItem.Text" xml:space="preserve">
+    <value>Connections</value>
+  </data>
+  <data name="connectionsPanelToolStripMenuItem.ToolTipText" xml:space="preserve">
+    <value>Opens the Connections Panel</value>
+  </data>
+  <data name="windowsFirewallControlWFCToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>176, 22</value>
+  </data>
+  <data name="windowsFirewallControlWFCToolStripMenuItem.Text" xml:space="preserve">
+    <value>WFC</value>
+  </data>
+  <data name="windowsFirewallControlWFCToolStripMenuItem.ToolTipText" xml:space="preserve">
+    <value>BiniSoft / MalwareBytes WFC
+
+Note:
+If it's not found on your system you'll be
+directed to it's homepage as a convenience
+in case you want to download it.</value>
+  </data>
+  <data name="windowsFirewallToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>183, 22</value>
+  </data>
+  <data name="windowsFirewallToolStripMenuItem.Text" xml:space="preserve">
+    <value>Firewall</value>
+  </data>
+  <data name="adaptersToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>183, 22</value>
+  </data>
+  <data name="adaptersToolStripMenuItem.Text" xml:space="preserve">
+    <value>Network Adapters</value>
+  </data>
+  <data name="adaptersToolStripMenuItem.ToolTipText" xml:space="preserve">
+    <value>Launch List of Network Adapters</value>
+  </data>
+  <data name="toolStripSeparator10.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 6</value>
+  </data>
+  <data name="portForwardingTesterToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>210, 22</value>
+  </data>
+  <data name="portForwardingTesterToolStripMenuItem.Text" xml:space="preserve">
+    <value>Port Forwarding Tester</value>
+  </data>
+  <data name="portForwardingTesterToolStripMenuItem.ToolTipText" xml:space="preserve">
+    <value>Courtesy of YouGetSignal</value>
+  </data>
+  <data name="sitesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>183, 22</value>
+  </data>
+  <data name="sitesToolStripMenuItem.Text" xml:space="preserve">
+    <value>Sites</value>
+  </data>
+  <data name="externalAppsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 22</value>
+  </data>
+  <data name="externalAppsToolStripMenuItem.Text" xml:space="preserve">
+    <value>External Apps</value>
+  </data>
+  <data name="NetSHAddCopyToClipboard.Size" type="System.Drawing.Size, System.Drawing">
+    <value>184, 22</value>
+  </data>
+  <data name="NetSHAddCopyToClipboard.Text" xml:space="preserve">
+    <value>Copy to Clipboard</value>
+  </data>
+  <data name="NetSHAddCopyToClipboard.ToolTipText" xml:space="preserve">
+    <value>Copy command line to clipboard</value>
+  </data>
+  <data name="NetSHAddViewCline.Size" type="System.Drawing.Size, System.Drawing">
+    <value>184, 22</value>
+  </data>
+  <data name="NetSHAddViewCline.Text" xml:space="preserve">
+    <value>View Command</value>
+  </data>
+  <data name="NetSHAddViewCline.ToolTipText" xml:space="preserve">
+    <value>Show command line in a messagebox</value>
+  </data>
+  <data name="NetSHaddToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 22</value>
+  </data>
+  <data name="NetSHaddToolStripMenuItem.Text" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="NetSHDelCopyToClipboard.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 22</value>
+  </data>
+  <data name="NetSHDelCopyToClipboard.Text" xml:space="preserve">
+    <value>Copy to Clipboard</value>
+  </data>
+  <data name="NetSHDelCopyToClipboard.ToolTipText" xml:space="preserve">
+    <value>Copy command line to clipboard</value>
+  </data>
+  <data name="NetSHDelViewCline.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 22</value>
+  </data>
+  <data name="NetSHDelViewCline.Text" xml:space="preserve">
+    <value>View netsh command</value>
+  </data>
+  <data name="NetSHDelViewCline.ToolTipText" xml:space="preserve">
+    <value>Show command line in a messagebox</value>
+  </data>
+  <data name="NetSHdeleteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 22</value>
+  </data>
+  <data name="NetSHdeleteToolStripMenuItem.Text" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="NetSHToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="NetSHToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>217, 22</value>
+  </data>
+  <data name="NetSHToolStripMenuItem.Text" xml:space="preserve">
+    <value>Netsh</value>
+  </data>
+  <data name="registryKeyToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="registryKeyToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>217, 22</value>
+  </data>
+  <data name="registryKeyToolStripMenuItem.Text" xml:space="preserve">
+    <value>Registry</value>
+  </data>
+  <data name="registryKeyToolStripMenuItem.ToolTipText" xml:space="preserve">
+    <value>Open the registry key for this item's Type in RegEdit</value>
+  </data>
+  <data name="toolStripSeparator11.Size" type="System.Drawing.Size, System.Drawing">
+    <value>214, 6</value>
+  </data>
+  <data name="toolStripMenuItem_FlushDnsCache.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+F</value>
+  </data>
+  <data name="toolStripMenuItem_FlushDnsCache.Size" type="System.Drawing.Size, System.Drawing">
+    <value>217, 22</value>
+  </data>
+  <data name="toolStripMenuItem_FlushDnsCache.Text" xml:space="preserve">
+    <value>&amp;Flush DNS Cache</value>
+  </data>
+  <data name="toolStripMenuItem_FlushDnsCache.ToolTipText" xml:space="preserve">
+    <value>Perform ipconfig /flushDNS</value>
+  </data>
+  <data name="winsockResetToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>217, 22</value>
+  </data>
+  <data name="winsockResetToolStripMenuItem.Text" xml:space="preserve">
+    <value>Reset Winsock</value>
+  </data>
+  <data name="winsockResetToolStripMenuItem.ToolTipText" xml:space="preserve">
+    <value>Run the Windows built-in Winsock Reset Command</value>
+  </data>
+  <data name="toolStripMenuItem_ReloadIpHlpSvc.Size" type="System.Drawing.Size, System.Drawing">
+    <value>217, 22</value>
+  </data>
+  <data name="toolStripMenuItem_ReloadIpHlpSvc.Text" xml:space="preserve">
+    <value>Reload IpHlpSvc</value>
+  </data>
+  <data name="toolStripMenuItem_ReloadIpHlpSvc.ToolTipText" xml:space="preserve">
+    <value>May be worth a shot if you're experiencing connection issues.</value>
+  </data>
+  <data name="advancedToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 22</value>
+  </data>
+  <data name="advancedToolStripMenuItem1.Text" xml:space="preserve">
+    <value>Advanced</value>
+  </data>
+  <data name="toolStripSeparator9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>174, 6</value>
+  </data>
+  <data name="toolStripMenuItem_Export.Size" type="System.Drawing.Size, System.Drawing">
+    <value>116, 22</value>
+  </data>
+  <data name="toolStripMenuItem_Export.Text" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="toolStripMenuItem_Export.ToolTipText" xml:space="preserve">
+    <value>Backup current list</value>
+  </data>
+  <data name="toolStripMenuItem_Import.Size" type="System.Drawing.Size, System.Drawing">
+    <value>116, 22</value>
+  </data>
+  <data name="toolStripMenuItem_Import.Text" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="toolStripMenuItem_Import.ToolTipText" xml:space="preserve">
+    <value>Restore proxies list from backup</value>
+  </data>
+  <data name="toolStripMenuItem_BackupRestore.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 22</value>
+  </data>
+  <data name="toolStripMenuItem_BackupRestore.Text" xml:space="preserve">
+    <value>Backup / Restore</value>
+  </data>
+  <data name="toolStripSeparator6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>174, 6</value>
+  </data>
+  <data name="toolStripMenuItem_ResetWindowSize.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 22</value>
+  </data>
+  <data name="toolStripMenuItem_ResetWindowSize.Text" xml:space="preserve">
+    <value>Reset Window</value>
+  </data>
+  <data name="toolStripMenuItem_ResetWindowSize.ToolTipText" xml:space="preserve">
+    <value>Reset the Window Size to it's default</value>
+  </data>
+  <data name="toolStripMenuItem_More.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 22</value>
+  </data>
+  <data name="toolStripMenuItem_More.Text" xml:space="preserve">
+    <value>More</value>
+  </data>
+  <data name="toolStripSeparator4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>179, 6</value>
+  </data>
+  <data name="toolStripMenuItem_About.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 22</value>
+  </data>
+  <data name="toolStripMenuItem_About.Text" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="toolStripMenuItem_Exit.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Alt+F4</value>
+  </data>
+  <data name="toolStripMenuItem_Exit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 22</value>
+  </data>
+  <data name="toolStripMenuItem_Exit.Text" xml:space="preserve">
+    <value>Exit</value>
+  </data>
   <data name="contextMenuStrip_RightClick.Size" type="System.Drawing.Size, System.Drawing">
     <value>183, 332</value>
   </data>
@@ -240,7 +718,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAmisAAAJNU0Z0AUkBTAIBAQYB
-        AAG4AQQBuAEEARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAASADAAEBAQABIAYAASBe
+        AAHAAQQBwAEEARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAASADAAEBAQABIAYAASBe
         AAMqAUADKgFAAyoBQAMqAUADKgFAAyoBQAMqAUADKgFAAyoBQAMqAUCQAAMMARACWwFZAcABrwHEARYB
         /wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8B
         xAEWAf8BrwHEARYB/wJbAVkBwAMMARAIAAMMARACWQFbAcABPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8B
@@ -443,484 +921,6 @@
   <data name="&gt;&gt;listViewProxies.ZOrder" xml:space="preserve">
     <value>9</value>
   </data>
-  <data name="toolStripMenuItem_Enable.ShortcutKeyDisplayString" xml:space="preserve">
-    <value />
-  </data>
-  <data name="toolStripMenuItem_Enable.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+E</value>
-  </data>
-  <data name="toolStripMenuItem_Enable.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 22</value>
-  </data>
-  <data name="toolStripMenuItem_Enable.Text" xml:space="preserve">
-    <value>Enable</value>
-  </data>
-  <data name="toolStripMenuItem_Enable.ToolTipText" xml:space="preserve">
-    <value>Activate this port proxy</value>
-  </data>
-  <data name="toolStripMenuItem_Disable.ShortcutKeyDisplayString" xml:space="preserve">
-    <value />
-  </data>
-  <data name="toolStripMenuItem_Disable.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+D</value>
-  </data>
-  <data name="toolStripMenuItem_Disable.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 22</value>
-  </data>
-  <data name="toolStripMenuItem_Disable.Text" xml:space="preserve">
-    <value>Disable</value>
-  </data>
-  <data name="toolStripMenuItem_Disable.ToolTipText" xml:space="preserve">
-    <value>Deactivate this port proxy</value>
-  </data>
-  <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>179, 6</value>
-  </data>
-  <data name="toolStripMenuItem_New.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft YaHei UI, 9pt, style=Bold</value>
-  </data>
-  <data name="toolStripMenuItem_New.ShortcutKeyDisplayString" xml:space="preserve">
-    <value />
-  </data>
-  <data name="toolStripMenuItem_New.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ins</value>
-  </data>
-  <data name="toolStripMenuItem_New.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 22</value>
-  </data>
-  <data name="toolStripMenuItem_New.Text" xml:space="preserve">
-    <value>New</value>
-  </data>
-  <data name="toolStripMenuItem_New.ToolTipText" xml:space="preserve">
-    <value>Add a new port to proxy
-
-Tip:
-You can also double-click most blank areas on this window</value>
-  </data>
-  <data name="toolStripSeparator14.Size" type="System.Drawing.Size, System.Drawing">
-    <value>179, 6</value>
-  </data>
-  <data name="toolStripMenuItem_Modify.ShortcutKeyDisplayString" xml:space="preserve">
-    <value />
-  </data>
-  <data name="toolStripMenuItem_Modify.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>F2</value>
-  </data>
-  <data name="toolStripMenuItem_Modify.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 22</value>
-  </data>
-  <data name="toolStripMenuItem_Modify.Text" xml:space="preserve">
-    <value>Edit</value>
-  </data>
-  <data name="toolStripMenuItem_Modify.ToolTipText" xml:space="preserve">
-    <value>Modify this port proxy</value>
-  </data>
-  <data name="toolStripMenuItem_Clone.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>F3</value>
-  </data>
-  <data name="toolStripMenuItem_Clone.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 22</value>
-  </data>
-  <data name="toolStripMenuItem_Clone.Text" xml:space="preserve">
-    <value>Clone</value>
-  </data>
-  <data name="toolStripMenuItem_Clone.ToolTipText" xml:space="preserve">
-    <value>Duplicates the current item; you'll need to change the port(s) though.
-
-This saves you from having to do repititous form filling.</value>
-  </data>
-  <data name="toolStripSeparator15.Size" type="System.Drawing.Size, System.Drawing">
-    <value>179, 6</value>
-  </data>
-  <data name="toolStripMenuItem_Delete.ShortcutKeyDisplayString" xml:space="preserve">
-    <value />
-  </data>
-  <data name="toolStripMenuItem_Delete.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Del</value>
-  </data>
-  <data name="toolStripMenuItem_Delete.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 22</value>
-  </data>
-  <data name="toolStripMenuItem_Delete.Text" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="toolStripMenuItem_Delete.ToolTipText" xml:space="preserve">
-    <value>Remove selected port proxy(s)</value>
-  </data>
-  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>179, 6</value>
-  </data>
-  <data name="toolStripMenuItem_MoveTo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 22</value>
-  </data>
-  <data name="toolStripMenuItem_MoveTo.Text" xml:space="preserve">
-    <value>Group: Move to ...</value>
-  </data>
-  <data name="toolStripMenuItem_RenameGroup.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 22</value>
-  </data>
-  <data name="toolStripMenuItem_RenameGroup.Text" xml:space="preserve">
-    <value>Group: Rename</value>
-  </data>
-  <data name="toolStripMenuItem_RenameGroup.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="toolStripSeparator16.Size" type="System.Drawing.Size, System.Drawing">
-    <value>179, 6</value>
-  </data>
-  <data name="toolStripMenuItem_Refresh.ShortcutKeyDisplayString" xml:space="preserve">
-    <value>&amp;F5</value>
-  </data>
-  <data name="toolStripMenuItem_Refresh.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 22</value>
-  </data>
-  <data name="toolStripMenuItem_Refresh.Text" xml:space="preserve">
-    <value>List: Refresh</value>
-  </data>
-  <data name="clearToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+C</value>
-  </data>
-  <data name="clearToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 22</value>
-  </data>
-  <data name="clearToolStripMenuItem.Text" xml:space="preserve">
-    <value>List: Clear</value>
-  </data>
-  <data name="clearToolStripMenuItem.ToolTipText" xml:space="preserve">
-    <value>Clears the entire list (a.k.a. Delete All)</value>
-  </data>
-  <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>179, 6</value>
-  </data>
-  <data name="toolStripMenuItem_More.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 22</value>
-  </data>
-  <data name="toolStripMenuItem_More.Text" xml:space="preserve">
-    <value>More</value>
-  </data>
-  <data name="externalAppsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 22</value>
-  </data>
-  <data name="externalAppsToolStripMenuItem.Text" xml:space="preserve">
-    <value>External Apps</value>
-  </data>
-  <data name="WSLToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>183, 22</value>
-  </data>
-  <data name="WSLToolStripMenuItem.Text" xml:space="preserve">
-    <value>WSL</value>
-  </data>
-  <data name="WSLRunningToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>138, 22</value>
-  </data>
-  <data name="WSLRunningToolStripMenuItem.Text" xml:space="preserve">
-    <value>Running?</value>
-  </data>
-  <data name="toolStripSeparator12.Size" type="System.Drawing.Size, System.Drawing">
-    <value>135, 6</value>
-  </data>
-  <data name="WSLStartToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="WSLStartToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>138, 22</value>
-  </data>
-  <data name="WSLStartToolStripMenuItem.Text" xml:space="preserve">
-    <value>Start</value>
-  </data>
-  <data name="WSLRestartToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="WSLRestartToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>138, 22</value>
-  </data>
-  <data name="WSLRestartToolStripMenuItem.Text" xml:space="preserve">
-    <value>Restart</value>
-  </data>
-  <data name="toolStripSeparator13.Size" type="System.Drawing.Size, System.Drawing">
-    <value>135, 6</value>
-  </data>
-  <data name="WSLShutDownToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="WSLShutDownToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>138, 22</value>
-  </data>
-  <data name="WSLShutDownToolStripMenuItem.Text" xml:space="preserve">
-    <value>Shut Down</value>
-  </data>
-  <data name="dockerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>183, 22</value>
-  </data>
-  <data name="dockerToolStripMenuItem.Text" xml:space="preserve">
-    <value>Docker</value>
-  </data>
-  <data name="dockerToolStripMenuItem.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="toolStripSeparator8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 6</value>
-  </data>
-  <data name="windowsFirewallToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>183, 22</value>
-  </data>
-  <data name="windowsFirewallToolStripMenuItem.Text" xml:space="preserve">
-    <value>Firewall</value>
-  </data>
-  <data name="windowsFirewallToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>176, 22</value>
-  </data>
-  <data name="windowsFirewallToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Windows Firewall</value>
-  </data>
-  <data name="windowsFirewallToolStripMenuItem1.ToolTipText" xml:space="preserve">
-    <value>Launch Windows Firewall (Basic View)</value>
-  </data>
-  <data name="basicToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>133, 22</value>
-  </data>
-  <data name="basicToolStripMenuItem.Text" xml:space="preserve">
-    <value>Basic</value>
-  </data>
-  <data name="basicToolStripMenuItem.ToolTipText" xml:space="preserve">
-    <value>Launch Windows Firewall (Basic View)</value>
-  </data>
-  <data name="advancedToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>133, 22</value>
-  </data>
-  <data name="advancedToolStripMenuItem.Text" xml:space="preserve">
-    <value>Advanced</value>
-  </data>
-  <data name="advancedToolStripMenuItem.ToolTipText" xml:space="preserve">
-    <value>Launch Windows Firewall (Advanced View)</value>
-  </data>
-  <data name="toolStripSeparator7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>173, 6</value>
-  </data>
-  <data name="windowsFirewallControlWFCToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>176, 22</value>
-  </data>
-  <data name="windowsFirewallControlWFCToolStripMenuItem.Text" xml:space="preserve">
-    <value>WFC</value>
-  </data>
-  <data name="windowsFirewallControlWFCToolStripMenuItem.ToolTipText" xml:space="preserve">
-    <value>BiniSoft / MalwareBytes WFC
-
-Note:
-If it's not found on your system you'll be
-directed to it's homepage as a convenience
-in case you want to download it.</value>
-  </data>
-  <data name="rulesPanelToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>147, 22</value>
-  </data>
-  <data name="rulesPanelToolStripMenuItem.Text" xml:space="preserve">
-    <value>Rules</value>
-  </data>
-  <data name="rulesPanelToolStripMenuItem.ToolTipText" xml:space="preserve">
-    <value>Opens the Rules Panel</value>
-  </data>
-  <data name="connectionsPanelToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>147, 22</value>
-  </data>
-  <data name="connectionsPanelToolStripMenuItem.Text" xml:space="preserve">
-    <value>Connections</value>
-  </data>
-  <data name="connectionsPanelToolStripMenuItem.ToolTipText" xml:space="preserve">
-    <value>Opens the Connections Panel</value>
-  </data>
-  <data name="adaptersToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>183, 22</value>
-  </data>
-  <data name="adaptersToolStripMenuItem.Text" xml:space="preserve">
-    <value>Network Adapters</value>
-  </data>
-  <data name="adaptersToolStripMenuItem.ToolTipText" xml:space="preserve">
-    <value>Launch List of Network Adapters</value>
-  </data>
-  <data name="toolStripSeparator10.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 6</value>
-  </data>
-  <data name="sitesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>183, 22</value>
-  </data>
-  <data name="sitesToolStripMenuItem.Text" xml:space="preserve">
-    <value>Sites</value>
-  </data>
-  <data name="portForwardingTesterToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>210, 22</value>
-  </data>
-  <data name="portForwardingTesterToolStripMenuItem.Text" xml:space="preserve">
-    <value>Port Forwarding Tester</value>
-  </data>
-  <data name="portForwardingTesterToolStripMenuItem.ToolTipText" xml:space="preserve">
-    <value>Courtesy of YouGetSignal</value>
-  </data>
-  <data name="advancedToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 22</value>
-  </data>
-  <data name="advancedToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Advanced</value>
-  </data>
-  <data name="NetSHToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="NetSHToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>217, 22</value>
-  </data>
-  <data name="NetSHToolStripMenuItem.Text" xml:space="preserve">
-    <value>Netsh</value>
-  </data>
-  <data name="NetSHaddToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 22</value>
-  </data>
-  <data name="NetSHaddToolStripMenuItem.Text" xml:space="preserve">
-    <value>Add</value>
-  </data>
-  <data name="NetSHAddCopyToClipboard.Size" type="System.Drawing.Size, System.Drawing">
-    <value>184, 22</value>
-  </data>
-  <data name="NetSHAddCopyToClipboard.Text" xml:space="preserve">
-    <value>Copy to Clipboard</value>
-  </data>
-  <data name="NetSHAddCopyToClipboard.ToolTipText" xml:space="preserve">
-    <value>Copy command line to clipboard</value>
-  </data>
-  <data name="NetSHAddViewCline.Size" type="System.Drawing.Size, System.Drawing">
-    <value>184, 22</value>
-  </data>
-  <data name="NetSHAddViewCline.Text" xml:space="preserve">
-    <value>View Command</value>
-  </data>
-  <data name="NetSHAddViewCline.ToolTipText" xml:space="preserve">
-    <value>Show command line in a messagebox</value>
-  </data>
-  <data name="NetSHdeleteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 22</value>
-  </data>
-  <data name="NetSHdeleteToolStripMenuItem.Text" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="NetSHDelCopyToClipboard.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 22</value>
-  </data>
-  <data name="NetSHDelCopyToClipboard.Text" xml:space="preserve">
-    <value>Copy to Clipboard</value>
-  </data>
-  <data name="NetSHDelCopyToClipboard.ToolTipText" xml:space="preserve">
-    <value>Copy command line to clipboard</value>
-  </data>
-  <data name="NetSHDelViewCline.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 22</value>
-  </data>
-  <data name="NetSHDelViewCline.Text" xml:space="preserve">
-    <value>View netsh command</value>
-  </data>
-  <data name="NetSHDelViewCline.ToolTipText" xml:space="preserve">
-    <value>Show command line in a messagebox</value>
-  </data>
-  <data name="registryKeyToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="registryKeyToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>217, 22</value>
-  </data>
-  <data name="registryKeyToolStripMenuItem.Text" xml:space="preserve">
-    <value>Registry</value>
-  </data>
-  <data name="registryKeyToolStripMenuItem.ToolTipText" xml:space="preserve">
-    <value>Open the registry key for this item's Type in RegEdit</value>
-  </data>
-  <data name="toolStripSeparator11.Size" type="System.Drawing.Size, System.Drawing">
-    <value>214, 6</value>
-  </data>
-  <data name="toolStripMenuItem_FlushDnsCache.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+F</value>
-  </data>
-  <data name="toolStripMenuItem_FlushDnsCache.Size" type="System.Drawing.Size, System.Drawing">
-    <value>217, 22</value>
-  </data>
-  <data name="toolStripMenuItem_FlushDnsCache.Text" xml:space="preserve">
-    <value>&amp;Flush DNS Cache</value>
-  </data>
-  <data name="toolStripMenuItem_FlushDnsCache.ToolTipText" xml:space="preserve">
-    <value>Perform ipconfig /flushDNS</value>
-  </data>
-  <data name="winsockResetToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>217, 22</value>
-  </data>
-  <data name="winsockResetToolStripMenuItem.Text" xml:space="preserve">
-    <value>Reset Winsock</value>
-  </data>
-  <data name="winsockResetToolStripMenuItem.ToolTipText" xml:space="preserve">
-    <value>Run the Windows built-in Winsock Reset Command</value>
-  </data>
-  <data name="toolStripMenuItem_ReloadIpHlpSvc.Size" type="System.Drawing.Size, System.Drawing">
-    <value>217, 22</value>
-  </data>
-  <data name="toolStripMenuItem_ReloadIpHlpSvc.Text" xml:space="preserve">
-    <value>Reload IpHlpSvc</value>
-  </data>
-  <data name="toolStripMenuItem_ReloadIpHlpSvc.ToolTipText" xml:space="preserve">
-    <value>May be worth a shot if you're experiencing connection issues.</value>
-  </data>
-  <data name="toolStripSeparator9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>174, 6</value>
-  </data>
-  <data name="toolStripMenuItem_BackupRestore.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 22</value>
-  </data>
-  <data name="toolStripMenuItem_BackupRestore.Text" xml:space="preserve">
-    <value>Backup / Restore</value>
-  </data>
-  <data name="toolStripMenuItem_Export.Size" type="System.Drawing.Size, System.Drawing">
-    <value>116, 22</value>
-  </data>
-  <data name="toolStripMenuItem_Export.Text" xml:space="preserve">
-    <value>Export</value>
-  </data>
-  <data name="toolStripMenuItem_Export.ToolTipText" xml:space="preserve">
-    <value>Backup current list</value>
-  </data>
-  <data name="toolStripMenuItem_Import.Size" type="System.Drawing.Size, System.Drawing">
-    <value>116, 22</value>
-  </data>
-  <data name="toolStripMenuItem_Import.Text" xml:space="preserve">
-    <value>Import</value>
-  </data>
-  <data name="toolStripMenuItem_Import.ToolTipText" xml:space="preserve">
-    <value>Restore proxies list from backup</value>
-  </data>
-  <data name="toolStripSeparator6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>174, 6</value>
-  </data>
-  <data name="toolStripMenuItem_ResetWindowSize.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 22</value>
-  </data>
-  <data name="toolStripMenuItem_ResetWindowSize.Text" xml:space="preserve">
-    <value>Reset Window</value>
-  </data>
-  <data name="toolStripMenuItem_ResetWindowSize.ToolTipText" xml:space="preserve">
-    <value>Reset the Window Size to it's default</value>
-  </data>
-  <data name="toolStripSeparator4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>179, 6</value>
-  </data>
-  <data name="toolStripMenuItem_About.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 22</value>
-  </data>
-  <data name="toolStripMenuItem_About.Text" xml:space="preserve">
-    <value>About</value>
-  </data>
-  <data name="toolStripMenuItem_Exit.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Alt+F4</value>
-  </data>
-  <data name="toolStripMenuItem_Exit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 22</value>
-  </data>
-  <data name="toolStripMenuItem_Exit.Text" xml:space="preserve">
-    <value>Exit</value>
-  </data>
   <metadata name="saveFileDialog_Export.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>595, 17</value>
   </metadata>
@@ -933,9 +933,6 @@ in case you want to download it.</value>
   <data name="openFileDialog_Import.Filter" xml:space="preserve">
     <value>Database File|*.db</value>
   </data>
-  <metadata name="tTipPPG.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>1068, 17</value>
-  </metadata>
   <data name="lblProxyCount.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
@@ -954,6 +951,9 @@ in case you want to download it.</value>
   <data name="lblProxyCount.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
   </data>
+  <metadata name="tTipPPG.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>1068, 17</value>
+  </metadata>
   <data name="lblProxyCount.ToolTip" xml:space="preserve">
     <value>Number of proxies in your list</value>
   </data>
@@ -1071,15 +1071,30 @@ in case you want to download it.</value>
   <data name="&gt;&gt;pnlBar.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
-  <metadata name="tTipPPG.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>1068, 17</value>
-  </metadata>
   <data name="picWSL.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
   <metadata name="contextMenuStrip_WSL.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>225, 17</value>
   </metadata>
+  <data name="toolStripMenuItemWSLRestart.Size" type="System.Drawing.Size, System.Drawing">
+    <value>132, 22</value>
+  </data>
+  <data name="toolStripMenuItemWSLRestart.Text" xml:space="preserve">
+    <value>Restart</value>
+  </data>
+  <data name="toolStripMenuItemWSLRestart.ToolTipText" xml:space="preserve">
+    <value>Restart WSL: NO confirmation</value>
+  </data>
+  <data name="toolStripMenuItemWSLShutDown.Size" type="System.Drawing.Size, System.Drawing">
+    <value>132, 22</value>
+  </data>
+  <data name="toolStripMenuItemWSLShutDown.Text" xml:space="preserve">
+    <value>Shut Down</value>
+  </data>
+  <data name="toolStripMenuItemWSLShutDown.ToolTipText" xml:space="preserve">
+    <value>Shutdown WSL</value>
+  </data>
   <data name="contextMenuStrip_WSL.Size" type="System.Drawing.Size, System.Drawing">
     <value>133, 48</value>
   </data>
@@ -1121,24 +1136,6 @@ in case you want to download it.</value>
   </data>
   <data name="&gt;&gt;picWSL.ZOrder" xml:space="preserve">
     <value>5</value>
-  </data>
-  <data name="toolStripMenuItemWSLRestart.Size" type="System.Drawing.Size, System.Drawing">
-    <value>132, 22</value>
-  </data>
-  <data name="toolStripMenuItemWSLRestart.Text" xml:space="preserve">
-    <value>Restart</value>
-  </data>
-  <data name="toolStripMenuItemWSLRestart.ToolTipText" xml:space="preserve">
-    <value>Restart WSL: NO confirmation</value>
-  </data>
-  <data name="toolStripMenuItemWSLShutDown.Size" type="System.Drawing.Size, System.Drawing">
-    <value>132, 22</value>
-  </data>
-  <data name="toolStripMenuItemWSLShutDown.Text" xml:space="preserve">
-    <value>Shut Down</value>
-  </data>
-  <data name="toolStripMenuItemWSLShutDown.ToolTipText" xml:space="preserve">
-    <value>Shutdown WSL</value>
   </data>
   <data name="picDocker.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -1193,123 +1190,6 @@ in case you want to download it.</value>
   </metadata>
   <data name="pnlStatusBar.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
-  </data>
-  <data name="&gt;&gt;picIpHlpSvcStatus.Name" xml:space="preserve">
-    <value>picIpHlpSvcStatus</value>
-  </data>
-  <data name="&gt;&gt;picIpHlpSvcStatus.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;picIpHlpSvcStatus.Parent" xml:space="preserve">
-    <value>pnlStatusBar</value>
-  </data>
-  <data name="&gt;&gt;picIpHlpSvcStatus.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;lblIpHlpSvcRunning.Name" xml:space="preserve">
-    <value>lblIpHlpSvcRunning</value>
-  </data>
-  <data name="&gt;&gt;lblIpHlpSvcRunning.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblIpHlpSvcRunning.Parent" xml:space="preserve">
-    <value>pnlStatusBar</value>
-  </data>
-  <data name="&gt;&gt;lblIpHlpSvcRunning.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;picDockerStatus.Name" xml:space="preserve">
-    <value>picDockerStatus</value>
-  </data>
-  <data name="&gt;&gt;picDockerStatus.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;picDockerStatus.Parent" xml:space="preserve">
-    <value>pnlStatusBar</value>
-  </data>
-  <data name="&gt;&gt;picDockerStatus.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;picWSLStatus.Name" xml:space="preserve">
-    <value>picWSLStatus</value>
-  </data>
-  <data name="&gt;&gt;picWSLStatus.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;picWSLStatus.Parent" xml:space="preserve">
-    <value>pnlStatusBar</value>
-  </data>
-  <data name="&gt;&gt;picWSLStatus.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;lblWSLIP.Name" xml:space="preserve">
-    <value>lblWSLIP</value>
-  </data>
-  <data name="&gt;&gt;lblWSLIP.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblWSLIP.Parent" xml:space="preserve">
-    <value>pnlStatusBar</value>
-  </data>
-  <data name="&gt;&gt;lblWSLIP.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;lblDockerRunning.Name" xml:space="preserve">
-    <value>lblDockerRunning</value>
-  </data>
-  <data name="&gt;&gt;lblDockerRunning.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblDockerRunning.Parent" xml:space="preserve">
-    <value>pnlStatusBar</value>
-  </data>
-  <data name="&gt;&gt;lblDockerRunning.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;lblWSLRunning.Name" xml:space="preserve">
-    <value>lblWSLRunning</value>
-  </data>
-  <data name="&gt;&gt;lblWSLRunning.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblWSLRunning.Parent" xml:space="preserve">
-    <value>pnlStatusBar</value>
-  </data>
-  <data name="&gt;&gt;lblWSLRunning.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;lblCurrentLocalIP.Name" xml:space="preserve">
-    <value>lblCurrentLocalIP</value>
-  </data>
-  <data name="&gt;&gt;lblCurrentLocalIP.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblCurrentLocalIP.Parent" xml:space="preserve">
-    <value>pnlStatusBar</value>
-  </data>
-  <data name="&gt;&gt;lblCurrentLocalIP.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="pnlStatusBar.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 370</value>
-  </data>
-  <data name="pnlStatusBar.Size" type="System.Drawing.Size, System.Drawing">
-    <value>706, 28</value>
-  </data>
-  <data name="pnlStatusBar.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="&gt;&gt;pnlStatusBar.Name" xml:space="preserve">
-    <value>pnlStatusBar</value>
-  </data>
-  <data name="&gt;&gt;pnlStatusBar.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;pnlStatusBar.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;pnlStatusBar.ZOrder" xml:space="preserve">
-    <value>3</value>
   </data>
   <data name="picIpHlpSvcStatus.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1577,6 +1457,27 @@ in case you want to download it.</value>
   </data>
   <data name="&gt;&gt;lblCurrentLocalIP.ZOrder" xml:space="preserve">
     <value>7</value>
+  </data>
+  <data name="pnlStatusBar.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 370</value>
+  </data>
+  <data name="pnlStatusBar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>706, 28</value>
+  </data>
+  <data name="pnlStatusBar.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;pnlStatusBar.Name" xml:space="preserve">
+    <value>pnlStatusBar</value>
+  </data>
+  <data name="&gt;&gt;pnlStatusBar.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pnlStatusBar.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;pnlStatusBar.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
