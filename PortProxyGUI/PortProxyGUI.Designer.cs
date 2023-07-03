@@ -741,6 +741,7 @@
             resources.ApplyResources(lblWSLIP, "lblWSLIP");
             lblWSLIP.ForeColor = System.Drawing.Color.FromArgb(235, 203, 139);
             lblWSLIP.Name = "lblWSLIP";
+            lblWSLIP.DoubleClick += lblWSLIP_DoubleClick;
             // 
             // lblDockerRunning
             // 
@@ -759,6 +760,7 @@
             resources.ApplyResources(lblCurrentLocalIP, "lblCurrentLocalIP");
             lblCurrentLocalIP.ForeColor = System.Drawing.Color.FromArgb(235, 203, 139);
             lblCurrentLocalIP.Name = "lblCurrentLocalIP";
+            lblCurrentLocalIP.DoubleClick += lblCurrentLocalIP_DoubleClick;
             // 
             // PortProxyGooey
             // 

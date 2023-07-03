@@ -13,7 +13,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Resources;
-using System.ServiceProcess;
+//using System.ServiceProcess;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.ListViewItem;
@@ -28,8 +28,9 @@ namespace PortProxyGooey {
 
         #region + -- VAR DECLARATIONS -- +
 
-        // Easy place to change app info app-wide as needed
-        public const string strAppURL = "https://github.com/STaRDoGG/PortProxyGUI";
+        // Easy place to change info app-wide as needed
+        internal static readonly string strAppURL = "https://github.com/STaRDoGG/PortProxyGUI";
+        internal static readonly string strWFCURL = "https://www.binisoft.org/wfc";
 
         private readonly ListViewColumnSorter lvwColumnSorter = new();
         public SetProxy SetProxyForm;
@@ -49,7 +50,7 @@ namespace PortProxyGooey {
             InitializeComponent();
             Font = InterfaceUtil.UiFont;
 
-            this.Text = string.Format("Port Proxy Gooey  v{0}", Application.ProductVersion);
+            this.Text = $"Port Proxy Gooey v{Application.ProductVersion}";
 
             listViewProxies.ListViewItemSorter = lvwColumnSorter;
         }
@@ -77,13 +78,6 @@ namespace PortProxyGooey {
             Debug.WriteLine("Network Available?: " + Network.IsNetworkAvailable());
 
             Debug.WriteLine(Services.GetInfo(PortProxyUtil.ServiceName));
-
-
-
-
-
-
-
 
             AppConfig = Program.Database.GetAppConfig();
 
@@ -229,7 +223,7 @@ namespace PortProxyGooey {
                 int intCount = listViewProxies.SelectedItems.Count;
 
                 // Pluralize if necessary ;)
-                string strMsg = string.Format("Delete {0} {1}?", intCount, intCount == 1 ? "proxy" : "proxies");
+                string strMsg = $"Delete {intCount} {(intCount == 1 ? "proxy" : "proxies")}?";
 
                 if (MessageBox.Show(strMsg, "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.No)
                     return;
@@ -580,7 +574,7 @@ namespace PortProxyGooey {
                 }
 
             } else {
-                MessageBox.Show("Nothing to clear, dumdum.", "Hey ... you tried. *shrug*", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Nothing to clear, dumdum.", "But hey ... you tried. *shrug*", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
         }
@@ -650,8 +644,8 @@ namespace PortProxyGooey {
                 toolStripMenuItem_Disable.Enabled = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Any(x => x.ImageIndex == 1);
 
                 // Enable/Disable (count): Add count to label if more than 1
-                if (toolStripMenuItem_Enable.Enabled && intCount > 1) { toolStripMenuItem_Enable.Text = string.Format("Enable ({0})", intCount); }
-                if (toolStripMenuItem_Disable.Enabled && intCount > 1) { toolStripMenuItem_Disable.Text = string.Format("Disable ({0})", intCount); }
+                if (toolStripMenuItem_Enable.Enabled && intCount > 1) { toolStripMenuItem_Enable.Text = $"Enable ({intCount})"; }
+                if (toolStripMenuItem_Disable.Enabled && intCount > 1) { toolStripMenuItem_Disable.Text = $"Disable ({intCount})"; }
 
                 // Delete/Move (count): Add count to let users know how many they're about to nuke (or move)
                 if (intCount > 1) {
@@ -698,7 +692,7 @@ namespace PortProxyGooey {
         /// </summary>
         /// <param name="bRename"></param>
         private void GroupRename(bool bRename = false) {
-            // TODO: need to finish when items are in teh Default group....
+            // TODO: need to finish when items are in the Default group....
             ListView.SelectedListViewItemCollection selectedItems = listViewProxies.SelectedItems;
 
             if (selectedItems.Count > 0) {
@@ -882,7 +876,7 @@ namespace PortProxyGooey {
             if (AppConfig is not null && sender is Form form)
                 AppConfig.MainWindowSize = form.Size;
 
-            Debug.WriteLine(string.Format("Resized to: [w: {0} h: {1}]", this.Width, this.Height));
+            Debug.WriteLine($"Resized to: [w: {Width} h: {Height}]");
         }
 
         #region + -- IMPORT / EXPORT -- +
@@ -913,7 +907,7 @@ namespace PortProxyGooey {
                 } catch (Exception ex) {
 
                     intErrCheck = true;
-                    Debug.WriteLine(string.Format("Save File issue: {0}", ex.Message));
+                    Debug.WriteLine($"Save File issue: {ex.Message}");
 
                 }
 
@@ -938,7 +932,7 @@ namespace PortProxyGooey {
 
             if (openFileDialog.ShowDialog() == DialogResult.OK) {
 
-                if (MessageBox.Show(string.Format("Overwrite current list with the selected list? {0}", openFileDialog.FileName), "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes) {
+                if (MessageBox.Show($"Overwrite current list with the selected list? {openFileDialog.FileName}", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes) {
 
                     using (ApplicationDbScope scope = ApplicationDbScope.FromFile(openFileDialog.FileName)) {
 
@@ -957,7 +951,7 @@ namespace PortProxyGooey {
                     }
 
                     RefreshProxyList();
-                    MessageBox.Show(string.Format("{0} rules imported.", intAdded), "Import Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show($"{intAdded} rules imported.", "Import Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
         }
@@ -1016,12 +1010,12 @@ namespace PortProxyGooey {
                 } else {
 
                     // If path to WFC isnt found in the registry, as a courtesy, launch the website for them to dl it, if they want.
-                    PortProxyUtil.Launch("https://www.binisoft.org/wfc");
+                    PortProxyUtil.Launch(strWFCURL);
 
                 }
 
             } catch (Exception ex) {
-                Debug.WriteLine(string.Format("Error in WFC(): {0}", ex.Message));
+                Debug.WriteLine($"Error in WFC(): {ex.Message}");
             }
         }
 
@@ -1032,7 +1026,7 @@ namespace PortProxyGooey {
             try {
                 PortProxyUtil.Launch("control", "firewall.cpl");
             } catch (Exception ex) {
-                Debug.WriteLine(string.Format("Error Launching firewall.cpl: {0}", ex.Message));
+                Debug.WriteLine($"Error Launching firewall.cpl: {ex.Message}");
             }
         }
 
@@ -1066,12 +1060,23 @@ namespace PortProxyGooey {
         /// FlushDNS
         /// </summary>
         private void toolStripMenuItem_FlushDnsCache_Click(object sender, EventArgs e) {
-            Network.DNS.FlushCache();
+
+            if (Network.DNS.FlushCache(true, false)) {
+
+                Audio.PlaySound("D:\\Coding\\Repos\\PortProxyGUI\\PortProxyGUI\\Resources\\audio\\Flush.wav");
+                //TODO: Audio.PlaySound(Properties.Resources.Flush);
+
+                // Note: I could use the built-in confirmation dialog in FlushCache(), but it does a "ding" system sound,
+                //       which conflicts with the .wav, so I'm playing the .wav first, THEN let it ding. Slightly nicer.
+                MessageBox.Show("DNS Flushed!", "Whoosh", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            }
+
         }
 
-        /// <summary>
-        /// Resets the counts on the right-click context menu when the menu closes
-        /// </summary>
+            /// <summary>
+            /// Resets the counts on the right-click context menu when the menu closes
+            /// </summary>
         private void contextMenuStrip_RightClick_Closed(object sender, ToolStripDropDownClosedEventArgs e) {
 
             toolStripMenuItem_Enable.Text = "Enable";
@@ -1123,6 +1128,7 @@ namespace PortProxyGooey {
 
                 // Message to copy/show
                 if (intCmd == 2) {
+
                     // Delete
                     strMessage = string.Format(
                                                 "netsh interface portproxy {3} {0} listenaddress={1} listenport={2}",
@@ -1131,6 +1137,7 @@ namespace PortProxyGooey {
                                                 listViewProxies.FocusedItem.SubItems[3].Text,
                                                 strCmd);
                 } else {
+
                     // Add
                     strMessage = string.Format(
                                                 "netsh interface portproxy {5} {0} listenaddress={1} listenport={2} connectaddress={3} connectport={4}",
@@ -1146,11 +1153,11 @@ namespace PortProxyGooey {
                 if (intType == 1) {
                     Clipboard.SetText(strMessage);
                 } else {
-                    MessageBox.Show(strMessage, "netsh " + strCmd, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(strMessage, $"netsh {strCmd}", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
             } catch (Exception ex) {
-                Debug.WriteLine(string.Format("netsh {1}: {2} error: {0}", ex.Message, intCmd, intType == 1 ? "Copy" : "View"));
+                Debug.WriteLine($"netsh {intCmd}: {(intType == 1 ? "Copy" : "View")} error: {ex.Message}");
                 throw;
             }
         }
@@ -1165,7 +1172,7 @@ namespace PortProxyGooey {
             RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Applets\Regedit", true);
 
             if (key != null) {
-                key.SetValue("LastKey", string.Format("HKEY_LOCAL_MACHINE\\{0}", PortProxyUtil.GetKeyName(listViewProxies.SelectedItems[0].SubItems[1].Text)), RegistryValueKind.String);
+                key.SetValue("LastKey", $"HKEY_LOCAL_MACHINE\\{PortProxyUtil.GetKeyName(listViewProxies.SelectedItems[0].SubItems[1].Text)}", RegistryValueKind.String);
                 key.Close();
             }
 
@@ -1259,9 +1266,27 @@ namespace PortProxyGooey {
             //_ = UpdateAsyncTasks();
 
             // Keep Current Local Machine & WSL IPs shown to help alert of any potential changes
-            lblCurrentLocalIP.Text = $"LOCAL IP: {Network.GetLocalIPAddress()}";
+
+            // Fetch all Local IPs
+            List<string> lstIPs = Network.GetLocalIPAddress();
+
+            // Get another list of those IPs, excluding the 1st one
+            List<string> lstAltIPs = lstIPs.GetRange(1, lstIPs.Count - 1);
+
+            // Join the 'extra' local IPs
+            string strAltIPs = string.Join(Environment.NewLine, lstAltIPs);
+
+            lblCurrentLocalIP.Text = $"LOCAL IP: {(lstIPs.Count > 0 ? lstIPs[0] : "N/A")}";
+
+            // If any "alternate/other" IP's let's add them to the tooltip
+            if (lstAltIPs.Count > 0) {
+                tTipPPG.SetToolTip(lblCurrentLocalIP, $"Other Reported IPs:{Environment.NewLine}{strAltIPs}");
+            }
+
+            // + ----- WSL
 
             WSL.GetIP_BackgroundWorker((ip) => lblWSLIP.Text = $"WSL IP: {ip}");
+            tTipPPG.SetToolTip(lblWSLIP, "Double-click to copy IP to clipboard");
 
             // -----
 
@@ -1280,20 +1305,20 @@ namespace PortProxyGooey {
 
             }, false);
 
-            // -----
+            // + ----- DOCKER
 
             // Keep Docker status updated
-            if (Docker.IsRunning()) {
-                picDockerStatus.Image = Properties.Resources.green;
-                tTipPPG.SetToolTip(picDockerStatus, "DOCKER: RUNNING");
-                picDocker.Visible = true;
-            } else {
-                picDockerStatus.Image = Properties.Resources.red;
-                tTipPPG.SetToolTip(picDockerStatus, "DOCKER: N/A");
-                picDocker.Visible = false;
-            }
+            //if (Docker.IsRunning()) {
+            //    picDockerStatus.Image = Properties.Resources.green;
+            //    tTipPPG.SetToolTip(picDockerStatus, "DOCKER: RUNNING");
+            //    picDocker.Visible = true;
+            //} else {
+            //    picDockerStatus.Image = Properties.Resources.red;
+            //    tTipPPG.SetToolTip(picDockerStatus, "DOCKER: N/A");
+            //    picDocker.Visible = false;
+            //}
 
-            // -----
+            // + ----- SERVICE
 
             // Keep IpHlpSvc status updated
             Services.IsRunning_BackgroundWorker((result) => {
@@ -1385,9 +1410,9 @@ namespace PortProxyGooey {
 
                 if (!result) {
 
-                    // TODO: Start the service
-                    Debug.WriteLine($"{PortProxyUtil.ServiceName}: Starting");  
-                    
+                    // Start the service
+                    //Debug.WriteLine($"{PortProxyUtil.ServiceName}: Starting");  
+
                     Services.Start_BackgroundWorker((result) => {
                         //Debug.WriteLine(result);
                     }, PortProxyUtil.ServiceName);
@@ -1397,5 +1422,30 @@ namespace PortProxyGooey {
             }, PortProxyUtil.ServiceName, false);
 
         }
+
+        /// <summary>
+        /// Copies the Local Machine's IP(s) to the clipboard (ignoring if no IP available)
+        /// </summary>
+        private void lblCurrentLocalIP_DoubleClick(object sender, EventArgs e) {
+
+            // Copy the IP (only) to the clipboard
+            if (!lblCurrentLocalIP.Text.Contains("N/A")) {
+                Clipboard.SetText(lblCurrentLocalIP.Text.Replace("LOCAL IP: ", ""));
+            }
+
+        }
+
+        /// <summary>
+        /// Copies the WSL IP to the clipboard (ignoring if no IP available)
+        /// </summary>
+        private void lblWSLIP_DoubleClick(object sender, EventArgs e) {
+
+            // Copy the IP (only) to the clipboard
+            if (!lblWSLIP.Text.Contains("N/A")) {
+                Clipboard.SetText(lblWSLIP.Text.Replace("WSL IP: ", ""));
+            }
+
+        }
+    
     }
 }

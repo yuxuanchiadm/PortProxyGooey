@@ -47,7 +47,7 @@ You need to use a newer version of PortProxyGooey.
 
 Would you like to download it now?", "Upgrade", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                 {
-                    PortProxyUtil.Launch("explorer.exe", string.Format("{0}/releases", PortProxyGooey.strAppURL));
+                    PortProxyUtil.Launch("explorer.exe", $"{PortProxyGooey.strAppURL}/releases");
                 }
 
                 Environment.Exit(0);

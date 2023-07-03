@@ -3,14 +3,18 @@
 using NStandard;
 using PortProxyGooey.Utils;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Management;
+using System.Media;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using System.Numerics;
 using System.Runtime.InteropServices;
 using System.ServiceProcess;
 using System.Text;
@@ -21,6 +25,31 @@ using System.Windows.Forms;
 #endregion
 
 namespace JSE_Utils {
+
+    public static class Audio {
+
+        public static void PlaySound(string strSoundFile) {
+
+            // TODO:Mod this method to include mp3's
+
+            if (File.Exists(strSoundFile)) {
+
+                SoundPlayer player = new SoundPlayer(strSoundFile);
+                
+                try {
+
+                    // Play the sound file
+                    player.Play();
+
+                } catch (Exception ex) {
+                    Debug.WriteLine($"PlaySound(): Error occurred while playing the sound file: {ex.Message}");
+                }
+
+            }
+
+        }
+
+    }
 
     public static class Dialogs {
     
@@ -311,34 +340,30 @@ namespace JSE_Utils {
             /// Flushes the system's DNS cache
             /// </summary>
             /// <param name="bConfirm">[optional: default true] Show a confirmation MessageBox first</param>
-            /// <param name="bResult">[optional: default true] Show a sussessful confirmation MessageBox when done</param>
+            /// <param name="bResult">[optional: default true] Show a 'success' confirmation MessageBox when done</param>
             /// <exception cref="InvalidOperationException"></exception>
-            public static void FlushCache(bool bConfirm = true, bool bResult = true) {
+            /// <returns>True on Successful flush, False or Exception on Failure</returns>
+            public static bool FlushCache(bool bConfirm = true, bool bResult = true) {
 
-                // Show dialog asking for Flush confirmation, giving them a change to bail out if it was a misclick.
-                if (bConfirm) {
+                // Show dialog asking for Flush confirmation, giving them a chance to bail out if misclicked.
+                if (bConfirm && MessageBox.Show("Flush DNS?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.No) {
 
-                    // If Yes, continue below; if no, bail out of method.
-                    if (MessageBox.Show("Flush DNS?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.No) {
-
-                        Debug.WriteLine("FlushCache: User chose to not flush cache; exiting method.");
-                        return;
-                    }
-
+                    Debug.WriteLine("FlushCache(): User chose to not flush cache; exiting method.");
+                    return false;
                 }
 
                 // If use either clicked Yes yes above, or bConfirm was False, flush.
                 bool status = DnsFlushResolverCache();
 
-                if (status == false) {
-                    throw new InvalidOperationException("FlushDNS Cache failed.");
+                if (!status) {
+                    throw new InvalidOperationException("FlushCache(): FlushDNS Cache failed.");
                 } else {
 
                     // Show a confirmation dialog if desired
                     if (bResult) {
                         MessageBox.Show("DNS Flushed!", "Whoosh", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
-
+                    return true;
                 }
 
             }
@@ -366,7 +391,7 @@ namespace JSE_Utils {
             } else {
 
                 // Not a valid IP; exit function
-                Debug.WriteLine("CheckPortOpen(): Invalid IP {0}", strHost);
+                Debug.WriteLine($"CheckPortOpen(): Invalid IP {strHost}");
                 return false;
 
             }
@@ -386,15 +411,15 @@ namespace JSE_Utils {
             // Attempt to connect
             try {
 
-                Debug.WriteLine("TESTING: IP{2}:Port {0}:{1}", strHost, intPort, bIPv6 ? "6" : "4");
+                Debug.WriteLine($"TESTING: IP{(bIPv6 ? "6" : "4")}:Port {strHost}:{intPort}");
                 sock.Connect(endpoint);
 
                 // If success, these get called, else, passed over for SocketException below.
-                Debug.WriteLine("TESTING (SUCCESS): IP{2} Port {0} is open on {1}.", intPort, strHost, bIPv6 ? "6" : "4");
+                Debug.WriteLine($"TESTING (SUCCESS): IP{(bIPv6 ? "6" : "4")} Port {intPort} is open on {strHost}.");
                 return true;
 
             } catch (SocketException sx) {
-                Debug.WriteLine("TESTING (FAILED): IP{2} Port {0} is closed on {1}. (Code: {3})", intPort, strHost, bIPv6 ? "6" : "4", sx.ErrorCode.ToString());
+                Debug.WriteLine($"TESTING (FAILED): IP{(bIPv6 ? "6" : "4")} Port {intPort} is closed on {strHost}. (Code: {sx.ErrorCode.ToString()})");
             } finally {
                 sock.Close();
             }
@@ -403,27 +428,50 @@ namespace JSE_Utils {
         }
 
         /// <summary>
-        /// Shows the current machine's local IP
+        /// Retrieves the current machine's local IP(s)
         /// </summary>
         /// <param name="bIPv6">[optional: default false] True to return the IP6 IP, False for IP4 IP.</param>
-        /// <returns>Local IP</returns>
+        /// <returns>Local IP(s) as a List of Strings</returns>
         /// <exception cref="Exception"></exception>
-        public static string GetLocalIPAddress(bool bIPv6 = false) {
-            // TODO: this isnt done. the list of all addresses shows multiple ip's; not sure which I want returned?
-            string strIP = "N/A";
+        public static List<string> GetLocalIPAddress(bool bIPv6 = false) {
+            // TODO: IPv6 portion unfinished
+
+            // Usage Example:
+            //
+            // List<string> lstIPs = Network.GetLocalIPAddress();
+
+            List<string> lstIP = new();
+
             IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
 
             foreach (IPAddress ip in host.AddressList) {
 
-                if (ip.AddressFamily == AddressFamily.InterNetworkV6 && bIPv6 == true || ip.AddressFamily == AddressFamily.InterNetwork && bIPv6 == false) {
-                    strIP = ip.ToString();
+                if (ip.AddressFamily == AddressFamily.InterNetworkV6 && bIPv6 || ip.AddressFamily == AddressFamily.InterNetwork && !bIPv6) {
+                    lstIP.Add(ip.ToString());
                 } else {
                     //throw new Exception("No network adapters with an IPv4 address in the system!");
                 }
 
             }
  
-            return strIP;
+            return lstIP;
+
+        }
+
+        /// <summary>
+        /// Gets all NIC and their current connectivity status
+        /// </summary>
+        /// <returns>Dictionary <"NIC Name", "Status"></returns>
+        public static Dictionary<string, string> GetNICStatus() {
+
+            NetworkInterface[] networkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
+            Dictionary<string, string> dicStatus = new();
+
+            foreach (NetworkInterface networkInterface in networkInterfaces) {
+                dicStatus.Add(networkInterface.Name, networkInterface.OperationalStatus.ToString());
+            }
+
+            return dicStatus;
 
         }
 
@@ -748,8 +796,9 @@ namespace JSE_Utils {
                         sbResult.AppendLine("+ -------------------------------------------------- +");
                         sbResult.AppendLine($"| EXTRA:");
                         sbResult.AppendLine("+ -------------------------------------------------- +");
-                        sbResult.AppendLine($"| CMD: {service["PathName"]}");
-                        //sbResult.AppendLine($"| Start Params: {service["StartParameters"]}");
+                        sbResult.AppendLine($"| CMD:   {service["PathName"]}");
+                        sbResult.AppendLine($"| Owner: {service["StartName"]}");
+                        sbResult.AppendLine($"| Desc.: {service["Description"]}");
                         sbResult.AppendLine("+ -------------------------------------------------- +");
                         sbResult.Append("");
 
@@ -815,7 +864,7 @@ namespace JSE_Utils {
                     bool isRunning = (bool)e.Result;
 
                     if (bShowMessage) {
-                        MessageBox.Show(string.Format("{1} {0} running. ", isRunning ? "is" : "is not", strServiceName), "Service", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show($"{strServiceName} {(isRunning ? "is" : "is not")} running. ", "Service", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
 
                     callback?.Invoke(isRunning);
@@ -1006,7 +1055,7 @@ namespace JSE_Utils {
             //Debug.WriteLine($"WSL_IsRunning: Task complete (ID: {Task.CurrentId})");
 
             if (bShowMessage) {
-                MessageBox.Show(string.Format("WSL {0} running. ", bResult ? "is" : "is not"), "WSL", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"WSL {(bResult ? "is" : "is not")} running. ", "WSL", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
             return bResult;
@@ -1051,7 +1100,7 @@ namespace JSE_Utils {
                     bool isRunning = (bool)e.Result;
 
                     if (bShowMessage) {
-                        MessageBox.Show(string.Format("WSL {0} running. ", isRunning ? "is" : "is not"), "WSL", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show($"WSL {(isRunning ? "is" : "is not")} running. ", "WSL", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
 
                     callback?.Invoke(isRunning);
@@ -1163,7 +1212,8 @@ namespace JSE_Utils {
                 //Debug.WriteLine($"WSL_GetIP: Task started (ID: {Task.CurrentId})");
 
                 // Run the command in Bash
-                strOutput = Misc.RunCommand("bash.exe", string.Format("{0} {1}", "-c", "\"ifconfig eth0 | grep 'inet '\""));
+                //strOutput = Misc.RunCommand("bash.exe", string.Format("{0} {1}", "-c", "\"ifconfig eth0 | grep 'inet '\""));
+                strOutput = Misc.RunCommand("bash.exe", $"{"-c"} {"\"ifconfig eth0 | grep 'inet '\""}");
                 //strOutput = ParseIP(out strOutput, out strWSLIP);
 
                 // Try to parse out a valid IPv4
@@ -1194,7 +1244,8 @@ namespace JSE_Utils {
                 //Debug.WriteLine($"WSL_GetIP: Task started (ID: {Task.CurrentId})");
 
                 // Run the command in Bash
-                strOutput = await Misc.RunCommandAsync("bash.exe", string.Format("{0} {1}", "-c", "\"ifconfig eth0 | grep 'inet '\""));
+                //strOutput = await Misc.RunCommandAsync("bash.exe", string.Format("{0} {1}", "-c", "\"ifconfig eth0 | grep 'inet '\""));
+                strOutput = await Misc.RunCommandAsync("bash.exe", $"{"-c"} {"\"ifconfig eth0 | grep 'inet '\""}");
                 //strOutput = await ParseIP(out strOutput, out strWSLIP);
 
                 // Try to parse out a valid IPv4

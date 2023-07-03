@@ -49,6 +49,7 @@
 
   <ItemGroup>
     <Compile Remove="GlobalSuppressions.cs" />
+    <Compile Remove="GlobalSuppressions2.cs" />
     <Compile Remove="UI\ListViewExt.cs" />
     <Compile Remove="Utils\DnsUtil.cs" />
     <Compile Remove="Utils\JSE_WSL.cs" />
@@ -64,6 +65,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
     <None Include="..\LICENSE.md">
       <Pack>True</Pack>
       <PackagePath></PackagePath>

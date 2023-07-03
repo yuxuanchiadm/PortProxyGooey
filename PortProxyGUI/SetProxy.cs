@@ -2,39 +2,25 @@
 
 using JSE_Utils;
 using NStandard;
-//using PortProxyGooey.Data;
 using PortProxyGooey.Utils;
 using System;
-//using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
-//using System.Diagnostics.Eventing.Reader;
-//using System.Drawing;
-//using System.Drawing.Drawing2D;
 using System.Linq;
-//using System.Reflection.Emit;
 using System.Runtime.InteropServices;
-//using System.Text.RegularExpressions;
-//using System.Web.UI.WebControls;
 using System.Windows.Forms;
-//using System.Windows.Forms.Design;
-//using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Rule = PortProxyGooey.Data.Rule;
 
 #endregion
 
-// TODO: 1) Remove comboBox_Type and all code refs to it.
-//       2) I added a range of 45 to 54 and label said 10?
-//       3) Add all auto-comment ports to the relevant autocomplete fields as well.
-namespace PortProxyGooey
-{
-    public partial class SetProxy : Form
-    {
+namespace PortProxyGooey {
+
+    public partial class SetProxy : Form {
+
         #region + -- VAR DECLARATIONS -- +
 
         public readonly PortProxyGooey ParentWindow;
-        private string AutoTypeString { get; }
 
         private bool _updateMode;
         private ListViewItem _listViewItem;
@@ -52,9 +38,7 @@ namespace PortProxyGooey
             InitializeComponent();
             Font = InterfaceUtil.UiFont;
 
-            //
-            AutoTypeString = comboBox_Type.Text = comboBox_Type.Items.OfType<string>().First();
-
+            // Fetch All Group names from ListViewProxies on main form
             string[] groupNames = (
                 from g in parent.listViewProxies.Groups.OfType<ListViewGroup>()
                 let header = g.Header
@@ -62,6 +46,7 @@ namespace PortProxyGooey
                 select header
             ).ToArray();
 
+            // Add them to the Groups combobox
             comboBox_Group.Items.AddRange(groupNames);
         }
 
@@ -78,7 +63,7 @@ namespace PortProxyGooey
             // Show "Clone" label?
             lblClone.Visible = rule != null;
 
-            comboBox_Type.Text = rule != null ? rule.Type : AutoTypeString;
+            lblType.Text = rule != null ? rule.Type : "v4tov4";
             comboBox_Group.Text = rule != null ? rule.Group : String.Empty;
 
             comboBox_ListenOn.Text = rule != null ? rule.ListenOn : "*";
@@ -101,7 +86,7 @@ namespace PortProxyGooey
 
             _itemRule = rule;
 
-            comboBox_Type.Text = rule.Type;
+            lblType.Text = rule.Type;
             comboBox_Group.Text = rule.Group;
 
             comboBox_ListenOn.Text = rule.ListenOn;
@@ -120,8 +105,8 @@ namespace PortProxyGooey
         /// <returns>Properly formatted proxy Type</returns>
         private static string GetPassType(string listenOn, string connectTo) {
 
-            string from = JSE_Utils.Network.IsIPv6(listenOn) ? "v6" : "v4";
-            string to = JSE_Utils.Network.IsIPv6(connectTo) ? "v6" : "v4";
+            string from = Network.IsIPv6(listenOn) ? "v6" : "v4";
+            string to = Network.IsIPv6(connectTo) ? "v6" : "v4";
             return $"{from}to{to}";
 
         }
@@ -169,13 +154,15 @@ namespace PortProxyGooey
             string strConnect = comboBox_ConnectTo.Text.Trim();
 
             // Validate IPv4 (TODO: works great for IP4, but what if we add IP6 in one or both fields?) IP6 regex updated and now working. Look into if it's validation is needed anywwhere else.
-            if (!ValidateIPv4(strListen, 1)) return;
-            if (!ValidateIPv4(strConnect, 2)) return;
+            if (!ValidateIPv4(strListen, 1))
+                return;
+            if (!ValidateIPv4(strConnect, 2))
+                return;
 
-            // Add to Rule
+            // Add to Rule struct
             Rule rule = new() {
 
-                Type = comboBox_Type.Text.Trim(),
+                Type = lblType.Text,
                 ListenOn = strListen,
                 ListenPort = listenPort,
                 ConnectTo = strConnect,
@@ -232,7 +219,8 @@ namespace PortProxyGooey
                 }
 
                 // Alert the user if any were skipped due to duping
-                if (intDupes > 0) MessageBox.Show($"{intDupes} duplicates skipped.", "Didn't add some ...", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (intDupes > 0)
+                    MessageBox.Show($"{intDupes} duplicates skipped.", "Didn't add some ...", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
             ParentWindow.RefreshProxyList();
@@ -272,7 +260,7 @@ namespace PortProxyGooey
 
                 if (ip.Length > 0) {
 
-                    lblWSLIP.Text = string.Format("WSL: {0}", ip);
+                    lblWSLIP.Text = $"WSL: {ip}";
                     comboBox_ConnectTo.AutoCompleteCustomSource.Add(ip);
                     comboBox_ListenOn.AutoCompleteCustomSource.Add(ip);
 
@@ -297,7 +285,7 @@ namespace PortProxyGooey
                 textBox_ListenPortRange.Visible = true;
                 lblRangeCount.Visible = true;
                 lblRangeCount.Text = String.IsNullOrEmpty(textBox_ListenPortRange.Text) ? "Adding: 0" : $"Adding: {CalcRange()}";
-            
+
             } else {
 
                 lblDash.Visible = false;
@@ -330,7 +318,7 @@ namespace PortProxyGooey
             int intRangeCount = CalcRange();
             string strBase = "Adding:";
 
-            lblRangeCount.Text = intRangeCount < 0 ? strBase + " 0" : string.Format("{0} {1}", strBase, intRangeCount);
+            lblRangeCount.Text = intRangeCount < 0 ? strBase + " 0" : $"{strBase} {intRangeCount}";
 
             // Auto-comment common ports
             AutoComment(textBox_ListenPortRange);
@@ -371,9 +359,9 @@ namespace PortProxyGooey
 
             bool bResult = true;
 
-            if (JSE_Utils.Network.IsIPv4(strIP) == false && strIP != "*") {
+            if (!Network.IsIPv4(strIP) && strIP != "*") {
 
-                MessageBox.Show(string.Format("{0} is not a valid IP", strIP), "What are you up to here?", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show($"{strIP} is not a valid IP", "What are you up to here?", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
                 if (intField == 2) {
 
@@ -399,42 +387,44 @@ namespace PortProxyGooey
         /// <summary>
         /// Automatically enters info in the Comment field for recognized ports.
         /// </summary>
-        private void AutoComment(System.Windows.Forms.TextBox textBox) {
+        private void AutoComment(TextBox textBox) {
 
             // Ref: https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers
 
             Dictionary<string, string> port = new() {
-                {"FTP", "21"},
-                {"SSH", "22"},
-                {"Telnet", "23"},
-                {"SMTP", "25"},
-                {"HTTP", "80"},
                 {"DNS", "53"},
-                {"POP3", "110"},
-                {"sFTP", "115"},
-                {"RPC", "135"},
-                {"NetBIOS", "139"},
+                {"Docker (SSL)", "2376"},
+                {"Docker", "2375"},
+                {"FTP", "21"},
+                {"Glances", "61208"},
+                {"HTTP", "80"},
+                {"HTTPS", "443"},
                 {"IMAP", "143"},
                 {"IRC", "194"},
-                {"HTTPS", "443"},
-                {"SMB", "445"},
-                {"MSSQL", "1433"},
-                {"Docker", "2375"},
-                {"Docker (SSL)", "2376"},
-                {"MySQL/MariaDB", "3306"},
-                {"RDP", "3389"},
-                {"PCAnywhere", "5632"},
-                {"VNC", "5900"},
                 {"Jellyfin", "8920"},
-                {"Prometheus", "9090"},
-                {"Transmission", "9091"},
-                {"Syncthing", "8384,22000"},
-                {"Minecraft", "25565"},
-                {"TeamSpeak", "10011,10022,30033"},
-                {"TetriNET", "31457"},
-                {"Plex", "32400"},
                 {"Jenkens", "33848"},
-                {"Glances", "61208"}
+                {"Minecraft", "25565"},
+                {"MSSQL", "1433"},
+                {"MySQL/MariaDB", "3306"},
+                {"NetBIOS", "139"},
+                {"PCAnywhere", "5632"},
+                {"PGAdmin", "5432"},
+                {"Plex", "32400"},
+                {"POP3", "110"},
+                {"Postgres", "5050"},
+                {"Prometheus", "9090"},
+                {"RDP", "3389"},
+                {"RPC", "135"},
+                {"sFTP", "115"},
+                {"SMB", "445"},
+                {"SMTP", "25"},
+                {"SSH", "22"},
+                {"Syncthing", "8384,22000"},
+                {"TeamSpeak", "10011,10022,30033"},
+                {"Telnet", "23"},
+                {"TetriNET", "31457"},
+                {"Transmission", "9091"},
+                {"VNC", "5900"},
             };
 
             // TODO: Add more ports, i.e. the *arr and other docker things.
@@ -449,8 +439,8 @@ namespace PortProxyGooey
 
                     // If user enters a common port, give it an auto-label as a convenience to them. Non-destructive: this will not delete anything they have manually typed in the comment field.
                     //Debug.WriteLine($"The key for value '{searchValue}' is '{matchingKey}'.");
-                    textBox_Comment.Text = string.Format("[{0}] {1}", matchingKey, string.IsNullOrEmpty(strLastAutoLabel) ? textBox_Comment.Text.Trim() : textBox_Comment.Text.Replace(strLastAutoLabel, string.Empty).Trim());
-                    strLastAutoLabel = string.Format("[{0}]", matchingKey);
+                    textBox_Comment.Text = $"[{matchingKey}] {(string.IsNullOrEmpty(strLastAutoLabel) ? textBox_Comment.Text.Trim() : textBox_Comment.Text.Replace(strLastAutoLabel, string.Empty).Trim())}";
+                    strLastAutoLabel = $"[{matchingKey}]";
 
                 } else {
 
@@ -472,12 +462,12 @@ namespace PortProxyGooey
             // + ------------------------------------------------------------------------------------------------------------------- +
             // | NOTES:                                                                                                              |
             // |   - I haven't thought through all possible dupe scenarios, so they may or may not still need some tweaking.         |
-            // |   - I only check Type & Listen Fields, because once you're already listening on an IP + Port Number + Specific Type |
+            // |   - Only checks Type & Listen Fields, because once you're already listening on an IP + Port Number + Specific Type  |
             // |     it doesn't matter if you change the ConnectTo IP of the same Type, because you can only listen on 1 at a time;  |
             // |     i.e. 0.0.0.0 Port 53 4to4 can only be changed to something like 0.0.0.0 53 ::1 4to6                             |
             // + ------------------------------------------------------------------------------------------------------------------- +
 
-            string strType = rule != null ? rule.Type : comboBox_Type.Text.Trim();
+            string strType = rule != null ? rule.Type : lblType.Text;
             string strListen = rule != null ? rule.ListenOn : comboBox_ListenOn.Text.Trim();
             string strListenPort = rule != null ? rule.ListenPort.ToString() : textBox_ListenPort.Text.Trim();
 
@@ -487,8 +477,7 @@ namespace PortProxyGooey
 
                 if (item.SubItems[1].Text.Equals(strType) &&
                     item.SubItems[2].Text.Equals(strListen) &&
-                    item.SubItems[3].Text.Equals(strListenPort))
-                {
+                    item.SubItems[3].Text.Equals(strListenPort)) {
                     // If dupe port found, flag it.
                     bResult = true;
                     break;
@@ -501,19 +490,7 @@ namespace PortProxyGooey
         /// Auto-selects the correct Type based on what the user types into the LisatenOn/ConnectTo fields
         /// </summary>
         private void TypeCheck() {
-
-            // TypeCheck (TODO: Still buggy)
-            string strListen = comboBox_ListenOn.Text.Trim();
-            string strConnect = comboBox_ConnectTo.Text.Trim();
-            string strResult = GetPassType(strListen, strConnect);
-
-            comboBox_Type.Text = strResult;
-            lblType.Text = strResult;
-
-        }
-
-        private void comboBox_Type_SelectedIndexChanged(object sender, EventArgs e) {
-            lblDupe.Visible = DupeCheck();
+            lblType.Text = GetPassType(comboBox_ListenOn.Text.Trim(), comboBox_ConnectTo.Text.Trim());
         }
 
         private void comboBox_ConnectTo_TextChanged(object sender, EventArgs e) {
@@ -522,10 +499,7 @@ namespace PortProxyGooey
 
         private void comboBox_ListenOn_TextChanged(object sender, EventArgs e) {
 
-            // Dupecheck
             lblDupe.Visible = DupeCheck();
-
-            // typeCheck
             TypeCheck();
 
         }
@@ -550,56 +524,41 @@ namespace PortProxyGooey
 
         #region TextBox Increase / Decrease
 
-        private void TextBox_ListenPortRange_MouseWheel(object sender, MouseEventArgs e)
-        {
+        private void TextBox_ListenPortRange_MouseWheel(object sender, MouseEventArgs e) {
             bool bUp = (e.Delta > 0);
             IncreaseDecrease(bUp, textBox_ListenPortRange);
         }
 
-        private void TextBox_ListenPort_MouseWheel(object sender, MouseEventArgs e)
-        {
+        private void TextBox_ListenPort_MouseWheel(object sender, MouseEventArgs e) {
             bool bUp = (e.Delta > 0);
             IncreaseDecrease(bUp, textBox_ListenPort);
         }
 
-        private void TextBox_ConnectPort_MouseWheel(object sender, MouseEventArgs e)
-        {
+        private void TextBox_ConnectPort_MouseWheel(object sender, MouseEventArgs e) {
             bool bUp = (e.Delta > 0);
             IncreaseDecrease(bUp, textBox_ConnectPort);
         }
 
-        private void textBox_ConnectPort_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode.Equals(Keys.Up))
-            {
+        private void textBox_ConnectPort_KeyDown(object sender, KeyEventArgs e) {
+            if (e.KeyCode.Equals(Keys.Up)) {
                 IncreaseDecrease(true, textBox_ConnectPort);
-            }
-            else if (e.KeyCode.Equals(Keys.Down))
-            {
+            } else if (e.KeyCode.Equals(Keys.Down)) {
                 IncreaseDecrease(false, textBox_ConnectPort);
             }
         }
 
-        private void textBox_ListenPort_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode.Equals(Keys.Up))
-            {
+        private void textBox_ListenPort_KeyDown(object sender, KeyEventArgs e) {
+            if (e.KeyCode.Equals(Keys.Up)) {
                 IncreaseDecrease(true, textBox_ListenPort);
-            }
-            else if (e.KeyCode.Equals(Keys.Down))
-            {
+            } else if (e.KeyCode.Equals(Keys.Down)) {
                 IncreaseDecrease(false, textBox_ListenPort);
             }
         }
 
-        private void textBox_ListenPortRange_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode.Equals(Keys.Up))
-            {
+        private void textBox_ListenPortRange_KeyDown(object sender, KeyEventArgs e) {
+            if (e.KeyCode.Equals(Keys.Up)) {
                 IncreaseDecrease(true, textBox_ListenPortRange);
-            }
-            else if (e.KeyCode.Equals(Keys.Down))
-            {
+            } else if (e.KeyCode.Equals(Keys.Down)) {
                 IncreaseDecrease(false, textBox_ListenPortRange);
             }
         }
@@ -609,19 +568,17 @@ namespace PortProxyGooey
         /// </summary>
         /// <param name="bUp">[boolean] true = Up; false = Down</param>
         /// <param name="textBox">A Textbox control</param>
-        private static void IncreaseDecrease(bool bUp, System.Windows.Forms.TextBox textBox)
-        {
-            if (string.IsNullOrEmpty(textBox.Text)) textBox.Text = "0";
+        private static void IncreaseDecrease(bool bUp, System.Windows.Forms.TextBox textBox) {
+            if (string.IsNullOrEmpty(textBox.Text))
+                textBox.Text = "0";
             int intCurrentVal = Convert.ToInt32(textBox.Text);
 
-            if (bUp)
-            {
+            if (bUp) {
                 intCurrentVal++;
-            }
-            else
-            {
+            } else {
                 // Don't allow negative numbers
-                if (intCurrentVal != 0) intCurrentVal--;
+                if (intCurrentVal != 0)
+                    intCurrentVal--;
             }
 
             textBox.Text = intCurrentVal.ToString();
@@ -635,28 +592,23 @@ namespace PortProxyGooey
 
         #region TextBox KeyPress
 
-        private void textBox_ListenPort_KeyPress(object sender, KeyPressEventArgs e)
-        {
+        private void textBox_ListenPort_KeyPress(object sender, KeyPressEventArgs e) {
             DigitsOnly(e);
         }
 
-        private void textBox_ConnectPort_KeyPress(object sender, KeyPressEventArgs e)
-        {
+        private void textBox_ConnectPort_KeyPress(object sender, KeyPressEventArgs e) {
             DigitsOnly(e);
         }
 
-        private void textBox_ListenPortRange_KeyPress(object sender, KeyPressEventArgs e)
-        {
+        private void textBox_ListenPortRange_KeyPress(object sender, KeyPressEventArgs e) {
             DigitsOnly(e);
         }
 
         /// <summary>
         /// Cancels the event if anything other than a number is entered
         /// </summary>
-        private static void DigitsOnly(KeyPressEventArgs e)
-        {
-            if (!char.IsDigit(e.KeyChar) && e.KeyChar != '\b')
-            {
+        private static void DigitsOnly(KeyPressEventArgs e) {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != '\b') {
                 e.Handled = true;
             }
         }
@@ -665,8 +617,7 @@ namespace PortProxyGooey
 
         #region ComboBox KeyPress
 
-        private void comboBox_ListenOn_KeyPress(object sender, KeyPressEventArgs e)
-        {
+        private void comboBox_ListenOn_KeyPress(object sender, KeyPressEventArgs e) {
             // Check if the Ctrl + V key combination is pressed
             if ((Control.ModifierKeys & Keys.Control) == Keys.Control && e.KeyChar == 22) {
 
@@ -679,8 +630,7 @@ namespace PortProxyGooey
             }
         }
 
-        private void comboBox_ConnectTo_KeyPress(object sender, KeyPressEventArgs e)
-        {
+        private void comboBox_ConnectTo_KeyPress(object sender, KeyPressEventArgs e) {
             // Check if the Ctrl + V key combination is pressed
             if ((Control.ModifierKeys & Keys.Control) == Keys.Control && e.KeyChar == 22) {
 
@@ -696,10 +646,8 @@ namespace PortProxyGooey
         /// <summary>
         /// Only numbers, periods, colons, backspace, and asterisk allowed.
         /// </summary>
-        private static void OnlyCertainAllowed(KeyPressEventArgs e)
-        {
-            if (!char.IsDigit(e.KeyChar) && e.KeyChar != '.' && e.KeyChar != '*' && e.KeyChar != ':' && e.KeyChar != '\b')
-            {
+        private static void OnlyCertainAllowed(KeyPressEventArgs e) {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != '.' && e.KeyChar != '*' && e.KeyChar != ':' && e.KeyChar != '\b') {
                 e.Handled = true;
             }
         }

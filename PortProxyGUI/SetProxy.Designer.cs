@@ -1,9 +1,7 @@
 ﻿using System.Windows.Forms;
 
-namespace PortProxyGooey
-{
-    partial class SetProxy
-    {
+namespace PortProxyGooey {
+    partial class SetProxy {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -13,10 +11,8 @@ namespace PortProxyGooey
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -28,8 +24,7 @@ namespace PortProxyGooey
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
-        {
+        private void InitializeComponent() {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SetProxy));
             label_ListenOn = new Label();
@@ -39,7 +34,6 @@ namespace PortProxyGooey
             button_Set = new Button();
             label_ListenPort = new Label();
             textBox_ListenPort = new TextBox();
-            comboBox_Type = new ComboBox();
             label_Comment = new Label();
             textBox_Comment = new TextBox();
             label_Group = new Label();
@@ -133,17 +127,6 @@ namespace PortProxyGooey
             textBox_ListenPort.KeyPress += textBox_ListenPort_KeyPress;
             textBox_ListenPort.MouseWheel += TextBox_ListenPort_MouseWheel;
             // 
-            // comboBox_Type
-            // 
-            comboBox_Type.BackColor = System.Drawing.Color.FromArgb(46, 52, 64);
-            comboBox_Type.DropDownStyle = ComboBoxStyle.DropDownList;
-            resources.ApplyResources(comboBox_Type, "comboBox_Type");
-            comboBox_Type.ForeColor = System.Drawing.Color.FromArgb(229, 233, 240);
-            comboBox_Type.FormattingEnabled = true;
-            comboBox_Type.Items.AddRange(new object[] { resources.GetString("comboBox_Type.Items"), resources.GetString("comboBox_Type.Items1"), resources.GetString("comboBox_Type.Items2"), resources.GetString("comboBox_Type.Items3"), resources.GetString("comboBox_Type.Items4") });
-            comboBox_Type.Name = "comboBox_Type";
-            comboBox_Type.SelectedIndexChanged += comboBox_Type_SelectedIndexChanged;
-            // 
             // label_Comment
             // 
             resources.ApplyResources(label_Comment, "label_Comment");
@@ -191,7 +174,7 @@ namespace PortProxyGooey
             resources.ApplyResources(comboBox_ListenOn, "comboBox_ListenOn");
             comboBox_ListenOn.ForeColor = System.Drawing.Color.FromArgb(229, 233, 240);
             comboBox_ListenOn.FormattingEnabled = true;
-            comboBox_ListenOn.Items.AddRange(new object[] { resources.GetString("comboBox_ListenOn.Items"), resources.GetString("comboBox_ListenOn.Items1"), resources.GetString("comboBox_ListenOn.Items2") });
+            comboBox_ListenOn.Items.AddRange(new object[] { resources.GetString("comboBox_ListenOn.Items"), resources.GetString("comboBox_ListenOn.Items1"), resources.GetString("comboBox_ListenOn.Items2"), resources.GetString("comboBox_ListenOn.Items3"), resources.GetString("comboBox_ListenOn.Items4"), resources.GetString("comboBox_ListenOn.Items5"), resources.GetString("comboBox_ListenOn.Items6"), resources.GetString("comboBox_ListenOn.Items7"), resources.GetString("comboBox_ListenOn.Items8") });
             comboBox_ListenOn.Name = "comboBox_ListenOn";
             comboBox_ListenOn.TextChanged += comboBox_ListenOn_TextChanged;
             comboBox_ListenOn.KeyPress += comboBox_ListenOn_KeyPress;
@@ -295,7 +278,7 @@ namespace PortProxyGooey
             resources.ApplyResources(comboBox_ConnectTo, "comboBox_ConnectTo");
             comboBox_ConnectTo.ForeColor = System.Drawing.Color.FromArgb(229, 233, 240);
             comboBox_ConnectTo.FormattingEnabled = true;
-            comboBox_ConnectTo.Items.AddRange(new object[] { resources.GetString("comboBox_ConnectTo.Items"), resources.GetString("comboBox_ConnectTo.Items1"), resources.GetString("comboBox_ConnectTo.Items2") });
+            comboBox_ConnectTo.Items.AddRange(new object[] { resources.GetString("comboBox_ConnectTo.Items"), resources.GetString("comboBox_ConnectTo.Items1"), resources.GetString("comboBox_ConnectTo.Items2"), resources.GetString("comboBox_ConnectTo.Items3"), resources.GetString("comboBox_ConnectTo.Items4"), resources.GetString("comboBox_ConnectTo.Items5"), resources.GetString("comboBox_ConnectTo.Items6"), resources.GetString("comboBox_ConnectTo.Items7"), resources.GetString("comboBox_ConnectTo.Items8") });
             comboBox_ConnectTo.Name = "comboBox_ConnectTo";
             comboBox_ConnectTo.TextChanged += comboBox_ConnectTo_TextChanged;
             comboBox_ConnectTo.KeyPress += comboBox_ConnectTo_KeyPress;
@@ -349,7 +332,6 @@ namespace PortProxyGooey
             Controls.Add(label_Group);
             Controls.Add(textBox_Comment);
             Controls.Add(label_Comment);
-            Controls.Add(comboBox_Type);
             Controls.Add(textBox_ListenPort);
             Controls.Add(label_ListenPort);
             Controls.Add(button_Set);
@@ -371,25 +353,24 @@ namespace PortProxyGooey
 
         #endregion
 
-        private System.Windows.Forms.Label label_ListenOn;
-        private System.Windows.Forms.Label label_ConnectTo;
-        private System.Windows.Forms.TextBox textBox_ConnectPort;
-        private System.Windows.Forms.Label label_ConnectPort;
-        private System.Windows.Forms.Button button_Set;
-        private System.Windows.Forms.Label label_ListenPort;
-        private System.Windows.Forms.TextBox textBox_ListenPort;
-        private System.Windows.Forms.ComboBox comboBox_Type;
-        private System.Windows.Forms.Label label_Comment;
-        private System.Windows.Forms.TextBox textBox_Comment;
-        private System.Windows.Forms.Label label_Group;
-        private System.Windows.Forms.ComboBox comboBox_Group;
-        private System.Windows.Forms.ComboBox comboBox_ListenOn;
-        private System.Windows.Forms.TextBox textBox_ListenPortRange;
-        private System.Windows.Forms.Label lblDash;
-        private System.Windows.Forms.CheckBox chkBox_ListenPortRange;
-        private System.Windows.Forms.Label lblRequired;
-        private System.Windows.Forms.ToolTip tTipSetProxy;
-        private System.Windows.Forms.ComboBox comboBox_ConnectTo;
+        private Label label_ListenOn;
+        private Label label_ConnectTo;
+        private TextBox textBox_ConnectPort;
+        private Label label_ConnectPort;
+        private Button button_Set;
+        private Label label_ListenPort;
+        private TextBox textBox_ListenPort;
+        private Label label_Comment;
+        private TextBox textBox_Comment;
+        private Label label_Group;
+        private ComboBox comboBox_Group;
+        private ComboBox comboBox_ListenOn;
+        private TextBox textBox_ListenPortRange;
+        private Label lblDash;
+        private CheckBox chkBox_ListenPortRange;
+        private Label lblRequired;
+        private ToolTip tTipSetProxy;
+        private ComboBox comboBox_ConnectTo;
         private Label lblWSLIP;
         private Label lblDupe;
         private Label lblType;
