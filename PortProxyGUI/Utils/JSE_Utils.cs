@@ -1,7 +1,7 @@
 ﻿#region + -- IMPORTS -- +
 
 using NStandard;
-using PortProxyGooey.Utils;
+//using PortProxyGooey.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,13 +14,26 @@ using System.Media;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
-using System.Numerics;
+//using System.Numerics;
 using System.Runtime.InteropServices;
 using System.ServiceProcess;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.DataFormats;
+
+#endregion
+
+#region + -- REQUIREMENTS -- +
+
+// NUGET Packages:
+//
+// - System.Management
+// - System.ServiceProcess.ServiceController
+// - NStandard: https://github.com/zmjack/NStandard
+
+// Network Section requires Unsafe Code flag in compiler (due to Win32API Usage)
 
 #endregion
 
@@ -30,7 +43,7 @@ namespace JSE_Utils {
 
         public static void PlaySound(string strSoundFile) {
 
-            // TODO:Mod this method to include mp3's
+            // TODO (whenever): Mod this method to include mp3's
 
             if (File.Exists(strSoundFile)) {
 
@@ -191,12 +204,54 @@ namespace JSE_Utils {
     public static class Docker {
 
         /// <summary>
+        /// Get Docker Version (async BackGroundWorker)
+        /// </summary>
+        /// <returns>Success: (string) Version Number; Fail: Empty string</returns>
+        public static void GetVersion_BackgroundWorker(Action<string> callback) {
+
+            // Example usages:
+            //
+            // Docker.GetVersion_BackgroundWorker((DockerVersion) => Debug.WriteLine($"DOCKER{(!string.IsNullOrEmpty(DockerVersion) ? " (v" + (DockerVersion) + ")" : string.Empty)}: RUNNING"));
+            //
+            // Another:
+            //
+            // Docker.GetVersion_BackgroundWorker((DockerVersion) => {
+            //     Debug.WriteLine($"Docker Version: {DockerVersion}");
+            // });
+
+            BackgroundWorker worker = new BackgroundWorker();
+
+            worker.DoWork += (sender, e) => {
+
+                string strOutput = Misc.RunCommand("wsl", $"docker version --format {"'{{.Server.Version}}'"}");
+                 
+                e.Result = strOutput.Length > 0 ? strOutput.Trim() : string.Empty;
+
+            };
+
+            worker.RunWorkerCompleted += (sender, e) => {
+
+                if (e.Error != null) {
+                    // Handle errors
+                } else {
+
+                    string ip = e.Result as string;
+                    callback?.Invoke(ip);
+
+                }
+
+            };
+
+            worker.RunWorkerAsync();
+        }
+
+        /// <summary>
         /// Checks for 'evidence' of Docker running in WSL
         /// </summary>
         /// <returns>True if Docker is running; False if not.</returns>
         /// <remarks>Will start WSL if WSL isn't already running, which may or may not be desired.</remarks>
         public static bool IsRunning() {
-            // LEFT OFF: don't think I'm returning this properly. RunCommand returns a string, and I'm not testing what it returns before finalyl returning a bool.
+            // LEFT OFF: don't think I'm returning this properly. RunCommand returns a string, and I'm not testing what it returns before finally returning a bool.
             bool bResult = false;
 
             Task task = Task.Run(() => {
@@ -642,7 +697,7 @@ namespace JSE_Utils {
 
     public static class Services {
 
-        #region "WIN32API DECLARATIONS"
+        #region WIN32API DECLARATIONS
 
         internal enum GenericRights : uint {
             GENERIC_READ = 0x80000000,
@@ -819,6 +874,9 @@ namespace JSE_Utils {
         /// <param name="bShowMessage">[optional Default: false] If True, show the result in a MessageBox as well.</param>
         public static void IsRunning_BackgroundWorker(Action<bool> callback, string strServiceName, bool bShowMessage = false) {
 
+            // Original PPG added it's own 'IsRunning' method that uses WinAPI, but I saw no need to include it along w/this one.
+            // https://github.com/zmjack/PortProxyGUI/blob/fe775680217f5aac647217d4ee4f47abbaeb6aa3/PortProxyGUI/Utils/PortPorxyUtil.cs#L90C17-L90C17
+
             // Example usage:
             //
             // Services.IsRunning_BackgroundWorker((result) => {
@@ -886,12 +944,14 @@ namespace JSE_Utils {
         /// or
         /// Service Control: ({serviceName}) ParamChange failed.
         /// </exception>
-        public static void ParamChangeWinAPI(string serviceName) {
+        /// <returns>True: Success; False or Exception on Failure</returns>
+        public static bool ParamChangeWinAPI(string serviceName) {
 
-            IntPtr hManager = NativeMethods.OpenSCManager(null, null, (uint)GenericRights.GENERIC_READ);
+            bool bResult = true;
 
-            if (hManager == IntPtr.Zero)
-                throw new InvalidOperationException("SC Manager Open: failed.");
+            IntPtr hManager = NativeMethods.OpenSCManager(null, null, (uint)GenericRights.GENERIC_READ | (uint)ScmRights.SC_MANAGER_CONNECT);
+
+            if (hManager == IntPtr.Zero) throw new InvalidOperationException("SC Manager Open: failed.");
 
             IntPtr hService = NativeMethods.OpenService(hManager, serviceName, ServiceRights.SERVICE_PAUSE_CONTINUE);
 
@@ -907,9 +967,11 @@ namespace JSE_Utils {
             NativeMethods.CloseServiceHandle(hManager);
 
             if (!success) {
-                throw new InvalidOperationException($"Service Control: ({serviceName}) ParamChange failed.");
+                Debug.WriteLine($"ParamChangeWinAPI(): ({serviceName}) ParamChange failed.");
+                bResult = false;
             }
 
+            return bResult;
         }
 
         public static void ParamChange(string serviceName) {
@@ -939,6 +1001,9 @@ namespace JSE_Utils {
         /// <param name="callback">The Result of the Start attempt</param>
         /// <param name="strServiceName">Name of the Service to start</param>
         public static void Start_BackgroundWorker(Action<string> callback, string strServiceName) {
+
+            // Original PPG added it's own Start Service method that uses WinAPI, but I saw no need to include it along w/this one.
+            // https://github.com/zmjack/PortProxyGUI/blob/fe775680217f5aac647217d4ee4f47abbaeb6aa3/PortProxyGUI/Utils/PortPorxyUtil.cs#L111C42-L111C42
 
             // Example usage:
             //

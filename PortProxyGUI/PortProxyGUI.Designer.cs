@@ -106,6 +106,7 @@
             tTipPPG = new System.Windows.Forms.ToolTip(components);
             picWSL = new System.Windows.Forms.PictureBox();
             contextMenuStrip_WSL = new System.Windows.Forms.ContextMenuStrip(components);
+            toolStripMenuItemWSLStart = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItemWSLRestart = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItemWSLShutDown = new System.Windows.Forms.ToolStripMenuItem();
             picDocker = new System.Windows.Forms.PictureBox();
@@ -649,14 +650,18 @@
             picWSL.Image = Properties.Resources.wsl;
             picWSL.Name = "picWSL";
             picWSL.TabStop = false;
-            tTipPPG.SetToolTip(picWSL, resources.GetString("picWSL.ToolTip"));
-            picWSL.Click += picWSL_Click;
             // 
             // contextMenuStrip_WSL
             // 
-            contextMenuStrip_WSL.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItemWSLRestart, toolStripMenuItemWSLShutDown });
+            contextMenuStrip_WSL.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItemWSLStart, toolStripMenuItemWSLRestart, toolStripMenuItemWSLShutDown });
             contextMenuStrip_WSL.Name = "contextMenuStrip_WSL";
             resources.ApplyResources(contextMenuStrip_WSL, "contextMenuStrip_WSL");
+            // 
+            // toolStripMenuItemWSLStart
+            // 
+            toolStripMenuItemWSLStart.Image = Properties.Resources.wsl;
+            toolStripMenuItemWSLStart.Name = "toolStripMenuItemWSLStart";
+            resources.ApplyResources(toolStripMenuItemWSLStart, "toolStripMenuItemWSLStart");
             // 
             // toolStripMenuItemWSLRestart
             // 
@@ -735,6 +740,8 @@
             picWSLStatus.Image = Properties.Resources.red;
             picWSLStatus.Name = "picWSLStatus";
             picWSLStatus.TabStop = false;
+            picWSLStatus.Tag = "0";
+            picWSLStatus.Click += picWSLStatus_Click;
             // 
             // lblWSLIP
             // 
@@ -888,6 +895,7 @@
         private System.Windows.Forms.PictureBox picDockerStatus;
         private System.Windows.Forms.Label lblIpHlpSvcRunning;
         private System.Windows.Forms.PictureBox picIpHlpSvcStatus;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemWSLStart;
     }
 }
 

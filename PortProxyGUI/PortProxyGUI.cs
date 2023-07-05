@@ -9,6 +9,7 @@ using PortProxyGooey.Utils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -57,6 +58,12 @@ namespace PortProxyGooey {
 
         private void PortProxyGUI_Load(object sender, EventArgs e) {
 
+            // TEST AREA
+
+
+
+            // END
+
             // Get the resource manager for your application.
             ResourceManager rm = Properties.Resources.ResourceManager;
 
@@ -77,7 +84,7 @@ namespace PortProxyGooey {
 
             Debug.WriteLine("Network Available?: " + Network.IsNetworkAvailable());
 
-            Debug.WriteLine(Services.GetInfo(PortProxyUtil.ServiceName));
+            //Debug.WriteLine(Services.GetInfo(PortProxyUtil.ServiceName));
 
             AppConfig = Program.Database.GetAppConfig();
 
@@ -207,7 +214,7 @@ namespace PortProxyGooey {
             }
 
             UpdateProxyCount();
-            Services.ParamChange(PortProxyUtil.ServiceName);
+            Services.ParamChangeWinAPI(PortProxyUtil.ServiceName);
         }
 
         /// <summary>
@@ -261,7 +268,6 @@ namespace PortProxyGooey {
 
             } catch (NotSupportedException ex) {
                 MessageBox.Show(ex.Message, "Ayy Now!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
             }
 
         }
@@ -473,7 +479,7 @@ namespace PortProxyGooey {
 
             if (sender is ContextMenuStrip strip) {
 
-                ToolStripMenuItem selected = strip.Items.OfType<ToolStripMenuItem>().Where(x => x.Selected).FirstOrDefault();
+                ToolStripMenuItem selected = strip.Items.OfType<ToolStripMenuItem>().FirstOrDefault(x => x.Selected);
 
                 if (selected is null || !selected.Enabled)
                     return;
@@ -531,9 +537,7 @@ namespace PortProxyGooey {
                     // About
                     case ToolStripMenuItem item when item == toolStripMenuItem_About:
 
-                        if (AboutForm == null) {
-                            AboutForm = new About(this);
-                        }
+                        AboutForm ??= new About(this);
 
                         AboutForm.Show();
                         break;
@@ -662,8 +666,9 @@ namespace PortProxyGooey {
                 // Clear List: Only visible if Items exist in the list
                 clearToolStripMenuItem.Visible = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
 
-                // Move: Only visible if Items exist in the list
+                // Move: Only visible if Items exist in the list (along with the seperator so we don't get ugly double-seperators)
                 toolStripMenuItem_MoveTo.Visible = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
+                toolStripSeparator1.Visible = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
 
                 // NETSH Menu
                 NetSHToolStripMenuItem.Enabled = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
@@ -1074,9 +1079,9 @@ namespace PortProxyGooey {
 
         }
 
-            /// <summary>
-            /// Resets the counts on the right-click context menu when the menu closes
-            /// </summary>
+        /// <summary>
+        /// Resets the counts on the right-click context menu when the menu closes
+        /// </summary>
         private void contextMenuStrip_RightClick_Closed(object sender, ToolStripDropDownClosedEventArgs e) {
 
             toolStripMenuItem_Enable.Text = "Enable";
@@ -1247,10 +1252,6 @@ namespace PortProxyGooey {
             WSL.Restart();
         }
 
-        private void picWSL_Click(object sender, EventArgs e) {
-            contextMenuStrip_WSL.Show(Cursor.Position);
-        }
-
         #endregion
 
         #region + -- DOCKER -- +
@@ -1295,28 +1296,31 @@ namespace PortProxyGooey {
 
                 if (result) {
                     picWSLStatus.Image = Properties.Resources.green;
+                    picWSLStatus.Tag = "1";
                     tTipPPG.SetToolTip(picWSLStatus, "WSL: RUNNING");
                     picWSL.Visible = true;
                 } else {
                     picWSLStatus.Image = Properties.Resources.red;
+                    picWSLStatus.Tag = "0";
                     tTipPPG.SetToolTip(picWSLStatus, "WSL: N/A");
                     picWSL.Visible = false;
                 }
 
             }, false);
-
+            
+            
             // + ----- DOCKER
 
             // Keep Docker status updated
-            //if (Docker.IsRunning()) {
-            //    picDockerStatus.Image = Properties.Resources.green;
-            //    tTipPPG.SetToolTip(picDockerStatus, "DOCKER: RUNNING");
-            //    picDocker.Visible = true;
-            //} else {
-            //    picDockerStatus.Image = Properties.Resources.red;
-            //    tTipPPG.SetToolTip(picDockerStatus, "DOCKER: N/A");
-            //    picDocker.Visible = false;
-            //}
+            if (Docker.IsRunning()) {
+                picDockerStatus.Image = Properties.Resources.green;
+                Docker.GetVersion_BackgroundWorker((DockerVersion) => tTipPPG.SetToolTip(picDockerStatus, $"DOCKER{(!string.IsNullOrEmpty(DockerVersion) ? " (v" + (DockerVersion) + ")" : string.Empty)}: RUNNING"));
+                picDocker.Visible = true;
+            } else {
+                picDockerStatus.Image = Properties.Resources.red;
+                tTipPPG.SetToolTip(picDockerStatus, "DOCKER: N/A");
+                picDocker.Visible = false;
+            }
 
             // + ----- SERVICE
 
@@ -1393,7 +1397,8 @@ namespace PortProxyGooey {
             // Source: https://github.com/swagfin/PortProxyGUI/commit/af6cfdcafe66883def4a9305149c6a48afbfb8f9
 
             try {
-                Services.ParamChange(PortProxyUtil.ServiceName);
+                //Services.ParamChange(PortProxyUtil.ServiceName);
+                Services.ParamChangeWinAPI(PortProxyUtil.ServiceName);
             } catch (Exception ex) {
                 MessageBox.Show(ex.Message, $"{PortProxyUtil.ServiceFriendlyName} Restart Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -1446,6 +1451,24 @@ namespace PortProxyGooey {
             }
 
         }
-    
+
+        private void picWSLStatus_Click(object sender, EventArgs e) {
+
+            if (picWSLStatus.Tag.ToString() == "1") {
+                // TODO: do this w/ the ones in the advanced menu as well
+                toolStripMenuItemWSLStart.Visible = false;
+                toolStripMenuItemWSLRestart.Visible = true;
+                toolStripMenuItemWSLShutDown.Visible = true;
+
+            } else {
+
+                toolStripMenuItemWSLStart.Visible = true;
+                toolStripMenuItemWSLRestart.Visible = false;
+                toolStripMenuItemWSLShutDown.Visible = false;
+            }
+
+            contextMenuStrip_WSL.Show(Cursor.Position);
+
+        }
     }
 }
