@@ -53,6 +53,9 @@ namespace PortProxyGooey {
             lblDupe = new Label();
             btnCancel = new Button();
             lblClone = new Label();
+            listBoxIP4 = new ListBox();
+            listBoxIP6 = new ListBox();
+            lblWSLDiscovered = new Label();
             SuspendLayout();
             // 
             // label_ListenOn
@@ -307,6 +310,31 @@ namespace PortProxyGooey {
             lblClone.ForeColor = System.Drawing.Color.FromArgb(180, 142, 173);
             lblClone.Name = "lblClone";
             // 
+            // listBoxIP4
+            // 
+            listBoxIP4.BackColor = System.Drawing.Color.FromArgb(46, 52, 64);
+            listBoxIP4.BorderStyle = BorderStyle.FixedSingle;
+            resources.ApplyResources(listBoxIP4, "listBoxIP4");
+            listBoxIP4.ForeColor = System.Drawing.Color.FromArgb(229, 233, 240);
+            listBoxIP4.FormattingEnabled = true;
+            listBoxIP4.Name = "listBoxIP4";
+            // 
+            // listBoxIP6
+            // 
+            listBoxIP6.BackColor = System.Drawing.Color.FromArgb(46, 52, 64);
+            listBoxIP6.BorderStyle = BorderStyle.FixedSingle;
+            resources.ApplyResources(listBoxIP6, "listBoxIP6");
+            listBoxIP6.ForeColor = System.Drawing.Color.FromArgb(229, 233, 240);
+            listBoxIP6.FormattingEnabled = true;
+            listBoxIP6.Name = "listBoxIP6";
+            // 
+            // lblWSLDiscovered
+            // 
+            resources.ApplyResources(lblWSLDiscovered, "lblWSLDiscovered");
+            lblWSLDiscovered.Cursor = Cursors.Help;
+            lblWSLDiscovered.ForeColor = System.Drawing.Color.FromArgb(216, 222, 233);
+            lblWSLDiscovered.Name = "lblWSLDiscovered";
+            // 
             // SetProxy
             // 
             AcceptButton = button_Set;
@@ -314,6 +342,9 @@ namespace PortProxyGooey {
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = System.Drawing.Color.FromArgb(46, 52, 64);
             ControlBox = false;
+            Controls.Add(lblWSLDiscovered);
+            Controls.Add(listBoxIP6);
+            Controls.Add(listBoxIP4);
             Controls.Add(chkAutoComment);
             Controls.Add(lblClone);
             Controls.Add(btnCancel);
@@ -379,5 +410,8 @@ namespace PortProxyGooey {
         private Button btnCancel;
         private Label lblClone;
         private CheckBox chkAutoComment;
+        private ListBox listBoxIP4;
+        private ListBox listBoxIP6;
+        private Label lblWSLDiscovered;
     }
 }

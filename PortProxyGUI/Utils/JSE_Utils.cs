@@ -207,15 +207,15 @@ namespace JSE_Utils {
         /// Get Docker Version (async BackGroundWorker)
         /// </summary>
         /// <returns>Success: (string) Version Number; Fail: Empty string</returns>
-        public static void GetVersion_BackgroundWorker(Action<string> callback) {
+        public static void GetVersion_BGW(Action<string> callback) {
 
             // Example usages:
             //
-            // Docker.GetVersion_BackgroundWorker((DockerVersion) => Debug.WriteLine($"DOCKER{(!string.IsNullOrEmpty(DockerVersion) ? " (v" + (DockerVersion) + ")" : string.Empty)}: RUNNING"));
+            // Docker.GetVersion_BGW((DockerVersion) => Debug.WriteLine($"DOCKER{(!string.IsNullOrEmpty(DockerVersion) ? " (v" + (DockerVersion) + ")" : string.Empty)}: RUNNING"));
             //
             // Another:
             //
-            // Docker.GetVersion_BackgroundWorker((DockerVersion) => {
+            // Docker.GetVersion_BGW((DockerVersion) => {
             //     Debug.WriteLine($"Docker Version: {DockerVersion}");
             // });
 
@@ -269,11 +269,11 @@ namespace JSE_Utils {
 
         }
 
-        public static void IsRunning_BackgroundWorker(Action<bool> callback) {
+        public static void IsRunning_BGW(Action<bool> callback) {
             // LEFT OFF: Need to test and finish the regular one above first, then add any changes here as well.
             // Example usage:
             //
-            // Docker.IsRunning_BackgroundWorker((result) => {
+            // Docker.IsRunning_BGW((result) => {
             //     if (result) {
             //         lblWSLRunning.Text = "WSL: RUNNING";
             //         picWSL.Visible = true;
@@ -312,18 +312,34 @@ namespace JSE_Utils {
 
     }
 
-    public static partial class IPValidation
+    public static partial class IP_Regex
     {
         #region + -- REGEX -- +
 
+        // IP Detections
         public static Regex IPv4RegEx = IPv4Pattern();
         public static Regex IPv6RegEx = IPv6Pattern();
 
-        [GeneratedRegex("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}")]
+        // Port Detections
+        public static Regex IPv4PortRegEx = IPv4PortPattern();
+        public static Regex IPv6PortRegEx = IPv6PortPattern();
+
+
+        //[GeneratedRegex("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}")]
+        //[GeneratedRegex("(\\d{1,3}\\.){3}\\d{1,3}")]
+        [GeneratedRegex(@"(\d{1,3}\.){3}\d{1,3}")]
         private static partial Regex IPv4Pattern();
 
+        // NOTE: Re-test this. Not sure it works, due to the ^ and $
         [GeneratedRegex("^(([0-9a-fA-F]{1,4}:){7}([0-9a-fA-F]{1,4}|:))|(([0-9a-fA-F]{1,4}:){0,6}(:[0-9a-fA-F]{1,4}){1,6})$")]
         private static partial Regex IPv6Pattern();
+
+        [GeneratedRegex(@"((\d{1,3}\.){3}\d{1,3}):(\d+)")]
+        private static partial Regex IPv4PortPattern();
+        
+        // NOTE: This is specific to the output from the netstat cmd
+        [GeneratedRegex(@"tcp6\s+\d+\s+\d+\s+(::\d?):(\d+|:\d+)\s+.*")]
+        private static partial Regex IPv6PortPattern();
 
         #endregion
     }
@@ -533,10 +549,10 @@ namespace JSE_Utils {
         /// <summary>
         /// Regex Validates IPv4 string
         /// </summary>
-        /// <param name="ip"><string> IP Address to check</string></param>
+        /// <param name="ip"><string>IP Address to check</string></param>
         /// <returns></returns>
         public static bool IsIPv4(string ip) {
-            return ip.IsMatch(IPValidation.IPv4RegEx);
+            return ip.IsMatch(IP_Regex.IPv4RegEx);
         }
 
         /// <summary>
@@ -548,7 +564,7 @@ namespace JSE_Utils {
 
             // Scott Note to original author: Is this correct? Looks more like a MAC Address regex? I added a better regex below, but leaving original for posterity.
             // return ip.IsMatch(new Regex(@"^[\dABCDEF]{2}(?::(?:[\dABCDEF]{2})){5}$"));
-            return ip.IsMatch(IPValidation.IPv6RegEx);
+            return ip.IsMatch(IP_Regex.IPv6RegEx);
 
         }
 
@@ -809,7 +825,7 @@ namespace JSE_Utils {
         /// Gets information abot a Windows Service. Result in Debug window.
         /// </summary>
         /// <param name="serviceName">Name of the service</param>
-        /// <exception cref="System.InvalidOperationException">
+        /// <exception cref="InvalidOperationException">
         /// Service '{serviceName}' is not in a running state.
         /// or
         /// Failed to pause and continue service '{serviceName}'.
@@ -872,14 +888,14 @@ namespace JSE_Utils {
         /// <param name="callback">The callback.</param>
         /// <param name="strServiceName">Exact name of the service (case-sensitive)</param>
         /// <param name="bShowMessage">[optional Default: false] If True, show the result in a MessageBox as well.</param>
-        public static void IsRunning_BackgroundWorker(Action<bool> callback, string strServiceName, bool bShowMessage = false) {
+        public static void IsRunning_BGW(Action<bool> callback, string strServiceName, bool bShowMessage = false) {
 
             // Original PPG added it's own 'IsRunning' method that uses WinAPI, but I saw no need to include it along w/this one.
             // https://github.com/zmjack/PortProxyGUI/blob/fe775680217f5aac647217d4ee4f47abbaeb6aa3/PortProxyGUI/Utils/PortPorxyUtil.cs#L90C17-L90C17
 
             // Example usage:
             //
-            // Services.IsRunning_BackgroundWorker((result) => {
+            // Services.IsRunning_BGW((result) => {
             //
             //     if (result) {
             //         Do something if True
@@ -1000,14 +1016,14 @@ namespace JSE_Utils {
         /// </summary>
         /// <param name="callback">The Result of the Start attempt</param>
         /// <param name="strServiceName">Name of the Service to start</param>
-        public static void Start_BackgroundWorker(Action<string> callback, string strServiceName) {
+        public static void Start_BGW(Action<string> callback, string strServiceName) {
 
             // Original PPG added it's own Start Service method that uses WinAPI, but I saw no need to include it along w/this one.
             // https://github.com/zmjack/PortProxyGUI/blob/fe775680217f5aac647217d4ee4f47abbaeb6aa3/PortProxyGUI/Utils/PortPorxyUtil.cs#L111C42-L111C42
 
             // Example usage:
             //
-            // Services.Start_BackgroundWorker((result) => {
+            // Services.Start_BGW((result) => {
             //     Debug.WriteLine(result);
             // }, "iphlpsrv");
 
@@ -1132,11 +1148,11 @@ namespace JSE_Utils {
         /// </summary>
         /// <param name="bShowMessage">[optional: default False] will show a messagebox with the result.</param>
         /// <returns>True: WSL is running; False: WSL isn't running.</returns>
-        public static void IsRunning_BackgroundWorker(Action<bool> callback, bool bShowMessage = false) {
+        public static void IsRunning_BGW(Action<bool> callback, bool bShowMessage = false) {
 
             // Example usage:
             //
-            // WSL.IsRunning_BackgroundWorker((result) => {
+            // WSL.IsRunning_BGW((result) => {
             //     if (result) {
             //         lblWSLRunning.Text = "WSL: RUNNING";
             //         picWSL.Visible = true;
@@ -1282,7 +1298,7 @@ namespace JSE_Utils {
                 //strOutput = ParseIP(out strOutput, out strWSLIP);
 
                 // Try to parse out a valid IPv4
-                strWSLIP = IPValidation.IPv4RegEx.Match(strOutput).ToString();  
+                strWSLIP = IP_Regex.IPv4RegEx.Match(strOutput).ToString();  
                 
                 //Debug.WriteLine($"WSL_GetIP: Task complete (ID: {Task.CurrentId})");
             });
@@ -1314,7 +1330,7 @@ namespace JSE_Utils {
                 //strOutput = await ParseIP(out strOutput, out strWSLIP);
 
                 // Try to parse out a valid IPv4
-                strWSLIP = IPValidation.IPv4RegEx.Match(strOutput).ToString();
+                strWSLIP = IP_Regex.IPv4RegEx.Match(strOutput).ToString();
 
                 //Debug.WriteLine($"WSL_GetIP: Task complete (ID: {Task.CurrentId}) Result: {strWSLIP}");
             });
@@ -1326,12 +1342,12 @@ namespace JSE_Utils {
         /// Fetches the current WSL IP (async BackGroundWorker)
         /// </summary>
         /// <returns>Success: (string) IP Address; Fail: Empty string</returns>
-        /// <remarks>Ex. Usage: WSL.GetIP_BackgroundWorker((ip) => lblWSLIP.Text = $"WSL IP: {ip}");</remarks>
-        public static void GetIP_BackgroundWorker(Action<string> callback) {
+        /// <remarks>Ex. Usage: WSL.GetIP_BGW((ip) => lblWSLIP.Text = $"WSL IP: {ip}");</remarks>
+        public static void GetIP_BGW(Action<string> callback) {
 
-            // Another example usage:
+            // Example usage:
             //
-            // WSL.GetIPWithBackgroundWorker((ip) => {
+            // WSL.GetIP_BGW((ip) => {
             //    Debug.WriteLine(ip);
             // });
 
@@ -1365,6 +1381,55 @@ namespace JSE_Utils {
         }
 
         /// <summary>
+        /// Scans WSL for any listening ports, and stores them in a dictionary collection. (async: BackgroundWorker)
+        /// </summary>
+        /// <param name="callback">Returns a Dictionary collection</param>
+        public static void GetListeningPorts_BGW(Action<Dictionary<string, string>> callback) {
+
+            // Example usage:
+            //
+            // Create a Callback function
+            // private void DiscoveredPorts_Callback(Dictionary<string, string> portsDic) {
+            //
+            //     foreach (var kvp in portsDic) {
+            //         Debug.WriteLine($"IP: {kvp.Key}, Port: {kvp.Value}");
+            //     }
+            //
+            // }
+            //
+            // Place call wherever:
+            // WSL.GetListeningPorts_BGW(DiscoveredPorts_Callback);
+
+            BackgroundWorker worker = new BackgroundWorker();
+
+            worker.DoWork += (sender, e) => {
+
+                string strOutput = string.Empty;
+                Dictionary<string, string> dicPorts;
+
+                ParseListeningPorts(out strOutput, out dicPorts);
+
+                e.Result = dicPorts.Count > 0 ? dicPorts : null;
+
+            };
+
+            worker.RunWorkerCompleted += (sender, e) => {
+
+                if (e.Error != null) {
+                    // Handle errors
+                } else {
+
+                    Dictionary<string, string> dicPorts = e.Result as Dictionary<string, string>;
+                    callback?.Invoke(dicPorts);
+
+                }
+
+            };
+
+            worker.RunWorkerAsync();
+        }
+
+        /// <summary>
         /// Parses the IP (or at least tries to) out of WSL.
         /// </summary>
         /// <param name="strOutput">Contains the raw result of the bash command</param>
@@ -1380,24 +1445,62 @@ namespace JSE_Utils {
             // TBH: Originally I just had the Ubuntu ver and it was fine, but later read that Debian doesnt have that by default, so added it in for redundancy.
             //      Technically, the ip addr ver works on both systems during my tests, but since I already coded ifconfig in, I'm leaving it for posterity;
             //      can't hurt anything and at least this way I don't feel like I wasted my time. ;)
-            if (IPValidation.IPv4RegEx.Match(strOutput).Success) {
+            if (IP_Regex.IPv4RegEx.Match(strOutput).Success) {
                 bFound = true;
             } else {
 
                 // For Debian, which does not come with ifconfig out of the box, you can try:
                 strOutput = Misc.RunCommand("bash.exe", $"-c {"\"ip addr | grep -Ee 'inet.*eth0'\""}");
 
-                if (IPValidation.IPv4RegEx.Match(strOutput).Success) {
+                if (IP_Regex.IPv4RegEx.Match(strOutput).Success) {
                     bFound = true;
                 }
 
             }
 
             if (bFound) {
-                strWSLIP = IPValidation.IPv4RegEx.Match(strOutput).ToString();
+                strWSLIP = IP_Regex.IPv4RegEx.Match(strOutput).ToString();
                 return;
             }
             strWSLIP = string.Empty;
+        }
+
+        /// <summary>
+        /// Parses out the listening ports; both IP4 and IP6 (in the Value). Also stores the IP(s) in the Key.
+        /// </summary>
+        /// <param name="strOutput">The string containing the list of IP:Port to parse</param>
+        /// <param name="dicPorts">Dictionary to store the results</param>
+        private static void ParseListeningPorts(out string strOutput, out Dictionary<string, string> dicPorts) {
+
+            dicPorts = new();
+
+            // Here just to prevent dupe key error in the dictionary
+            int intMatchCount = 0;
+
+            // Ubuntu
+            strOutput = Misc.RunCommand("bash.exe", "-c \"netstat -lnt | awk '{print $4}'\"");
+
+            // Match all IPv4 ports
+            MatchCollection matches = IP_Regex.IPv4PortRegEx.Matches(strOutput);
+
+            // Add all IP4 Ports to collection
+            foreach (Match match in matches) {
+                dicPorts.Add($"IPv4 [{intMatchCount}] [{match.Groups[1].Value}]", match.Groups[3].Value);
+                intMatchCount++;
+            }
+
+            // Reset
+            intMatchCount = 0;
+
+            // Match all IPv6 ports
+            matches = IP_Regex.IPv6PortRegEx.Matches(strOutput);
+
+            // Add all IP6 Ports to collection
+            foreach (Match match in matches) {
+                dicPorts.Add($"IPv6 [{intMatchCount}] [{match.Groups[1].Value}]", match.Groups[2].Value);
+                intMatchCount++;
+            }
+
         }
 
         /// <summary>

@@ -50,6 +50,36 @@ namespace PortProxyGooey {
             comboBox_Group.Items.AddRange(groupNames);
         }
 
+        private void SetProxyForm_Load(object sender, EventArgs e) {
+
+            this.Cursor = Cursors.WaitCursor;
+
+            Top = ParentWindow.Top + (ParentWindow.Height - Height) / 2;
+            Left = ParentWindow.Left + (ParentWindow.Width - Width) / 2;
+
+            // Current WSL IP
+            lblWSLIP.Text = "Refreshing ...";
+
+            WSL.GetIP_BGW((ip) => {
+
+                if (ip.Length > 0) {
+
+                    lblWSLIP.Text = $"WSL: {ip}";
+                    comboBox_ConnectTo.AutoCompleteCustomSource.Add(ip);
+                    comboBox_ListenOn.AutoCompleteCustomSource.Add(ip);
+
+                } else {
+                    lblWSLIP.Text = "WSL: Dunno";
+                }
+
+            });
+
+            // Load up any discovered WSL ports
+            WSL.GetListeningPorts_BGW(DiscoveredPorts_Callback);
+
+            this.Cursor = Cursors.Default;
+        }
+
         /// <summary>
         /// Add a New proxy rule, or Clone a proxy rule.
         /// </summary>
@@ -244,33 +274,6 @@ namespace PortProxyGooey {
             progBarRange.Visible = false;
             this.Enabled = true;
             Close();
-        }
-
-        private void SetProxyForm_Load(object sender, EventArgs e) {
-
-            this.Cursor = Cursors.WaitCursor;
-
-            Top = ParentWindow.Top + (ParentWindow.Height - Height) / 2;
-            Left = ParentWindow.Left + (ParentWindow.Width - Width) / 2;
-
-            // Current WSL IP
-            lblWSLIP.Text = "Refreshing ...";
-
-            WSL.GetIP_BackgroundWorker((ip) => {
-
-                if (ip.Length > 0) {
-
-                    lblWSLIP.Text = $"WSL: {ip}";
-                    comboBox_ConnectTo.AutoCompleteCustomSource.Add(ip);
-                    comboBox_ListenOn.AutoCompleteCustomSource.Add(ip);
-
-                } else {
-                    lblWSLIP.Text = "WSL: Dunno";
-                }
-
-            });
-
-            this.Cursor = Cursors.Default;
         }
 
         private void SetProxyForm_FormClosing(object sender, FormClosingEventArgs e) {
@@ -504,6 +507,19 @@ namespace PortProxyGooey {
 
         }
 
+
+        private void DiscoveredPorts_Callback(Dictionary<string, string> portsDic) {
+
+            // LEFT OFF: Now just need to fill up a combobox or something with the discovered ports, etc.0
+
+            foreach (var kvp in portsDic) {
+
+                Debug.WriteLine($"IP: {kvp.Key}, Port: {kvp.Value}");
+
+            }
+
+        }
+
         /// <summary>
         /// Refreshes the WSL IP on double-click
         /// </summary>
@@ -512,7 +528,7 @@ namespace PortProxyGooey {
             this.Cursor = Cursors.WaitCursor;
             lblWSLIP.Text = "Refreshing ...";
             //string strWSLIP = WSL.WSL_GetIP_Task();
-            WSL.GetIP_BackgroundWorker((ip) => lblWSLIP.Text = ip.Length > 0 ? $"WSL: {ip}" : "WSL: Dunno");
+            WSL.GetIP_BGW((ip) => lblWSLIP.Text = ip.Length > 0 ? $"WSL: {ip}" : "WSL: Dunno");
             //lblWSLIP.Text = strWSLIP.Length > 0 ? string.Format("WSL: {0}", strWSLIP) : "WSL: Dunno";
             this.Cursor = Cursors.Default;
 

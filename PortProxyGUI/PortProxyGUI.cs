@@ -60,7 +60,7 @@ namespace PortProxyGooey {
 
             // TEST AREA
 
-
+            //WSL.GetListeningPorts_BGW((dicPorts) => Debug.WriteLine($"WSL Listening Ports: {dicPorts}"));
 
             // END
 
@@ -1286,13 +1286,13 @@ namespace PortProxyGooey {
 
             // + ----- WSL
 
-            WSL.GetIP_BackgroundWorker((ip) => lblWSLIP.Text = $"WSL IP: {ip}");
+            WSL.GetIP_BGW((ip) => lblWSLIP.Text = $"WSL IP: {ip}");
             tTipPPG.SetToolTip(lblWSLIP, "Double-click to copy IP to clipboard");
 
             // -----
 
             // Keep WSL status updated
-            WSL.IsRunning_BackgroundWorker((result) => {
+            WSL.IsRunning_BGW((result) => {
 
                 if (result) {
                     picWSLStatus.Image = Properties.Resources.green;
@@ -1314,7 +1314,7 @@ namespace PortProxyGooey {
             // Keep Docker status updated
             if (Docker.IsRunning()) {
                 picDockerStatus.Image = Properties.Resources.green;
-                Docker.GetVersion_BackgroundWorker((DockerVersion) => tTipPPG.SetToolTip(picDockerStatus, $"DOCKER{(!string.IsNullOrEmpty(DockerVersion) ? " (v" + (DockerVersion) + ")" : string.Empty)}: RUNNING"));
+                Docker.GetVersion_BGW((DockerVersion) => tTipPPG.SetToolTip(picDockerStatus, $"DOCKER{(!string.IsNullOrEmpty(DockerVersion) ? " (v" + (DockerVersion) + ")" : string.Empty)}: RUNNING"));
                 picDocker.Visible = true;
             } else {
                 picDockerStatus.Image = Properties.Resources.red;
@@ -1325,7 +1325,7 @@ namespace PortProxyGooey {
             // + ----- SERVICE
 
             // Keep IpHlpSvc status updated
-            Services.IsRunning_BackgroundWorker((result) => {
+            Services.IsRunning_BGW((result) => {
 
                 if (result) {
                     picIpHlpSvcStatus.Image = Properties.Resources.green;
@@ -1411,14 +1411,14 @@ namespace PortProxyGooey {
         private void picIpHlpSvcStatus_Click(object sender, EventArgs e) {
 
             // First, check if the service is already running; we only want to do something if it's not.
-            Services.IsRunning_BackgroundWorker((result) => {
+            Services.IsRunning_BGW((result) => {
 
                 if (!result) {
 
                     // Start the service
                     //Debug.WriteLine($"{PortProxyUtil.ServiceName}: Starting");  
 
-                    Services.Start_BackgroundWorker((result) => {
+                    Services.Start_BGW((result) => {
                         //Debug.WriteLine(result);
                     }, PortProxyUtil.ServiceName);
 
