@@ -50,7 +50,7 @@ namespace PortProxyGooey {
             comboBox_Group.Items.AddRange(groupNames);
         }
 
-        private void SetProxyForm_Load(object sender, EventArgs e) {
+        private void SetProxy-fuckedForm_Load(object sender, EventArgs e) {
 
             this.Cursor = Cursors.WaitCursor;
 
@@ -276,8 +276,8 @@ namespace PortProxyGooey {
             Close();
         }
 
-        private void SetProxyForm_FormClosing(object sender, FormClosingEventArgs e) {
-            ParentWindow.SetProxyForm = null;
+        private void SetProxy-fuckedForm_FormClosing(object sender, FormClosingEventArgs e) {
+            ParentWindow.SetProxy-fuckedForm = null;
         }
 
         private void chkBox_ListenPortRange_CheckedChanged(object sender, EventArgs e) {
@@ -525,8 +525,8 @@ namespace PortProxyGooey {
 
             }
 
-            lblDiscoveredIP4.Text = $"IP4 ({listBoxIP4.Items.Count})";
-            lblDiscoveredIP6.Text = $"IP6 ({listBoxIP6.Items.Count})";
+            lblDiscoveredIP4.Text = $"IP4 ({listBoxIP4.Items.Count.ToString()})";
+            lblDiscoveredIP6.Text = $"IP6 ({listBoxIP6.Items.Count.ToString()})";
 
         }
 
@@ -689,4 +689,5 @@ namespace PortProxyGooey {
         }
 
     }
+
 }
