@@ -1,5 +1,6 @@
 ﻿#region + -- IMPORTS -- +
 
+using JSE_Utils;
 using PortProxyGooey.Utils;
 using System;
 using System.Collections.Generic;
@@ -41,13 +42,14 @@ namespace PortProxyGooey.Data {
 
             if (new Version(migration.ProductVersion) > assemblyVersion) {
 
-                if (MessageBox.Show(@"The current software version cannot use the configuration.
-
-You need to use a newer version of PortProxyGooey.
-
-Would you like to download it now?", "Upgrade", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                if (MessageBox.Show(
+                    string.Format("The current software version cannot use the configuration.{0}{0}You need to use a newer version of PortProxyGooey.{0}{0}Would you like to download it now?", Environment.NewLine),
+                    "Upgrade",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning)
+                    == DialogResult.Yes)
                 {
-                    PortProxyUtil.Launch("explorer.exe", $"{PortProxyGooey.strAppURL}/releases");
+                    Misc.RunCommand("explorer.exe", $"{PortProxyGooey.strAppURL}/releases");
                 }
 
                 Environment.Exit(0);

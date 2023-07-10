@@ -1015,12 +1015,12 @@ namespace PortProxyGooey {
                 } else {
 
                     // If path to WFC isnt found in the registry, as a courtesy, launch the website for them to dl it, if they want.
-                    PortProxyUtil.Launch(strWFCURL);
+                    Misc.RunCommand(strWFCURL);
 
                 }
 
             } catch (Exception ex) {
-                Debug.WriteLine($"Error in WFC(): {ex.Message}");
+                Debug.WriteLine($"WFC(): {ex.Message}");
             }
         }
 
@@ -1028,35 +1028,20 @@ namespace PortProxyGooey {
         /// External App: Windows Firewall (Basic)
         /// </summary>
         private void basicToolStripMenuItem_Click(object sender, EventArgs e) {
+
             try {
-                PortProxyUtil.Launch("control", "firewall.cpl");
+                Misc.RunCommand("control", "firewall.cpl");
             } catch (Exception ex) {
                 Debug.WriteLine($"Error Launching firewall.cpl: {ex.Message}");
             }
+
         }
 
         /// <summary>
         /// External App: Windows Firewall (Advanced)
         /// </summary>
         private void advancedToolStripMenuItem_Click(object sender, EventArgs e) {
-            // TODO: Merge this w/PortProxyUtil.Launch() to remove some redundancy?
-            // We're gonna do it this way so the ugly command window doesn't show before opening the fw app.
-            var p = new Process();
-
-            {
-                var withBlock = p.StartInfo;
-                withBlock.Verb = "runas";
-                withBlock.RedirectStandardOutput = true;
-                withBlock.RedirectStandardError = true;
-                withBlock.FileName = "cmd";
-                withBlock.Arguments = "/C wf.msc";
-                withBlock.UseShellExecute = false;
-                withBlock.CreateNoWindow = true;
-                //withBlock.WorkingDirectory = Path.Combine(Environment.GetEnvironmentVariable("WINDIR"), "\\System32"); // this ignores the first path
-                withBlock.WorkingDirectory = Environment.GetEnvironmentVariable("WINDIR") + "\\System32";
-            }
-
-            p.Start();
+            Misc.RunCommand("cmd", "/C wf.msc", Environment.GetEnvironmentVariable("WINDIR") + @"\System32");
         }
 
         #endregion
@@ -1068,8 +1053,10 @@ namespace PortProxyGooey {
 
             if (Network.DNS.FlushCache(true, false)) {
 
-                Audio.PlaySound("D:\\Coding\\Repos\\PortProxyGUI\\PortProxyGUI\\Resources\\audio\\Flush.wav");
+                //Audio.PlaySound(@"D:\Coding\Repos\PortProxyGUI\PortProxyGUI\Resources\audio\Flush.wav");
                 //TODO: Audio.PlaySound(Properties.Resources.Flush);
+                //Audio.PlaySound(Properties.Resources.ResourceManager.GetStream("Flush"));
+                Audio.PlayWavFromResources("Flush");
 
                 // Note: I could use the built-in confirmation dialog in FlushCache(), but it does a "ding" system sound,
                 //       which conflicts with the .wav, so I'm playing the .wav first, THEN let it ding. Slightly nicer.
@@ -1177,7 +1164,7 @@ namespace PortProxyGooey {
             RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Applets\Regedit", true);
 
             if (key != null) {
-                key.SetValue("LastKey", $"HKEY_LOCAL_MACHINE\\{PortProxyUtil.GetKeyName(listViewProxies.SelectedItems[0].SubItems[1].Text)}", RegistryValueKind.String);
+                key.SetValue("LastKey", @$"HKEY_LOCAL_MACHINE\{PortProxyUtil.GetKeyName(listViewProxies.SelectedItems[0].SubItems[1].Text)}", RegistryValueKind.String);
                 key.Close();
             }
 
@@ -1307,8 +1294,8 @@ namespace PortProxyGooey {
                 }
 
             }, false);
-            
-            
+
+
             // + ----- DOCKER
 
             // Keep Docker status updated
@@ -1348,7 +1335,7 @@ namespace PortProxyGooey {
 
 
         private void ToolStripMenuItem_Move_Click(object sender, EventArgs e) {
-            // LEFT OFF: Need to add the actual MOVE code now ...
+            // TODO: LEFT OFF: Need to add the actual MOVE code now ...
             // Pluralize if necessary ;)
             //string strMsg = string.Format("Delete {0} {1}?", intCount, intCount == 1 ? "proxy" : "proxies");
 
@@ -1455,7 +1442,7 @@ namespace PortProxyGooey {
         private void picWSLStatus_Click(object sender, EventArgs e) {
 
             if (picWSLStatus.Tag.ToString() == "1") {
-                // TODO: do this w/ the ones in the advanced menu as well
+                // TODO: do this w/ the ones in the advanced menu as well (if I decide to keep that menu there)
                 toolStripMenuItemWSLStart.Visible = false;
                 toolStripMenuItemWSLRestart.Visible = true;
                 toolStripMenuItemWSLShutDown.Visible = true;

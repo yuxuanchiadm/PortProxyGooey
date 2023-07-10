@@ -40,19 +40,55 @@ using static System.Windows.Forms.DataFormats;
 namespace JSE_Utils {
 
     public static class Audio {
+        public static void PlayWavFromResources(string resourceName) {
 
-        public static void PlaySound(string strSoundFile) {
+            // Create an instance of SoundPlayer using the specified resource name
+            SoundPlayer player = new SoundPlayer(PortProxyGooey.Properties.Resources.ResourceManager.GetStream(resourceName));
+
+            // Play the sound
+            player.Play();
+
+            // Keep the method running until the sound finishes playing
+            while (!player.IsLoadCompleted) { }
+
+        }
+
+        public static void PlaySound(object objSoundFile) {
 
             // TODO (whenever): Mod this method to include mp3's
 
-            if (File.Exists(strSoundFile)) {
+            // Create an instance of SoundPlayer using the specified resource name
+            //SoundPlayer 
+            SoundPlayer player = new();
 
-                SoundPlayer player = new SoundPlayer(strSoundFile);
+            //
+            switch (objSoundFile.GetType().ToString()) {
+
+                case "System.IO.UnmanagedMemoryStream":
+
+                    //player = new SoundPlayer(Properties.Resources.ResourceManager.GetStream(objSoundFile));
+                    break;
+
+                case "System.String":
+
+
+
+                    break;
+
+            }
+
+            if (File.Exists(objSoundFile.ToString())) {
+
+                player = new SoundPlayer(objSoundFile.ToString());
                 
                 try {
 
                     // Play the sound file
                     player.Play();
+
+                    while (!player.IsLoadCompleted) {
+                        // Keep the method running until the sound finishes playing
+                    }
 
                 } catch (Exception ex) {
                     Debug.WriteLine($"PlaySound(): Error occurred while playing the sound file: {ex.Message}");
@@ -251,14 +287,14 @@ namespace JSE_Utils {
         /// <returns>True if Docker is running; False if not.</returns>
         /// <remarks>Will start WSL if WSL isn't already running, which may or may not be desired.</remarks>
         public static bool IsRunning() {
-            // LEFT OFF: don't think I'm returning this properly. RunCommand returns a string, and I'm not testing what it returns before finally returning a bool.
+            // TODO: LEFT OFF: don't think I'm returning this properly. RunCommand returns a string, and I'm not testing what it returns before finally returning a bool.
             bool bResult = false;
 
             Task task = Task.Run(() => {
 
                 //Debug.WriteLine($"IsDockerRunning: Task started (ID: {Task.CurrentId})");
 
-                bResult = Misc.RunCommand("wsl", "docker ps", true).Contains("CONTAINER ID");
+                bResult = Misc.RunCommand("wsl", "docker ps", string.Empty, true).Contains("CONTAINER ID");
 
                 //Debug.WriteLine($"IsDockerRunning: Task complete (ID: {Task.CurrentId})");
 
@@ -270,7 +306,7 @@ namespace JSE_Utils {
         }
 
         public static void IsRunning_BGW(Action<bool> callback) {
-            // LEFT OFF: Need to test and finish the regular one above first, then add any changes here as well.
+            // TODO: LEFT OFF: Need to test and finish the regular one above first, then add any changes here as well.
             // Example usage:
             //
             // Docker.IsRunning_BGW((result) => {
@@ -312,8 +348,8 @@ namespace JSE_Utils {
 
     }
 
-    public static partial class IP_Regex
-    {
+    public static partial class IP_Regex {
+
         #region + -- REGEX -- +
 
         // IP Detections
@@ -342,6 +378,7 @@ namespace JSE_Utils {
         private static partial Regex IPv6PortPattern();
 
         #endregion
+
     }
 
     public static class Listview {
@@ -400,6 +437,12 @@ namespace JSE_Utils {
     }
 
     public static partial class Network {
+
+        #region + -- DECLARATIONS -- +
+
+        private static readonly string strLink_PortsTest = "https://www.yougetsignal.com/tools/open-ports";
+
+        #endregion
 
         public static partial class DNS {
 
@@ -576,7 +619,7 @@ namespace JSE_Utils {
         /// Open a website in the browser to test your ports
         /// </summary>
         public static void Link_OpenPortTester() {
-            Misc.RunCommand("https://www.yougetsignal.com/tools/open-ports");
+            Misc.RunCommand(strLink_PortsTest);
         }
     
     }
@@ -589,7 +632,7 @@ namespace JSE_Utils {
         /// <param name="strFileName">Filename|Program.exe to run</param>
         /// <param name="strArgs">[optional] Any arguments for the above file|program</param>
         /// <returns>Program output if any, else empty string</returns>
-        public static string RunCommand(string strFileName, string strArgs = "", bool bGetOutput = true) {
+        public static string RunCommand(string strFileName, string strArgs = "", string strWorkingDirectory = "", bool bGetOutput = true) {
 
             string strOutput = string.Empty;
             string pattern = @"(http|https|ftp)://";
@@ -615,10 +658,11 @@ namespace JSE_Utils {
                     withBlock.Verb = "runas";
                     withBlock.RedirectStandardOutput = true;
                     withBlock.RedirectStandardError = true;
-                    withBlock.FileName = strFileName;
+                    withBlock.FileName = strFileName.Trim();
                     withBlock.Arguments = strArgs.Trim();
                     withBlock.UseShellExecute = false;
                     withBlock.CreateNoWindow = true;
+                    withBlock.WorkingDirectory = strWorkingDirectory.Trim();
                 }
 
                 p.Start();
@@ -646,7 +690,7 @@ namespace JSE_Utils {
         /// <param name="strFileName">Filename|Program.exe to run</param>
         /// <param name="strArgs">[optional] Any arguments for the above file|program</param>
         /// <returns>Program output if any, else empty string</returns>
-        public static async Task<string> RunCommandAsync(string strFileName, string strArgs = "", bool bGetOutput = true) {
+        public static async Task<string> RunCommandAsync(string strFileName, string strArgs = "", string strWorkingDirectory = "", bool bGetOutput = true) {
 
             string strOutput = string.Empty;
             string pattern = @"(http|https|ftp)://";
@@ -672,10 +716,11 @@ namespace JSE_Utils {
                     withBlock.Verb = "runas";
                     withBlock.RedirectStandardOutput = true;
                     withBlock.RedirectStandardError = true;
-                    withBlock.FileName = strFileName;
+                    withBlock.FileName = strFileName.Trim();
                     withBlock.Arguments = strArgs.Trim();
                     withBlock.UseShellExecute = false;
                     withBlock.CreateNoWindow = true;
+                    withBlock.WorkingDirectory = strWorkingDirectory.Trim();
                 }
 
                 p.Start();
@@ -689,7 +734,7 @@ namespace JSE_Utils {
 
             } catch (Exception e) {
 
-                Debug.WriteLine($"RunCommand() Error: {e.Message}");
+                Debug.WriteLine($"RunCommand(): {e.Message}");
                 throw;
 
             }
@@ -705,7 +750,7 @@ namespace JSE_Utils {
         public static bool IsProcessRunning(string strProcessName) {
 
             Process[] p = Process.GetProcessesByName(strProcessName);
-            return p.Count() > 0;
+            return p.Any();
 
         }
 
@@ -713,7 +758,7 @@ namespace JSE_Utils {
 
     public static class Services {
 
-        #region WIN32API DECLARATIONS
+        #region + -- WIN32API DECLARATIONS -- +
 
         internal enum GenericRights : uint {
             GENERIC_READ = 0x80000000,
@@ -722,7 +767,7 @@ namespace JSE_Utils {
             GENERIC_ALL = 0x10000000,
         }
 
-        internal class NativeMethods {
+        internal static class NativeMethods {
 
             [DllImport("advapi32.dll", EntryPoint = "OpenSCManagerW", ExactSpelling = true, CharSet = CharSet.Unicode, SetLastError = true)]
             internal static extern IntPtr OpenSCManager(string machineName, string databaseName, uint dwAccess);
@@ -765,7 +810,7 @@ namespace JSE_Utils {
                 | SC_MANAGER_MODIFY_BOOT_CONFIG
         }
 
-        [Flags]
+        //[Flags]
         internal enum ServiceControls : uint {
             SERVICE_CONTROL_PARAMCHANGE = 0x00000006,
         }
@@ -794,7 +839,7 @@ namespace JSE_Utils {
                 | SERVICE_USER_DEFINED_CONTROL
         }
 
-        internal enum ServiceState : int {
+        internal enum ServiceState {
             SERVICE_STOPPED = 0x00000001,
             SERVICE_START_PENDING = 0x00000002,
             SERVICE_STOP_PENDING = 0x00000003,
@@ -847,7 +892,7 @@ namespace JSE_Utils {
 
                 try {
 
-                    using (ManagementObject service = new ManagementObject($"Win32_Service.Name='{serviceController.ServiceName}'")) {
+                    using (ManagementObject service = new($"Win32_Service.Name='{serviceController.ServiceName}'")) {
                         
                         service.Get();
 
@@ -905,13 +950,13 @@ namespace JSE_Utils {
             //
             // }, "iphlpsvc", false);
 
-            BackgroundWorker worker = new BackgroundWorker();
+            BackgroundWorker worker = new();
 
             worker.DoWork += (sender, e) => {
 
                 bool isRunning = false;
 
-                ServiceController service = new ServiceController(strServiceName);
+                ServiceController service = new(strServiceName);
 
                 try {
 
@@ -992,7 +1037,7 @@ namespace JSE_Utils {
 
         public static void ParamChange(string serviceName) {
 
-            using (ServiceController serviceController = new ServiceController(serviceName)) {
+            using (ServiceController serviceController = new(serviceName)) {
 
                 if (serviceController.Status != ServiceControllerStatus.Running) {
                     throw new InvalidOperationException($"Service '{serviceName}' is not in a running state.");
@@ -1027,11 +1072,11 @@ namespace JSE_Utils {
             //     Debug.WriteLine(result);
             // }, "iphlpsrv");
 
-            BackgroundWorker worker = new BackgroundWorker();
+            BackgroundWorker worker = new();
 
             worker.DoWork += (sender, e) => {
 
-                using (ServiceController serviceController = new ServiceController(strServiceName)) {
+                using (ServiceController serviceController = new(strServiceName)) {
 
                     try {
 
@@ -1162,7 +1207,7 @@ namespace JSE_Utils {
             //     }
             // }, false);
 
-            BackgroundWorker worker = new BackgroundWorker();
+            BackgroundWorker worker = new();
 
             worker.DoWork += (sender, e) => {
 
@@ -1203,12 +1248,12 @@ namespace JSE_Utils {
 
             Task task = Task.Run(() => {
 
-                Debug.WriteLine($"WSL.GetDistros: Task started (ID: {Task.CurrentId})");
+                Debug.WriteLine($"WSL.GetDistros(): Task started (ID: {Task.CurrentId})");
 
                // Run the command in Bash
                strOutput = Misc.RunCommand("wsl.exe", "-l -v --all");
 
-                Debug.WriteLine($"WSL.GetDistros: Task complete (ID: {Task.CurrentId})");
+                Debug.WriteLine($"WSL.GetDistros(): Task complete (ID: {Task.CurrentId})");
 
             });
 
@@ -1228,12 +1273,12 @@ namespace JSE_Utils {
 
             Task task = Task.Run(() => {
 
-                Debug.WriteLine($"WSL.GetAllVersionInfo: Task started (ID: {Task.CurrentId})");
+                Debug.WriteLine($"WSL.GetAllVersionInfo(): Task started (ID: {Task.CurrentId})");
 
                 // Run the command
                 strOutput = Misc.RunCommand("wsl.exe", "--version");
 
-                Debug.WriteLine($"WSL.GetAllVersionInfo: Task complete (ID: {Task.CurrentId})");
+                Debug.WriteLine($"WSL.GetAllVersionInfo(): Task complete (ID: {Task.CurrentId})");
 
             });
 
@@ -1253,19 +1298,20 @@ namespace JSE_Utils {
 
             Task task = Task.Run(() => {
 
-                Debug.WriteLine($"WSL.GetVersion: Task started (ID: {Task.CurrentId})");
+                Debug.WriteLine($"WSL.GetVersion(): Task started (ID: {Task.CurrentId})");
 
                 // Run the command
                 strOutput = Misc.RunCommand("wsl.exe", "--version");
 
-                Debug.WriteLine($"WSL.GetVersion: Task complete (ID: {Task.CurrentId})");
+                Debug.WriteLine($"WSL.GetVersion(): Task complete (ID: {Task.CurrentId})");
 
             });
 
             task.Wait();
 
             string start = "wsl version: ";
-            string end = "\r\n";
+            string end = @"\r\n";
+            //string end = "\r\n";
 
             // Try to parse out a version number
             int startIndex = strOutput.ToLower().IndexOf(start) + start.Length;
@@ -1290,7 +1336,7 @@ namespace JSE_Utils {
 
             Task task = Task.Run(() => {
 
-                //Debug.WriteLine($"WSL_GetIP: Task started (ID: {Task.CurrentId})");
+                //Debug.WriteLine($"WSL_GetIP(): Task started (ID: {Task.CurrentId})");
 
                 // Run the command in Bash
                 //strOutput = Misc.RunCommand("bash.exe", string.Format("{0} {1}", "-c", "\"ifconfig eth0 | grep 'inet '\""));
@@ -1300,7 +1346,7 @@ namespace JSE_Utils {
                 // Try to parse out a valid IPv4
                 strWSLIP = IP_Regex.IPv4RegEx.Match(strOutput).ToString();  
                 
-                //Debug.WriteLine($"WSL_GetIP: Task complete (ID: {Task.CurrentId})");
+                //Debug.WriteLine($"WSL_GetIP(): Task complete (ID: {Task.CurrentId})");
             });
 
             task.Wait();
@@ -1351,7 +1397,7 @@ namespace JSE_Utils {
             //    Debug.WriteLine(ip);
             // });
 
-            BackgroundWorker worker = new BackgroundWorker();
+            BackgroundWorker worker = new();
 
             worker.DoWork += (sender, e) => {
 
@@ -1400,7 +1446,7 @@ namespace JSE_Utils {
             // Place call wherever:
             // WSL.GetListeningPorts_BGW(DiscoveredPorts_Callback);
 
-            BackgroundWorker worker = new BackgroundWorker();
+            BackgroundWorker worker = new();
 
             worker.DoWork += (sender, e) => {
 
@@ -1515,12 +1561,12 @@ namespace JSE_Utils {
             
                     Task task = Task.Run(() => {
 
-                        Debug.WriteLine($"WSL_ShutDown: Task started (ID: {Task.CurrentId})");
+                        Debug.WriteLine($"WSL.ShutDown(): Task started (ID: {Task.CurrentId})");
 
                         // Run the shutdown command
                         Misc.RunCommand("wsl.exe", "--shutdown");
 
-                        Debug.WriteLine($"WSL_ShutDown: Task complete (ID: {Task.CurrentId})");
+                        Debug.WriteLine($"WSL.ShutDown(): Task complete (ID: {Task.CurrentId})");
 
                     });
 
@@ -1557,7 +1603,7 @@ namespace JSE_Utils {
                     Debug.WriteLine($"WSL_Start: Task started (ID: {Task.CurrentId})");
 
                     // Run the startup command
-                    Misc.RunCommand("wsl.exe", string.Empty, false);
+                    Misc.RunCommand("wsl.exe", string.Empty, string.Empty, false);
 
                     Debug.WriteLine($"WSL_Start: Task complete (ID: {Task.CurrentId})");
                 });
@@ -1591,7 +1637,8 @@ namespace JSE_Utils {
 
             // TODO: add Task code
 
-            // Run the shutdown command TODO: need to add confirmation when run from the mini menu.
+            // Run the shutdown command
+            // TODO: need to add confirmation when run from the mini menu.
             Misc.RunCommand("wsl.exe", "--shutdown");
 
             Debug.WriteLine("WSL Restart: Shutdown command sent");
@@ -1601,19 +1648,19 @@ namespace JSE_Utils {
                 // TODO: Add some sort of user feedback here to let them know we're doin work?
             }
 
-            Debug.WriteLine("WSL Restart: WSL has shutdown");
+            Debug.WriteLine("WSL.Restart(): WSL has shutdown");
 
             // Run the startup command
-            Misc.RunCommand("wsl.exe", string.Empty, false);
+            Misc.RunCommand("wsl.exe", string.Empty, string.Empty, false);
 
-            Debug.WriteLine("WSL Restart: Startup command sent");
+            Debug.WriteLine("WSL.Restart(): Startup command sent");
 
             while (!IsRunning()) {
                 // Loop until WSL is confirmed to be running, then show them confirmation.
                 // TODO: Add some sort of user feedback here to let them know we're doin work?
             }
 
-            Debug.WriteLine("WSL Restart: WSL has restarted");
+            Debug.WriteLine("WSL.Restart(): WSL has restarted");
 
             if (bShowResult) {
                 MessageBox.Show("WSL has restarted.", "WSL: Restart", MessageBoxButtons.OK, MessageBoxIcon.Information);

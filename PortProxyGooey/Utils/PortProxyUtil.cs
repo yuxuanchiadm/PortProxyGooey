@@ -1,17 +1,11 @@
 ﻿#region + -- IMPORTS -- +
 
 using Microsoft.Win32;
-//using NStandard;
 using PortProxyGooey.Data;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-//using System.Net.Sockets;
-//using System.Net;
-//using System.Runtime.InteropServices;
-//using System.Text.RegularExpressions;
-//using System.Windows.Forms;
 
 #endregion
 
@@ -34,8 +28,7 @@ namespace PortProxyGooey.Utils {
         /// </summary>
         /// <param name="type">Proxy Type (v4tov4, etc.)</param>
         /// <returns>(string)Path to registry key</returns>
-        public static string GetKeyName(string type)
-        {
+        public static string GetKeyName(string type) {
             return $@"SYSTEM\CurrentControlSet\Services\PortProxy\{type}\tcp";
         }
 
@@ -116,35 +109,11 @@ namespace PortProxyGooey.Utils {
 
             try {
                 key?.DeleteValue(name);
+            } catch (Exception ex) { 
+                Debug.WriteLine($"DeleteProxy(): {ex.Message}");
             }
-            catch {}
 
         }
-
-        #region MISC
-
-        /// <summary>
-        /// Central function to open an URL/App, whatev.
-        /// </summary>
-        /// <param name="strFileOrURL">URL/App to open</param>
-        /// <param name="strArgs">[optional] Any arguments to pass to the file/app. Defaults to empty string.</param>
-        /// <param name="strStartIn">[optional] Directory to start in. Defaults to empty string.</param>
-        public static void Launch(string strFileOrURL, string strArgs = "", string strStartIn = "") {
-
-            ProcessStartInfo psi = new() {
-
-                FileName = strFileOrURL,
-                Arguments = strArgs,
-                WorkingDirectory = strStartIn,
-                UseShellExecute = true
-
-            };
-
-            Process.Start(psi);
-
-        }
-
-        #endregion
 
     }
 }

@@ -104,13 +104,13 @@
             lblJSE = new System.Windows.Forms.Label();
             pnlBar = new System.Windows.Forms.Panel();
             tTipPPG = new System.Windows.Forms.ToolTip(components);
+            picDocker = new System.Windows.Forms.PictureBox();
+            contextMenuStrip_Docker = new System.Windows.Forms.ContextMenuStrip(components);
             picWSL = new System.Windows.Forms.PictureBox();
             contextMenuStrip_WSL = new System.Windows.Forms.ContextMenuStrip(components);
             toolStripMenuItemWSLStart = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItemWSLRestart = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItemWSLShutDown = new System.Windows.Forms.ToolStripMenuItem();
-            picDocker = new System.Windows.Forms.PictureBox();
-            contextMenuStrip_Docker = new System.Windows.Forms.ContextMenuStrip(components);
             tmrCheck = new System.Windows.Forms.Timer(components);
             pnlStatusBar = new System.Windows.Forms.Panel();
             picIpHlpSvcStatus = new System.Windows.Forms.PictureBox();
@@ -123,9 +123,9 @@
             lblCurrentLocalIP = new System.Windows.Forms.Label();
             lblPP = new System.Windows.Forms.Label();
             contextMenuStrip_RightClick.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)picDocker).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picWSL).BeginInit();
             contextMenuStrip_WSL.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)picDocker).BeginInit();
             pnlStatusBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picIpHlpSvcStatus).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picDockerStatus).BeginInit();
@@ -642,6 +642,22 @@
             tTipPPG.InitialDelay = 1000;
             tTipPPG.ReshowDelay = 100;
             // 
+            // picDocker
+            // 
+            resources.ApplyResources(picDocker, "picDocker");
+            picDocker.BackColor = System.Drawing.Color.FromArgb(46, 52, 64);
+            picDocker.ContextMenuStrip = contextMenuStrip_Docker;
+            picDocker.Image = Properties.Resources.docker_1;
+            picDocker.Name = "picDocker";
+            picDocker.TabStop = false;
+            tTipPPG.SetToolTip(picDocker, resources.GetString("picDocker.ToolTip"));
+            picDocker.Click += picDocker_Click;
+            // 
+            // contextMenuStrip_Docker
+            // 
+            contextMenuStrip_Docker.Name = "contextMenuStrip_Docker";
+            resources.ApplyResources(contextMenuStrip_Docker, "contextMenuStrip_Docker");
+            // 
             // picWSL
             // 
             resources.ApplyResources(picWSL, "picWSL");
@@ -676,22 +692,6 @@
             toolStripMenuItemWSLShutDown.Name = "toolStripMenuItemWSLShutDown";
             resources.ApplyResources(toolStripMenuItemWSLShutDown, "toolStripMenuItemWSLShutDown");
             toolStripMenuItemWSLShutDown.Click += toolStripMenuItemWSLShutDown_Click;
-            // 
-            // picDocker
-            // 
-            resources.ApplyResources(picDocker, "picDocker");
-            picDocker.BackColor = System.Drawing.Color.FromArgb(46, 52, 64);
-            picDocker.ContextMenuStrip = contextMenuStrip_Docker;
-            picDocker.Image = Properties.Resources.docker_1;
-            picDocker.Name = "picDocker";
-            picDocker.TabStop = false;
-            tTipPPG.SetToolTip(picDocker, resources.GetString("picDocker.ToolTip"));
-            picDocker.Click += picDocker_Click;
-            // 
-            // contextMenuStrip_Docker
-            // 
-            contextMenuStrip_Docker.Name = "contextMenuStrip_Docker";
-            resources.ApplyResources(contextMenuStrip_Docker, "contextMenuStrip_Docker");
             // 
             // tmrCheck
             // 
@@ -790,9 +790,9 @@
             DoubleClick += PortProxyGooey_DoubleClick;
             Resize += PortProxyGUI_Resize;
             contextMenuStrip_RightClick.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)picDocker).EndInit();
             ((System.ComponentModel.ISupportInitialize)picWSL).EndInit();
             contextMenuStrip_WSL.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)picDocker).EndInit();
             pnlStatusBar.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)picIpHlpSvcStatus).EndInit();
             ((System.ComponentModel.ISupportInitialize)picDockerStatus).EndInit();
