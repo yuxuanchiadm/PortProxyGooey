@@ -56,10 +56,11 @@ namespace PortProxyGooey {
             listViewProxies.ListViewItemSorter = lvwColumnSorter;
         }
 
-        private void PortProxyGUI_Load(object sender, EventArgs e) {
+        private void PortProxyGooey_Load(object sender, EventArgs e) {
 
             // TEST AREA
 
+            Audio.PlaySound_BGW(@"D:\Coding\Repos\.NET\PortProxyGooey\PortProxyGooey\Resources\audio\test_mp3.mp3");
             //WSL.GetListeningPorts_BGW((dicPorts) => Debug.WriteLine($"WSL Listening Ports: {dicPorts}"));
 
             // END
@@ -103,7 +104,7 @@ namespace PortProxyGooey {
 
         }
 
-        private void PortProxyGUI_Shown(object sender, EventArgs e) {
+        private void PortProxyGooey_Shown(object sender, EventArgs e) {
 
             RefreshProxyList();
 
@@ -866,7 +867,7 @@ namespace PortProxyGooey {
         /// <summary>
         /// Saves all current configs
         /// </summary>
-        private void PortProxyGUI_FormClosing(object sender, FormClosingEventArgs e) {
+        private void PortProxyGooey_FormClosing(object sender, FormClosingEventArgs e) {
 
             // Save Main Window Location
             AppConfig.MainWindowLocationX = this.Location.X;
@@ -876,7 +877,7 @@ namespace PortProxyGooey {
             Program.Database.SaveAppConfig(AppConfig);
         }
 
-        private void PortProxyGUI_Resize(object sender, EventArgs e) {
+        private void PortProxyGooey_Resize(object sender, EventArgs e) {
 
             if (AppConfig is not null && sender is Form form)
                 AppConfig.MainWindowSize = form.Size;
@@ -1053,10 +1054,8 @@ namespace PortProxyGooey {
 
             if (Network.DNS.FlushCache(true, false)) {
 
-                //Audio.PlaySound(@"D:\Coding\Repos\PortProxyGUI\PortProxyGUI\Resources\audio\Flush.wav");
-                //TODO: Audio.PlaySound(Properties.Resources.Flush);
-                //Audio.PlaySound(Properties.Resources.ResourceManager.GetStream("Flush"));
-                Audio.PlayWavFromResources("Flush");
+                // Give em' a Swirly!
+                Audio.PlaySound("Flush");
 
                 // Note: I could use the built-in confirmation dialog in FlushCache(), but it does a "ding" system sound,
                 //       which conflicts with the .wav, so I'm playing the .wav first, THEN let it ding. Slightly nicer.

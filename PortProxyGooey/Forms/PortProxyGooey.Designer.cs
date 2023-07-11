@@ -784,11 +784,11 @@
             Controls.Add(lblGooey);
             Controls.Add(lblProxyCount);
             Name = "PortProxyGooey";
-            FormClosing += PortProxyGUI_FormClosing;
-            Load += PortProxyGUI_Load;
-            Shown += PortProxyGUI_Shown;
+            FormClosing += PortProxyGooey_FormClosing;
+            Load += PortProxyGooey_Load;
+            Shown += PortProxyGooey_Shown;
             DoubleClick += PortProxyGooey_DoubleClick;
-            Resize += PortProxyGUI_Resize;
+            Resize += PortProxyGooey_Resize;
             contextMenuStrip_RightClick.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)picDocker).EndInit();
             ((System.ComponentModel.ISupportInitialize)picWSL).EndInit();

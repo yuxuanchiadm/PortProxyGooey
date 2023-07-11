@@ -63,6 +63,7 @@
 
   <ItemGroup>
     <None Remove="Resources\advanced.png" />
+    <None Remove="Resources\audio\test_mp3.mp3" />
     <None Remove="Resources\flushdns.png" />
   </ItemGroup>
 
@@ -79,6 +80,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="NAudio" Version="2.1.0" />
     <PackageReference Include="SQLib.Sqlite" Version="0.11.0" />
     <PackageReference Include="System.Management" Version="7.0.2" />
     <PackageReference Include="System.ServiceProcess.ServiceController" Version="7.0.1" />
