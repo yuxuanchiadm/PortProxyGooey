@@ -518,7 +518,7 @@ in case you want to download it.</value>
     <value>Sites</value>
   </data>
   <data name="externalAppsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>177, 22</value>
   </data>
   <data name="externalAppsToolStripMenuItem.Text" xml:space="preserve">
     <value>External Apps</value>
@@ -626,13 +626,13 @@ in case you want to download it.</value>
     <value>May be worth a shot if you're experiencing connection issues.</value>
   </data>
   <data name="advancedToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>177, 22</value>
   </data>
   <data name="advancedToolStripMenuItem1.Text" xml:space="preserve">
     <value>Advanced</value>
   </data>
   <data name="toolStripSeparator9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 6</value>
+    <value>174, 6</value>
   </data>
   <data name="toolStripMenuItem_Export.Size" type="System.Drawing.Size, System.Drawing">
     <value>116, 22</value>
@@ -653,16 +653,16 @@ in case you want to download it.</value>
     <value>Restore proxies list from backup</value>
   </data>
   <data name="toolStripMenuItem_BackupRestore.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>177, 22</value>
   </data>
   <data name="toolStripMenuItem_BackupRestore.Text" xml:space="preserve">
     <value>Backup / Restore</value>
   </data>
   <data name="toolStripSeparator6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 6</value>
+    <value>174, 6</value>
   </data>
   <data name="toolStripMenuItem_ResetWindowSize.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>177, 22</value>
   </data>
   <data name="toolStripMenuItem_ResetWindowSize.Text" xml:space="preserve">
     <value>Reset Window</value>
@@ -724,7 +724,7 @@ in case you want to download it.</value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAmisAAAJNU0Z0AUkBTAIBAQYB
-        AAEQAQUBEAEFARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAASADAAEBAQABIAYAASBe
+        AAEYAQUBGAEFARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAASADAAEBAQABIAYAASBe
         AAMqAUADKgFAAyoBQAMqAUADKgFAAyoBQAMqAUADKgFAAyoBQAMqAUCQAAMMARACWwFZAcABrwHEARYB
         /wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8B
         xAEWAf8BrwHEARYB/wJbAVkBwAMMARAIAAMMARACWQFbAcABPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8B
@@ -1106,9 +1106,6 @@ in case you want to download it.</value>
   </data>
   <data name="picDocker.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
-  </data>
-  <data name="picDocker.ToolTip" xml:space="preserve">
-    <value>Docker is Running</value>
   </data>
   <data name="picDocker.Visible" type="System.Boolean, mscorlib">
     <value>False</value>

@@ -54,7 +54,7 @@ namespace JSE_Utils {
         /// </summary>
         /// <param name="strSoundFile">(string) Either a full valid path to a sound file, or the name of one saved in Resources.</param>
         /// <remarks>Async: BackgroundWorker</remarks>
-        public static void PlaySound_BGW(string strSoundFileOrName) {
+        public static void PlaySound_BGW(string strSoundFileOrName = "", byte[] bytResource = null) {
             // TODO: Need to now add in handling mp3 from resource. (From file is working)
             BackgroundWorker worker = new();
 
@@ -70,7 +70,12 @@ namespace JSE_Utils {
                 // 1 = mp3
                 int intAudioType = 0;
 
-                SoundPlayer player = new();
+                SoundPlayer wavPlayer = new();
+                WaveOutEvent mp3Player = new();
+                MediaFoundationReader audioFile = null;
+
+                // Resource streaming
+                Stream stream = new MemoryStream(bytResource);
 
                 // Check on the existence of passed file name
                 if (File.Exists(strSoundFileOrName)) {
@@ -78,30 +83,51 @@ namespace JSE_Utils {
                     // If a file path was passed
 
                     // Check file extension
-                    if (Path.GetExtension(strSoundFileOrName) == ".mp3") {
+                    if (Path.GetExtension(strSoundFileOrName).EndsWith(".mp3", StringComparison.OrdinalIgnoreCase)) {
 
                         // MP3: Just set a flag so we know how to handle it later
                         intAudioType = 1;
 
                         // Not gonna use the Wav player, so be a good egg and free up it's resources.
-                        player.Dispose();
+                        wavPlayer.Dispose();
 
-                    } else if (Path.GetExtension(strSoundFileOrName) == ".wav") {
+                    } else if (Path.GetExtension(strSoundFileOrName).EndsWith(".wav", StringComparison.OrdinalIgnoreCase)) {
 
                         // WAV: Flag already defaults to 0; no need to set it here.
-                        player = new SoundPlayer(strSoundFileOrName);
+                        wavPlayer = new SoundPlayer(strSoundFileOrName);
 
                     }
 
-                } else if (resourceManager.GetStream(strSoundFileOrName) != null) {
+                //} else if (resourceManager.GetStream(strSoundFileOrName) != null) {
+                } else if (resourceManager.GetObject(strSoundFileOrName) != null) {
+
+                    // NOTE: Currently has potential to shit the bed here due to possibly not being a Stream (for .wav),
+                    //       but I switched the test above to accomodate .mp3, and currently in a rush to finish the app,
+                    //       so haven't added further validation before just attempting to play it.
+
+                    Debug.WriteLine("Obj Type: " + resourceManager.GetObject(strSoundFileOrName));
 
                     // If not a file path, try to run it from Resources. 
-                    player = new SoundPlayer(resourceManager.GetStream(strSoundFileOrName));
+                    if (resourceManager.GetObject(strSoundFileOrName).ToString() == "System.Byte[]") {
+                        // Left off here. Merging the tmpplay func.
+                        // MP3
+                        //audioFile = new MediaFoundationReader(resourceManager.GetStream(strSoundFileOrName));
+
+                    } else if (resourceManager.GetObject(strSoundFileOrName).ToString() == "System.IO.UnmanagedMemoryStreamWrapper") {
+
+                        // WAV
+                        wavPlayer = new SoundPlayer(resourceManager.GetStream(strSoundFileOrName));
+
+                        mp3Player.Dispose();
+                        audioFile?.Dispose();
+                    }
 
                 } else {
 
                     // No valid sound file was passed along to us; just bail.
-                    player.Dispose();
+                    wavPlayer.Dispose();
+                    mp3Player.Dispose();
+                    audioFile?.Dispose();
                     return;
 
                 }
@@ -113,27 +139,24 @@ namespace JSE_Utils {
                     Debug.WriteLine("Trying to play mp3 file");
 
                     // Create a WaveOutEvent instance (audio output device)
-                    using (WaveOutEvent waveOut = new WaveOutEvent()) {
+                    //using WaveOutEvent mp3Player = new();
 
-                        // Create a MediaFoundationReader instance to read the MP3 file
-                        using (MediaFoundationReader audioFile = new(strSoundFileOrName)) {
+                    // Create a MediaFoundationReader instance to read the MP3 file
+                    //using MediaFoundationReader audioFile = new(strSoundFileOrName);
 
-                            // Create a WaveStream instance for playback
-                            WaveStream waveStream = WaveFormatConversionStream.CreatePcmStream(audioFile);
+                    // Create a WaveStream instance for playback
+                    // TODO: If audioFile ends up null here; issues ... handle it.
+                    WaveStream waveStream = WaveFormatConversionStream.CreatePcmStream(audioFile);
 
-                            // Configure the WaveOutEvent with the WaveStream
-                            waveOut.Init(waveStream);
+                    // Configure the WaveOutEvent with the WaveStream
+                    mp3Player.Init(waveStream);
 
-                            // Start audio playback
-                            waveOut.Play();
+                    // Start audio playback
+                    mp3Player.Play();
 
-                            // Wait until playback is complete. W/out this method being a BGW the GUI would freeze here until the sound finished.
-                            while (waveOut.PlaybackState == PlaybackState.Playing) {
-                                System.Threading.Thread.Sleep(100);
-                            }
-
-                        }
-
+                    // Wait until playback is complete. W/out this method being a BGW the GUI would freeze here until the sound finished.
+                    while (mp3Player.PlaybackState == PlaybackState.Playing) {
+                        System.Threading.Thread.Sleep(100);
                     }
 
                 } else {
@@ -143,16 +166,16 @@ namespace JSE_Utils {
                     try {
 
                         // Play the sound file
-                        player.Play();
+                        wavPlayer.Play();
 
-                        while (!player.IsLoadCompleted) {
+                        while (!wavPlayer.IsLoadCompleted) {
                             // Keep the method running until the sound finishes playing
                         }
 
-                        player.Dispose();
+                        wavPlayer.Dispose();
 
                     } catch (Exception ex) {
-                        player.Dispose();
+                        wavPlayer.Dispose();
                         Debug.WriteLine($"PlaySound(): Error occurred while playing the sound file: {ex.Message}");
                     }
 
@@ -169,6 +192,93 @@ namespace JSE_Utils {
             };
 
             worker.RunWorkerAsync();
+        }
+
+        public static void PlaySound2_BGW(string strSoundFileOrName) {
+
+            BackgroundWorker worker = new();
+
+            worker.DoWork += (sender, e) => {
+
+                // Check if the input is a local file path or a resource name
+                bool isLocalFilePath = File.Exists(strSoundFileOrName);
+
+                using (WaveOutEvent waveOut = new()) {
+
+                    WaveStream waveStream;
+
+                    if (isLocalFilePath) {
+
+                        // Play audio from a local file path
+                        if (strSoundFileOrName.EndsWith(".mp3", StringComparison.OrdinalIgnoreCase)) {
+
+                            waveStream = new MediaFoundationReader(strSoundFileOrName);
+
+                        } else if (strSoundFileOrName.EndsWith(".wav", StringComparison.OrdinalIgnoreCase)) {
+
+                            waveStream = new WaveFileReader(strSoundFileOrName);
+
+                        } else {
+
+                            Debug.WriteLine("Unsupported file format.");
+                            return;
+
+                        }
+
+                    } else {
+
+                        // Play audio from a resource stream
+                        //Stream resourceStream = GetResourceStream(strSoundFileOrName);
+
+                        //if (resourceStream == null) {
+
+                        //    Debug.WriteLine("Resource not found.");
+                        //    return;
+
+                        //}
+
+                        //if (resourceStream.CanSeek) {
+
+                        //    waveStream = new WaveFileReader(resourceStream);
+
+                        //} else {
+
+                        //    waveStream = WaveFormatConversionStream.CreatePcmStream(new BlockAlignReductionStream(new WaveFileReader(resourceStream)));
+
+                        //}
+                    }
+
+                    //waveOut.Init(waveStream);
+                    waveOut.Play();
+
+                    while (waveOut.PlaybackState == PlaybackState.Playing) {
+                        System.Threading.Thread.Sleep(100);
+                    }
+                }
+
+            };
+
+            worker.RunWorkerCompleted += (sender, e) => {
+
+                if (e.Error != null) {
+                    // Handle errors
+                }
+
+            };
+
+            worker.RunWorkerAsync();
+        }
+
+        public static void tmpPlay(byte[] bytResource) {
+
+            Stream stream = new MemoryStream(bytResource);
+
+            Mp3FileReader reader = new(stream);
+            WaveOut waveOut = new();
+
+            waveOut.Init(reader);
+            waveOut.Play();
+
         }
 
     }

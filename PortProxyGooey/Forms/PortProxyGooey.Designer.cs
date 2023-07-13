@@ -650,7 +650,6 @@
             picDocker.Image = Properties.Resources.docker_1;
             picDocker.Name = "picDocker";
             picDocker.TabStop = false;
-            tTipPPG.SetToolTip(picDocker, resources.GetString("picDocker.ToolTip"));
             picDocker.Click += picDocker_Click;
             // 
             // contextMenuStrip_Docker

@@ -60,7 +60,12 @@ namespace PortProxyGooey {
 
             // TEST AREA
 
-            Audio.PlaySound_BGW(@"D:\Coding\Repos\.NET\PortProxyGooey\PortProxyGooey\Resources\audio\test_mp3.mp3");
+            //Audio.PlaySound_BGW("HS");
+            //Audio.PlaySound2_BGW("HS");
+            Audio.tmpPlay(Properties.Resources.HS);
+
+
+            //Audio.PlaySound_BGW("Flush");
             //WSL.GetListeningPorts_BGW((dicPorts) => Debug.WriteLine($"WSL Listening Ports: {dicPorts}"));
 
             // END
@@ -1055,7 +1060,7 @@ namespace PortProxyGooey {
             if (Network.DNS.FlushCache(true, false)) {
 
                 // Give em' a Swirly!
-                Audio.PlaySound("Flush");
+                Audio.PlaySound_BGW("Flush");
 
                 // Note: I could use the built-in confirmation dialog in FlushCache(), but it does a "ding" system sound,
                 //       which conflicts with the .wav, so I'm playing the .wav first, THEN let it ding. Slightly nicer.

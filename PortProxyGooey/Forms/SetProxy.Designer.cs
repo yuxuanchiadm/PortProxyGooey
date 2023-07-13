@@ -29,17 +29,14 @@ namespace PortProxyGooey {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SetProxy));
             label_ListenOn = new Label();
             label_ConnectTo = new Label();
-            textBox_ConnectPort = new TextBox();
             label_ConnectPort = new Label();
             button_Set = new Button();
             label_ListenPort = new Label();
-            textBox_ListenPort = new TextBox();
             label_Comment = new Label();
             textBox_Comment = new TextBox();
             label_Group = new Label();
             comboBox_Group = new ComboBox();
             comboBox_ListenOn = new ComboBox();
-            textBox_ListenPortRange = new TextBox();
             lblDash = new Label();
             chkBox_ListenPortRange = new CheckBox();
             lblRequired = new Label();
@@ -52,6 +49,7 @@ namespace PortProxyGooey {
             lblWSLDiscovered = new Label();
             lblDiscoveredIP6 = new Label();
             lblDiscoveredIP4 = new Label();
+            comboBox_ListenPortRange = new ComboBox();
             comboBox_ConnectTo = new ComboBox();
             lblDupe = new Label();
             btnCancel = new Button();
@@ -60,6 +58,8 @@ namespace PortProxyGooey {
             listBoxIP6 = new ListBox();
             pnlTop = new Panel();
             pnlBottom = new Panel();
+            comboBox_ListenPort = new ComboBox();
+            comboBox_ConnectPort = new ComboBox();
             pnlTop.SuspendLayout();
             SuspendLayout();
             // 
@@ -78,21 +78,6 @@ namespace PortProxyGooey {
             label_ConnectTo.ForeColor = System.Drawing.Color.FromArgb(191, 97, 106);
             label_ConnectTo.Name = "label_ConnectTo";
             tTipSetProxy.SetToolTip(label_ConnectTo, resources.GetString("label_ConnectTo.ToolTip"));
-            // 
-            // textBox_ConnectPort
-            // 
-            resources.ApplyResources(textBox_ConnectPort, "textBox_ConnectPort");
-            textBox_ConnectPort.AutoCompleteCustomSource.AddRange(new string[] { resources.GetString("textBox_ConnectPort.AutoCompleteCustomSource"), resources.GetString("textBox_ConnectPort.AutoCompleteCustomSource1"), resources.GetString("textBox_ConnectPort.AutoCompleteCustomSource2"), resources.GetString("textBox_ConnectPort.AutoCompleteCustomSource3"), resources.GetString("textBox_ConnectPort.AutoCompleteCustomSource4"), resources.GetString("textBox_ConnectPort.AutoCompleteCustomSource5"), resources.GetString("textBox_ConnectPort.AutoCompleteCustomSource6"), resources.GetString("textBox_ConnectPort.AutoCompleteCustomSource7"), resources.GetString("textBox_ConnectPort.AutoCompleteCustomSource8"), resources.GetString("textBox_ConnectPort.AutoCompleteCustomSource9"), resources.GetString("textBox_ConnectPort.AutoCompleteCustomSource10"), resources.GetString("textBox_ConnectPort.AutoCompleteCustomSource11"), resources.GetString("textBox_ConnectPort.AutoCompleteCustomSource12"), resources.GetString("textBox_ConnectPort.AutoCompleteCustomSource13") });
-            textBox_ConnectPort.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            textBox_ConnectPort.AutoCompleteSource = AutoCompleteSource.CustomSource;
-            textBox_ConnectPort.BackColor = System.Drawing.Color.FromArgb(41, 46, 57);
-            textBox_ConnectPort.BorderStyle = BorderStyle.FixedSingle;
-            textBox_ConnectPort.ForeColor = System.Drawing.Color.FromArgb(229, 233, 240);
-            textBox_ConnectPort.Name = "textBox_ConnectPort";
-            textBox_ConnectPort.TextChanged += textBox_ConnectPort_TextChanged;
-            textBox_ConnectPort.KeyDown += textBox_ConnectPort_KeyDown;
-            textBox_ConnectPort.KeyPress += textBox_ConnectPort_KeyPress;
-            textBox_ConnectPort.MouseWheel += TextBox_ConnectPort_MouseWheel;
             // 
             // label_ConnectPort
             // 
@@ -119,21 +104,6 @@ namespace PortProxyGooey {
             label_ListenPort.ForeColor = System.Drawing.Color.FromArgb(191, 97, 106);
             label_ListenPort.Name = "label_ListenPort";
             tTipSetProxy.SetToolTip(label_ListenPort, resources.GetString("label_ListenPort.ToolTip"));
-            // 
-            // textBox_ListenPort
-            // 
-            resources.ApplyResources(textBox_ListenPort, "textBox_ListenPort");
-            textBox_ListenPort.AutoCompleteCustomSource.AddRange(new string[] { resources.GetString("textBox_ListenPort.AutoCompleteCustomSource"), resources.GetString("textBox_ListenPort.AutoCompleteCustomSource1"), resources.GetString("textBox_ListenPort.AutoCompleteCustomSource2"), resources.GetString("textBox_ListenPort.AutoCompleteCustomSource3"), resources.GetString("textBox_ListenPort.AutoCompleteCustomSource4"), resources.GetString("textBox_ListenPort.AutoCompleteCustomSource5"), resources.GetString("textBox_ListenPort.AutoCompleteCustomSource6"), resources.GetString("textBox_ListenPort.AutoCompleteCustomSource7"), resources.GetString("textBox_ListenPort.AutoCompleteCustomSource8"), resources.GetString("textBox_ListenPort.AutoCompleteCustomSource9"), resources.GetString("textBox_ListenPort.AutoCompleteCustomSource10"), resources.GetString("textBox_ListenPort.AutoCompleteCustomSource11"), resources.GetString("textBox_ListenPort.AutoCompleteCustomSource12"), resources.GetString("textBox_ListenPort.AutoCompleteCustomSource13") });
-            textBox_ListenPort.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            textBox_ListenPort.AutoCompleteSource = AutoCompleteSource.CustomSource;
-            textBox_ListenPort.BackColor = System.Drawing.Color.FromArgb(41, 46, 57);
-            textBox_ListenPort.BorderStyle = BorderStyle.FixedSingle;
-            textBox_ListenPort.ForeColor = System.Drawing.Color.FromArgb(229, 233, 240);
-            textBox_ListenPort.Name = "textBox_ListenPort";
-            textBox_ListenPort.TextChanged += textBox_ListenPort_TextChanged;
-            textBox_ListenPort.KeyDown += textBox_ListenPort_KeyDown;
-            textBox_ListenPort.KeyPress += textBox_ListenPort_KeyPress;
-            textBox_ListenPort.MouseWheel += TextBox_ListenPort_MouseWheel;
             // 
             // label_Comment
             // 
@@ -186,22 +156,6 @@ namespace PortProxyGooey {
             comboBox_ListenOn.Name = "comboBox_ListenOn";
             comboBox_ListenOn.TextChanged += comboBox_ListenOn_TextChanged;
             comboBox_ListenOn.KeyPress += comboBox_ListenOn_KeyPress;
-            // 
-            // textBox_ListenPortRange
-            // 
-            resources.ApplyResources(textBox_ListenPortRange, "textBox_ListenPortRange");
-            textBox_ListenPortRange.AutoCompleteCustomSource.AddRange(new string[] { resources.GetString("textBox_ListenPortRange.AutoCompleteCustomSource"), resources.GetString("textBox_ListenPortRange.AutoCompleteCustomSource1"), resources.GetString("textBox_ListenPortRange.AutoCompleteCustomSource2"), resources.GetString("textBox_ListenPortRange.AutoCompleteCustomSource3"), resources.GetString("textBox_ListenPortRange.AutoCompleteCustomSource4"), resources.GetString("textBox_ListenPortRange.AutoCompleteCustomSource5"), resources.GetString("textBox_ListenPortRange.AutoCompleteCustomSource6"), resources.GetString("textBox_ListenPortRange.AutoCompleteCustomSource7"), resources.GetString("textBox_ListenPortRange.AutoCompleteCustomSource8"), resources.GetString("textBox_ListenPortRange.AutoCompleteCustomSource9"), resources.GetString("textBox_ListenPortRange.AutoCompleteCustomSource10"), resources.GetString("textBox_ListenPortRange.AutoCompleteCustomSource11"), resources.GetString("textBox_ListenPortRange.AutoCompleteCustomSource12"), resources.GetString("textBox_ListenPortRange.AutoCompleteCustomSource13") });
-            textBox_ListenPortRange.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            textBox_ListenPortRange.AutoCompleteSource = AutoCompleteSource.CustomSource;
-            textBox_ListenPortRange.BackColor = System.Drawing.Color.FromArgb(41, 46, 57);
-            textBox_ListenPortRange.BorderStyle = BorderStyle.FixedSingle;
-            textBox_ListenPortRange.ForeColor = System.Drawing.Color.FromArgb(229, 233, 240);
-            textBox_ListenPortRange.Name = "textBox_ListenPortRange";
-            tTipSetProxy.SetToolTip(textBox_ListenPortRange, resources.GetString("textBox_ListenPortRange.ToolTip"));
-            textBox_ListenPortRange.TextChanged += textBox_ListenPortRange_TextChanged;
-            textBox_ListenPortRange.KeyDown += textBox_ListenPortRange_KeyDown;
-            textBox_ListenPortRange.KeyPress += textBox_ListenPortRange_KeyPress;
-            textBox_ListenPortRange.MouseWheel += TextBox_ListenPortRange_MouseWheel;
             // 
             // lblDash
             // 
@@ -305,6 +259,22 @@ namespace PortProxyGooey {
             lblDiscoveredIP4.Name = "lblDiscoveredIP4";
             tTipSetProxy.SetToolTip(lblDiscoveredIP4, resources.GetString("lblDiscoveredIP4.ToolTip"));
             // 
+            // comboBox_ListenPortRange
+            // 
+            resources.ApplyResources(comboBox_ListenPortRange, "comboBox_ListenPortRange");
+            comboBox_ListenPortRange.AutoCompleteCustomSource.AddRange(new string[] { resources.GetString("comboBox_ListenPortRange.AutoCompleteCustomSource"), resources.GetString("comboBox_ListenPortRange.AutoCompleteCustomSource1"), resources.GetString("comboBox_ListenPortRange.AutoCompleteCustomSource2"), resources.GetString("comboBox_ListenPortRange.AutoCompleteCustomSource3"), resources.GetString("comboBox_ListenPortRange.AutoCompleteCustomSource4"), resources.GetString("comboBox_ListenPortRange.AutoCompleteCustomSource5"), resources.GetString("comboBox_ListenPortRange.AutoCompleteCustomSource6"), resources.GetString("comboBox_ListenPortRange.AutoCompleteCustomSource7"), resources.GetString("comboBox_ListenPortRange.AutoCompleteCustomSource8"), resources.GetString("comboBox_ListenPortRange.AutoCompleteCustomSource9"), resources.GetString("comboBox_ListenPortRange.AutoCompleteCustomSource10"), resources.GetString("comboBox_ListenPortRange.AutoCompleteCustomSource11"), resources.GetString("comboBox_ListenPortRange.AutoCompleteCustomSource12"), resources.GetString("comboBox_ListenPortRange.AutoCompleteCustomSource13") });
+            comboBox_ListenPortRange.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            comboBox_ListenPortRange.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            comboBox_ListenPortRange.BackColor = System.Drawing.Color.FromArgb(41, 46, 57);
+            comboBox_ListenPortRange.ForeColor = System.Drawing.Color.FromArgb(229, 233, 240);
+            comboBox_ListenPortRange.FormattingEnabled = true;
+            comboBox_ListenPortRange.Items.AddRange(new object[] { resources.GetString("comboBox_ListenPortRange.Items"), resources.GetString("comboBox_ListenPortRange.Items1"), resources.GetString("comboBox_ListenPortRange.Items2"), resources.GetString("comboBox_ListenPortRange.Items3"), resources.GetString("comboBox_ListenPortRange.Items4"), resources.GetString("comboBox_ListenPortRange.Items5"), resources.GetString("comboBox_ListenPortRange.Items6"), resources.GetString("comboBox_ListenPortRange.Items7"), resources.GetString("comboBox_ListenPortRange.Items8"), resources.GetString("comboBox_ListenPortRange.Items9"), resources.GetString("comboBox_ListenPortRange.Items10"), resources.GetString("comboBox_ListenPortRange.Items11"), resources.GetString("comboBox_ListenPortRange.Items12"), resources.GetString("comboBox_ListenPortRange.Items13") });
+            comboBox_ListenPortRange.Name = "comboBox_ListenPortRange";
+            tTipSetProxy.SetToolTip(comboBox_ListenPortRange, resources.GetString("comboBox_ListenPortRange.ToolTip"));
+            comboBox_ListenPortRange.KeyDown += comboBox_ListenPortRange_KeyDown;
+            comboBox_ListenPortRange.KeyPress += comboBox_ListenPortRange_KeyPress;
+            comboBox_ListenPortRange.MouseWheel += comboBox_ListenPortRange_MouseWheel;
+            // 
             // comboBox_ConnectTo
             // 
             resources.ApplyResources(comboBox_ConnectTo, "comboBox_ConnectTo");
@@ -376,6 +346,36 @@ namespace PortProxyGooey {
             resources.ApplyResources(pnlBottom, "pnlBottom");
             pnlBottom.Name = "pnlBottom";
             // 
+            // comboBox_ListenPort
+            // 
+            resources.ApplyResources(comboBox_ListenPort, "comboBox_ListenPort");
+            comboBox_ListenPort.AutoCompleteCustomSource.AddRange(new string[] { resources.GetString("comboBox_ListenPort.AutoCompleteCustomSource"), resources.GetString("comboBox_ListenPort.AutoCompleteCustomSource1"), resources.GetString("comboBox_ListenPort.AutoCompleteCustomSource2"), resources.GetString("comboBox_ListenPort.AutoCompleteCustomSource3"), resources.GetString("comboBox_ListenPort.AutoCompleteCustomSource4"), resources.GetString("comboBox_ListenPort.AutoCompleteCustomSource5"), resources.GetString("comboBox_ListenPort.AutoCompleteCustomSource6"), resources.GetString("comboBox_ListenPort.AutoCompleteCustomSource7"), resources.GetString("comboBox_ListenPort.AutoCompleteCustomSource8"), resources.GetString("comboBox_ListenPort.AutoCompleteCustomSource9"), resources.GetString("comboBox_ListenPort.AutoCompleteCustomSource10"), resources.GetString("comboBox_ListenPort.AutoCompleteCustomSource11"), resources.GetString("comboBox_ListenPort.AutoCompleteCustomSource12"), resources.GetString("comboBox_ListenPort.AutoCompleteCustomSource13") });
+            comboBox_ListenPort.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            comboBox_ListenPort.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            comboBox_ListenPort.BackColor = System.Drawing.Color.FromArgb(41, 46, 57);
+            comboBox_ListenPort.ForeColor = System.Drawing.Color.FromArgb(229, 233, 240);
+            comboBox_ListenPort.FormattingEnabled = true;
+            comboBox_ListenPort.Items.AddRange(new object[] { resources.GetString("comboBox_ListenPort.Items"), resources.GetString("comboBox_ListenPort.Items1"), resources.GetString("comboBox_ListenPort.Items2"), resources.GetString("comboBox_ListenPort.Items3"), resources.GetString("comboBox_ListenPort.Items4"), resources.GetString("comboBox_ListenPort.Items5"), resources.GetString("comboBox_ListenPort.Items6"), resources.GetString("comboBox_ListenPort.Items7"), resources.GetString("comboBox_ListenPort.Items8"), resources.GetString("comboBox_ListenPort.Items9"), resources.GetString("comboBox_ListenPort.Items10"), resources.GetString("comboBox_ListenPort.Items11"), resources.GetString("comboBox_ListenPort.Items12"), resources.GetString("comboBox_ListenPort.Items13") });
+            comboBox_ListenPort.Name = "comboBox_ListenPort";
+            comboBox_ListenPort.KeyDown += comboBox_ListenPort_KeyDown;
+            comboBox_ListenPort.KeyPress += comboBox_ListenPort_KeyPress;
+            comboBox_ListenPort.MouseWheel += comboBox_ListenPort_MouseWheel;
+            // 
+            // comboBox_ConnectPort
+            // 
+            resources.ApplyResources(comboBox_ConnectPort, "comboBox_ConnectPort");
+            comboBox_ConnectPort.AutoCompleteCustomSource.AddRange(new string[] { resources.GetString("comboBox_ConnectPort.AutoCompleteCustomSource"), resources.GetString("comboBox_ConnectPort.AutoCompleteCustomSource1"), resources.GetString("comboBox_ConnectPort.AutoCompleteCustomSource2"), resources.GetString("comboBox_ConnectPort.AutoCompleteCustomSource3"), resources.GetString("comboBox_ConnectPort.AutoCompleteCustomSource4"), resources.GetString("comboBox_ConnectPort.AutoCompleteCustomSource5"), resources.GetString("comboBox_ConnectPort.AutoCompleteCustomSource6"), resources.GetString("comboBox_ConnectPort.AutoCompleteCustomSource7"), resources.GetString("comboBox_ConnectPort.AutoCompleteCustomSource8"), resources.GetString("comboBox_ConnectPort.AutoCompleteCustomSource9"), resources.GetString("comboBox_ConnectPort.AutoCompleteCustomSource10"), resources.GetString("comboBox_ConnectPort.AutoCompleteCustomSource11"), resources.GetString("comboBox_ConnectPort.AutoCompleteCustomSource12"), resources.GetString("comboBox_ConnectPort.AutoCompleteCustomSource13") });
+            comboBox_ConnectPort.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            comboBox_ConnectPort.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            comboBox_ConnectPort.BackColor = System.Drawing.Color.FromArgb(41, 46, 57);
+            comboBox_ConnectPort.ForeColor = System.Drawing.Color.FromArgb(229, 233, 240);
+            comboBox_ConnectPort.FormattingEnabled = true;
+            comboBox_ConnectPort.Items.AddRange(new object[] { resources.GetString("comboBox_ConnectPort.Items"), resources.GetString("comboBox_ConnectPort.Items1"), resources.GetString("comboBox_ConnectPort.Items2"), resources.GetString("comboBox_ConnectPort.Items3"), resources.GetString("comboBox_ConnectPort.Items4"), resources.GetString("comboBox_ConnectPort.Items5"), resources.GetString("comboBox_ConnectPort.Items6"), resources.GetString("comboBox_ConnectPort.Items7"), resources.GetString("comboBox_ConnectPort.Items8"), resources.GetString("comboBox_ConnectPort.Items9"), resources.GetString("comboBox_ConnectPort.Items10"), resources.GetString("comboBox_ConnectPort.Items11"), resources.GetString("comboBox_ConnectPort.Items12"), resources.GetString("comboBox_ConnectPort.Items13") });
+            comboBox_ConnectPort.Name = "comboBox_ConnectPort";
+            comboBox_ConnectPort.KeyDown += comboBox_ConnectPort_KeyDown;
+            comboBox_ConnectPort.KeyPress += comboBox_ConnectPort_KeyPress;
+            comboBox_ConnectPort.MouseWheel += comboBox_ConnectPort_MouseWheel;
+            // 
             // SetProxy
             // 
             AcceptButton = button_Set;
@@ -383,6 +383,9 @@ namespace PortProxyGooey {
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = System.Drawing.Color.FromArgb(46, 52, 64);
             ControlBox = false;
+            Controls.Add(comboBox_ConnectPort);
+            Controls.Add(comboBox_ListenPortRange);
+            Controls.Add(comboBox_ListenPort);
             Controls.Add(pnlTop);
             Controls.Add(lblDiscoveredIP6);
             Controls.Add(lblDiscoveredIP4);
@@ -400,17 +403,14 @@ namespace PortProxyGooey {
             Controls.Add(lblRequired);
             Controls.Add(chkBox_ListenPortRange);
             Controls.Add(lblDash);
-            Controls.Add(textBox_ListenPortRange);
             Controls.Add(comboBox_ListenOn);
             Controls.Add(comboBox_Group);
             Controls.Add(label_Group);
             Controls.Add(textBox_Comment);
             Controls.Add(label_Comment);
-            Controls.Add(textBox_ListenPort);
             Controls.Add(label_ListenPort);
             Controls.Add(button_Set);
             Controls.Add(label_ConnectPort);
-            Controls.Add(textBox_ConnectPort);
             Controls.Add(label_ConnectTo);
             Controls.Add(label_ListenOn);
             Controls.Add(pnlBottom);
@@ -431,17 +431,14 @@ namespace PortProxyGooey {
 
         private Label label_ListenOn;
         private Label label_ConnectTo;
-        private TextBox textBox_ConnectPort;
         private Label label_ConnectPort;
         private Button button_Set;
         private Label label_ListenPort;
-        private TextBox textBox_ListenPort;
         private Label label_Comment;
         private TextBox textBox_Comment;
         private Label label_Group;
         private ComboBox comboBox_Group;
         private ComboBox comboBox_ListenOn;
-        private TextBox textBox_ListenPortRange;
         private Label lblDash;
         private CheckBox chkBox_ListenPortRange;
         private Label lblRequired;
@@ -462,5 +459,8 @@ namespace PortProxyGooey {
         private Label lblDiscoveredIP4;
         private Panel pnlTop;
         private Panel pnlBottom;
+        private ComboBox comboBox_ListenPort;
+        private ComboBox comboBox_ListenPortRange;
+        private ComboBox comboBox_ConnectPort;
     }
 }

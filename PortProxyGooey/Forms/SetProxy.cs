@@ -10,12 +10,13 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Rule = PortProxyGooey.Data.Rule;
 
 #endregion
 
 namespace PortProxyGooey {
-
+    // TODO: since switching tboxes to cboxes some things arent fully working. i.e. ports in ListenOn dont get propigated to the other ports. Thouroughly examine all stuff.
     public partial class SetProxy : Form {
 
         #region + -- VAR DECLARATIONS -- +
@@ -58,15 +59,16 @@ namespace PortProxyGooey {
             Left = ParentWindow.Left + (ParentWindow.Width - Width) / 2;
 
             // Current WSL IP
-            lblWSLIP.Text = "Refreshing ...";
+            lblWSLIP.Text = "Fetching ...";
 
             WSL.GetIP_BGW((ip) => {
 
                 if (ip.Length > 0) {
 
                     lblWSLIP.Text = $"WSL: {ip}";
-                    comboBox_ConnectTo.AutoCompleteCustomSource.Add(ip);
-                    comboBox_ListenOn.AutoCompleteCustomSource.Add(ip);
+                    comboBox_ConnectTo.Items.Add(ip);                     // Add WSL IP to Items List
+                    comboBox_ConnectTo.AutoCompleteCustomSource.Add(ip);  // '           ' Autocomplete
+                    comboBox_ListenOn.AutoCompleteCustomSource.Add(ip);   // '           ' Autocomplete
 
                 } else {
                     lblWSLIP.Text = "WSL: Dunno";
@@ -97,9 +99,9 @@ namespace PortProxyGooey {
             comboBox_Group.Text = rule != null ? rule.Group : String.Empty;
 
             comboBox_ListenOn.Text = rule != null ? rule.ListenOn : "*";
-            textBox_ListenPort.Text = rule != null ? rule.ListenPort.ToString() : String.Empty;
+            comboBox_ListenPort.Text = rule != null ? rule.ListenPort.ToString() : String.Empty;
             comboBox_ConnectTo.Text = rule != null ? rule.ConnectTo : String.Empty;
-            textBox_ConnectPort.Text = rule != null ? rule.ConnectPort.ToString() : String.Empty;
+            comboBox_ConnectPort.Text = rule != null ? rule.ConnectPort.ToString() : String.Empty;
             textBox_Comment.Text = rule != null ? rule.Comment : String.Empty;
 
         }
@@ -120,9 +122,9 @@ namespace PortProxyGooey {
             comboBox_Group.Text = rule.Group;
 
             comboBox_ListenOn.Text = rule.ListenOn;
-            textBox_ListenPort.Text = rule.ListenPort.ToString();
+            comboBox_ListenPort.Text = rule.ListenPort.ToString();
             comboBox_ConnectTo.Text = rule.ConnectTo;
-            textBox_ConnectPort.Text = rule.ConnectPort.ToString();
+            comboBox_ConnectPort.Text = rule.ConnectPort.ToString();
             textBox_Comment.Text = rule.Comment;
 
         }
@@ -151,9 +153,9 @@ namespace PortProxyGooey {
             // Validate the Ports
             try {
 
-                listenPort = Rule.ParsePort(textBox_ListenPort.Text);
-                connectPort = Rule.ParsePort(textBox_ConnectPort.Text);
-                listenPortRange = Rule.ParsePort(textBox_ListenPortRange.Text);
+                listenPort = Rule.ParsePort(comboBox_ListenPort.Text);
+                connectPort = Rule.ParsePort(comboBox_ConnectPort.Text);
+                listenPortRange = Rule.ParsePort(comboBox_ListenPortRange.Text);
 
             } catch (NotSupportedException ex) {
 
@@ -171,7 +173,7 @@ namespace PortProxyGooey {
                 MessageBox.Show("Ending Port is LOWER than the Starting Port", "You need to fix this ...", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
                 // Set focus of the 'offending' error target to better help the user understand the source of the issue.
-                textBox_ListenPortRange.Select();
+                comboBox_ListenPortRange.Select();
                 this.Enabled = true;
                 return;
 
@@ -285,14 +287,14 @@ namespace PortProxyGooey {
             if (chkBox_ListenPortRange.Checked) {
 
                 lblDash.Visible = true;
-                textBox_ListenPortRange.Visible = true;
+                comboBox_ListenPortRange.Visible = true;
                 lblRangeCount.Visible = true;
-                lblRangeCount.Text = String.IsNullOrEmpty(textBox_ListenPortRange.Text) ? "Adding: 0" : $"Adding: {CalcRange()}";
+                lblRangeCount.Text = String.IsNullOrEmpty(comboBox_ListenPortRange.Text) ? "Adding: 0" : $"Adding: {CalcRange()}";
 
             } else {
 
                 lblDash.Visible = false;
-                textBox_ListenPortRange.Visible = false;
+                comboBox_ListenPortRange.Visible = false;
                 lblRangeCount.Visible = false;
 
             }
@@ -302,16 +304,16 @@ namespace PortProxyGooey {
         private void textBox_ListenPort_TextChanged(object sender, EventArgs e) {
 
             // Add the same port to the range box as a starting point
-            textBox_ListenPortRange.Text = textBox_ListenPort.Text;
+            comboBox_ListenPortRange.Text = comboBox_ListenPort.Text;
 
             // Add the same port to the connect port box as a starting point
-            textBox_ConnectPort.Text = textBox_ListenPort.Text;
+            comboBox_ConnectPort.Text = comboBox_ListenPort.Text;
 
             // If it's a dupe port show the label; else hide it.
             lblDupe.Visible = DupeCheck();
 
             // Auto-comment common ports
-            AutoComment(textBox_ListenPort);
+            AutoComment(comboBox_ListenPort);
 
         }
 
@@ -323,15 +325,15 @@ namespace PortProxyGooey {
 
             lblRangeCount.Text = intRangeCount < 0 ? strBase + " 0" : $"{strBase} {intRangeCount}";
 
-            // Auto-comment common ports
-            AutoComment(textBox_ListenPortRange);
+            // Auto-comment common ports TODO: convert to cbobx
+            AutoComment(comboBox_ListenPortRange);
 
         }
 
         private void textBox_ConnectPort_TextChanged(object sender, EventArgs e) {
 
             // Auto-comment common ports
-            AutoComment(textBox_ConnectPort);
+            AutoComment(comboBox_ConnectPort);
 
         }
 
@@ -342,10 +344,10 @@ namespace PortProxyGooey {
         private int CalcRange() {
 
             // Make sure we have something to calc first, or else error.
-            if (!string.IsNullOrWhiteSpace(textBox_ListenPortRange.Text) && !string.IsNullOrWhiteSpace(textBox_ListenPort.Text)) {
+            if (!string.IsNullOrWhiteSpace(comboBox_ListenPortRange.Text) && !string.IsNullOrWhiteSpace(comboBox_ListenPort.Text)) {
 
-                int intLPR = Convert.ToInt32(textBox_ListenPortRange.Text.Trim());
-                int intLP = Convert.ToInt32(textBox_ListenPort.Text.Trim());
+                int intLPR = Convert.ToInt32(comboBox_ListenPortRange.Text.Trim());
+                int intLP = Convert.ToInt32(comboBox_ListenPort.Text.Trim());
                 return ((intLPR - intLP) + 1);
 
             }
@@ -390,7 +392,7 @@ namespace PortProxyGooey {
         /// <summary>
         /// Automatically enters info in the Comment field for recognized ports.
         /// </summary>
-        private void AutoComment(TextBox textBox) {
+        private void AutoComment(System.Windows.Forms.ComboBox comboBox) {
 
             // Ref: https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers
 
@@ -435,7 +437,7 @@ namespace PortProxyGooey {
             if (chkAutoComment.Checked) {
 
                 // Auto-Labeling of Common Ports
-                string searchValue = textBox.Text.Trim();
+                string searchValue = comboBox.Text.Trim();
                 string matchingKey = port.FirstOrDefault(x => x.Value.Split(',').Contains(searchValue)).Key;
 
                 if (matchingKey != null) {
@@ -472,7 +474,7 @@ namespace PortProxyGooey {
 
             string strType = rule != null ? rule.Type : lblType.Text;
             string strListen = rule != null ? rule.ListenOn : comboBox_ListenOn.Text.Trim();
-            string strListenPort = rule != null ? rule.ListenPort.ToString() : textBox_ListenPort.Text.Trim();
+            string strListenPort = rule != null ? rule.ListenPort.ToString() : comboBox_ListenPort.Text.Trim();
 
             bool bResult = false;
 
@@ -490,7 +492,7 @@ namespace PortProxyGooey {
         }
 
         /// <summary>
-        /// Auto-selects the correct Type based on what the user types into the LisatenOn/ConnectTo fields
+        /// Auto-selects the correct Type based on what the user types into the ListenOn/ConnectTo fields
         /// </summary>
         private void TypeCheck() {
             lblType.Text = GetPassType(comboBox_ListenOn.Text.Trim(), comboBox_ConnectTo.Text.Trim());
@@ -507,7 +509,10 @@ namespace PortProxyGooey {
 
         }
 
-
+        /// <summary>
+        /// Discovereds the ports callback.
+        /// </summary>
+        /// <param name="portsDic">The ports dic.</param>
         private void DiscoveredPorts_Callback(Dictionary<string, string> portsDic) {
 
             foreach (var kvp in portsDic) {
@@ -523,6 +528,15 @@ namespace PortProxyGooey {
                     listBoxIP6.Items.Add(kvp.Value);
                 }
 
+                // Also add to autocomplete stuff (oops, not the combos; the text boxes, are what I need.
+                if (comboBox_ConnectTo.AutoCompleteCustomSource.Contains(kvp.Value)) {
+                    Debug.Write(kvp.Value + "already in autocomplete");
+                }
+
+
+
+
+
             }
 
             lblDiscoveredIP4.Text = $"IP4 ({listBoxIP4.Items.Count})";
@@ -536,10 +550,10 @@ namespace PortProxyGooey {
         private void lblWSLIP_DoubleClick(object sender, EventArgs e) {
 
             this.Cursor = Cursors.WaitCursor;
+
             lblWSLIP.Text = "Refreshing ...";
-            //string strWSLIP = WSL.WSL_GetIP_Task();
             WSL.GetIP_BGW((ip) => lblWSLIP.Text = ip.Length > 0 ? $"WSL: {ip}" : "WSL: Dunno");
-            //lblWSLIP.Text = strWSLIP.Length > 0 ? string.Format("WSL: {0}", strWSLIP) : "WSL: Dunno";
+
             this.Cursor = Cursors.Default;
 
         }
@@ -548,44 +562,44 @@ namespace PortProxyGooey {
             this.Close();
         }
 
-        #region TextBox Increase / Decrease
+        #region ComboBox Increase / Decrease
 
-        private void TextBox_ListenPortRange_MouseWheel(object sender, MouseEventArgs e) {
+        private void comboBox_ListenPortRange_MouseWheel(object sender, MouseEventArgs e) {
             bool bUp = (e.Delta > 0);
-            IncreaseDecrease(bUp, textBox_ListenPortRange);
+            IncreaseDecrease(bUp, comboBox_ListenPortRange);
         }
 
-        private void TextBox_ListenPort_MouseWheel(object sender, MouseEventArgs e) {
+        private void comboBox_ListenPort_MouseWheel(object sender, MouseEventArgs e) {
             bool bUp = (e.Delta > 0);
-            IncreaseDecrease(bUp, textBox_ListenPort);
+            IncreaseDecrease(bUp, comboBox_ListenPort);
         }
 
-        private void TextBox_ConnectPort_MouseWheel(object sender, MouseEventArgs e) {
+        private void comboBox_ConnectPort_MouseWheel(object sender, MouseEventArgs e) {
             bool bUp = (e.Delta > 0);
-            IncreaseDecrease(bUp, textBox_ConnectPort);
+            IncreaseDecrease(bUp, comboBox_ConnectPort);
         }
 
-        private void textBox_ConnectPort_KeyDown(object sender, KeyEventArgs e) {
+        private void comboBox_ConnectPort_KeyDown(object sender, KeyEventArgs e) {
             if (e.KeyCode.Equals(Keys.Up)) {
-                IncreaseDecrease(true, textBox_ConnectPort);
+                IncreaseDecrease(true, comboBox_ConnectPort);
             } else if (e.KeyCode.Equals(Keys.Down)) {
-                IncreaseDecrease(false, textBox_ConnectPort);
+                IncreaseDecrease(false, comboBox_ConnectPort);
             }
         }
 
-        private void textBox_ListenPort_KeyDown(object sender, KeyEventArgs e) {
+        private void comboBox_ListenPort_KeyDown(object sender, KeyEventArgs e) {
             if (e.KeyCode.Equals(Keys.Up)) {
-                IncreaseDecrease(true, textBox_ListenPort);
+                IncreaseDecrease(true, comboBox_ListenPort);
             } else if (e.KeyCode.Equals(Keys.Down)) {
-                IncreaseDecrease(false, textBox_ListenPort);
+                IncreaseDecrease(false, comboBox_ListenPort);
             }
         }
 
-        private void textBox_ListenPortRange_KeyDown(object sender, KeyEventArgs e) {
+        private void comboBox_ListenPortRange_KeyDown(object sender, KeyEventArgs e) {
             if (e.KeyCode.Equals(Keys.Up)) {
-                IncreaseDecrease(true, textBox_ListenPortRange);
+                IncreaseDecrease(true, comboBox_ListenPortRange);
             } else if (e.KeyCode.Equals(Keys.Down)) {
-                IncreaseDecrease(false, textBox_ListenPortRange);
+                IncreaseDecrease(false, comboBox_ListenPortRange);
             }
         }
 
@@ -594,10 +608,11 @@ namespace PortProxyGooey {
         /// </summary>
         /// <param name="bUp">[boolean] true = Up; false = Down</param>
         /// <param name="textBox">A Textbox control</param>
-        private static void IncreaseDecrease(bool bUp, System.Windows.Forms.TextBox textBox) {
-            if (string.IsNullOrEmpty(textBox.Text))
-                textBox.Text = "0";
-            int intCurrentVal = Convert.ToInt32(textBox.Text);
+        private static void IncreaseDecrease(bool bUp, System.Windows.Forms.ComboBox comboBox) {
+
+            if (string.IsNullOrEmpty(comboBox.Text))
+                comboBox.Text = "0";
+            int intCurrentVal = Convert.ToInt32(comboBox.Text);
 
             if (bUp) {
                 intCurrentVal++;
@@ -607,26 +622,26 @@ namespace PortProxyGooey {
                     intCurrentVal--;
             }
 
-            textBox.Text = intCurrentVal.ToString();
+            comboBox.Text = intCurrentVal.ToString();
 
             // Move the cursor to the end, or else it just looks weird to me.
-            textBox.SelectionStart = textBox.TextLength;
-            textBox.SelectionLength = 0;
+            //comboBox.SelectionStart = comboBox.TextLength;
+            //comboBox.SelectionLength = 0;
         }
 
         #endregion
 
         #region TextBox KeyPress
 
-        private void textBox_ListenPort_KeyPress(object sender, KeyPressEventArgs e) {
+        private void comboBox_ListenPort_KeyPress(object sender, KeyPressEventArgs e) {
             DigitsOnly(e);
         }
 
-        private void textBox_ConnectPort_KeyPress(object sender, KeyPressEventArgs e) {
+        private void comboBox_ConnectPort_KeyPress(object sender, KeyPressEventArgs e) {
             DigitsOnly(e);
         }
 
-        private void textBox_ListenPortRange_KeyPress(object sender, KeyPressEventArgs e) {
+        private void comboBox_ListenPortRange_KeyPress(object sender, KeyPressEventArgs e) {
             DigitsOnly(e);
         }
 
@@ -634,9 +649,11 @@ namespace PortProxyGooey {
         /// Cancels the event if anything other than a number is entered
         /// </summary>
         private static void DigitsOnly(KeyPressEventArgs e) {
+
             if (!char.IsDigit(e.KeyChar) && e.KeyChar != '\b') {
                 e.Handled = true;
             }
+
         }
 
         #endregion
@@ -681,11 +698,11 @@ namespace PortProxyGooey {
         #endregion
 
         private void listBoxIP4_DoubleClick(object sender, EventArgs e) {
-            textBox_ListenPort.Text = listBoxIP4.Text;
+            comboBox_ListenPort.Text = listBoxIP4.Text;
         }
 
         private void listBoxIP6_DoubleClick(object sender, EventArgs e) {
-            textBox_ListenPort.Text = listBoxIP6.Text;
+            comboBox_ListenPort.Text = listBoxIP6.Text;
         }
 
     }

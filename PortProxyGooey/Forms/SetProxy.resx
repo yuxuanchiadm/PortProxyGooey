@@ -215,78 +215,6 @@ Auto-complete is also enabled for some common IP's</value>
   <data name="&gt;&gt;label_ConnectTo.ZOrder" xml:space="preserve">
     <value>28</value>
   </data>
-  <data name="textBox_ConnectPort.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="textBox_ConnectPort.AutoCompleteCustomSource" xml:space="preserve">
-    <value>53</value>
-  </data>
-  <data name="textBox_ConnectPort.AutoCompleteCustomSource1" xml:space="preserve">
-    <value>80</value>
-  </data>
-  <data name="textBox_ConnectPort.AutoCompleteCustomSource2" xml:space="preserve">
-    <value>443</value>
-  </data>
-  <data name="textBox_ConnectPort.AutoCompleteCustomSource3" xml:space="preserve">
-    <value>853</value>
-  </data>
-  <data name="textBox_ConnectPort.AutoCompleteCustomSource4" xml:space="preserve">
-    <value>2375</value>
-  </data>
-  <data name="textBox_ConnectPort.AutoCompleteCustomSource5" xml:space="preserve">
-    <value>2376</value>
-  </data>
-  <data name="textBox_ConnectPort.AutoCompleteCustomSource6" xml:space="preserve">
-    <value>2377</value>
-  </data>
-  <data name="textBox_ConnectPort.AutoCompleteCustomSource7" xml:space="preserve">
-    <value>2736</value>
-  </data>
-  <data name="textBox_ConnectPort.AutoCompleteCustomSource8" xml:space="preserve">
-    <value>3000</value>
-  </data>
-  <data name="textBox_ConnectPort.AutoCompleteCustomSource9" xml:space="preserve">
-    <value>3306</value>
-  </data>
-  <data name="textBox_ConnectPort.AutoCompleteCustomSource10" xml:space="preserve">
-    <value>3390</value>
-  </data>
-  <data name="textBox_ConnectPort.AutoCompleteCustomSource11" xml:space="preserve">
-    <value>4789</value>
-  </data>
-  <data name="textBox_ConnectPort.AutoCompleteCustomSource12" xml:space="preserve">
-    <value>5443</value>
-  </data>
-  <data name="textBox_ConnectPort.AutoCompleteCustomSource13" xml:space="preserve">
-    <value>7946</value>
-  </data>
-  <data name="textBox_ConnectPort.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft YaHei UI, 9pt</value>
-  </data>
-  <data name="textBox_ConnectPort.Location" type="System.Drawing.Point, System.Drawing">
-    <value>292, 119</value>
-  </data>
-  <data name="textBox_ConnectPort.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 3, 4, 3</value>
-  </data>
-  <data name="textBox_ConnectPort.Size" type="System.Drawing.Size, System.Drawing">
-    <value>84, 23</value>
-  </data>
-  <data name="textBox_ConnectPort.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;textBox_ConnectPort.Name" xml:space="preserve">
-    <value>textBox_ConnectPort</value>
-  </data>
-  <data name="&gt;&gt;textBox_ConnectPort.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBox_ConnectPort.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;textBox_ConnectPort.ZOrder" xml:space="preserve">
-    <value>27</value>
-  </data>
   <data name="label_ConnectPort.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
   </data>
@@ -324,7 +252,7 @@ Auto-complete is also enabled for some common IP's</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label_ConnectPort.ZOrder" xml:space="preserve">
-    <value>26</value>
+    <value>27</value>
   </data>
   <data name="button_Set.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
@@ -360,7 +288,7 @@ Auto-complete is also enabled for some common IP's</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;button_Set.ZOrder" xml:space="preserve">
-    <value>25</value>
+    <value>26</value>
   </data>
   <data name="label_ListenPort.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
@@ -402,79 +330,7 @@ If using a port range, this port must be lower than the ending port to the right
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label_ListenPort.ZOrder" xml:space="preserve">
-    <value>24</value>
-  </data>
-  <data name="textBox_ListenPort.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="textBox_ListenPort.AutoCompleteCustomSource" xml:space="preserve">
-    <value>53</value>
-  </data>
-  <data name="textBox_ListenPort.AutoCompleteCustomSource1" xml:space="preserve">
-    <value>80</value>
-  </data>
-  <data name="textBox_ListenPort.AutoCompleteCustomSource2" xml:space="preserve">
-    <value>443</value>
-  </data>
-  <data name="textBox_ListenPort.AutoCompleteCustomSource3" xml:space="preserve">
-    <value>853</value>
-  </data>
-  <data name="textBox_ListenPort.AutoCompleteCustomSource4" xml:space="preserve">
-    <value>2375</value>
-  </data>
-  <data name="textBox_ListenPort.AutoCompleteCustomSource5" xml:space="preserve">
-    <value>2376</value>
-  </data>
-  <data name="textBox_ListenPort.AutoCompleteCustomSource6" xml:space="preserve">
-    <value>2377</value>
-  </data>
-  <data name="textBox_ListenPort.AutoCompleteCustomSource7" xml:space="preserve">
-    <value>2736</value>
-  </data>
-  <data name="textBox_ListenPort.AutoCompleteCustomSource8" xml:space="preserve">
-    <value>3000</value>
-  </data>
-  <data name="textBox_ListenPort.AutoCompleteCustomSource9" xml:space="preserve">
-    <value>3306</value>
-  </data>
-  <data name="textBox_ListenPort.AutoCompleteCustomSource10" xml:space="preserve">
-    <value>3390</value>
-  </data>
-  <data name="textBox_ListenPort.AutoCompleteCustomSource11" xml:space="preserve">
-    <value>4789</value>
-  </data>
-  <data name="textBox_ListenPort.AutoCompleteCustomSource12" xml:space="preserve">
-    <value>5443</value>
-  </data>
-  <data name="textBox_ListenPort.AutoCompleteCustomSource13" xml:space="preserve">
-    <value>7946</value>
-  </data>
-  <data name="textBox_ListenPort.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft YaHei UI, 9pt</value>
-  </data>
-  <data name="textBox_ListenPort.Location" type="System.Drawing.Point, System.Drawing">
-    <value>292, 85</value>
-  </data>
-  <data name="textBox_ListenPort.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 3, 4, 3</value>
-  </data>
-  <data name="textBox_ListenPort.Size" type="System.Drawing.Size, System.Drawing">
-    <value>84, 23</value>
-  </data>
-  <data name="textBox_ListenPort.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;textBox_ListenPort.Name" xml:space="preserve">
-    <value>textBox_ListenPort</value>
-  </data>
-  <data name="&gt;&gt;textBox_ListenPort.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBox_ListenPort.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;textBox_ListenPort.ZOrder" xml:space="preserve">
-    <value>23</value>
+    <value>25</value>
   </data>
   <data name="label_Comment.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
@@ -522,7 +378,7 @@ to the list.</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label_Comment.ZOrder" xml:space="preserve">
-    <value>22</value>
+    <value>24</value>
   </data>
   <data name="textBox_Comment.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
@@ -567,7 +423,7 @@ to the list.</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;textBox_Comment.ZOrder" xml:space="preserve">
-    <value>21</value>
+    <value>23</value>
   </data>
   <data name="label_Group.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
@@ -610,7 +466,7 @@ Place this (or 'these', if adding a port range) proxy into a named group in the 
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label_Group.ZOrder" xml:space="preserve">
-    <value>20</value>
+    <value>22</value>
   </data>
   <data name="comboBox_Group.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
@@ -664,7 +520,7 @@ Place this (or 'these', if adding a port range) proxy into a named group in the 
     <value>$this</value>
   </data>
   <data name="&gt;&gt;comboBox_Group.ZOrder" xml:space="preserve">
-    <value>19</value>
+    <value>21</value>
   </data>
   <data name="comboBox_ListenOn.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
@@ -745,88 +601,7 @@ Place this (or 'these', if adding a port range) proxy into a named group in the 
     <value>$this</value>
   </data>
   <data name="&gt;&gt;comboBox_ListenOn.ZOrder" xml:space="preserve">
-    <value>18</value>
-  </data>
-  <data name="textBox_ListenPortRange.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="textBox_ListenPortRange.AutoCompleteCustomSource" xml:space="preserve">
-    <value>53</value>
-  </data>
-  <data name="textBox_ListenPortRange.AutoCompleteCustomSource1" xml:space="preserve">
-    <value>80</value>
-  </data>
-  <data name="textBox_ListenPortRange.AutoCompleteCustomSource2" xml:space="preserve">
-    <value>443</value>
-  </data>
-  <data name="textBox_ListenPortRange.AutoCompleteCustomSource3" xml:space="preserve">
-    <value>853</value>
-  </data>
-  <data name="textBox_ListenPortRange.AutoCompleteCustomSource4" xml:space="preserve">
-    <value>2375</value>
-  </data>
-  <data name="textBox_ListenPortRange.AutoCompleteCustomSource5" xml:space="preserve">
-    <value>2376</value>
-  </data>
-  <data name="textBox_ListenPortRange.AutoCompleteCustomSource6" xml:space="preserve">
-    <value>2377</value>
-  </data>
-  <data name="textBox_ListenPortRange.AutoCompleteCustomSource7" xml:space="preserve">
-    <value>2736</value>
-  </data>
-  <data name="textBox_ListenPortRange.AutoCompleteCustomSource8" xml:space="preserve">
-    <value>3000</value>
-  </data>
-  <data name="textBox_ListenPortRange.AutoCompleteCustomSource9" xml:space="preserve">
-    <value>3306</value>
-  </data>
-  <data name="textBox_ListenPortRange.AutoCompleteCustomSource10" xml:space="preserve">
-    <value>3390</value>
-  </data>
-  <data name="textBox_ListenPortRange.AutoCompleteCustomSource11" xml:space="preserve">
-    <value>4789</value>
-  </data>
-  <data name="textBox_ListenPortRange.AutoCompleteCustomSource12" xml:space="preserve">
-    <value>5443</value>
-  </data>
-  <data name="textBox_ListenPortRange.AutoCompleteCustomSource13" xml:space="preserve">
-    <value>7946</value>
-  </data>
-  <data name="textBox_ListenPortRange.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft YaHei UI, 9pt</value>
-  </data>
-  <data name="textBox_ListenPortRange.Location" type="System.Drawing.Point, System.Drawing">
-    <value>403, 85</value>
-  </data>
-  <data name="textBox_ListenPortRange.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 3, 4, 3</value>
-  </data>
-  <data name="textBox_ListenPortRange.Size" type="System.Drawing.Size, System.Drawing">
-    <value>84, 23</value>
-  </data>
-  <data name="textBox_ListenPortRange.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="textBox_ListenPortRange.ToolTip" xml:space="preserve">
-    <value>Ending Port to listen on.
-
-Note:
-&lt;- If using a port range, this ending port must be higher than the starting port to the left.</value>
-  </data>
-  <data name="textBox_ListenPortRange.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;textBox_ListenPortRange.Name" xml:space="preserve">
-    <value>textBox_ListenPortRange</value>
-  </data>
-  <data name="&gt;&gt;textBox_ListenPortRange.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBox_ListenPortRange.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;textBox_ListenPortRange.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>20</value>
   </data>
   <data name="lblDash.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
@@ -859,7 +634,7 @@ Note:
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lblDash.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>19</value>
   </data>
   <data name="chkBox_ListenPortRange.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
@@ -904,7 +679,7 @@ Starting port on the left must be lower than the Ending port on the right.</valu
     <value>$this</value>
   </data>
   <data name="&gt;&gt;chkBox_ListenPortRange.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>18</value>
   </data>
   <data name="lblRequired.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
@@ -940,7 +715,7 @@ Starting port on the left must be lower than the Ending port on the right.</valu
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lblRequired.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>17</value>
   </data>
   <data name="lblWSLIP.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
@@ -977,7 +752,7 @@ Starting port on the left must be lower than the Ending port on the right.</valu
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lblWSLIP.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>15</value>
   </data>
   <data name="lblType.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
@@ -1013,7 +788,7 @@ Starting port on the left must be lower than the Ending port on the right.</valu
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lblType.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>13</value>
   </data>
   <data name="lblRangeCount.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
@@ -1057,7 +832,7 @@ range you entered and already exist in your current list.</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lblRangeCount.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>12</value>
   </data>
   <data name="progBarRange.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
@@ -1088,7 +863,7 @@ Adding usually happens so fast you won't see this (for long) though.</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;progBarRange.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>11</value>
   </data>
   <data name="chkAutoComment.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
@@ -1137,7 +912,7 @@ add your own comment before or after the auto-comment.</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;chkAutoComment.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>9</value>
   </data>
   <data name="lblWSLDiscovered.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
@@ -1177,7 +952,7 @@ Double-click a port to fill it in the list to the left.</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lblWSLDiscovered.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>6</value>
   </data>
   <data name="lblDiscoveredIP6.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
@@ -1216,7 +991,7 @@ Double-click a port to fill it in the list to the left.</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lblDiscoveredIP6.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>4</value>
   </data>
   <data name="lblDiscoveredIP4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
@@ -1255,7 +1030,130 @@ Double-click a port to fill it in the list to the left.</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lblDiscoveredIP4.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>5</value>
+  </data>
+  <data name="comboBox_ListenPortRange.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="comboBox_ListenPortRange.AutoCompleteCustomSource" xml:space="preserve">
+    <value>53</value>
+  </data>
+  <data name="comboBox_ListenPortRange.AutoCompleteCustomSource1" xml:space="preserve">
+    <value>80</value>
+  </data>
+  <data name="comboBox_ListenPortRange.AutoCompleteCustomSource2" xml:space="preserve">
+    <value>443</value>
+  </data>
+  <data name="comboBox_ListenPortRange.AutoCompleteCustomSource3" xml:space="preserve">
+    <value>853</value>
+  </data>
+  <data name="comboBox_ListenPortRange.AutoCompleteCustomSource4" xml:space="preserve">
+    <value>2375</value>
+  </data>
+  <data name="comboBox_ListenPortRange.AutoCompleteCustomSource5" xml:space="preserve">
+    <value>2376</value>
+  </data>
+  <data name="comboBox_ListenPortRange.AutoCompleteCustomSource6" xml:space="preserve">
+    <value>2377</value>
+  </data>
+  <data name="comboBox_ListenPortRange.AutoCompleteCustomSource7" xml:space="preserve">
+    <value>2736</value>
+  </data>
+  <data name="comboBox_ListenPortRange.AutoCompleteCustomSource8" xml:space="preserve">
+    <value>3000</value>
+  </data>
+  <data name="comboBox_ListenPortRange.AutoCompleteCustomSource9" xml:space="preserve">
+    <value>3306</value>
+  </data>
+  <data name="comboBox_ListenPortRange.AutoCompleteCustomSource10" xml:space="preserve">
+    <value>3390</value>
+  </data>
+  <data name="comboBox_ListenPortRange.AutoCompleteCustomSource11" xml:space="preserve">
+    <value>4789</value>
+  </data>
+  <data name="comboBox_ListenPortRange.AutoCompleteCustomSource12" xml:space="preserve">
+    <value>5443</value>
+  </data>
+  <data name="comboBox_ListenPortRange.AutoCompleteCustomSource13" xml:space="preserve">
+    <value>7946</value>
+  </data>
+  <data name="comboBox_ListenPortRange.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="comboBox_ListenPortRange.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 9pt</value>
+  </data>
+  <data name="comboBox_ListenPortRange.Items" xml:space="preserve">
+    <value>53</value>
+  </data>
+  <data name="comboBox_ListenPortRange.Items1" xml:space="preserve">
+    <value>80</value>
+  </data>
+  <data name="comboBox_ListenPortRange.Items2" xml:space="preserve">
+    <value>443</value>
+  </data>
+  <data name="comboBox_ListenPortRange.Items3" xml:space="preserve">
+    <value>853</value>
+  </data>
+  <data name="comboBox_ListenPortRange.Items4" xml:space="preserve">
+    <value>2375</value>
+  </data>
+  <data name="comboBox_ListenPortRange.Items5" xml:space="preserve">
+    <value>2376</value>
+  </data>
+  <data name="comboBox_ListenPortRange.Items6" xml:space="preserve">
+    <value>2377</value>
+  </data>
+  <data name="comboBox_ListenPortRange.Items7" xml:space="preserve">
+    <value>2736</value>
+  </data>
+  <data name="comboBox_ListenPortRange.Items8" xml:space="preserve">
+    <value>3000</value>
+  </data>
+  <data name="comboBox_ListenPortRange.Items9" xml:space="preserve">
+    <value>3306</value>
+  </data>
+  <data name="comboBox_ListenPortRange.Items10" xml:space="preserve">
+    <value>3390</value>
+  </data>
+  <data name="comboBox_ListenPortRange.Items11" xml:space="preserve">
+    <value>4789</value>
+  </data>
+  <data name="comboBox_ListenPortRange.Items12" xml:space="preserve">
+    <value>5443</value>
+  </data>
+  <data name="comboBox_ListenPortRange.Items13" xml:space="preserve">
+    <value>7946</value>
+  </data>
+  <data name="comboBox_ListenPortRange.Location" type="System.Drawing.Point, System.Drawing">
+    <value>403, 85</value>
+  </data>
+  <data name="comboBox_ListenPortRange.Size" type="System.Drawing.Size, System.Drawing">
+    <value>84, 25</value>
+  </data>
+  <data name="comboBox_ListenPortRange.TabIndex" type="System.Int32, mscorlib">
+    <value>39</value>
+  </data>
+  <data name="comboBox_ListenPortRange.ToolTip" xml:space="preserve">
+    <value>Ending Port to listen on.
+
+Note:
+&lt;- If using a port range, this ending port must be higher than the starting port to the left.</value>
+  </data>
+  <data name="comboBox_ListenPortRange.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;comboBox_ListenPortRange.Name" xml:space="preserve">
+    <value>comboBox_ListenPortRange</value>
+  </data>
+  <data name="&gt;&gt;comboBox_ListenPortRange.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBox_ListenPortRange.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;comboBox_ListenPortRange.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="comboBox_ConnectTo.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
@@ -1336,7 +1234,7 @@ Double-click a port to fill it in the list to the left.</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;comboBox_ConnectTo.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>16</value>
   </data>
   <data name="lblDupe.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
@@ -1372,7 +1270,7 @@ Double-click a port to fill it in the list to the left.</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lblDupe.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>14</value>
   </data>
   <data name="btnCancel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
@@ -1411,7 +1309,7 @@ Double-click a port to fill it in the list to the left.</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btnCancel.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>10</value>
   </data>
   <data name="lblClone.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
@@ -1480,7 +1378,7 @@ Double-click a port to fill it in the list to the left.</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;listBoxIP4.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>8</value>
   </data>
   <data name="listBoxIP6.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
@@ -1510,7 +1408,7 @@ Double-click a port to fill it in the list to the left.</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;listBoxIP6.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>7</value>
   </data>
   <data name="pnlTop.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -1531,7 +1429,7 @@ Double-click a port to fill it in the list to the left.</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;pnlTop.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>3</value>
   </data>
   <data name="pnlBottom.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 301</value>
@@ -1553,6 +1451,234 @@ Double-click a port to fill it in the list to the left.</value>
   </data>
   <data name="&gt;&gt;pnlBottom.ZOrder" xml:space="preserve">
     <value>30</value>
+  </data>
+  <data name="comboBox_ListenPort.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="comboBox_ListenPort.AutoCompleteCustomSource" xml:space="preserve">
+    <value>53</value>
+  </data>
+  <data name="comboBox_ListenPort.AutoCompleteCustomSource1" xml:space="preserve">
+    <value>80</value>
+  </data>
+  <data name="comboBox_ListenPort.AutoCompleteCustomSource2" xml:space="preserve">
+    <value>443</value>
+  </data>
+  <data name="comboBox_ListenPort.AutoCompleteCustomSource3" xml:space="preserve">
+    <value>853</value>
+  </data>
+  <data name="comboBox_ListenPort.AutoCompleteCustomSource4" xml:space="preserve">
+    <value>2375</value>
+  </data>
+  <data name="comboBox_ListenPort.AutoCompleteCustomSource5" xml:space="preserve">
+    <value>2376</value>
+  </data>
+  <data name="comboBox_ListenPort.AutoCompleteCustomSource6" xml:space="preserve">
+    <value>2377</value>
+  </data>
+  <data name="comboBox_ListenPort.AutoCompleteCustomSource7" xml:space="preserve">
+    <value>2736</value>
+  </data>
+  <data name="comboBox_ListenPort.AutoCompleteCustomSource8" xml:space="preserve">
+    <value>3000</value>
+  </data>
+  <data name="comboBox_ListenPort.AutoCompleteCustomSource9" xml:space="preserve">
+    <value>3306</value>
+  </data>
+  <data name="comboBox_ListenPort.AutoCompleteCustomSource10" xml:space="preserve">
+    <value>3390</value>
+  </data>
+  <data name="comboBox_ListenPort.AutoCompleteCustomSource11" xml:space="preserve">
+    <value>4789</value>
+  </data>
+  <data name="comboBox_ListenPort.AutoCompleteCustomSource12" xml:space="preserve">
+    <value>5443</value>
+  </data>
+  <data name="comboBox_ListenPort.AutoCompleteCustomSource13" xml:space="preserve">
+    <value>7946</value>
+  </data>
+  <data name="comboBox_ListenPort.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="comboBox_ListenPort.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 9pt</value>
+  </data>
+  <data name="comboBox_ListenPort.Items" xml:space="preserve">
+    <value>53</value>
+  </data>
+  <data name="comboBox_ListenPort.Items1" xml:space="preserve">
+    <value>80</value>
+  </data>
+  <data name="comboBox_ListenPort.Items2" xml:space="preserve">
+    <value>443</value>
+  </data>
+  <data name="comboBox_ListenPort.Items3" xml:space="preserve">
+    <value>853</value>
+  </data>
+  <data name="comboBox_ListenPort.Items4" xml:space="preserve">
+    <value>2375</value>
+  </data>
+  <data name="comboBox_ListenPort.Items5" xml:space="preserve">
+    <value>2376</value>
+  </data>
+  <data name="comboBox_ListenPort.Items6" xml:space="preserve">
+    <value>2377</value>
+  </data>
+  <data name="comboBox_ListenPort.Items7" xml:space="preserve">
+    <value>2736</value>
+  </data>
+  <data name="comboBox_ListenPort.Items8" xml:space="preserve">
+    <value>3000</value>
+  </data>
+  <data name="comboBox_ListenPort.Items9" xml:space="preserve">
+    <value>3306</value>
+  </data>
+  <data name="comboBox_ListenPort.Items10" xml:space="preserve">
+    <value>3390</value>
+  </data>
+  <data name="comboBox_ListenPort.Items11" xml:space="preserve">
+    <value>4789</value>
+  </data>
+  <data name="comboBox_ListenPort.Items12" xml:space="preserve">
+    <value>5443</value>
+  </data>
+  <data name="comboBox_ListenPort.Items13" xml:space="preserve">
+    <value>7946</value>
+  </data>
+  <data name="comboBox_ListenPort.Location" type="System.Drawing.Point, System.Drawing">
+    <value>292, 85</value>
+  </data>
+  <data name="comboBox_ListenPort.Size" type="System.Drawing.Size, System.Drawing">
+    <value>84, 25</value>
+  </data>
+  <data name="comboBox_ListenPort.TabIndex" type="System.Int32, mscorlib">
+    <value>38</value>
+  </data>
+  <data name="&gt;&gt;comboBox_ListenPort.Name" xml:space="preserve">
+    <value>comboBox_ListenPort</value>
+  </data>
+  <data name="&gt;&gt;comboBox_ListenPort.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBox_ListenPort.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;comboBox_ListenPort.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="comboBox_ConnectPort.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="comboBox_ConnectPort.AutoCompleteCustomSource" xml:space="preserve">
+    <value>53</value>
+  </data>
+  <data name="comboBox_ConnectPort.AutoCompleteCustomSource1" xml:space="preserve">
+    <value>80</value>
+  </data>
+  <data name="comboBox_ConnectPort.AutoCompleteCustomSource2" xml:space="preserve">
+    <value>443</value>
+  </data>
+  <data name="comboBox_ConnectPort.AutoCompleteCustomSource3" xml:space="preserve">
+    <value>853</value>
+  </data>
+  <data name="comboBox_ConnectPort.AutoCompleteCustomSource4" xml:space="preserve">
+    <value>2375</value>
+  </data>
+  <data name="comboBox_ConnectPort.AutoCompleteCustomSource5" xml:space="preserve">
+    <value>2376</value>
+  </data>
+  <data name="comboBox_ConnectPort.AutoCompleteCustomSource6" xml:space="preserve">
+    <value>2377</value>
+  </data>
+  <data name="comboBox_ConnectPort.AutoCompleteCustomSource7" xml:space="preserve">
+    <value>2736</value>
+  </data>
+  <data name="comboBox_ConnectPort.AutoCompleteCustomSource8" xml:space="preserve">
+    <value>3000</value>
+  </data>
+  <data name="comboBox_ConnectPort.AutoCompleteCustomSource9" xml:space="preserve">
+    <value>3306</value>
+  </data>
+  <data name="comboBox_ConnectPort.AutoCompleteCustomSource10" xml:space="preserve">
+    <value>3390</value>
+  </data>
+  <data name="comboBox_ConnectPort.AutoCompleteCustomSource11" xml:space="preserve">
+    <value>4789</value>
+  </data>
+  <data name="comboBox_ConnectPort.AutoCompleteCustomSource12" xml:space="preserve">
+    <value>5443</value>
+  </data>
+  <data name="comboBox_ConnectPort.AutoCompleteCustomSource13" xml:space="preserve">
+    <value>7946</value>
+  </data>
+  <data name="comboBox_ConnectPort.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="comboBox_ConnectPort.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 9pt</value>
+  </data>
+  <data name="comboBox_ConnectPort.Items" xml:space="preserve">
+    <value>53</value>
+  </data>
+  <data name="comboBox_ConnectPort.Items1" xml:space="preserve">
+    <value>80</value>
+  </data>
+  <data name="comboBox_ConnectPort.Items2" xml:space="preserve">
+    <value>443</value>
+  </data>
+  <data name="comboBox_ConnectPort.Items3" xml:space="preserve">
+    <value>853</value>
+  </data>
+  <data name="comboBox_ConnectPort.Items4" xml:space="preserve">
+    <value>2375</value>
+  </data>
+  <data name="comboBox_ConnectPort.Items5" xml:space="preserve">
+    <value>2376</value>
+  </data>
+  <data name="comboBox_ConnectPort.Items6" xml:space="preserve">
+    <value>2377</value>
+  </data>
+  <data name="comboBox_ConnectPort.Items7" xml:space="preserve">
+    <value>2736</value>
+  </data>
+  <data name="comboBox_ConnectPort.Items8" xml:space="preserve">
+    <value>3000</value>
+  </data>
+  <data name="comboBox_ConnectPort.Items9" xml:space="preserve">
+    <value>3306</value>
+  </data>
+  <data name="comboBox_ConnectPort.Items10" xml:space="preserve">
+    <value>3390</value>
+  </data>
+  <data name="comboBox_ConnectPort.Items11" xml:space="preserve">
+    <value>4789</value>
+  </data>
+  <data name="comboBox_ConnectPort.Items12" xml:space="preserve">
+    <value>5443</value>
+  </data>
+  <data name="comboBox_ConnectPort.Items13" xml:space="preserve">
+    <value>7946</value>
+  </data>
+  <data name="comboBox_ConnectPort.Location" type="System.Drawing.Point, System.Drawing">
+    <value>292, 119</value>
+  </data>
+  <data name="comboBox_ConnectPort.Size" type="System.Drawing.Size, System.Drawing">
+    <value>84, 25</value>
+  </data>
+  <data name="comboBox_ConnectPort.TabIndex" type="System.Int32, mscorlib">
+    <value>40</value>
+  </data>
+  <data name="&gt;&gt;comboBox_ConnectPort.Name" xml:space="preserve">
+    <value>comboBox_ConnectPort</value>
+  </data>
+  <data name="&gt;&gt;comboBox_ConnectPort.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBox_ConnectPort.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;comboBox_ConnectPort.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
