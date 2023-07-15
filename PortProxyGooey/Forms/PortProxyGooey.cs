@@ -1277,8 +1277,8 @@ namespace PortProxyGooey {
 
             // + ----- WSL
 
-            WSL.GetIP_BGW((ip) => lblWSLIP.Text = $"WSL IP: {ip}");
-            tTipPPG.SetToolTip(lblWSLIP, "Double-click to copy IP to clipboard");
+            WSL.GetIP_BGW((ip) => lblWSLIP.Text = $"WSL: {ip}");
+            tTipPPG.SetToolTip(lblWSLIP, "Double-click copies IP to clipboard");
 
             // -----
 
@@ -1329,14 +1329,6 @@ namespace PortProxyGooey {
             }, PortProxyUtil.ServiceName, false);
 
         }
-
-        private async Task UpdateAsyncTasks() {
-
-            //string ip = await WSL.WSL_GetIPAsync();
-            lblWSLIP.Text = $"WSL IP: {await WSL.GetIP_Task_Async()}";
-
-        }
-
 
         private void ToolStripMenuItem_Move_Click(object sender, EventArgs e) {
             // TODO: LEFT OFF: Need to add the actual MOVE code now ...
@@ -1438,7 +1430,7 @@ namespace PortProxyGooey {
 
             // Copy the IP (only) to the clipboard
             if (!lblWSLIP.Text.Contains("N/A")) {
-                Clipboard.SetText(lblWSLIP.Text.Replace("WSL IP: ", ""));
+                Clipboard.SetText(lblWSLIP.Text.Replace("WSL: ", ""));
             }
 
         }

@@ -16,7 +16,7 @@ using Rule = PortProxyGooey.Data.Rule;
 #endregion
 
 namespace PortProxyGooey {
-    // TODO: since switching tboxes to cboxes some things arent fully working. i.e. ports in ListenOn dont get propigated to the other ports. Thouroughly examine all stuff.
+    // TODO: since switching tboxes to cboxes some things arent fully working. i.e. port #'s dont inc/dec properly with mousewheel/arrows. Thouroughly examine all stuff.
     public partial class SetProxy : Form {
 
         #region + -- VAR DECLARATIONS -- +
@@ -57,24 +57,6 @@ namespace PortProxyGooey {
 
             Top = ParentWindow.Top + (ParentWindow.Height - Height) / 2;
             Left = ParentWindow.Left + (ParentWindow.Width - Width) / 2;
-
-            // Current WSL IP
-            lblWSLIP.Text = "Fetching ...";
-
-            WSL.GetIP_BGW((ip) => {
-
-                if (ip.Length > 0) {
-
-                    lblWSLIP.Text = $"WSL: {ip}";
-                    comboBox_ConnectTo.Items.Add(ip);                     // Add WSL IP to Items List
-                    comboBox_ConnectTo.AutoCompleteCustomSource.Add(ip);  // '           ' Autocomplete
-                    comboBox_ListenOn.AutoCompleteCustomSource.Add(ip);   // '           ' Autocomplete
-
-                } else {
-                    lblWSLIP.Text = "WSL: Dunno";
-                }
-
-            });
 
             // Load up any discovered WSL ports
             WSL.GetListeningPorts_BGW(DiscoveredPorts_Callback);
@@ -301,7 +283,7 @@ namespace PortProxyGooey {
 
         }
 
-        private void textBox_ListenPort_TextChanged(object sender, EventArgs e) {
+        private void comboBox_ListenPort_TextChanged(object sender, EventArgs e) {
 
             // Add the same port to the range box as a starting point
             comboBox_ListenPortRange.Text = comboBox_ListenPort.Text;
@@ -317,7 +299,7 @@ namespace PortProxyGooey {
 
         }
 
-        private void textBox_ListenPortRange_TextChanged(object sender, EventArgs e) {
+        private void comboBox_ListenPortRange_TextChanged(object sender, EventArgs e) {
 
             // TODO: I think I can create a single Call for this sub and line 260 called something like "UpdateRangeLabel"
             int intRangeCount = CalcRange();
@@ -330,7 +312,7 @@ namespace PortProxyGooey {
 
         }
 
-        private void textBox_ConnectPort_TextChanged(object sender, EventArgs e) {
+        private void comboBox_ConnectPort_TextChanged(object sender, EventArgs e) {
 
             // Auto-comment common ports
             AutoComment(comboBox_ConnectPort);
@@ -510,15 +492,14 @@ namespace PortProxyGooey {
         }
 
         /// <summary>
-        /// Discovereds the ports callback.
+        /// Discoverd Ports BGW callback. Adds the ports to the respective controls.
         /// </summary>
-        /// <param name="portsDic">The ports dic.</param>
+        /// <param name="portsDic">Dictionary containing any results</param>
         private void DiscoveredPorts_Callback(Dictionary<string, string> portsDic) {
 
             foreach (var kvp in portsDic) {
 
-                Debug.WriteLine($"IP: {kvp.Key}, Port: {kvp.Value}");
-
+                // Add ports to their respective ListBoxes
                 if (kvp.Key.Contains("IPv4")) {
 
                     listBoxIP4.Items.Add(kvp.Value);
@@ -528,33 +509,32 @@ namespace PortProxyGooey {
                     listBoxIP6.Items.Add(kvp.Value);
                 }
 
-                // Also add to autocomplete stuff (oops, not the combos; the text boxes, are what I need.
-                if (comboBox_ConnectTo.AutoCompleteCustomSource.Contains(kvp.Value)) {
-                    Debug.Write(kvp.Value + "already in autocomplete");
+                // Also add to autocomplete stuff to the ComboBoxes as well
+                if (!comboBox_ListenPort.AutoCompleteCustomSource.Contains(kvp.Value)) {
+
+                    // Autocomplete
+                    comboBox_ListenPort.AutoCompleteCustomSource.Add(kvp.Value);
+                    comboBox_ListenPortRange.AutoCompleteCustomSource.Add(kvp.Value);
+                    comboBox_ConnectPort.AutoCompleteCustomSource.Add(kvp.Value);
+
+                    // Items list
+                    comboBox_ListenPort.Items.Add(kvp.Value);
+                    comboBox_ListenPortRange.Items.Add(kvp.Value);
+                    comboBox_ConnectPort.Items.Add(kvp.Value);
+
                 }
-
-
-
-
 
             }
 
+            // Sort Numerically
+            ComboBoxes.SortItemsNumerically(comboBox_ListenPort);
+            ComboBoxes.SortItemsNumerically(comboBox_ListenPortRange);
+            ComboBoxes.SortItemsNumerically(comboBox_ConnectPort);
+            ListBoxes.SortItemsNumerically(listBoxIP4);
+            ListBoxes.SortItemsNumerically(listBoxIP6);
+
             lblDiscoveredIP4.Text = $"IP4 ({listBoxIP4.Items.Count})";
             lblDiscoveredIP6.Text = $"IP6 ({listBoxIP6.Items.Count})";
-
-        }
-
-        /// <summary>
-        /// Refreshes the WSL IP on double-click
-        /// </summary>
-        private void lblWSLIP_DoubleClick(object sender, EventArgs e) {
-
-            this.Cursor = Cursors.WaitCursor;
-
-            lblWSLIP.Text = "Refreshing ...";
-            WSL.GetIP_BGW((ip) => lblWSLIP.Text = ip.Length > 0 ? $"WSL: {ip}" : "WSL: Dunno");
-
-            this.Cursor = Cursors.Default;
 
         }
 
@@ -612,6 +592,7 @@ namespace PortProxyGooey {
 
             if (string.IsNullOrEmpty(comboBox.Text))
                 comboBox.Text = "0";
+
             int intCurrentVal = Convert.ToInt32(comboBox.Text);
 
             if (bUp) {
@@ -631,7 +612,7 @@ namespace PortProxyGooey {
 
         #endregion
 
-        #region TextBox KeyPress
+        #region ComboBox KeyPress
 
         private void comboBox_ListenPort_KeyPress(object sender, KeyPressEventArgs e) {
             DigitsOnly(e);
@@ -661,6 +642,7 @@ namespace PortProxyGooey {
         #region ComboBox KeyPress
 
         private void comboBox_ListenOn_KeyPress(object sender, KeyPressEventArgs e) {
+
             // Check if the Ctrl + V key combination is pressed
             if ((Control.ModifierKeys & Keys.Control) == Keys.Control && e.KeyChar == 22) {
 
@@ -671,9 +653,11 @@ namespace PortProxyGooey {
             } else {
                 OnlyCertainAllowed(e);
             }
+
         }
 
         private void comboBox_ConnectTo_KeyPress(object sender, KeyPressEventArgs e) {
+
             // Check if the Ctrl + V key combination is pressed
             if ((Control.ModifierKeys & Keys.Control) == Keys.Control && e.KeyChar == 22) {
 
@@ -684,26 +668,54 @@ namespace PortProxyGooey {
             } else {
                 OnlyCertainAllowed(e);
             }
+
         }
 
         /// <summary>
         /// Only numbers, periods, colons, backspace, and asterisk allowed.
         /// </summary>
         private static void OnlyCertainAllowed(KeyPressEventArgs e) {
+
             if (!char.IsDigit(e.KeyChar) && e.KeyChar != '.' && e.KeyChar != '*' && e.KeyChar != ':' && e.KeyChar != '\b') {
                 e.Handled = true;
             }
+
         }
 
         #endregion
 
+        /// <summary>
+        /// Put ListBox port into the ListenPort ComboBox Text IP4 field on DoubleClick.
+        /// </summary>
         private void listBoxIP4_DoubleClick(object sender, EventArgs e) {
             comboBox_ListenPort.Text = listBoxIP4.Text;
         }
 
+        /// <summary>
+        /// Put ListBox port into the ListenPort ComboBox Text IP6 field on DoubleClick.
+        /// </summary>
         private void listBoxIP6_DoubleClick(object sender, EventArgs e) {
             comboBox_ListenPort.Text = listBoxIP6.Text;
         }
 
+        private void tmrGeneral_Tick(object sender, EventArgs e) {
+
+            // Current WSL IP
+            lblWSLIP.Visible = true;
+
+            if (!ParentWindow.lblWSLIP.Text.Contains("N/A")) {
+
+                string strIPClean = ParentWindow.lblWSLIP.Text.Replace("WSL: ", "");
+
+                lblWSLIP.Text = ParentWindow.lblWSLIP.Text;                   // Label
+                comboBox_ConnectTo.Items.Add(strIPClean);                     // Add WSL IP to Items List
+                comboBox_ConnectTo.AutoCompleteCustomSource.Add(strIPClean);  // '           ' Autocomplete
+                comboBox_ListenOn.AutoCompleteCustomSource.Add(strIPClean);   // '           ' Autocomplete
+
+            } else {
+                lblWSLIP.Text = "WSL: Dunno";
+            }
+
+        }
     }
 }

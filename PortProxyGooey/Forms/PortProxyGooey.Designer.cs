@@ -887,7 +887,6 @@
         private System.Windows.Forms.Label lblCurrentLocalIP;
         private System.Windows.Forms.Label lblWSLRunning;
         private System.Windows.Forms.Label lblDockerRunning;
-        private System.Windows.Forms.Label lblWSLIP;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_ReloadIpHlpSvc;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_FlushDnsCache;
         private System.Windows.Forms.PictureBox picWSLStatus;
@@ -895,6 +894,7 @@
         private System.Windows.Forms.Label lblIpHlpSvcRunning;
         private System.Windows.Forms.PictureBox picIpHlpSvcStatus;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemWSLStart;
+        internal System.Windows.Forms.Label lblWSLIP;
     }
 }
 

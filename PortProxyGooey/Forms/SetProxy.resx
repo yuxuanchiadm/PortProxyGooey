@@ -739,8 +739,10 @@ Starting port on the left must be lower than the Ending port on the right.</valu
     <value>WSL: 255.255.255.255</value>
   </data>
   <data name="lblWSLIP.ToolTip" xml:space="preserve">
-    <value>Currently detected WSL IP Address
-(Double-Click to refresh)</value>
+    <value>Currently detected WSL IP Address</value>
+  </data>
+  <data name="lblWSLIP.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="&gt;&gt;lblWSLIP.Name" xml:space="preserve">
     <value>lblWSLIP</value>
@@ -1680,6 +1682,9 @@ Note:
   <data name="&gt;&gt;comboBox_ConnectPort.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="tmrGeneral.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>137, 17</value>
+  </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -3858,6 +3863,12 @@ Note:
   </data>
   <data name="&gt;&gt;tTipSetProxy.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tmrGeneral.Name" xml:space="preserve">
+    <value>tmrGeneral</value>
+  </data>
+  <data name="&gt;&gt;tmrGeneral.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>SetProxy</value>

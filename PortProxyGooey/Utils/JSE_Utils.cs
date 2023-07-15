@@ -283,6 +283,47 @@ namespace JSE_Utils {
 
     }
 
+    public static class ComboBoxes {
+
+        /// <summary>
+        /// Sorts a ComboBox Numerically, rather than the default Albhabetically.
+        /// </summary>
+        /// <param name="comboBox">A ComboBox object</param>
+        public static void SortItemsNumerically(ComboBox comboBox) {
+
+            // Example:
+            // ComboBoxes.SortItemsNumerically(comboBox_ListenPort);
+
+            // Make sure built-in sorting is off, or it'll override our work here:
+            comboBox.Sorted = false;
+
+            // Step 1: Get the list of items from the ComboBox
+            List<string> items = comboBox.Items.Cast<string>().ToList();
+
+            // Step 2: Convert the items to a numeric type (e.g., int or double)
+            List<int> numericItems = items.Select(item =>
+            {
+                if (int.TryParse(item, out int numericValue)) {
+                    return numericValue;
+                } else {
+                    // Handle the case where an item is not a valid numeric value
+                    return 0; // or any default value
+                }
+            }).ToList();
+
+            // Step 3: Sort the items using the numeric values
+            numericItems.Sort();
+
+            // Step 4: Clear the ComboBox
+            comboBox.Items.Clear();
+
+            // Step 5: Add the sorted items back to the ComboBox
+            comboBox.Items.AddRange(numericItems.Select(numericItem => numericItem.ToString()).ToArray());
+
+        }
+
+    }
+
     public static class Dialogs {
     
         /// <summary>
@@ -615,6 +656,46 @@ namespace JSE_Utils {
                 // The group with the specified name was not found
             }
             return itemCount;
+        }
+
+    }
+
+    public static class ListBoxes {
+
+        /// <summary>
+        /// Sorts a ListBox Numerically, rather than the default Albhabetically.
+        /// </summary>
+        /// <param name="listBox">A ListBox object</param>
+        public static void SortItemsNumerically(ListBox listBox) {
+
+            // Example:
+            // ListBoxes.SortItemsNumerically(listBox1);
+
+            // Make sure built-in sorting is off, or it'll override our work here:
+            listBox.Sorted = false;
+
+            // Step 1: Get the list of items from the ListBox
+            List<string> items = listBox.Items.Cast<string>().ToList();
+
+            // Step 2: Convert the items to a numeric type (e.g., int or double)
+            List<int> numericItems = items.Select(item => {
+                if (int.TryParse(item, out int numericValue)) {
+                    return numericValue;
+                } else {
+                    // Handle the case where an item is not a valid numeric value
+                    return 0; // or any default value
+                }
+            }).ToList();
+
+            // Step 3: Sort the items using the numeric values
+            numericItems.Sort();
+
+            // Step 4: Clear the ListBox
+            listBox.Items.Clear();
+
+            // Step 5: Add the sorted items back to the ListBox
+            listBox.Items.AddRange(numericItems.Select(numericItem => numericItem.ToString()).ToArray());
+
         }
 
     }

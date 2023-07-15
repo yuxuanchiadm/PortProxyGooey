@@ -60,6 +60,7 @@ namespace PortProxyGooey {
             pnlBottom = new Panel();
             comboBox_ListenPort = new ComboBox();
             comboBox_ConnectPort = new ComboBox();
+            tmrGeneral = new Timer(components);
             pnlTop.SuspendLayout();
             SuspendLayout();
             // 
@@ -189,11 +190,10 @@ namespace PortProxyGooey {
             // 
             resources.ApplyResources(lblWSLIP, "lblWSLIP");
             lblWSLIP.BackColor = System.Drawing.Color.FromArgb(41, 46, 57);
-            lblWSLIP.Cursor = Cursors.Hand;
+            lblWSLIP.Cursor = Cursors.Help;
             lblWSLIP.ForeColor = System.Drawing.Color.FromArgb(129, 161, 193);
             lblWSLIP.Name = "lblWSLIP";
             tTipSetProxy.SetToolTip(lblWSLIP, resources.GetString("lblWSLIP.ToolTip"));
-            lblWSLIP.DoubleClick += lblWSLIP_DoubleClick;
             // 
             // lblType
             // 
@@ -271,6 +271,7 @@ namespace PortProxyGooey {
             comboBox_ListenPortRange.Items.AddRange(new object[] { resources.GetString("comboBox_ListenPortRange.Items"), resources.GetString("comboBox_ListenPortRange.Items1"), resources.GetString("comboBox_ListenPortRange.Items2"), resources.GetString("comboBox_ListenPortRange.Items3"), resources.GetString("comboBox_ListenPortRange.Items4"), resources.GetString("comboBox_ListenPortRange.Items5"), resources.GetString("comboBox_ListenPortRange.Items6"), resources.GetString("comboBox_ListenPortRange.Items7"), resources.GetString("comboBox_ListenPortRange.Items8"), resources.GetString("comboBox_ListenPortRange.Items9"), resources.GetString("comboBox_ListenPortRange.Items10"), resources.GetString("comboBox_ListenPortRange.Items11"), resources.GetString("comboBox_ListenPortRange.Items12"), resources.GetString("comboBox_ListenPortRange.Items13") });
             comboBox_ListenPortRange.Name = "comboBox_ListenPortRange";
             tTipSetProxy.SetToolTip(comboBox_ListenPortRange, resources.GetString("comboBox_ListenPortRange.ToolTip"));
+            comboBox_ListenPortRange.TextChanged += comboBox_ListenPortRange_TextChanged;
             comboBox_ListenPortRange.KeyDown += comboBox_ListenPortRange_KeyDown;
             comboBox_ListenPortRange.KeyPress += comboBox_ListenPortRange_KeyPress;
             comboBox_ListenPortRange.MouseWheel += comboBox_ListenPortRange_MouseWheel;
@@ -321,6 +322,7 @@ namespace PortProxyGooey {
             listBoxIP4.ForeColor = System.Drawing.Color.FromArgb(229, 233, 240);
             listBoxIP4.FormattingEnabled = true;
             listBoxIP4.Name = "listBoxIP4";
+            listBoxIP4.Sorted = true;
             listBoxIP4.DoubleClick += listBoxIP4_DoubleClick;
             // 
             // listBoxIP6
@@ -357,6 +359,7 @@ namespace PortProxyGooey {
             comboBox_ListenPort.FormattingEnabled = true;
             comboBox_ListenPort.Items.AddRange(new object[] { resources.GetString("comboBox_ListenPort.Items"), resources.GetString("comboBox_ListenPort.Items1"), resources.GetString("comboBox_ListenPort.Items2"), resources.GetString("comboBox_ListenPort.Items3"), resources.GetString("comboBox_ListenPort.Items4"), resources.GetString("comboBox_ListenPort.Items5"), resources.GetString("comboBox_ListenPort.Items6"), resources.GetString("comboBox_ListenPort.Items7"), resources.GetString("comboBox_ListenPort.Items8"), resources.GetString("comboBox_ListenPort.Items9"), resources.GetString("comboBox_ListenPort.Items10"), resources.GetString("comboBox_ListenPort.Items11"), resources.GetString("comboBox_ListenPort.Items12"), resources.GetString("comboBox_ListenPort.Items13") });
             comboBox_ListenPort.Name = "comboBox_ListenPort";
+            comboBox_ListenPort.TextChanged += comboBox_ListenPort_TextChanged;
             comboBox_ListenPort.KeyDown += comboBox_ListenPort_KeyDown;
             comboBox_ListenPort.KeyPress += comboBox_ListenPort_KeyPress;
             comboBox_ListenPort.MouseWheel += comboBox_ListenPort_MouseWheel;
@@ -372,9 +375,16 @@ namespace PortProxyGooey {
             comboBox_ConnectPort.FormattingEnabled = true;
             comboBox_ConnectPort.Items.AddRange(new object[] { resources.GetString("comboBox_ConnectPort.Items"), resources.GetString("comboBox_ConnectPort.Items1"), resources.GetString("comboBox_ConnectPort.Items2"), resources.GetString("comboBox_ConnectPort.Items3"), resources.GetString("comboBox_ConnectPort.Items4"), resources.GetString("comboBox_ConnectPort.Items5"), resources.GetString("comboBox_ConnectPort.Items6"), resources.GetString("comboBox_ConnectPort.Items7"), resources.GetString("comboBox_ConnectPort.Items8"), resources.GetString("comboBox_ConnectPort.Items9"), resources.GetString("comboBox_ConnectPort.Items10"), resources.GetString("comboBox_ConnectPort.Items11"), resources.GetString("comboBox_ConnectPort.Items12"), resources.GetString("comboBox_ConnectPort.Items13") });
             comboBox_ConnectPort.Name = "comboBox_ConnectPort";
+            comboBox_ConnectPort.TextChanged += comboBox_ConnectPort_TextChanged;
             comboBox_ConnectPort.KeyDown += comboBox_ConnectPort_KeyDown;
             comboBox_ConnectPort.KeyPress += comboBox_ConnectPort_KeyPress;
             comboBox_ConnectPort.MouseWheel += comboBox_ConnectPort_MouseWheel;
+            // 
+            // tmrGeneral
+            // 
+            tmrGeneral.Enabled = true;
+            tmrGeneral.Interval = 2000;
+            tmrGeneral.Tick += tmrGeneral_Tick;
             // 
             // SetProxy
             // 
@@ -462,5 +472,6 @@ namespace PortProxyGooey {
         private ComboBox comboBox_ListenPort;
         private ComboBox comboBox_ListenPortRange;
         private ComboBox comboBox_ConnectPort;
+        private Timer tmrGeneral;
     }
 }
