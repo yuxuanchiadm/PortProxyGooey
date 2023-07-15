@@ -498,6 +498,15 @@ Place this (or 'these', if adding a port range) proxy into a named group in the 
   <data name="comboBox_Group.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft YaHei UI, 9pt</value>
   </data>
+  <data name="comboBox_Group.Items" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="comboBox_Group.Items1" xml:space="preserve">
+    <value>Docker</value>
+  </data>
+  <data name="comboBox_Group.Items2" xml:space="preserve">
+    <value>WSL</value>
+  </data>
   <data name="comboBox_Group.Location" type="System.Drawing.Point, System.Drawing">
     <value>111, 205</value>
   </data>

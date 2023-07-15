@@ -91,11 +91,12 @@ namespace PortProxyGooey {
             // button_Set
             // 
             resources.ApplyResources(button_Set, "button_Set");
+            button_Set.BackColor = System.Drawing.Color.FromArgb(41, 46, 57);
             button_Set.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(67, 76, 94);
             button_Set.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(59, 66, 82);
             button_Set.ForeColor = System.Drawing.Color.FromArgb(235, 203, 139);
             button_Set.Name = "button_Set";
-            button_Set.UseVisualStyleBackColor = true;
+            button_Set.UseVisualStyleBackColor = false;
             button_Set.Click += button_Set_Click;
             // 
             // label_ListenPort
@@ -142,7 +143,9 @@ namespace PortProxyGooey {
             comboBox_Group.BackColor = System.Drawing.Color.FromArgb(41, 46, 57);
             comboBox_Group.ForeColor = System.Drawing.Color.FromArgb(229, 233, 240);
             comboBox_Group.FormattingEnabled = true;
+            comboBox_Group.Items.AddRange(new object[] { resources.GetString("comboBox_Group.Items"), resources.GetString("comboBox_Group.Items1"), resources.GetString("comboBox_Group.Items2") });
             comboBox_Group.Name = "comboBox_Group";
+            comboBox_Group.Sorted = true;
             // 
             // comboBox_ListenOn
             // 
@@ -300,11 +303,12 @@ namespace PortProxyGooey {
             // btnCancel
             // 
             resources.ApplyResources(btnCancel, "btnCancel");
+            btnCancel.BackColor = System.Drawing.Color.FromArgb(41, 46, 57);
             btnCancel.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(67, 76, 94);
             btnCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(59, 66, 82);
             btnCancel.ForeColor = System.Drawing.Color.FromArgb(191, 97, 106);
             btnCancel.Name = "btnCancel";
-            btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.UseVisualStyleBackColor = false;
             btnCancel.Click += btnCancel_Click;
             // 
             // lblClone
@@ -383,7 +387,7 @@ namespace PortProxyGooey {
             // tmrGeneral
             // 
             tmrGeneral.Enabled = true;
-            tmrGeneral.Interval = 2000;
+            tmrGeneral.Interval = 1500;
             tmrGeneral.Tick += tmrGeneral_Tick;
             // 
             // SetProxy

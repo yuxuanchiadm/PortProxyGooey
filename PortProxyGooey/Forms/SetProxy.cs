@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Rule = PortProxyGooey.Data.Rule;
 
@@ -47,8 +48,13 @@ namespace PortProxyGooey {
                 select header
             ).ToArray();
 
-            // Add them to the Groups combobox
+            // Add them to the Groups combobox, but don't add if "WSL" or "Docker" since we've already added them ourself.
+            groupNames = Array.FindAll(groupNames, item => item != "Docker" && item != "WSL");
             comboBox_Group.Items.AddRange(groupNames);
+
+            // Set the Default
+            comboBox_Group.SelectedIndex = 0;
+
         }
 
         private void SetProxyForm_Load(object sender, EventArgs e) {
@@ -78,13 +84,13 @@ namespace PortProxyGooey {
             lblClone.Visible = rule != null;
 
             lblType.Text = rule != null ? rule.Type : "v4tov4";
-            comboBox_Group.Text = rule != null ? rule.Group : String.Empty;
+            comboBox_Group.Text = rule != null ? rule.Group : string.Empty;
 
             comboBox_ListenOn.Text = rule != null ? rule.ListenOn : "*";
-            comboBox_ListenPort.Text = rule != null ? rule.ListenPort.ToString() : String.Empty;
-            comboBox_ConnectTo.Text = rule != null ? rule.ConnectTo : String.Empty;
-            comboBox_ConnectPort.Text = rule != null ? rule.ConnectPort.ToString() : String.Empty;
-            textBox_Comment.Text = rule != null ? rule.Comment : String.Empty;
+            comboBox_ListenPort.Text = rule != null ? rule.ListenPort.ToString() : string.Empty;
+            comboBox_ConnectTo.Text = rule != null ? rule.ConnectTo : string.Empty;
+            comboBox_ConnectPort.Text = rule != null ? rule.ConnectPort.ToString() : string.Empty;
+            textBox_Comment.Text = rule != null ? rule.Comment : string.Empty;
 
         }
 
@@ -166,6 +172,7 @@ namespace PortProxyGooey {
             // Do a single trim here rather than multiple trims (save a few cpu cycles)
             string strListen = comboBox_ListenOn.Text.Trim();
             string strConnect = comboBox_ConnectTo.Text.Trim();
+            string strGroup = comboBox_Group.Text.Trim();
 
             // Validate IPv4 (TODO: works great for IP4, but what if we add IP6 in one or both fields?) IP6 regex updated and now working. Look into if it's validation is needed anywwhere else.
             if (!ValidateIPv4(strListen, 1))
@@ -182,8 +189,7 @@ namespace PortProxyGooey {
                 ConnectTo = strConnect,
                 ConnectPort = connectPort,
                 Comment = textBox_Comment.Text.Trim(),
-                Group = comboBox_Group.Text.Trim(),
-
+                Group = (strGroup != "Default" ? strGroup : string.Empty),
             };
 
             // Validate the Proxy Type ...
@@ -235,6 +241,7 @@ namespace PortProxyGooey {
                 // Alert the user if any were skipped due to duping
                 if (intDupes > 0)
                     MessageBox.Show($"{intDupes} duplicates skipped.", "Didn't add some ...", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
             }
 
             ParentWindow.RefreshProxyList();
@@ -271,7 +278,7 @@ namespace PortProxyGooey {
                 lblDash.Visible = true;
                 comboBox_ListenPortRange.Visible = true;
                 lblRangeCount.Visible = true;
-                lblRangeCount.Text = String.IsNullOrEmpty(comboBox_ListenPortRange.Text) ? "Adding: 0" : $"Adding: {CalcRange()}";
+                lblRangeCount.Text = string.IsNullOrEmpty(comboBox_ListenPortRange.Text) ? "Adding: 0" : $"Adding: {CalcRange()}";
 
             } else {
 
@@ -307,7 +314,7 @@ namespace PortProxyGooey {
 
             lblRangeCount.Text = intRangeCount < 0 ? strBase + " 0" : $"{strBase} {intRangeCount}";
 
-            // Auto-comment common ports TODO: convert to cbobx
+            // Auto-comment common ports
             AutoComment(comboBox_ListenPortRange);
 
         }
@@ -707,10 +714,15 @@ namespace PortProxyGooey {
 
                 string strIPClean = ParentWindow.lblWSLIP.Text.Replace("WSL: ", "");
 
-                lblWSLIP.Text = ParentWindow.lblWSLIP.Text;                   // Label
-                comboBox_ConnectTo.Items.Add(strIPClean);                     // Add WSL IP to Items List
-                comboBox_ConnectTo.AutoCompleteCustomSource.Add(strIPClean);  // '           ' Autocomplete
-                comboBox_ListenOn.AutoCompleteCustomSource.Add(strIPClean);   // '           ' Autocomplete
+                // Only change/add these things if not already there, to avoid dupes/flicker, etc.
+                if (lblWSLIP.Text != ParentWindow.lblWSLIP.Text)
+                    lblWSLIP.Text = ParentWindow.lblWSLIP.Text;                                         // Label
+                if (!comboBox_ConnectTo.Items.Contains(strIPClean))
+                    comboBox_ConnectTo.Items.Add(strIPClean);                                        // Add WSL IP to Items List
+                if (!comboBox_ConnectTo.AutoCompleteCustomSource.Contains(strIPClean))
+                    comboBox_ConnectTo.AutoCompleteCustomSource.Add(strIPClean);  // '           ' Autocomplete
+                if (!comboBox_ListenOn.AutoCompleteCustomSource.Contains(strIPClean))
+                    comboBox_ListenOn.AutoCompleteCustomSource.Add(strIPClean);    // '           ' Autocomplete
 
             } else {
                 lblWSLIP.Text = "WSL: Dunno";
