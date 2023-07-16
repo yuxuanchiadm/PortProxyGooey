@@ -240,6 +240,24 @@
   <data name="toolStripMenuItem_Disable.ToolTipText" xml:space="preserve">
     <value>Deactivate this port proxy</value>
   </data>
+  <data name="toolStripMenuItem_EnableAll.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="toolStripMenuItem_EnableAll.Text" xml:space="preserve">
+    <value>Enable All</value>
+  </data>
+  <data name="toolStripMenuItem_DisableAll.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="toolStripMenuItem_DisableAll.Text" xml:space="preserve">
+    <value>Disable All</value>
+  </data>
+  <data name="toolStripMenuItem_EnableDisableAll.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 22</value>
+  </data>
+  <data name="toolStripMenuItem_EnableDisableAll.Text" xml:space="preserve">
+    <value>All</value>
+  </data>
   <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
     <value>179, 6</value>
   </data>
@@ -695,7 +713,7 @@ in case you want to download it.</value>
     <value>Exit</value>
   </data>
   <data name="contextMenuStrip_RightClick.Size" type="System.Drawing.Size, System.Drawing">
-    <value>183, 332</value>
+    <value>183, 376</value>
   </data>
   <data name="&gt;&gt;contextMenuStrip_RightClick.Name" xml:space="preserve">
     <value>contextMenuStrip_RightClick</value>
@@ -724,7 +742,7 @@ in case you want to download it.</value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAmisAAAJNU0Z0AUkBTAIBAQYB
-        AAEgAQUBIAEFARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAASADAAEBAQABIAYAASBe
+        AAFYAQUBWAEFARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAASADAAEBAQABIAYAASBe
         AAMqAUADKgFAAyoBQAMqAUADKgFAAyoBQAMqAUADKgFAAyoBQAMqAUCQAAMMARACWwFZAcABrwHEARYB
         /wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8B
         xAEWAf8BrwHEARYB/wJbAVkBwAMMARAIAAMMARACWQFbAcABPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8B
@@ -1342,7 +1360,7 @@ in case you want to download it.</value>
     <value>3</value>
   </data>
   <data name="lblWSLIP.Text" xml:space="preserve">
-    <value>WSL IP:  N/A</value>
+    <value>WSL:  N/A</value>
   </data>
   <data name="&gt;&gt;lblWSLIP.Name" xml:space="preserve">
     <value>lblWSLIP</value>
@@ -1456,7 +1474,7 @@ in case you want to download it.</value>
     <value>0</value>
   </data>
   <data name="lblCurrentLocalIP.Text" xml:space="preserve">
-    <value>LOCAL IP:  N/A</value>
+    <value>LOCAL:  N/A</value>
   </data>
   <data name="lblCurrentLocalIP.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>TopRight</value>
@@ -3725,6 +3743,24 @@ in case you want to download it.</value>
     <value>toolStripMenuItem_Disable</value>
   </data>
   <data name="&gt;&gt;toolStripMenuItem_Disable.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem_EnableDisableAll.Name" xml:space="preserve">
+    <value>toolStripMenuItem_EnableDisableAll</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem_EnableDisableAll.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem_EnableAll.Name" xml:space="preserve">
+    <value>toolStripMenuItem_EnableAll</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem_EnableAll.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem_DisableAll.Name" xml:space="preserve">
+    <value>toolStripMenuItem_DisableAll</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem_DisableAll.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator3.Name" xml:space="preserve">

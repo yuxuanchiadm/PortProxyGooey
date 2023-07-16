@@ -953,6 +953,9 @@ add your own comment before or after the auto-comment.</value>
     <value>These ports were found to be listening within your WSL instance.
 Double-click a port to fill it in the list to the left.</value>
   </data>
+  <data name="lblWSLDiscovered.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="&gt;&gt;lblWSLDiscovered.Name" xml:space="preserve">
     <value>lblWSLDiscovered</value>
   </data>
@@ -992,6 +995,9 @@ Double-click a port to fill it in the list to the left.</value>
   <data name="lblDiscoveredIP6.ToolTip" xml:space="preserve">
     <value>Currently detected WSL IPv6 Listening Ports</value>
   </data>
+  <data name="lblDiscoveredIP6.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="&gt;&gt;lblDiscoveredIP6.Name" xml:space="preserve">
     <value>lblDiscoveredIP6</value>
   </data>
@@ -1030,6 +1036,9 @@ Double-click a port to fill it in the list to the left.</value>
   </data>
   <data name="lblDiscoveredIP4.ToolTip" xml:space="preserve">
     <value>Currently detected WSL IPv4 Listening Ports</value>
+  </data>
+  <data name="lblDiscoveredIP4.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="&gt;&gt;lblDiscoveredIP4.Name" xml:space="preserve">
     <value>lblDiscoveredIP4</value>
@@ -1379,6 +1388,9 @@ Note:
   <data name="listBoxIP4.TabIndex" type="System.Int32, mscorlib">
     <value>29</value>
   </data>
+  <data name="listBoxIP4.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="&gt;&gt;listBoxIP4.Name" xml:space="preserve">
     <value>listBoxIP4</value>
   </data>
@@ -1408,6 +1420,9 @@ Note:
   </data>
   <data name="listBoxIP6.TabIndex" type="System.Int32, mscorlib">
     <value>30</value>
+  </data>
+  <data name="listBoxIP6.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="&gt;&gt;listBoxIP6.Name" xml:space="preserve">
     <value>listBoxIP6</value>

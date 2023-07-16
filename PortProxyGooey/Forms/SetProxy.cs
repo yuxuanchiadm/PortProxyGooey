@@ -52,7 +52,7 @@ namespace PortProxyGooey {
             groupNames = Array.FindAll(groupNames, item => item != "Docker" && item != "WSL");
             comboBox_Group.Items.AddRange(groupNames);
 
-            // Set the Default
+            // Set the Default // TODO: "Default" is only getting put in blank/new form; if modding a grp Already in the Defautl grp, it's staying blank.
             comboBox_Group.SelectedIndex = 0;
 
         }
@@ -504,44 +504,53 @@ namespace PortProxyGooey {
         /// <param name="portsDic">Dictionary containing any results</param>
         private void DiscoveredPorts_Callback(Dictionary<string, string> portsDic) {
 
-            foreach (var kvp in portsDic) {
+            if (portsDic != null) {
 
-                // Add ports to their respective ListBoxes
-                if (kvp.Key.Contains("IPv4")) {
+                lblWSLDiscovered.Visible = true;
+                listBoxIP4.Visible = true;
+                listBoxIP6.Visible = true;
+                lblDiscoveredIP4.Visible = true;
+                lblDiscoveredIP6.Visible = true;
 
-                    listBoxIP4.Items.Add(kvp.Value);
+                foreach (var kvp in portsDic) {
 
-                } else if (kvp.Key.Contains("IPv6")) {
+                    // Add ports to their respective ListBoxes
+                    if (kvp.Key.Contains("IPv4")) {
 
-                    listBoxIP6.Items.Add(kvp.Value);
+                        listBoxIP4.Items.Add(kvp.Value);
+
+                    } else if (kvp.Key.Contains("IPv6")) {
+
+                        listBoxIP6.Items.Add(kvp.Value);
+                    }
+
+                    // Also add to autocomplete stuff to the ComboBoxes as well
+                    if (!comboBox_ListenPort.AutoCompleteCustomSource.Contains(kvp.Value)) {
+
+                        // Autocomplete
+                        comboBox_ListenPort.AutoCompleteCustomSource.Add(kvp.Value);
+                        comboBox_ListenPortRange.AutoCompleteCustomSource.Add(kvp.Value);
+                        comboBox_ConnectPort.AutoCompleteCustomSource.Add(kvp.Value);
+
+                        // Items list
+                        comboBox_ListenPort.Items.Add(kvp.Value);
+                        comboBox_ListenPortRange.Items.Add(kvp.Value);
+                        comboBox_ConnectPort.Items.Add(kvp.Value);
+
+                    }
+
                 }
 
-                // Also add to autocomplete stuff to the ComboBoxes as well
-                if (!comboBox_ListenPort.AutoCompleteCustomSource.Contains(kvp.Value)) {
+                // Sort Numerically
+                ComboBoxes.SortItemsNumerically(comboBox_ListenPort);
+                ComboBoxes.SortItemsNumerically(comboBox_ListenPortRange);
+                ComboBoxes.SortItemsNumerically(comboBox_ConnectPort);
+                ListBoxes.SortItemsNumerically(listBoxIP4);
+                ListBoxes.SortItemsNumerically(listBoxIP6);
 
-                    // Autocomplete
-                    comboBox_ListenPort.AutoCompleteCustomSource.Add(kvp.Value);
-                    comboBox_ListenPortRange.AutoCompleteCustomSource.Add(kvp.Value);
-                    comboBox_ConnectPort.AutoCompleteCustomSource.Add(kvp.Value);
-
-                    // Items list
-                    comboBox_ListenPort.Items.Add(kvp.Value);
-                    comboBox_ListenPortRange.Items.Add(kvp.Value);
-                    comboBox_ConnectPort.Items.Add(kvp.Value);
-
-                }
-
+                lblDiscoveredIP4.Text = $"IP4 ({listBoxIP4.Items.Count})";
+                lblDiscoveredIP6.Text = $"IP6 ({listBoxIP6.Items.Count})";
             }
-
-            // Sort Numerically
-            ComboBoxes.SortItemsNumerically(comboBox_ListenPort);
-            ComboBoxes.SortItemsNumerically(comboBox_ListenPortRange);
-            ComboBoxes.SortItemsNumerically(comboBox_ConnectPort);
-            ListBoxes.SortItemsNumerically(listBoxIP4);
-            ListBoxes.SortItemsNumerically(listBoxIP6);
-
-            lblDiscoveredIP4.Text = $"IP4 ({listBoxIP4.Items.Count})";
-            lblDiscoveredIP6.Text = $"IP6 ({listBoxIP6.Items.Count})";
 
         }
 

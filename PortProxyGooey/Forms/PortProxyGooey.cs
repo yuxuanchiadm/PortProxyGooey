@@ -179,8 +179,10 @@ namespace PortProxyGooey {
         /// Enable/Disable selected Proxies
         /// </summary>
         /// <param name="bEnable">[optional: default True] True: Enable selected; False: Disable selected.</param>
-        private void ToggleSelectedProxies(bool bEnable = true) {
+        /// <param name="bAll">[optional: default false] True: Enable All; False: Disable All.</param>
+        private void ToggleSelectedProxies(bool bEnable = true, bool bAll = false) {
             // TODO: working on the label tip counter(s)
+            // TODO: And in the "All" code.
             IEnumerable<ListViewItem> items = listViewProxies.SelectedItems.OfType<ListViewItem>();
 
             foreach (ListViewItem item in items) {
@@ -1268,7 +1270,7 @@ namespace PortProxyGooey {
             // Join the 'extra' local IPs
             string strAltIPs = string.Join(Environment.NewLine, lstAltIPs);
 
-            lblCurrentLocalIP.Text = $"LOCAL IP: {(lstIPs.Count > 0 ? lstIPs[0] : "N/A")}";
+            lblCurrentLocalIP.Text = $"LOCAL: {(lstIPs.Count > 0 ? lstIPs[0] : "N/A")}";
 
             // If any "alternate/other" IP's let's add them to the tooltip
             if (lstAltIPs.Count > 0) {
@@ -1452,6 +1454,14 @@ namespace PortProxyGooey {
 
             contextMenuStrip_WSL.Show(Cursor.Position);
 
+        }
+
+        private void toolStripMenuItem_EnableAll_Click(object sender, EventArgs e) {
+            ToggleSelectedProxies(true, true);
+        }
+
+        private void toolStripMenuItem_DisableAll_Click(object sender, EventArgs e) {
+            ToggleSelectedProxies(false, true);
         }
     }
 }

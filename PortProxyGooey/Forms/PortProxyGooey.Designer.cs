@@ -37,6 +37,9 @@
             contextMenuStrip_RightClick = new System.Windows.Forms.ContextMenuStrip(components);
             toolStripMenuItem_Enable = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem_Disable = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem_EnableDisableAll = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem_EnableAll = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem_DisableAll = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             toolStripMenuItem_New = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
@@ -191,7 +194,7 @@
             // contextMenuStrip_RightClick
             // 
             resources.ApplyResources(contextMenuStrip_RightClick, "contextMenuStrip_RightClick");
-            contextMenuStrip_RightClick.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem_Enable, toolStripMenuItem_Disable, toolStripSeparator3, toolStripMenuItem_New, toolStripSeparator14, toolStripMenuItem_Modify, toolStripMenuItem_Clone, toolStripSeparator15, toolStripMenuItem_Delete, toolStripSeparator1, toolStripMenuItem_MoveTo, toolStripMenuItem_RenameGroup, toolStripSeparator16, toolStripMenuItem_Refresh, clearToolStripMenuItem, toolStripSeparator2, toolStripMenuItem_More, toolStripSeparator4, toolStripMenuItem_About, toolStripMenuItem_Exit });
+            contextMenuStrip_RightClick.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem_Enable, toolStripMenuItem_Disable, toolStripMenuItem_EnableDisableAll, toolStripSeparator3, toolStripMenuItem_New, toolStripSeparator14, toolStripMenuItem_Modify, toolStripMenuItem_Clone, toolStripSeparator15, toolStripMenuItem_Delete, toolStripSeparator1, toolStripMenuItem_MoveTo, toolStripMenuItem_RenameGroup, toolStripSeparator16, toolStripMenuItem_Refresh, clearToolStripMenuItem, toolStripSeparator2, toolStripMenuItem_More, toolStripSeparator4, toolStripMenuItem_About, toolStripMenuItem_Exit });
             contextMenuStrip_RightClick.Name = "contextMenuStrip1";
             contextMenuStrip_RightClick.Closed += contextMenuStrip_RightClick_Closed;
             contextMenuStrip_RightClick.MouseClick += contextMenuStrip_RightClick_MouseClick;
@@ -207,6 +210,27 @@
             toolStripMenuItem_Disable.Image = Properties.Resources.red;
             toolStripMenuItem_Disable.Name = "toolStripMenuItem_Disable";
             resources.ApplyResources(toolStripMenuItem_Disable, "toolStripMenuItem_Disable");
+            // 
+            // toolStripMenuItem_EnableDisableAll
+            // 
+            toolStripMenuItem_EnableDisableAll.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem_EnableAll, toolStripMenuItem_DisableAll });
+            toolStripMenuItem_EnableDisableAll.Image = Properties.Resources.orange;
+            toolStripMenuItem_EnableDisableAll.Name = "toolStripMenuItem_EnableDisableAll";
+            resources.ApplyResources(toolStripMenuItem_EnableDisableAll, "toolStripMenuItem_EnableDisableAll");
+            // 
+            // toolStripMenuItem_EnableAll
+            // 
+            toolStripMenuItem_EnableAll.Image = Properties.Resources.green;
+            toolStripMenuItem_EnableAll.Name = "toolStripMenuItem_EnableAll";
+            resources.ApplyResources(toolStripMenuItem_EnableAll, "toolStripMenuItem_EnableAll");
+            toolStripMenuItem_EnableAll.Click += toolStripMenuItem_EnableAll_Click;
+            // 
+            // toolStripMenuItem_DisableAll
+            // 
+            toolStripMenuItem_DisableAll.Image = Properties.Resources.red;
+            toolStripMenuItem_DisableAll.Name = "toolStripMenuItem_DisableAll";
+            resources.ApplyResources(toolStripMenuItem_DisableAll, "toolStripMenuItem_DisableAll");
+            toolStripMenuItem_DisableAll.Click += toolStripMenuItem_DisableAll_Click;
             // 
             // toolStripSeparator3
             // 
@@ -895,6 +919,9 @@
         private System.Windows.Forms.PictureBox picIpHlpSvcStatus;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemWSLStart;
         internal System.Windows.Forms.Label lblWSLIP;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_EnableDisableAll;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_EnableAll;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_DisableAll;
     }
 }
 
