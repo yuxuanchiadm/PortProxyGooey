@@ -348,7 +348,7 @@ namespace PortProxyGooey {
         /// </summary>
         /// <param name="strIP">IPv4 string to check</param>
         /// <param name="intField">Field to focus back on in case of a failure. 2: ConnectTo, any other int:ListenOn.</param>
-        /// <returns>true if valid; false if invalid</returns>
+        /// <returns>True if valid; False if invalid</returns>
         private bool ValidateIPv4(string strIP, int intField) {
 
             bool bResult = true;
@@ -506,6 +506,7 @@ namespace PortProxyGooey {
 
             if (portsDic != null) {
 
+                // We keep these boxes and labels hidden unless we have something to put in them
                 lblWSLDiscovered.Visible = true;
                 listBoxIP4.Visible = true;
                 listBoxIP6.Visible = true;
@@ -724,14 +725,10 @@ namespace PortProxyGooey {
                 string strIPClean = ParentWindow.lblWSLIP.Text.Replace("WSL: ", "");
 
                 // Only change/add these things if not already there, to avoid dupes/flicker, etc.
-                if (lblWSLIP.Text != ParentWindow.lblWSLIP.Text)
-                    lblWSLIP.Text = ParentWindow.lblWSLIP.Text;                                         // Label
-                if (!comboBox_ConnectTo.Items.Contains(strIPClean))
-                    comboBox_ConnectTo.Items.Add(strIPClean);                                        // Add WSL IP to Items List
-                if (!comboBox_ConnectTo.AutoCompleteCustomSource.Contains(strIPClean))
-                    comboBox_ConnectTo.AutoCompleteCustomSource.Add(strIPClean);  // '           ' Autocomplete
-                if (!comboBox_ListenOn.AutoCompleteCustomSource.Contains(strIPClean))
-                    comboBox_ListenOn.AutoCompleteCustomSource.Add(strIPClean);    // '           ' Autocomplete
+                if (lblWSLIP.Text != ParentWindow.lblWSLIP.Text) lblWSLIP.Text = ParentWindow.lblWSLIP.Text;                                         // Label
+                if (!comboBox_ConnectTo.Items.Contains(strIPClean)) comboBox_ConnectTo.Items.Add(strIPClean);                                        // Add WSL IP to Items List
+                if (!comboBox_ConnectTo.AutoCompleteCustomSource.Contains(strIPClean)) comboBox_ConnectTo.AutoCompleteCustomSource.Add(strIPClean);  // '           ' Autocomplete
+                if (!comboBox_ListenOn.AutoCompleteCustomSource.Contains(strIPClean)) comboBox_ListenOn.AutoCompleteCustomSource.Add(strIPClean);    // '           ' Autocomplete
 
             } else {
                 lblWSLIP.Text = "WSL: Dunno";

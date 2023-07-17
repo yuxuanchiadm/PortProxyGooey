@@ -179,12 +179,21 @@ namespace PortProxyGooey {
         /// Enable/Disable selected Proxies
         /// </summary>
         /// <param name="bEnable">[optional: default True] True: Enable selected; False: Disable selected.</param>
-        /// <param name="bAll">[optional: default false] True: Enable All; False: Disable All.</param>
+        /// <param name="bAll">[optional: default False] True: Enable All; False: Disable All.</param>
         private void ToggleSelectedProxies(bool bEnable = true, bool bAll = false) {
             // TODO: working on the label tip counter(s)
-            // TODO: And in the "All" code.
-            IEnumerable<ListViewItem> items = listViewProxies.SelectedItems.OfType<ListViewItem>();
+            // TODO: The "All" code so far "seems" to be working, but the tooltip counter gets fucked up after using it. Seesm to trigger after doing a couple manually, then the All.
 
+            IEnumerable<ListViewItem> items;
+
+            // Determine whether we're en/disabling All items in the list, or just the selected ones.
+            if (bAll) {
+                items = listViewProxies.Items.OfType<ListViewItem>();
+            } else {
+                items = listViewProxies.SelectedItems.OfType<ListViewItem>();
+            }
+
+            //
             foreach (ListViewItem item in items) {
 
                 if (bEnable) {
@@ -203,6 +212,7 @@ namespace PortProxyGooey {
 
                 }
 
+                //
                 try {
 
                     Rule rule = ParseRule(item);
@@ -659,6 +669,9 @@ namespace PortProxyGooey {
                 if (toolStripMenuItem_Enable.Enabled && intCount > 1) { toolStripMenuItem_Enable.Text = $"Enable ({intCount})"; }
                 if (toolStripMenuItem_Disable.Enabled && intCount > 1) { toolStripMenuItem_Disable.Text = $"Disable ({intCount})"; }
 
+                // Only show the Enable/Disable All item if there are more than 1 items (proxies) in the list
+                toolStripMenuItem_EnableDisableAll.Visible = listViewProxies.Items.Count > 1;
+
                 // Delete/Move (count): Add count to let users know how many they're about to nuke (or move)
                 if (intCount > 1) {
 
@@ -988,7 +1001,8 @@ namespace PortProxyGooey {
         /// External App: Network Adapters
         /// </summary>
         private void adaptersToolStripMenuItem_Click(object sender, EventArgs e) {
-            Process.Start("explorer", "/e,::{26EE0668-A00A-44D7-9371-BEB064C98683}\\0\\::{7007ACC7-3202-11D1-AAD2-00805FC1270E}");
+            Misc.RunCommand("explorer", "/e,::{26EE0668-A00A-44D7-9371-BEB064C98683}\\0\\::{7007ACC7-3202-11D1-AAD2-00805FC1270E}");
+
         }
 
         /// <summary>
@@ -1030,6 +1044,7 @@ namespace PortProxyGooey {
             } catch (Exception ex) {
                 Debug.WriteLine($"WFC(): {ex.Message}");
             }
+
         }
 
         /// <summary>
