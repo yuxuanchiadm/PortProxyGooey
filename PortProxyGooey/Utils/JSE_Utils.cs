@@ -1451,7 +1451,7 @@ namespace JSE_Utils {
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "I want it all caps")]
     public static class WSL {
 
-        public static void GetUptime_BGW(Action<string> callback, bool bVersionOnly = false) {
+        public static void GetUptime_BGW(Action<Dictionary<string, string>> callback) {
             // Left off: deciding whether to return dict with all info so we can cherry pick, or?
             // Example usages:
             //
@@ -1472,22 +1472,15 @@ namespace JSE_Utils {
 
             worker.DoWork += (sender, e) => {
 
-                //string strOutput;
-                string strOutput = Misc.RunCommand("wsl", "uptime");
+                string strOutput = Misc.RunCommand("wsl", "uptime").Trim();
+                Dictionary<string, string> dicInfo = new();
 
-                //if (bVersionOnly) {
+                dicInfo.Add("Full", strOutput);
 
-                //    // Only fetch the Docker *version*
-                //    //strOutput = Misc.RunCommand("wsl", "uptime");
 
-                //} else {
 
-                //    // Fetch the Full Monty
-                //    strOutput = Misc.RunCommand("wsl", "uptime");
 
-                //}
-
-                e.Result = strOutput.Length > 0 ? strOutput.Trim() : string.Empty;
+                e.Result = dicInfo.Count > 0 ? strOutput.Trim() : string.Empty;
 
             };
 
@@ -1497,9 +1490,8 @@ namespace JSE_Utils {
                     // Handle errors
                 } else {
 
-                    string ip = e.Result as string;
-                    callback?.Invoke(ip);
-
+                    Dictionary<string, string> dicInfo = e.Result as Dictionary<string, string>;
+                    callback?.Invoke(dicInfo);
                 }
 
             };
@@ -1529,7 +1521,7 @@ namespace JSE_Utils {
         }
 
         /// <summary>
-        /// Checks if WSL is running (async)
+        /// Checks if WSL is running (async: BackgroundWorker)
         /// </summary>
         /// <param name="bShowMessage">[optional: default False] will show a messagebox with the result.</param>
         /// <returns>True: WSL is running; False: WSL isn't running</returns>
@@ -1579,7 +1571,7 @@ namespace JSE_Utils {
         }
 
         /// <summary>
-        /// Gets a list of all distros installed, their WSL version, and running state. (async)
+        /// Gets a list of all distros installed, their WSL version, and running state. (async: Task)
         /// </summary>
         /// <returns>Success: WSL Distro info; Fail: Empty string.</returns>
         public static string GetDistros() {
@@ -1604,7 +1596,7 @@ namespace JSE_Utils {
         }
 
         /// <summary>
-        /// Gets *all* version info of the currently installed WSL version (async)
+        /// Gets *all* version info of the currently installed WSL version (async: Task)
         /// </summary>
         /// <returns>Success: WSL Version info; Fail: Empty string.</returns>
         public static string GetAllVersionInfo() {
@@ -1696,7 +1688,7 @@ namespace JSE_Utils {
         }
 
         /// <summary>
-        /// Fetches the current WSL IP (async Task)
+        /// Fetches the current WSL IP (async: Task)
         /// </summary>
         /// <returns>Success: (string) IP Address; Fail: Empty string</returns>
         public static async Task<string> GetIP_Task_Async() {
@@ -1725,7 +1717,7 @@ namespace JSE_Utils {
         }
 
         /// <summary>
-        /// Fetches the current WSL IP (async BackGroundWorker)
+        /// Fetches the current WSL IP (async: BackGroundWorker)
         /// </summary>
         /// <returns>Success: (string) IP Address; Fail: Empty string</returns>
         /// <remarks>Ex. Usage: WSL.GetIP_BGW((ip) => lblWSLIP.Text = $"WSL IP: {ip}");</remarks>
@@ -1933,7 +1925,7 @@ namespace JSE_Utils {
         }
 
         /// <summary>
-        /// Start WSL (async)
+        /// Start WSL (async: Task)
         /// </summary>
         /// <param name="bShowResult">[optional: default True] Shows a messagebox confirming WSL has started</param>
         public static void Start(bool bShowResult = true) {
@@ -2096,9 +2088,7 @@ namespace JSE_Utils {
                     }
 
                 };
-
                 worker.RunWorkerAsync();
-
             }
 
         }
