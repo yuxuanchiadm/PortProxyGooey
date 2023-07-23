@@ -1448,7 +1448,7 @@ namespace JSE_Utils {
             }
         }
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "<Pending>")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "I want it all caps")]
     public static class WSL {
 
         public static void GetUptime_BGW(Action<string> callback, bool bVersionOnly = false) {
