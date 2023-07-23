@@ -464,26 +464,45 @@ namespace JSE_Utils {
     public static class Docker {
 
         /// <summary>
-        /// Get Docker Version (async BackGroundWorker)
+        /// Get Docker Version (async: BackGroundWorker)
         /// </summary>
+        /// <param name="bVersionOnly"><c>True:</c> [b version only], else, Full Docker Info.</param>
         /// <returns>Success: (string) Version Number; Fail: Empty string</returns>
-        public static void GetVersion_BGW(Action<string> callback) {
+        public static void GetInfo_BGW(Action<string> callback, bool bVersionOnly = false) {
 
             // Example usages:
             //
-            // Docker.GetVersion_BGW((DockerVersion) => Debug.WriteLine($"DOCKER{(!string.IsNullOrEmpty(DockerVersion) ? " (v" + (DockerVersion) + ")" : string.Empty)}: RUNNING"));
+            // Version Only:
+            // Docker.GetInfo_BGW((DockerVersion) => Debug.WriteLine($"DOCKER{(!string.IsNullOrEmpty(DockerVersion) ? " (v" + (DockerVersion) + ")" : string.Empty)}: RUNNING"), true);
+            //
+            // Full:
+            // Docker.GetInfo_BGW((DockerInfo) => Debug.WriteLine($"{(DockerInfo)}"));
             //
             // Another:
             //
-            // Docker.GetVersion_BGW((DockerVersion) => {
+            // Version Only:
+            // Docker.GetInfo_BGW((DockerVersion) => {
             //     Debug.WriteLine($"Docker Version: {DockerVersion}");
-            // });
+            // }, true);
 
             BackgroundWorker worker = new BackgroundWorker();
 
             worker.DoWork += (sender, e) => {
 
-                string strOutput = Misc.RunCommand("wsl", $"docker version --format {"'{{.Server.Version}}'"}");
+                string strOutput;
+
+                if (bVersionOnly) {
+
+                    // Only fetch the Docker *version*
+                    strOutput = Misc.RunCommand("wsl", $"docker version --format {"'{{.Server.Version}}'"}");
+
+                } else {
+
+                    // Fetch the Full Monty
+                    // Another way from within WSL: uname -mr && docker version
+                    strOutput = Misc.RunCommand("wsl", "docker version");
+
+                }
                  
                 e.Result = strOutput.Length > 0 ? strOutput.Trim() : string.Empty;
 
@@ -1196,7 +1215,7 @@ namespace JSE_Utils {
         /// </summary>
         /// <param name="callback">The callback.</param>
         /// <param name="strServiceName">Exact name of the service (case-sensitive)</param>
-        /// <param name="bShowMessage">[optional Default: false] If True, show the result in a MessageBox as well.</param>
+        /// <param name="bShowMessage">[optional: default: False] If True, show the result in a MessageBox as well.</param>
         public static void IsRunning_BGW(Action<bool> callback, string strServiceName, bool bShowMessage = false) {
 
             // Original PPG added it's own 'IsRunning' method that uses WinAPI, but I saw no need to include it along w/this one.
@@ -1321,7 +1340,7 @@ namespace JSE_Utils {
         }
 
         /// <summary>
-        /// Starts a Windows Service (async).
+        /// Starts a Windows Service (async)
         /// </summary>
         /// <param name="callback">The Result of the Start attempt</param>
         /// <param name="strServiceName">Name of the Service to start</param>
@@ -1429,7 +1448,64 @@ namespace JSE_Utils {
             }
         }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "<Pending>")]
     public static class WSL {
+
+        public static void GetUptime_BGW(Action<string> callback, bool bVersionOnly = false) {
+            // Left off: deciding whether to return dict with all info so we can cherry pick, or?
+            // Example usages:
+            //
+            // Version Only:
+            // Docker.GetInfo_BGW((DockerVersion) => Debug.WriteLine($"DOCKER{(!string.IsNullOrEmpty(DockerVersion) ? " (v" + (DockerVersion) + ")" : string.Empty)}: RUNNING"), true);
+            //
+            // Full:
+            // Docker.GetInfo_BGW((DockerInfo) => Debug.WriteLine($"{(DockerInfo)}"));
+            //
+            // Another:
+            //
+            // Version Only:
+            // Docker.GetInfo_BGW((DockerVersion) => {
+            //     Debug.WriteLine($"Docker Version: {DockerVersion}");
+            // }, true);
+
+            BackgroundWorker worker = new BackgroundWorker();
+
+            worker.DoWork += (sender, e) => {
+
+                //string strOutput;
+                string strOutput = Misc.RunCommand("wsl", "uptime");
+
+                //if (bVersionOnly) {
+
+                //    // Only fetch the Docker *version*
+                //    //strOutput = Misc.RunCommand("wsl", "uptime");
+
+                //} else {
+
+                //    // Fetch the Full Monty
+                //    strOutput = Misc.RunCommand("wsl", "uptime");
+
+                //}
+
+                e.Result = strOutput.Length > 0 ? strOutput.Trim() : string.Empty;
+
+            };
+
+            worker.RunWorkerCompleted += (sender, e) => {
+
+                if (e.Error != null) {
+                    // Handle errors
+                } else {
+
+                    string ip = e.Result as string;
+                    callback?.Invoke(ip);
+
+                }
+
+            };
+
+            worker.RunWorkerAsync();
+        }
 
         /// <summary>
         /// Checks if WSL is running
@@ -1440,12 +1516,12 @@ namespace JSE_Utils {
 
             bool bResult;
 
-            //Debug.WriteLine($"WSL_IsRunning: Task started (ID: {Task.CurrentId})");
+            //Debug.WriteLine($"WSL.IsRunning: Task started (ID: {Task.CurrentId})");
             bResult = Misc.IsProcessRunning("wsl");
-            //Debug.WriteLine($"WSL_IsRunning: Task complete (ID: {Task.CurrentId})");
+            //Debug.WriteLine($"WSL.IsRunning: Task complete (ID: {Task.CurrentId})");
 
             if (bShowMessage) {
-                MessageBox.Show($"WSL {(bResult ? "is" : "is not")} running. ", "WSL", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"WSL {(bResult ? "is" : "is not")} running.", "WSL: Status", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
             return bResult;
@@ -1456,7 +1532,7 @@ namespace JSE_Utils {
         /// Checks if WSL is running (async)
         /// </summary>
         /// <param name="bShowMessage">[optional: default False] will show a messagebox with the result.</param>
-        /// <returns>True: WSL is running; False: WSL isn't running.</returns>
+        /// <returns>True: WSL is running; False: WSL isn't running</returns>
         public static void IsRunning_BGW(Action<bool> callback, bool bShowMessage = false) {
 
             // Example usage:
@@ -1490,7 +1566,7 @@ namespace JSE_Utils {
                     bool isRunning = (bool)e.Result;
 
                     if (bShowMessage) {
-                        MessageBox.Show($"WSL {(isRunning ? "is" : "is not")} running. ", "WSL", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show($"WSL {(isRunning ? "is" : "is not")} running.", "WSL: Status", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
 
                     callback?.Invoke(isRunning);
@@ -1847,11 +1923,13 @@ namespace JSE_Utils {
                     }
 
                 }
+
             } else {
 
                 // Ya'll tryna shut down somethin that ain't even runnin!
                 MessageBox.Show("WSL isn't running.", "WSL: Shutdown", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+
         }
 
         /// <summary>
@@ -1897,38 +1975,132 @@ namespace JSE_Utils {
         /// Restart WSL
         /// </summary>
         /// <param name="bShowResult">[optional: default True] Shows a messagebox confirming WSL has restarted</param>
-        public static void Restart(bool bShowResult = true) {
+        public static void Restart(bool bShowConfirmation = true, bool bShowResult = true) {
 
-            // TODO: add Task code
+            bool bRunIt = false;
 
-            // Run the shutdown command
-            // TODO: need to add confirmation when run from the mini menu.
-            Misc.RunCommand("wsl.exe", "--shutdown");
-
-            Debug.WriteLine("WSL Restart: Shutdown command sent");
-
-            while (IsRunning()) {
-                // Loop until WSL is confirmed to be shut down, then start WSL again.
-                // TODO: Add some sort of user feedback here to let them know we're doin work?
+            // Decide whether to run the Restart:
+            //  - Defaults to not running
+            //  - Sets flag to run only if dev chose NoConfirmation, OR if dev chose to confirm first AND user said Yes to confirmation dialog. If user chose No on dialog, RunIt flag stays at false.
+            if ((MessageBox.Show("Are sure you want to restart WSL?", "WSL: Restart", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes && bShowConfirmation) || !bShowConfirmation) {
+                bRunIt = true;
             }
 
-            Debug.WriteLine("WSL.Restart(): WSL has shutdown");
+            // Do the acutal restart if all is Go
+            if (bRunIt) {
 
-            // Run the startup command
-            Misc.RunCommand("wsl.exe", string.Empty, string.Empty, false);
+                Misc.RunCommand("wsl.exe", "--shutdown");
 
-            Debug.WriteLine("WSL.Restart(): Startup command sent");
+                Debug.WriteLine("WSL.Restart(): Shutdown command sent");
 
-            while (!IsRunning()) {
-                // Loop until WSL is confirmed to be running, then show them confirmation.
-                // TODO: Add some sort of user feedback here to let them know we're doin work?
+                while (IsRunning()) {
+                    // Loop until WSL is confirmed to be shut down, then start WSL again.
+                    // TODO: Add some sort of user feedback here to let them know we're doin work? (i.e. a Wait cursor, or "shutting down WSL" text.)
+                }
+
+                Debug.WriteLine("WSL.Restart(): WSL has shutdown");
+
+                // Run the startup command
+                Misc.RunCommand("wsl.exe", string.Empty, string.Empty, false);
+
+                Debug.WriteLine("WSL.Restart(): Startup command sent");
+
+                while (!IsRunning()) {
+                    // Loop until WSL is confirmed to be running, then show them confirmation.
+                    // TODO: Add some sort of user feedback here to let them know we're doin work? (i.e. a Wait cursor, or "starting WSL" text.)
+                }
+
+                // Do 1 last check to confirm
+                bool isRunning = IsRunning();
+
+                Debug.WriteLine($"WSL.Restart(): WSL {(isRunning ? "has restarted." : "had some issue restarting.")}");
+
+                if (bShowResult) {
+
+                    MessageBox.Show($"WSL {(isRunning ? "has restarted." : "had some issue restarting.")}", "WSL: Restart", MessageBoxButtons.OK, isRunning ? MessageBoxIcon.Information : MessageBoxIcon.Error);
+
+                }
+
             }
 
-            Debug.WriteLine("WSL.Restart(): WSL has restarted");
+        }
 
-            if (bShowResult) {
-                MessageBox.Show("WSL has restarted.", "WSL: Restart", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        public static void Restart_BGW(Action<bool> callback, bool bShowConfirmation = true, bool bShowResult = true) {
+
+            // TODO: Find out why using this BGW still causes the main GUI to freeze while it's doing it's work ...
+            //       Also, looks like it's throwing up multiple result mboxes when done.
+
+            // Example usage:
+            //
+            // WSL.Restart_BGW((result) => {}, true, true);
+
+            bool bRunIt = false;
+
+            // Decide whether to run the Restart:
+            //  - Defaults to not running
+            //  - Sets flag to run only if dev chose NoConfirmation, OR if dev chose to confirm first AND user said Yes to confirmation dialog. If user chose No on dialog, RunIt flag stays at false.
+            if ((MessageBox.Show("Are sure you want to restart WSL?", "WSL: Restart", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes && bShowConfirmation) || !bShowConfirmation) {
+                bRunIt = true;
             }
+
+            // Do the acutal restart if all is Go
+            if (bRunIt) {
+
+                BackgroundWorker worker = new();
+
+                worker.DoWork += (sender, e) => {
+
+                    Misc.RunCommand("wsl.exe", "--shutdown");
+
+                    Debug.WriteLine("Restart_BGW(): Shutdown command sent");
+
+                    while (IsRunning()) {
+                        // Loop until WSL is confirmed to be SHUT DOWN.
+                        // TODO: Add some sort of user feedback here to let them know we're doin work? (i.e. a Wait cursor, or "shutting down WSL" text.)
+                    }
+
+                    Debug.WriteLine("Restart_BGW(): WSL has shutdown");
+
+                    // Run the startup command
+                    Misc.RunCommand("wsl.exe", string.Empty, string.Empty, false);
+
+                    Debug.WriteLine("Restart_BGW(): Startup command sent");
+
+                    while (!IsRunning()) {
+                        // Loop until WSL is confirmed to be RUNNING.
+                        // TODO: Add some sort of user feedback here to let them know we're doin work? (i.e. a Wait cursor, or "starting WSL" text.)
+                    }
+
+                    // Do 1 last check to confirm, and pass it onto RunWorkerCompleted.
+                    bool isRunning = IsRunning();
+                    e.Result = isRunning;
+
+                };
+
+                worker.RunWorkerCompleted += (sender, e) => {
+
+                    if (e.Error != null) {
+                        // Handle errors
+                    } else {
+
+                        bool isRunning = (bool)e.Result;
+
+                        Debug.WriteLine($"WSL.Restart_BGW(): WSL {(isRunning ? "has restarted." : "had some issue restarting.")}");
+
+                        if (bShowResult) {
+                            MessageBox.Show($"WSL {(isRunning ? "has restarted." : "had some issue restarting.")}", "WSL: Restart", MessageBoxButtons.OK, isRunning ? MessageBoxIcon.Information : MessageBoxIcon.Error);
+                        }
+
+                        callback?.Invoke(isRunning);
+
+                    }
+
+                };
+
+                worker.RunWorkerAsync();
+
+            }
+
         }
 
     }

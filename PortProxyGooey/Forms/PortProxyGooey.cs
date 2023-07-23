@@ -60,6 +60,8 @@ namespace PortProxyGooey {
 
             // TEST AREA
 
+WSL.GetUptime_BGW((WSLUptime) => Debug.WriteLine($"{(WSLUptime)}"));
+
             //Audio.PlaySound_BGW("HS");
             //Audio.PlaySound2_BGW("HS");
             Audio.tmpPlay(Properties.Resources.HS);
@@ -182,7 +184,7 @@ namespace PortProxyGooey {
         /// <param name="bAll">[optional: default False] True: Enable All; False: Disable All.</param>
         private void ToggleSelectedProxies(bool bEnable = true, bool bAll = false) {
             // TODO: working on the label tip counter(s)
-            // TODO: The "All" code so far "seems" to be working, but the tooltip counter gets fucked up after using it. Seesm to trigger after doing a couple manually, then the All.
+            // TODO: The "All" code so far "seems" to be working, but the tooltip counter gets fucked up after using it. Seems to trigger after doing a couple manually, then the All.
 
             IEnumerable<ListViewItem> items;
 
@@ -193,7 +195,7 @@ namespace PortProxyGooey {
                 items = listViewProxies.SelectedItems.OfType<ListViewItem>();
             }
 
-            //
+            // Set the imageindex of each item + keep track of how many items are en/disabled
             foreach (ListViewItem item in items) {
 
                 if (bEnable) {
@@ -212,7 +214,7 @@ namespace PortProxyGooey {
 
                 }
 
-                //
+                // Actually make the changes now
                 try {
 
                     Rule rule = ParseRule(item);
@@ -231,8 +233,12 @@ namespace PortProxyGooey {
                 }
             }
 
+            // Update the label + tooltip
             UpdateProxyCount();
+
+            // Notify the Windows Service (IpHlpSvc) of the changes
             Services.ParamChangeWinAPI(PortProxyUtil.ServiceName);
+
         }
 
         /// <summary>
@@ -439,8 +445,10 @@ namespace PortProxyGooey {
         /// </summary>
         public void UpdateProxyCount() {
 
-            lblProxyCount.Text = listViewProxies.Items.Count.ToString();
-            tTipPPG.SetToolTip(lblProxyCount, string.Format("Total Proxies: {0}{3}Enabled: {1}{3}Disabled: {2}", listViewProxies.Items.Count, intEnabled, intDisabled, Environment.NewLine));
+            string strTotal = listViewProxies.Items.Count.ToString();
+
+            lblProxyCount.Text = strTotal;
+            tTipPPG.SetToolTip(lblProxyCount, string.Format("Total Proxies: {0}{3}Enabled: {1}{3}Disabled: {2}", strTotal, intEnabled.ToString(), intDisabled.ToString(), Environment.NewLine));
 
         }
 
@@ -627,7 +635,7 @@ namespace PortProxyGooey {
                     int columnindex = hit.Item.SubItems.IndexOf(hit.SubItem);
 
                     // If it's the first column (checkbox icon column) then toggle it's state
-                    if (columnindex == 0) {
+                    if (columnindex == 0 && e.Button == MouseButtons.Left) {
                         ToggleSelectedProxies(hit.Item.ImageIndex != 1);
                     }
 
@@ -1256,9 +1264,11 @@ namespace PortProxyGooey {
         /// <summary>
         /// WSL Mini Menu: Restart
         /// </summary>
-        private void toolStripMenuItemWSLRestart_Click(object sender, EventArgs e) {
-            WSL.Restart();
-        }
+        private void toolStripMenuItemWSLRestart_Click(object sender, EventArgs e) =>
+
+            //WSL.Restart();
+
+            WSL.Restart_BGW((result) => { }, true, true);
 
         #endregion
 
@@ -1322,7 +1332,7 @@ namespace PortProxyGooey {
             // Keep Docker status updated
             if (Docker.IsRunning()) {
                 picDockerStatus.Image = Properties.Resources.green;
-                Docker.GetVersion_BGW((DockerVersion) => tTipPPG.SetToolTip(picDockerStatus, $"DOCKER{(!string.IsNullOrEmpty(DockerVersion) ? " (v" + (DockerVersion) + ")" : string.Empty)}: RUNNING"));
+                Docker.GetInfo_BGW((DockerVersion) => tTipPPG.SetToolTip(picDockerStatus, $"DOCKER{(!string.IsNullOrEmpty(DockerVersion) ? " (v" + (DockerVersion) + ")" : string.Empty)}: RUNNING"), true);
                 picDocker.Visible = true;
             } else {
                 picDockerStatus.Image = Properties.Resources.red;
@@ -1478,5 +1488,14 @@ namespace PortProxyGooey {
         private void toolStripMenuItem_DisableAll_Click(object sender, EventArgs e) {
             ToggleSelectedProxies(false, true);
         }
+
+        private void picDockerStatus_Click(object sender, EventArgs e) {
+            contextMenuStrip_Docker.Show(Cursor.Position);
+        }
+
+        private void ToolStripMenuItem_DockerInfo_Click(object sender, EventArgs e) {
+            Docker.GetInfo_BGW((DockerInfo) => Debug.WriteLine($"{(DockerInfo)}"));
+        }
     }
+
 }

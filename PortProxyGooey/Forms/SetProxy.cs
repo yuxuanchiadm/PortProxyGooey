@@ -472,9 +472,9 @@ namespace PortProxyGooey {
                 if (item.SubItems[1].Text.Equals(strType) &&
                     item.SubItems[2].Text.Equals(strListen) &&
                     item.SubItems[3].Text.Equals(strListenPort)) {
-                    // If dupe port found, flag it.
-                    bResult = true;
-                    break;
+                        // If dupe port found, flag it.
+                        bResult = true;
+                        break;
                 }
             }
             return bResult;

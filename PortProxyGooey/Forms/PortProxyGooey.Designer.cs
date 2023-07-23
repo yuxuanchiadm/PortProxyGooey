@@ -109,6 +109,7 @@
             tTipPPG = new System.Windows.Forms.ToolTip(components);
             picDocker = new System.Windows.Forms.PictureBox();
             contextMenuStrip_Docker = new System.Windows.Forms.ContextMenuStrip(components);
+            ToolStripMenuItem_DockerInfo = new System.Windows.Forms.ToolStripMenuItem();
             picWSL = new System.Windows.Forms.PictureBox();
             contextMenuStrip_WSL = new System.Windows.Forms.ContextMenuStrip(components);
             toolStripMenuItemWSLStart = new System.Windows.Forms.ToolStripMenuItem();
@@ -127,6 +128,7 @@
             lblPP = new System.Windows.Forms.Label();
             contextMenuStrip_RightClick.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picDocker).BeginInit();
+            contextMenuStrip_Docker.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picWSL).BeginInit();
             contextMenuStrip_WSL.SuspendLayout();
             pnlStatusBar.SuspendLayout();
@@ -678,8 +680,16 @@
             // 
             // contextMenuStrip_Docker
             // 
+            contextMenuStrip_Docker.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { ToolStripMenuItem_DockerInfo });
             contextMenuStrip_Docker.Name = "contextMenuStrip_Docker";
             resources.ApplyResources(contextMenuStrip_Docker, "contextMenuStrip_Docker");
+            // 
+            // ToolStripMenuItem_DockerInfo
+            // 
+            ToolStripMenuItem_DockerInfo.Image = Properties.Resources.docker_square;
+            ToolStripMenuItem_DockerInfo.Name = "ToolStripMenuItem_DockerInfo";
+            resources.ApplyResources(ToolStripMenuItem_DockerInfo, "ToolStripMenuItem_DockerInfo");
+            ToolStripMenuItem_DockerInfo.Click += ToolStripMenuItem_DockerInfo_Click;
             // 
             // picWSL
             // 
@@ -752,14 +762,18 @@
             // 
             // picDockerStatus
             // 
+            picDockerStatus.ContextMenuStrip = contextMenuStrip_Docker;
+            picDockerStatus.Cursor = System.Windows.Forms.Cursors.Hand;
             picDockerStatus.Image = Properties.Resources.red;
             resources.ApplyResources(picDockerStatus, "picDockerStatus");
             picDockerStatus.Name = "picDockerStatus";
             picDockerStatus.TabStop = false;
+            picDockerStatus.Click += picDockerStatus_Click;
             // 
             // picWSLStatus
             // 
             resources.ApplyResources(picWSLStatus, "picWSLStatus");
+            picWSLStatus.Cursor = System.Windows.Forms.Cursors.Hand;
             picWSLStatus.Image = Properties.Resources.red;
             picWSLStatus.Name = "picWSLStatus";
             picWSLStatus.TabStop = false;
@@ -814,6 +828,7 @@
             Resize += PortProxyGooey_Resize;
             contextMenuStrip_RightClick.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)picDocker).EndInit();
+            contextMenuStrip_Docker.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)picWSL).EndInit();
             contextMenuStrip_WSL.ResumeLayout(false);
             pnlStatusBar.ResumeLayout(false);
@@ -922,6 +937,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_EnableDisableAll;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_EnableAll;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_DisableAll;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_DockerInfo;
     }
 }
 
