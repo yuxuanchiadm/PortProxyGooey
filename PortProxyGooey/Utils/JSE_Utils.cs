@@ -1,10 +1,31 @@
-﻿#region + -- IMPORTS -- +
+﻿# region + -- DESCRIPTION -- +
+
+// + ------------------------------------------------------------------------------------------------------------------------------------- +
+// |                                                                                                                                       |
+// | JSE UTILITIES CLASS                                                                                                                   |
+// |                                                                                                                                       |
+// | AUTHOR: J. SCOTT ELBLEIN                                                                                                              |
+// |                                                                                                                                       |
+// | DESCRIPTION:                                                                                                                          |
+// |                                                                                                                                       |
+// | THis is a general utilities class to provide many common functions, so it's easy to just add it into most of your programs as needed. |
+// | It is a 'living' class, meaning it will change often, and as needed.                                                                  |
+// |                                                                                                                                       |
+// | And that's bout all there is to that. =)                                                                                              |
+// |                                                                                                                                       |
+// + ------------------------------------------------------------------------------------------------------------------------------------- +
+
+# endregion
+
+#region + -- IMPORTS -- +
 
 using NAudio.Wave;
 using NStandard;
 using PortProxyGooey;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
@@ -18,6 +39,8 @@ using System.Net.Sockets;
 using System.Reflection;
 using System.Resources;
 using System.Runtime.InteropServices;
+using System.Runtime.Intrinsics.X86;
+using System.Security.Policy;
 using System.ServiceProcess;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -332,11 +355,16 @@ namespace JSE_Utils {
         /// <param name="strText">The text to show the user</param>
         /// <param name="strTitle">The title text of the form itself</param>
         /// <returns>DialogResult.OK on "Ok" button click; DialogResult.Cancel on "Cancel" button or X button click.</returns>
-        public static DialogResult CustomDialog(string strText, string strTitle) {
+        public static DialogResult CustomDialog(string strText, string strTitle, bool bShowCancel = true, Size szSize = default) {
+
+            // If no Window size was passed, or of they're smaller than the MinimumSize, set it to the Minimum site (for aesthetic reasons)
+            if (szSize == default(Size) || szSize.Width < 500 | szSize.Width < 400) {
+                szSize = new Size(500, 400);
+            }
 
             DialogResult result = DialogResult.Cancel;
 
-            using (Form form = new Form()) {
+            using (Form form = new()) {
 
                 // Form Props
                 form.Text = strTitle;
@@ -345,55 +373,99 @@ namespace JSE_Utils {
                 form.StartPosition = FormStartPosition.CenterScreen;
                 form.ShowInTaskbar = false;
                 form.FormBorderStyle = FormBorderStyle.FixedSingle;
+                //form.FormBorderStyle = FormBorderStyle.Sizable;
                 form.MaximizeBox = false;
                 form.MinimizeBox = false;
-                form.Size = new Size(500, 400);
+                form.Size = szSize;
+                form.MinimumSize = new Size(500, 400);
 
-                // Form Controls
-                Label lblInfo = new() {
+                if (form.FormBorderStyle == FormBorderStyle.Sizable) {
+
+                    // This is here solely to help determine which form size is wanted when calling the CustomDialog.
+                    // Set above to form.FormBorderStyle = FormBorderStyle.Sizable, and then watch the sizes in the Debug window as you resize the form.
+                    // Set back  to form.FormBorderStyle = FormBorderStyle.FixedSingle when done.
+                    form.Resize += CustomDialog_Resize;
+
+                }
+
+                // + --  Form Controls -- + 
+
+                // TextBox (the place to put any message to the user)
+                TextBox txtInfo = new() {
+                    AcceptsReturn = false,
+                    AcceptsTab = false,
+                    Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom,
+                    AutoSize = false,
                     BackColor = Color.FromArgb(67, 76, 94),
+                    BorderStyle = BorderStyle.None,
+                    Font = new Font("Microsoft Sans Serif", 12),
                     ForeColor = Color.FromArgb(229, 233, 240),
                     Location = new Point(20, 20),
-                    Size = new Size(450, 270),
-                    AutoSize = false,
-                    Font = new Font("Microsoft Sans Serif", 12),
+                    Multiline = true,
+                    ReadOnly = true,
+                    Size = new Size(form.ClientSize.Width - 10, form.ClientSize.Height - 110),
+                    //ScrollBars = ScrollBars.Vertical,
+                    TabStop = false,
                     Text = strText,
+                    WordWrap = true,
                 };
 
                 // Buttons
+                if (bShowCancel) {
+
+                    // Only add a Cancel button if user want it there
+                    Button btnCancel = new() {
+                        Anchor = AnchorStyles.Bottom,
+                        BackColor = Color.FromArgb(46, 52, 64),
+                        DialogResult = DialogResult.Cancel,
+                        FlatStyle = FlatStyle.Flat,
+                        Font = new Font("Microsoft Sans Serif", 12, FontStyle.Bold),
+                        ForeColor = Color.FromArgb(191, 97, 106),
+                        Location = new Point(form.ClientSize.Width / 2 + 20, form.ClientSize.Height - 70),
+                        Size = new Size(80, 50),
+                        Text = "Cancel",
+                    };
+
+                    form.Controls.Add(btnCancel);
+
+                    // Set the Cancel button as the focused button, essentially acting as the default button
+                    form.ActiveControl = btnCancel;
+
+                }
+
                 Button btnOK = new() {
+                    Anchor = AnchorStyles.Bottom,
                     BackColor = Color.FromArgb(46, 52, 64),
-                    ForeColor = Color.FromArgb(235, 203, 139),
-                    Location = new Point(150, 300),
-                    Size = new Size(80, 50),
-                    Font = new Font("Microsoft Sans Serif", 12, FontStyle.Bold),
-                    Text = "OK",
                     DialogResult = DialogResult.OK,
                     FlatStyle = FlatStyle.Flat,
-                };
-
-                // ...
-                Button btnCancel = new() {
-                    BackColor = Color.FromArgb(46, 52, 64),
-                    ForeColor = Color.FromArgb(191, 97, 106),
-                    Location = new Point(250, 300),
-                    Size = new Size(80, 50),
                     Font = new Font("Microsoft Sans Serif", 12, FontStyle.Bold),
-                    Text = "Cancel",
-                    DialogResult = DialogResult.Cancel,
-                    FlatStyle = FlatStyle.Flat,
+                    ForeColor = Color.FromArgb(235, 203, 139),
+                    Location = bShowCancel ? new Point(form.ClientSize.Width / 4 + 20, form.ClientSize.Height - 70) : new Point(form.ClientSize.Width / 3 + 50, form.ClientSize.Height - 70), // Button location depends on whether Cancel button is shown
+                    Size = new Size(80, 50),
+                    Text = "OK",
                 };
 
                 // Add the controls
-                form.Controls.Add(lblInfo);
+                form.Controls.Add(txtInfo);
                 form.Controls.Add(btnOK);
-                form.Controls.Add(btnCancel);
-
-                // Set the Cancel button as the focused button, essentially acting as the default button
-                form.ActiveControl = btnCancel;
-
+                
                 // Show the form and get the button they clicked
                 if (form.ShowDialog() == DialogResult.OK) result = DialogResult.OK;
+
+                // Handle the Resize event
+                static void CustomDialog_Resize(object sender, EventArgs e) {
+
+                    // Cast the sender object back to a Form
+                    Form form = (Form)sender;
+
+                    // Get the current size of the form
+                    Size size = form.Size;
+
+                    // Display the event message along with the current form size
+                    Debug.WriteLine($"CustomDialog Form size changed to: w{size.Width} x h{size.Height}");
+
+                }
+
             }
 
             // Defaults to false, gets set to true above, only if user clicked the OK button.
@@ -501,7 +573,7 @@ namespace JSE_Utils {
                     // Fetch the Full Monty
                     // Another way from within WSL: uname -mr && docker version
                     strOutput = Misc.RunCommand("wsl", "docker version");
-
+                    //Debug.WriteLine(strOutput);
                 }
                  
                 e.Result = strOutput.Length > 0 ? strOutput.Trim() : string.Empty;
@@ -968,7 +1040,7 @@ namespace JSE_Utils {
         }
 
         /// <summary>
-        /// Standard Process Start function (async)
+        /// Standard Process Start function (async: Task)
         /// </summary>
         /// <param name="strFileName">Filename|Program.exe to run</param>
         /// <param name="strArgs">[optional] Any arguments for the above file|program</param>
@@ -1340,7 +1412,7 @@ namespace JSE_Utils {
         }
 
         /// <summary>
-        /// Starts a Windows Service (async)
+        /// Starts a Windows Service (async: BackgroundWorker)
         /// </summary>
         /// <param name="callback">The Result of the Start attempt</param>
         /// <param name="strServiceName">Name of the Service to start</param>
@@ -1414,6 +1486,32 @@ namespace JSE_Utils {
 
     }
 
+    public static class Strings {
+
+        /// <summary>
+        /// Converts to line endings bi-directionally between Windows & Unix.
+        /// </summary>
+        /// <param name="strInput">String to convert</param>
+        /// <param name="toUnixLineEndings"><c>true</c> [to unix line endings]</param>
+        /// <returns>Original string with converted line endings of your choice</returns>
+        public static string ConvertLineEndings(string strInput, bool toUnixLineEndings = false) {
+
+            // Convert line endings to Windows format (CRLF) by default
+            string targetLineEnding = "\r\n";
+
+            if (toUnixLineEndings) {
+
+                //Debug.WriteLine("Converting line endings to Unix format (LF)");
+                targetLineEnding = "\n";
+
+            }
+
+            return strInput.Replace("\r\n", "\n").Replace("\r", "").Replace("\n", targetLineEnding);
+
+        }
+
+    }
+
     public static class Winsock {
 
             /// <summary>
@@ -1451,8 +1549,8 @@ namespace JSE_Utils {
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "I want it all caps")]
     public static class WSL {
 
-        public static void GetUptime_BGW(Action<Dictionary<string, string>> callback) {
-            // Left off: deciding whether to return dict with all info so we can cherry pick, or?
+        public static void GetInfo_BGW(Action<OrderedDictionary> callback) {
+
             // Example usages:
             //
             // Version Only:
@@ -1472,15 +1570,66 @@ namespace JSE_Utils {
 
             worker.DoWork += (sender, e) => {
 
-                string strOutput = Misc.RunCommand("wsl", "uptime").Trim();
-                Dictionary<string, string> dicInfo = new();
+                // Fetch the info
+                string strInput = Misc.RunCommand("wsl", $@"uptime | sed -E -e 's/(.* up|[^,]*: )//g' -e 's/, +/,/g' -e 's/(([0-9]+ days),)?([^,]*),/\2 \3,/' -e 's/^ +//' -e 's/([^,]+),([^,]+),([^,]+)$/\1 \2 \3/'").Trim();
 
-                dicInfo.Add("Full", strOutput);
+                // Split the output into an array using comma as the delimiter
+                string[] infoArray = strInput.Split(',');
 
+                // Validate proper input string. Must have either 3 or 4 elements to proceed.
+                if (infoArray.Length != 3 && infoArray.Length != 4) {
+                    e.Result = null;
+                    return;
+                }
 
+                // Stores final results
+                OrderedDictionary dicInfo = new();
 
+                // UPTIME: Add proper uptime based on how many elements we pulled
+                dicInfo.Add("Uptime", infoArray.Length == 4 ? $"{infoArray[0]}, {infoArray[1]}" : infoArray[0]);
 
-                e.Result = dicInfo.Count > 0 ? strOutput.Trim() : string.Empty;
+                // USERS: Add User count. It'll always be the 2nd to last element.
+                dicInfo.Add("Users", infoArray[^2]);
+
+                // LOAD AVERAGE: Fish out the Load Average for prettifying. It'll always be the last element, se we can just do it this way.
+                string loadAvg = infoArray[^1];
+
+                // Chop it up
+                string[] loadArray = loadAvg.Split(' ');
+
+                // Add em raw
+                dicInfo.Add("Load Average", loadAvg);
+                dicInfo.Add("Load Average: 1m", $"{loadArray[0]}");
+                dicInfo.Add("Load Average: 5m", $"{loadArray[1]}");
+                dicInfo.Add("Load Average: 15m", $"{loadArray[2]}");
+
+                loadArray[0] = $"1m ({loadArray[0]})";
+                loadArray[1] = $"5m ({loadArray[1]})";
+                loadArray[2] = $"15m ({loadArray[2]})";
+
+                // Add some lipstick
+                dicInfo.Add("Load Average: Pretty", $"{loadArray[0]} {loadArray[1]} {loadArray[2]}");
+                dicInfo.Add("Load Average: 1m Pretty", $"{loadArray[0]}");
+                dicInfo.Add("Load Average: 5m Pretty", $"{loadArray[1]}");
+                dicInfo.Add("Load Average: 15m Pretty", $"{loadArray[2]}");
+
+                // UPTIME SINCE: Let's juice it up and add some more stuff; fetch the info
+                strInput = Misc.RunCommand("wsl", $@"uptime -s").Trim();
+
+                // Add Up Since to the very first element
+                dicInfo.Insert(0, "Up Since", DateTime.TryParse(strInput, out DateTime result) ? strInput : string.Empty);
+
+                // UPTIME SINCE (PRETTY): Let's juice it up and add some more stuff; fetch the info
+                strInput = Misc.RunCommand("wsl", $@"uptime -p").Trim();
+
+                // Add to the 2nd element
+                dicInfo.Insert(1, "Up Since: Pretty", strInput.Contains("up") ? strInput.Replace("up ", string.Empty) : string.Empty);
+
+                foreach (DictionaryEntry de in dicInfo) {
+                    Debug.WriteLine($"{de.Key} {de.Value}");
+                }
+
+                e.Result = dicInfo.Count > 0 ? dicInfo : null;
 
             };
 
@@ -1490,7 +1639,7 @@ namespace JSE_Utils {
                     // Handle errors
                 } else {
 
-                    Dictionary<string, string> dicInfo = e.Result as Dictionary<string, string>;
+                    OrderedDictionary dicInfo = e.Result as OrderedDictionary;
                     callback?.Invoke(dicInfo);
                 }
 
@@ -1582,7 +1731,7 @@ namespace JSE_Utils {
 
                 Debug.WriteLine($"WSL.GetDistros(): Task started (ID: {Task.CurrentId})");
 
-               // Run the command in Bash
+               // Run the command
                strOutput = Misc.RunCommand("wsl.exe", "-l -v --all");
 
                 Debug.WriteLine($"WSL.GetDistros(): Task complete (ID: {Task.CurrentId})");

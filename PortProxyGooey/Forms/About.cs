@@ -3,6 +3,7 @@
 using PortProxyGooey.Utils;
 using System;
 using System.Diagnostics;
+using System.Text.Json.Nodes;
 using System.Windows.Forms;
 
 #endregion
@@ -25,9 +26,7 @@ namespace PortProxyGooey {
 
         private void linkLabel1_Click(object sender, EventArgs e) {
 
-            if (sender is LinkLabel _sender) {
-                Process.Start("explorer", _sender.Text);
-            }
+                JSE_Utils.Misc.RunCommand("explorer", PortProxyGooey.strAppURL);
 
         }
 

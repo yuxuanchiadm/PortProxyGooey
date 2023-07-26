@@ -60,13 +60,13 @@ namespace PortProxyGooey {
 
             // TEST AREA
 
-WSL.GetUptime_BGW((WSLUptime) => Debug.WriteLine($"{(WSLUptime)}"));
+
 
             //Audio.PlaySound_BGW("HS");
             //Audio.PlaySound2_BGW("HS");
             Audio.tmpPlay(Properties.Resources.HS);
 
-
+            Debug.WriteLine(WSL.GetDistros());
             //Audio.PlaySound_BGW("Flush");
             //WSL.GetListeningPorts_BGW((dicPorts) => Debug.WriteLine($"WSL Listening Ports: {dicPorts}"));
 
@@ -1313,15 +1313,24 @@ WSL.GetUptime_BGW((WSLUptime) => Debug.WriteLine($"{(WSLUptime)}"));
             WSL.IsRunning_BGW((result) => {
 
                 if (result) {
+
+                    WSL.GetInfo_BGW((WSLUptime) => Debug.WriteLine($"{(WSLUptime)}"));
+
                     picWSLStatus.Image = Properties.Resources.green;
                     picWSLStatus.Tag = "1";
-                    tTipPPG.SetToolTip(picWSLStatus, "WSL: RUNNING");
+                    //tTipPPG.SetToolTip(picWSLStatus, "WSL: RUNNING");
                     picWSL.Visible = true;
+
+                    // LEFT OFF: Need to add WSL version, then below it, all the other WSL info I want.
+                    WSL.GetInfo_BGW((dicWSLInfo) => tTipPPG.SetToolTip(picWSLStatus, $"WSL{(!string.IsNullOrEmpty(dicWSLInfo["Uptime"].ToString()) ? " (v" + (dicWSLInfo["Uptime"]) + ")" : string.Empty)}: RUNNING"));
+
                 } else {
+
                     picWSLStatus.Image = Properties.Resources.red;
                     picWSLStatus.Tag = "0";
                     tTipPPG.SetToolTip(picWSLStatus, "WSL: N/A");
                     picWSL.Visible = false;
+
                 }
 
             }, false);
@@ -1331,13 +1340,17 @@ WSL.GetUptime_BGW((WSLUptime) => Debug.WriteLine($"{(WSLUptime)}"));
 
             // Keep Docker status updated
             if (Docker.IsRunning()) {
+
                 picDockerStatus.Image = Properties.Resources.green;
                 Docker.GetInfo_BGW((DockerVersion) => tTipPPG.SetToolTip(picDockerStatus, $"DOCKER{(!string.IsNullOrEmpty(DockerVersion) ? " (v" + (DockerVersion) + ")" : string.Empty)}: RUNNING"), true);
                 picDocker.Visible = true;
+
             } else {
+
                 picDockerStatus.Image = Properties.Resources.red;
                 tTipPPG.SetToolTip(picDockerStatus, "DOCKER: N/A");
                 picDocker.Visible = false;
+
             }
 
             // + ----- SERVICE
@@ -1346,11 +1359,15 @@ WSL.GetUptime_BGW((WSLUptime) => Debug.WriteLine($"{(WSLUptime)}"));
             Services.IsRunning_BGW((result) => {
 
                 if (result) {
+
                     picIpHlpSvcStatus.Image = Properties.Resources.green;
                     tTipPPG.SetToolTip(picIpHlpSvcStatus, $"{PortProxyUtil.ServiceFriendlyName.ToUpper()} SERVICE: RUNNING");
+
                 } else {
+
                     picIpHlpSvcStatus.Image = Properties.Resources.red;
                     tTipPPG.SetToolTip(picIpHlpSvcStatus, $"{PortProxyUtil.ServiceFriendlyName.ToUpper()} SERVICE: N/A{Environment.NewLine}Click icon to Start it");
+
                 }
 
             }, PortProxyUtil.ServiceName, false);
@@ -1494,7 +1511,15 @@ WSL.GetUptime_BGW((WSLUptime) => Debug.WriteLine($"{(WSLUptime)}"));
         }
 
         private void ToolStripMenuItem_DockerInfo_Click(object sender, EventArgs e) {
-            Docker.GetInfo_BGW((DockerInfo) => Debug.WriteLine($"{(DockerInfo)}"));
+
+            Docker.GetInfo_BGW((DockerInfo) => {
+                Dialogs.CustomDialog(Strings.ConvertLineEndings(DockerInfo), "Docker Info", false, new Size(537, 688));
+            });
+
+        }
+
+        private void ToolStripMenuItem_WSLInfo_Click(object sender, EventArgs e) {
+            // TODO
         }
     }
 

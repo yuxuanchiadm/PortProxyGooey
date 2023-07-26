@@ -109,9 +109,11 @@
             tTipPPG = new System.Windows.Forms.ToolTip(components);
             picDocker = new System.Windows.Forms.PictureBox();
             contextMenuStrip_Docker = new System.Windows.Forms.ContextMenuStrip(components);
-            ToolStripMenuItem_DockerInfo = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem_DockerInfo = new System.Windows.Forms.ToolStripMenuItem();
             picWSL = new System.Windows.Forms.PictureBox();
             contextMenuStrip_WSL = new System.Windows.Forms.ContextMenuStrip(components);
+            ToolStripMenuItem_WSLInfo = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             toolStripMenuItemWSLStart = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItemWSLRestart = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItemWSLShutDown = new System.Windows.Forms.ToolStripMenuItem();
@@ -680,16 +682,16 @@
             // 
             // contextMenuStrip_Docker
             // 
-            contextMenuStrip_Docker.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { ToolStripMenuItem_DockerInfo });
+            contextMenuStrip_Docker.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem_DockerInfo });
             contextMenuStrip_Docker.Name = "contextMenuStrip_Docker";
             resources.ApplyResources(contextMenuStrip_Docker, "contextMenuStrip_Docker");
             // 
-            // ToolStripMenuItem_DockerInfo
+            // toolStripMenuItem_DockerInfo
             // 
-            ToolStripMenuItem_DockerInfo.Image = Properties.Resources.docker_square;
-            ToolStripMenuItem_DockerInfo.Name = "ToolStripMenuItem_DockerInfo";
-            resources.ApplyResources(ToolStripMenuItem_DockerInfo, "ToolStripMenuItem_DockerInfo");
-            ToolStripMenuItem_DockerInfo.Click += ToolStripMenuItem_DockerInfo_Click;
+            toolStripMenuItem_DockerInfo.Image = Properties.Resources.docker_square;
+            toolStripMenuItem_DockerInfo.Name = "toolStripMenuItem_DockerInfo";
+            resources.ApplyResources(toolStripMenuItem_DockerInfo, "toolStripMenuItem_DockerInfo");
+            toolStripMenuItem_DockerInfo.Click += ToolStripMenuItem_DockerInfo_Click;
             // 
             // picWSL
             // 
@@ -702,9 +704,21 @@
             // 
             // contextMenuStrip_WSL
             // 
-            contextMenuStrip_WSL.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItemWSLStart, toolStripMenuItemWSLRestart, toolStripMenuItemWSLShutDown });
+            contextMenuStrip_WSL.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { ToolStripMenuItem_WSLInfo, toolStripSeparator5, toolStripMenuItemWSLStart, toolStripMenuItemWSLRestart, toolStripMenuItemWSLShutDown });
             contextMenuStrip_WSL.Name = "contextMenuStrip_WSL";
             resources.ApplyResources(contextMenuStrip_WSL, "contextMenuStrip_WSL");
+            // 
+            // ToolStripMenuItem_WSLInfo
+            // 
+            ToolStripMenuItem_WSLInfo.Image = Properties.Resources.wsl;
+            ToolStripMenuItem_WSLInfo.Name = "ToolStripMenuItem_WSLInfo";
+            resources.ApplyResources(ToolStripMenuItem_WSLInfo, "ToolStripMenuItem_WSLInfo");
+            ToolStripMenuItem_WSLInfo.Click += ToolStripMenuItem_WSLInfo_Click;
+            // 
+            // toolStripSeparator5
+            // 
+            toolStripSeparator5.Name = "toolStripSeparator5";
+            resources.ApplyResources(toolStripSeparator5, "toolStripSeparator5");
             // 
             // toolStripMenuItemWSLStart
             // 
@@ -937,7 +951,9 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_EnableDisableAll;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_EnableAll;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_DisableAll;
-        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_DockerInfo;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_DockerInfo;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_WSLInfo;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
     }
 }
 
