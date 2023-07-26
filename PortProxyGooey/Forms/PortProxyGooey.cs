@@ -7,6 +7,7 @@ using PortProxyGooey.Data;
 using PortProxyGooey.UI;
 using PortProxyGooey.Utils;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.Eventing.Reader;
@@ -14,6 +15,8 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Resources;
+using System.Runtime;
+using System.Text;
 //using System.ServiceProcess;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -1282,8 +1285,6 @@ namespace PortProxyGooey {
 
         private void tmrCheck_Tick(object sender, EventArgs e) {
 
-            //_ = UpdateAsyncTasks();
-
             // Keep Current Local Machine & WSL IPs shown to help alert of any potential changes
 
             // Fetch all Local IPs
@@ -1314,7 +1315,7 @@ namespace PortProxyGooey {
 
                 if (result) {
 
-                    WSL.GetInfo_BGW((WSLUptime) => Debug.WriteLine($"{(WSLUptime)}"));
+                    //WSL.GetInfo_BGW((WSLUptime) => Debug.WriteLine($"{(WSLUptime)}"));
 
                     picWSLStatus.Image = Properties.Resources.green;
                     picWSLStatus.Tag = "1";
@@ -1510,6 +1511,9 @@ namespace PortProxyGooey {
             contextMenuStrip_Docker.Show(Cursor.Position);
         }
 
+        /// <summary>
+        /// Shows the Docker Info in a Dialog Window
+        /// </summary>
         private void ToolStripMenuItem_DockerInfo_Click(object sender, EventArgs e) {
 
             Docker.GetInfo_BGW((DockerInfo) => {
@@ -1519,7 +1523,48 @@ namespace PortProxyGooey {
         }
 
         private void ToolStripMenuItem_WSLInfo_Click(object sender, EventArgs e) {
-            // TODO
+
+            // TODO: Left off needing to add WSL version + any other WSL stuff I want, to the dialog.
+
+            WSL.GetInfo_BGW((WSLInfo) => {
+
+                StringBuilder sb = new();
+
+                sb.AppendLine("Version: TODO");
+                sb.AppendLine();
+
+                foreach (DictionaryEntry de in WSLInfo) {
+
+                    switch (de.Key.ToString()) {
+
+                        case string _ when de.Key.ToString().Equals("Up Since"):
+
+                            sb.AppendLine($"{de.Key.ToString()}\t\t{de.Value.ToString()}");
+                            break;
+
+                        case string _ when de.Key.ToString().Equals("Up Since: Pretty"):
+
+                            sb.AppendLine($"\t\t{de.Value.ToString()}");
+                            break;
+
+                        case string _ when de.Key.ToString().Equals("Users"):
+
+                            sb.AppendLine($"{de.Key.ToString()}\t\t{de.Value.ToString()}");
+                            break;
+
+                        case string _ when de.Key.ToString().Equals("Load Average: Pretty"):
+
+                            sb.AppendLine($"Load Averages:\t{de.Value.ToString()}");
+                            break;
+
+                    }
+
+                }
+
+                Dialogs.CustomDialog(sb.ToString(), "WSL Info", false, new Size(537, 688));
+
+            });
+
         }
     }
 

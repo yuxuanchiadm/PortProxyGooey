@@ -348,14 +348,20 @@ namespace JSE_Utils {
     }
 
     public static class Dialogs {
-    
-        /// <summary>
-        /// Creates a custom dialog form so this overall Utils class is more portable
-        /// </summary>
+
+        /// <summary>Creates a custom dialog form so this overall Utils class is more portable</summary>
         /// <param name="strText">The text to show the user</param>
         /// <param name="strTitle">The title text of the form itself</param>
+        /// <param name="bShowCancel">[optional Default: true] True = Show Cancel Button, False, OK Button only</param>
+        /// <param name="szSize">[optional Default: 500, 400] Size to make the Dialog Window. NOTE: Cannot be smaller than the default size.</param>
         /// <returns>DialogResult.OK on "Ok" button click; DialogResult.Cancel on "Cancel" button or X button click.</returns>
         public static DialogResult CustomDialog(string strText, string strTitle, bool bShowCancel = true, Size szSize = default) {
+
+            // Example Usage(s):
+            //
+            // Dialogs.CustomDialog("Some message to the user", "Some Title");
+            // Dialogs.CustomDialog("Some message to the user", "Some Title", true);
+            // Dialogs.CustomDialog("Some message to the user", "Some Title", false, new Size(537, 688));
 
             // If no Window size was passed, or of they're smaller than the MinimumSize, set it to the Minimum site (for aesthetic reasons)
             if (szSize == default(Size) || szSize.Width < 500 | szSize.Width < 400) {
@@ -542,7 +548,7 @@ namespace JSE_Utils {
         /// <returns>Success: (string) Version Number; Fail: Empty string</returns>
         public static void GetInfo_BGW(Action<string> callback, bool bVersionOnly = false) {
 
-            // Example usages:
+            // Example usage(s):
             //
             // Version Only:
             // Docker.GetInfo_BGW((DockerVersion) => Debug.WriteLine($"DOCKER{(!string.IsNullOrEmpty(DockerVersion) ? " (v" + (DockerVersion) + ")" : string.Empty)}: RUNNING"), true);
@@ -1554,23 +1560,23 @@ namespace JSE_Utils {
             // Example usages:
             //
             // Version Only:
-            // Docker.GetInfo_BGW((DockerVersion) => Debug.WriteLine($"DOCKER{(!string.IsNullOrEmpty(DockerVersion) ? " (v" + (DockerVersion) + ")" : string.Empty)}: RUNNING"), true);
+            // WSL.GetInfo_BGW((WSLVersion) => Debug.WriteLine($"WSL{(!string.IsNullOrEmpty(WSLVersion) ? " (v" + (WSLVersion) + ")" : string.Empty)}: RUNNING"), true);
             //
             // Full:
-            // Docker.GetInfo_BGW((DockerInfo) => Debug.WriteLine($"{(DockerInfo)}"));
+            // WSL.GetInfo_BGW((WSLInfo) => Debug.WriteLine($"{(WSLInfo)}"));
             //
             // Another:
             //
             // Version Only:
-            // Docker.GetInfo_BGW((DockerVersion) => {
-            //     Debug.WriteLine($"Docker Version: {DockerVersion}");
+            // WSL.GetInfo_BGW((WSLVersion) => {
+            //     Debug.WriteLine($"WSL Version: {WSLVersion}");
             // }, true);
 
             BackgroundWorker worker = new BackgroundWorker();
 
             worker.DoWork += (sender, e) => {
 
-                // Fetch the info
+                // Fetch WSL info
                 string strInput = Misc.RunCommand("wsl", $@"uptime | sed -E -e 's/(.* up|[^,]*: )//g' -e 's/, +/,/g' -e 's/(([0-9]+ days),)?([^,]*),/\2 \3,/' -e 's/^ +//' -e 's/([^,]+),([^,]+),([^,]+)$/\1 \2 \3/'").Trim();
 
                 // Split the output into an array using comma as the delimiter
@@ -1625,9 +1631,10 @@ namespace JSE_Utils {
                 // Add to the 2nd element
                 dicInfo.Insert(1, "Up Since: Pretty", strInput.Contains("up") ? strInput.Replace("up ", string.Empty) : string.Empty);
 
-                foreach (DictionaryEntry de in dicInfo) {
-                    Debug.WriteLine($"{de.Key} {de.Value}");
-                }
+                // For debugging
+                //foreach (DictionaryEntry de in dicInfo) {
+                //    Debug.WriteLine($"{de.Key} {de.Value}");
+                //}
 
                 e.Result = dicInfo.Count > 0 ? dicInfo : null;
 
@@ -1770,7 +1777,7 @@ namespace JSE_Utils {
         }
 
         /// <summary>
-        /// Gets the currently installed WSL version (WSL *version only*) (async)
+        /// Gets the currently installed WSL version (WSL *version only*) (async: Task)
         /// </summary>
         /// <returns>Success: WSL Version; Fail: Empty string.</returns>
         public static string GetVersion() {
