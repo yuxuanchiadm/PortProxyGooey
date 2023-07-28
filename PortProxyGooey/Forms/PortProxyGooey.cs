@@ -563,13 +563,13 @@ namespace PortProxyGooey {
                         DeleteSelectedProxies(1);
                         break;
 
-                    // About
-                    case ToolStripMenuItem item when item == toolStripMenuItem_About:
+                        // About
+                        //case ToolStripMenuItem item when item == toolStripMenuItem_About:
 
-                        AboutForm ??= new About(this);
+                        //    AboutForm ??= new About(this);
 
-                        AboutForm.Show();
-                        break;
+                        //    AboutForm.Show();
+                        //    break;
                 }
             }
         }
@@ -1409,10 +1409,6 @@ namespace PortProxyGooey {
             Services.ParamChange(PortProxyUtil.ServiceName);
         }
 
-        private void toolStripMenuItem_Exit_Click(object sender, EventArgs e) {
-            Application.Exit();
-        }
-
         private void toolStripMenuItem_RenameGroup_Click(object sender, EventArgs e) {
             GroupRename(true);
         }
@@ -1566,6 +1562,187 @@ namespace PortProxyGooey {
             });
 
         }
+
+        private void toolStripMenuItem_About_Click(object sender, EventArgs e) {
+
+            AboutForm ??= new About(this);
+            AboutForm.Show();
+
+        }
+
+        #region + -- CLIPBOARD COPY -- +
+
+        /// <summary>Copies the subitem's text to the clipboard</summary>
+        /// <param name="intSubitemNumber">The subitem number from the Listview that you want copied (when not copying as URL)</param>
+        /// <param name="intAsURL">1 or 3 = copy item as http URL; 2 or 4 = copy item as https URL. (See Remark for more)</param>
+        /// <returns>Either the seleted item as a http/https URL, or the column/cell contents. All are validated as non-empty first;</returns>
+        /// <remarks>
+        ///   <para>If <font color="#00b050">intAsURL</font> contains 1 or 2, then any value in intSubitemNumber is <em>ignored</em>; pass anything to it. i.e. 0.</para>
+        ///   <para>
+        ///     <strong>Values for intAsURL</strong>:</para>
+        ///   <para>
+        ///     <strong>Pass 1 or 2</strong>: to copy the 'Listen On' item as http or https respectively</para>
+        ///   <para>
+        ///     <strong>Pass 3 or 4</strong>: to copy the 'Listen On' item as http or https respectively</para>
+        /// </remarks>
+        private void ClipItem(int intSubitemNumber, int intAsURL = 0) {
+
+            ListViewItem selectedItem = listViewProxies.SelectedItems[0];
+            string strFinal = string.Empty;
+
+            if (intAsURL > 0) {
+
+                // Make sure we have everything we need first
+                if ((intAsURL == 1 || intAsURL == 2) && (!string.IsNullOrEmpty(selectedItem.SubItems[2].Text) && !string.IsNullOrEmpty(selectedItem.SubItems[3].Text)) ||
+                    (intAsURL == 3 || intAsURL == 4) && (!string.IsNullOrEmpty(selectedItem.SubItems[4].Text) && !string.IsNullOrEmpty(selectedItem.SubItems[5].Text))) {
+
+                    // We do, so now just stitch it all together for later
+                    if (intAsURL == 1 || intAsURL == 2) {
+
+                        // 1 or 2 = Listening IP:Port
+                        strFinal = $"{selectedItem.SubItems[2].Text}:{selectedItem.SubItems[3].Text}";
+
+                    } else if (intAsURL == 3 || intAsURL == 4) {
+
+                        // 3 or 4 = ConnectTo IP:Port
+                        strFinal = $"{selectedItem.SubItems[4].Text}:{selectedItem.SubItems[5].Text}";
+
+                    }
+
+                    // http or https?
+                    if (intAsURL == 1 || intAsURL == 3) {
+
+                        strFinal = $"http://{strFinal}";
+
+                    } else if (intAsURL == 2 || intAsURL == 4) {
+
+                        strFinal = $"https://{strFinal}";
+
+                    }
+
+                }
+
+                // Finally, if everything was GO, we ship it off to the clipboard, and leave this all behind us.
+                if (string.IsNullOrEmpty(strFinal)) {
+                    Clipboard.SetText(strFinal);
+                    return;
+                }
+
+            }
+
+            // However, if we're still here at this point, caller must be wanting just the column's contents instead, so viola ...
+            if (!string.IsNullOrEmpty(selectedItem.SubItems[intSubitemNumber].Text))
+                Clipboard.SetText(selectedItem.SubItems[intSubitemNumber].Text);
+
+        }
+
+        /// <summary>Copies the subitem's text to the clipboard</summary>
+        /// <param name="intSubitemNumber">The subitem number from the Listview that you want copied (when not copying as URL)</param>
+        /// <param name="intAsURL">1 or 3 = copy item as http URL; 2 or 4 = copy item as https URL. (See Remark for more)</param>
+        /// <returns>Either the seleted item as a http/https URL, or the column/cell contents. All are validated as non-empty first;</returns>
+        /// <remarks>
+        ///   <para>If <font color="#00b050">intAsURL</font> contains 1 or 2, then any value in intSubitemNumber is <em>ignored</em>; pass anything to it. i.e. 0.</para>
+        ///   <para>
+        ///     <strong>Values for intAsURL</strong>:</para>
+        ///   <para>
+        ///     <strong>Pass 1 or 2</strong>: to copy the 'Listen On' item as http or https respectively</para>
+        ///   <para>
+        ///     <strong>Pass 3 or 4</strong>: to copy the 'Listen On' item as http or https respectively</para>
+        ///   <para>
+        ///     <em>NOTE:</em> This is the ChatGPT version of my own code above, when asked if mine could be optimized. They both do exactly the same thing. Use your choice.</para>
+        /// </remarks>
+        private void ClipItemAI(int intSubitemNumber, int intAsURL = 0) {
+
+            ListViewItem selectedItem = listViewProxies.SelectedItems[0];
+            string strFinal = string.Empty;
+
+            if (intAsURL > 0) {
+
+                string ip = string.Empty;
+                string port = string.Empty;
+
+                // Determine the IP and Port based on intAsURL
+                if ((intAsURL == 1 || intAsURL == 2) && !string.IsNullOrEmpty(selectedItem.SubItems[2].Text) && !string.IsNullOrEmpty(selectedItem.SubItems[3].Text)) {
+
+                    ip = selectedItem.SubItems[2].Text;
+                    port = selectedItem.SubItems[3].Text;
+
+                } else if ((intAsURL == 3 || intAsURL == 4) && !string.IsNullOrEmpty(selectedItem.SubItems[4].Text) && !string.IsNullOrEmpty(selectedItem.SubItems[5].Text)) {
+
+                    ip = selectedItem.SubItems[4].Text;
+                    port = selectedItem.SubItems[5].Text;
+
+                }
+
+                // Determine the URL prefix
+                string urlPrefix = intAsURL switch {
+                    1 => "http://",
+                    2 => "https://",
+                    3 => "http://",
+                    4 => "https://",
+                    _ => string.Empty
+                };
+
+                // Construct the final URL if IP and Port are valid
+                if (!string.IsNullOrEmpty(ip) && !string.IsNullOrEmpty(port)) {
+                    strFinal = $"{urlPrefix}{ip}:{port}";
+                }
+
+                // If everything was good, copy to clipboard and return
+                if (!string.IsNullOrEmpty(strFinal)) {
+
+                    Clipboard.SetText(strFinal);
+                    return;
+
+                }
+
+            }
+
+            // If we're here, just copy the selected column's content to clipboard
+            if (!string.IsNullOrEmpty(selectedItem.SubItems[intSubitemNumber].Text)) {
+                Clipboard.SetText(selectedItem.SubItems[intSubitemNumber].Text);
+            }
+
+        }
+
+        private void toolStripMenuItem_ListeningIP_Click(object sender, EventArgs e) {
+            ClipItem(2);
+        }
+
+        private void toolStripMenuItem_ListeningPort_Click(object sender, EventArgs e) {
+            ClipItem(3);
+        }
+
+        private void toolStripMenuItem_ConnectToIP_Click(object sender, EventArgs e) {
+            ClipItem(4);
+        }
+
+        private void toolStripMenuItem_ConnectToPort_Click(object sender, EventArgs e) {
+            ClipItem(5);
+        }
+
+        private void toolStripMenuItem_Comment_Click(object sender, EventArgs e) {
+            ClipItem(6);
+        }
+
+        private void toolStripMenuItem_CopyListeningAsURLhttp_Click(object sender, EventArgs e) {
+            ClipItem(0, 1);
+        }
+
+        private void toolStripMenuItem_CopyListeningAsURLhttps_Click(object sender, EventArgs e) {
+            ClipItem(0, 2);
+        }
+
+        private void toolStripMenuItem_CopyConnectToAsURLhttp_Click(object sender, EventArgs e) {
+            ClipItemAI(0, 3);
+        }
+
+        private void toolStripMenuItem_CopyConnectToAsURLhttps_Click(object sender, EventArgs e) {
+            ClipItemAI(0, 4);
+        }
+        
+        #endregion
+
     }
 
 }

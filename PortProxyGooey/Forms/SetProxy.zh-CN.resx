@@ -2791,4 +2791,536 @@
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="label_ListenOn.ToolTip" xml:space="preserve">
+    <value>要监听的IP ：
+
+即
+0.0.0.0
+127.0.0.1
+
+一些常见IP也启用了自动完成功能！</value>
+  </data>
+  <data name="label_ConnectTo.ToolTip" xml:space="preserve">
+    <value>要连接/发送到的IP ：
+
+即
+0.0.0.0
+127.0.0.1
+您的WSL IP等
+
+一些常见IP也启用了自动完成功能！</value>
+  </data>
+  <data name="label_ConnectPort.ToolTip" xml:space="preserve">
+    <value>“远程”监听的端口。！</value>
+  </data>
+  <data name="label_ListenPort.ToolTip" xml:space="preserve">
+    <value>（正在启动）要监听的端口。
+
+注意：
+如果使用端口范围，此端口必须低于右侧的结束端口。- &gt;!</value>
+  </data>
+  <data name="label_Comment.ToolTip" xml:space="preserve">
+    <value>[可选]
+为此（或“这些” ，如果添加端口范围）代理添加注释。
+
+注意：
+如果添加端口范围，将为所有端口添加相同的注释；
+如果需要，您可以在添加评论后单独编辑
+评论到列表中。！</value>
+  </data>
+  <data name="textBox_Comment.AutoCompleteCustomSource" xml:space="preserve">
+    <value>Docker</value>
+  </data>
+  <data name="textBox_Comment.AutoCompleteCustomSource1" xml:space="preserve">
+    <value>MySQL/MariaDB ！</value>
+  </data>
+  <data name="textBox_Comment.AutoCompleteCustomSource2" xml:space="preserve">
+    <value>PostGres ！</value>
+  </data>
+  <data name="textBox_Comment.AutoCompleteCustomSource3" xml:space="preserve">
+    <value>WSL ！</value>
+  </data>
+  <data name="textBox_Comment.PlaceholderText" xml:space="preserve">
+    <value>[可选备注] ！</value>
+  </data>
+  <data name="label_Group.ToolTip" xml:space="preserve">
+    <value>[可选]
+将此（或“这些” ，如果添加端口范围）代理放入列表中的命名组。！</value>
+  </data>
+  <data name="comboBox_Group.AutoCompleteCustomSource" xml:space="preserve">
+    <value>阿帕奇</value>
+  </data>
+  <data name="comboBox_Group.AutoCompleteCustomSource1" xml:space="preserve">
+    <value>Docker</value>
+  </data>
+  <data name="comboBox_Group.AutoCompleteCustomSource2" xml:space="preserve">
+    <value>电子邮箱</value>
+  </data>
+  <data name="comboBox_Group.AutoCompleteCustomSource3" xml:space="preserve">
+    <value>HTPC ！</value>
+  </data>
+  <data name="comboBox_Group.AutoCompleteCustomSource4" xml:space="preserve">
+    <value>自动化</value>
+  </data>
+  <data name="comboBox_Group.AutoCompleteCustomSource5" xml:space="preserve">
+    <value>Nginx</value>
+  </data>
+  <data name="comboBox_Group.AutoCompleteCustomSource6" xml:space="preserve">
+    <value>Web 服务器</value>
+  </data>
+  <data name="comboBox_Group.Items" xml:space="preserve">
+    <value>默认</value>
+  </data>
+  <data name="comboBox_Group.Items1" xml:space="preserve">
+    <value>Docker</value>
+  </data>
+  <data name="comboBox_Group.Items2" xml:space="preserve">
+    <value>WSL ！</value>
+  </data>
+  <data name="comboBox_ListenOn.AutoCompleteCustomSource" xml:space="preserve">
+    <value>0.0.0.0 ！</value>
+  </data>
+  <data name="comboBox_ListenOn.AutoCompleteCustomSource1" xml:space="preserve">
+    <value>127.0.0.1!</value>
+  </data>
+  <data name="comboBox_ListenOn.AutoCompleteCustomSource2" xml:space="preserve">
+    <value>192.168.!</value>
+  </data>
+  <data name="comboBox_ListenOn.AutoCompleteCustomSource3" xml:space="preserve">
+    <value>192.168.0.!</value>
+  </data>
+  <data name="comboBox_ListenOn.AutoCompleteCustomSource4" xml:space="preserve">
+    <value>192.168.0.1 ！</value>
+  </data>
+  <data name="comboBox_ListenOn.AutoCompleteCustomSource5" xml:space="preserve">
+    <value>192.168.1.!</value>
+  </data>
+  <data name="comboBox_ListenOn.AutoCompleteCustomSource6" xml:space="preserve">
+    <value>192.168.1.0 ！</value>
+  </data>
+  <data name="comboBox_ListenOn.AutoCompleteCustomSource7" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="comboBox_ListenOn.Items" xml:space="preserve">
+    <value>*!</value>
+  </data>
+  <data name="comboBox_ListenOn.Items1" xml:space="preserve">
+    <value>0.0.0.0 ！</value>
+  </data>
+  <data name="comboBox_ListenOn.Items2" xml:space="preserve">
+    <value>127.0.0.1!</value>
+  </data>
+  <data name="comboBox_ListenOn.Items3" xml:space="preserve">
+    <value>192.168.!</value>
+  </data>
+  <data name="comboBox_ListenOn.Items4" xml:space="preserve">
+    <value>192.168.0.!</value>
+  </data>
+  <data name="comboBox_ListenOn.Items5" xml:space="preserve">
+    <value>192.168.0.1 ！</value>
+  </data>
+  <data name="comboBox_ListenOn.Items6" xml:space="preserve">
+    <value>192.168.1.!</value>
+  </data>
+  <data name="comboBox_ListenOn.Items7" xml:space="preserve">
+    <value>192.168.1.0 ！</value>
+  </data>
+  <data name="comboBox_ListenOn.Items8" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="lblDash.Text" xml:space="preserve">
+    <value>--!</value>
+  </data>
+  <data name="chkBox_ListenPortRange.Text" xml:space="preserve">
+    <value>范围</value>
+  </data>
+  <data name="chkBox_ListenPortRange.ToolTip" xml:space="preserve">
+    <value>为“监听” IP添加一系列端口。
+
+注意：
+左侧的起始端口必须低于右侧的终止端口。！</value>
+  </data>
+  <data name="lblRequired.Text" xml:space="preserve">
+    <value>（必填）</value>
+  </data>
+  <data name="lblRequired.ToolTip" xml:space="preserve">
+    <value>所有带有红色标签的项目都是必需的；带有黑色标签的项目是可选的。！</value>
+  </data>
+  <data name="lblWSLIP.Text" xml:space="preserve">
+    <value>WSL ： 255.255.255.255 ！</value>
+  </data>
+  <data name="lblWSLIP.ToolTip" xml:space="preserve">
+    <value>当前检测到WSL IP地址！</value>
+  </data>
+  <data name="lblType.Text" xml:space="preserve">
+    <value>v4tov4 ！</value>
+  </data>
+  <data name="lblType.ToolTip" xml:space="preserve">
+    <value>代理类型</value>
+  </data>
+  <data name="lblRangeCount.Text" xml:space="preserve">
+    <value>添加</value>
+  </data>
+  <data name="lblRangeCount.ToolTip" xml:space="preserve">
+    <value>根据您的设置添加的代理总数。
+
+注意：
+这是一个简单的计数器，这里没有重复检查，
+因此，如果某些端口落在
+您输入的范围，并且已经存在于当前列表中。！</value>
+  </data>
+  <data name="progBarRange.ToolTip" xml:space="preserve">
+    <value>添加端口范围时的进度。
+添加通常发生得如此之快，您不会看到这个（很长一段时间）。！</value>
+  </data>
+  <data name="chkAutoComment.Text" xml:space="preserve">
+    <value>自动注释！</value>
+  </data>
+  <data name="chkAutoComment.ToolTip" xml:space="preserve">
+    <value>自动为常用端口添加注释。
+
+注意：
+添加的评论将是最近更改的评论
+上面有3个端口文本框。
+
+您仍然可以手动删除任何自动注释和/或
+在自动注释之前或之后添加您自己的注释。！</value>
+  </data>
+  <data name="lblWSLDiscovered.Text" xml:space="preserve">
+    <value>发现WSL端口！</value>
+  </data>
+  <data name="lblWSLDiscovered.ToolTip" xml:space="preserve">
+    <value>发现这些端口正在您的WSL实例中侦听。
+双击端口以将其填充到左侧的列表中。！</value>
+  </data>
+  <data name="lblDiscoveredIP6.Text" xml:space="preserve">
+    <value>IP6 ！</value>
+  </data>
+  <data name="lblDiscoveredIP6.ToolTip" xml:space="preserve">
+    <value>当前检测到WSL IPv6侦听端口！</value>
+  </data>
+  <data name="lblDiscoveredIP4.Text" xml:space="preserve">
+    <value>IP4!</value>
+  </data>
+  <data name="lblDiscoveredIP4.ToolTip" xml:space="preserve">
+    <value>当前检测到WSL IPv4侦听端口！</value>
+  </data>
+  <data name="comboBox_ListenPortRange.AutoCompleteCustomSource" xml:space="preserve">
+    <value>53</value>
+  </data>
+  <data name="comboBox_ListenPortRange.AutoCompleteCustomSource1" xml:space="preserve">
+    <value>80</value>
+  </data>
+  <data name="comboBox_ListenPortRange.AutoCompleteCustomSource2" xml:space="preserve">
+    <value>443</value>
+  </data>
+  <data name="comboBox_ListenPortRange.AutoCompleteCustomSource3" xml:space="preserve">
+    <value>853</value>
+  </data>
+  <data name="comboBox_ListenPortRange.AutoCompleteCustomSource4" xml:space="preserve">
+    <value>2375</value>
+  </data>
+  <data name="comboBox_ListenPortRange.AutoCompleteCustomSource5" xml:space="preserve">
+    <value>2376 ！</value>
+  </data>
+  <data name="comboBox_ListenPortRange.AutoCompleteCustomSource6" xml:space="preserve">
+    <value>2377 ！</value>
+  </data>
+  <data name="comboBox_ListenPortRange.AutoCompleteCustomSource7" xml:space="preserve">
+    <value>2736</value>
+  </data>
+  <data name="comboBox_ListenPortRange.AutoCompleteCustomSource8" xml:space="preserve">
+    <value>3000</value>
+  </data>
+  <data name="comboBox_ListenPortRange.AutoCompleteCustomSource9" xml:space="preserve">
+    <value>3306 ！</value>
+  </data>
+  <data name="comboBox_ListenPortRange.AutoCompleteCustomSource10" xml:space="preserve">
+    <value>3390</value>
+  </data>
+  <data name="comboBox_ListenPortRange.AutoCompleteCustomSource11" xml:space="preserve">
+    <value>4789</value>
+  </data>
+  <data name="comboBox_ListenPortRange.AutoCompleteCustomSource12" xml:space="preserve">
+    <value>5443</value>
+  </data>
+  <data name="comboBox_ListenPortRange.AutoCompleteCustomSource13" xml:space="preserve">
+    <value>7946 ！</value>
+  </data>
+  <data name="comboBox_ListenPortRange.Items" xml:space="preserve">
+    <value>53</value>
+  </data>
+  <data name="comboBox_ListenPortRange.Items1" xml:space="preserve">
+    <value>80</value>
+  </data>
+  <data name="comboBox_ListenPortRange.Items2" xml:space="preserve">
+    <value>443</value>
+  </data>
+  <data name="comboBox_ListenPortRange.Items3" xml:space="preserve">
+    <value>853</value>
+  </data>
+  <data name="comboBox_ListenPortRange.Items4" xml:space="preserve">
+    <value>2375</value>
+  </data>
+  <data name="comboBox_ListenPortRange.Items5" xml:space="preserve">
+    <value>2376 ！</value>
+  </data>
+  <data name="comboBox_ListenPortRange.Items6" xml:space="preserve">
+    <value>2377 ！</value>
+  </data>
+  <data name="comboBox_ListenPortRange.Items7" xml:space="preserve">
+    <value>2736</value>
+  </data>
+  <data name="comboBox_ListenPortRange.Items8" xml:space="preserve">
+    <value>3000</value>
+  </data>
+  <data name="comboBox_ListenPortRange.Items9" xml:space="preserve">
+    <value>3306 ！</value>
+  </data>
+  <data name="comboBox_ListenPortRange.Items10" xml:space="preserve">
+    <value>3390</value>
+  </data>
+  <data name="comboBox_ListenPortRange.Items11" xml:space="preserve">
+    <value>4789</value>
+  </data>
+  <data name="comboBox_ListenPortRange.Items12" xml:space="preserve">
+    <value>5443</value>
+  </data>
+  <data name="comboBox_ListenPortRange.Items13" xml:space="preserve">
+    <value>7946 ！</value>
+  </data>
+  <data name="comboBox_ListenPortRange.ToolTip" xml:space="preserve">
+    <value>要侦听的结束端口。
+
+注意：
+&lt; -如果使用端口范围，此结束端口必须高于左侧的起始端口。！</value>
+  </data>
+  <data name="comboBox_ConnectTo.AutoCompleteCustomSource" xml:space="preserve">
+    <value>0.0.0.0 ！</value>
+  </data>
+  <data name="comboBox_ConnectTo.AutoCompleteCustomSource1" xml:space="preserve">
+    <value>127.0.0.1!</value>
+  </data>
+  <data name="comboBox_ConnectTo.AutoCompleteCustomSource2" xml:space="preserve">
+    <value>192.168.!</value>
+  </data>
+  <data name="comboBox_ConnectTo.AutoCompleteCustomSource3" xml:space="preserve">
+    <value>192.168.0.!</value>
+  </data>
+  <data name="comboBox_ConnectTo.AutoCompleteCustomSource4" xml:space="preserve">
+    <value>192.168.0.1 ！</value>
+  </data>
+  <data name="comboBox_ConnectTo.AutoCompleteCustomSource5" xml:space="preserve">
+    <value>192.168.1.!</value>
+  </data>
+  <data name="comboBox_ConnectTo.AutoCompleteCustomSource6" xml:space="preserve">
+    <value>192.168.1.0 ！</value>
+  </data>
+  <data name="comboBox_ConnectTo.AutoCompleteCustomSource7" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="comboBox_ConnectTo.Items" xml:space="preserve">
+    <value>*!</value>
+  </data>
+  <data name="comboBox_ConnectTo.Items1" xml:space="preserve">
+    <value>0.0.0.0 ！</value>
+  </data>
+  <data name="comboBox_ConnectTo.Items2" xml:space="preserve">
+    <value>127.0.0.1!</value>
+  </data>
+  <data name="comboBox_ConnectTo.Items3" xml:space="preserve">
+    <value>192.168.!</value>
+  </data>
+  <data name="comboBox_ConnectTo.Items4" xml:space="preserve">
+    <value>192.168.0.!</value>
+  </data>
+  <data name="comboBox_ConnectTo.Items5" xml:space="preserve">
+    <value>192.168.0.1 ！</value>
+  </data>
+  <data name="comboBox_ConnectTo.Items6" xml:space="preserve">
+    <value>192.168.1.!</value>
+  </data>
+  <data name="comboBox_ConnectTo.Items7" xml:space="preserve">
+    <value>192.168.1.0 ！</value>
+  </data>
+  <data name="comboBox_ConnectTo.Items8" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="lblDupe.Text" xml:space="preserve">
+    <value>（副本）</value>
+  </data>
+  <data name="btnCancel.Text" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="lblClone.Text" xml:space="preserve">
+    <value>克隆</value>
+  </data>
+  <data name="comboBox_ListenPort.AutoCompleteCustomSource" xml:space="preserve">
+    <value>53</value>
+  </data>
+  <data name="comboBox_ListenPort.AutoCompleteCustomSource1" xml:space="preserve">
+    <value>80</value>
+  </data>
+  <data name="comboBox_ListenPort.AutoCompleteCustomSource2" xml:space="preserve">
+    <value>443</value>
+  </data>
+  <data name="comboBox_ListenPort.AutoCompleteCustomSource3" xml:space="preserve">
+    <value>853</value>
+  </data>
+  <data name="comboBox_ListenPort.AutoCompleteCustomSource4" xml:space="preserve">
+    <value>2375</value>
+  </data>
+  <data name="comboBox_ListenPort.AutoCompleteCustomSource5" xml:space="preserve">
+    <value>2376 ！</value>
+  </data>
+  <data name="comboBox_ListenPort.AutoCompleteCustomSource6" xml:space="preserve">
+    <value>2377 ！</value>
+  </data>
+  <data name="comboBox_ListenPort.AutoCompleteCustomSource7" xml:space="preserve">
+    <value>2736</value>
+  </data>
+  <data name="comboBox_ListenPort.AutoCompleteCustomSource8" xml:space="preserve">
+    <value>3000</value>
+  </data>
+  <data name="comboBox_ListenPort.AutoCompleteCustomSource9" xml:space="preserve">
+    <value>3306 ！</value>
+  </data>
+  <data name="comboBox_ListenPort.AutoCompleteCustomSource10" xml:space="preserve">
+    <value>3390</value>
+  </data>
+  <data name="comboBox_ListenPort.AutoCompleteCustomSource11" xml:space="preserve">
+    <value>4789</value>
+  </data>
+  <data name="comboBox_ListenPort.AutoCompleteCustomSource12" xml:space="preserve">
+    <value>5443</value>
+  </data>
+  <data name="comboBox_ListenPort.AutoCompleteCustomSource13" xml:space="preserve">
+    <value>7946 ！</value>
+  </data>
+  <data name="comboBox_ListenPort.Items" xml:space="preserve">
+    <value>53</value>
+  </data>
+  <data name="comboBox_ListenPort.Items1" xml:space="preserve">
+    <value>80</value>
+  </data>
+  <data name="comboBox_ListenPort.Items2" xml:space="preserve">
+    <value>443</value>
+  </data>
+  <data name="comboBox_ListenPort.Items3" xml:space="preserve">
+    <value>853</value>
+  </data>
+  <data name="comboBox_ListenPort.Items4" xml:space="preserve">
+    <value>2375</value>
+  </data>
+  <data name="comboBox_ListenPort.Items5" xml:space="preserve">
+    <value>2376 ！</value>
+  </data>
+  <data name="comboBox_ListenPort.Items6" xml:space="preserve">
+    <value>2377 ！</value>
+  </data>
+  <data name="comboBox_ListenPort.Items7" xml:space="preserve">
+    <value>2736</value>
+  </data>
+  <data name="comboBox_ListenPort.Items8" xml:space="preserve">
+    <value>3000</value>
+  </data>
+  <data name="comboBox_ListenPort.Items9" xml:space="preserve">
+    <value>3306 ！</value>
+  </data>
+  <data name="comboBox_ListenPort.Items10" xml:space="preserve">
+    <value>3390</value>
+  </data>
+  <data name="comboBox_ListenPort.Items11" xml:space="preserve">
+    <value>4789</value>
+  </data>
+  <data name="comboBox_ListenPort.Items12" xml:space="preserve">
+    <value>5443</value>
+  </data>
+  <data name="comboBox_ListenPort.Items13" xml:space="preserve">
+    <value>7946 ！</value>
+  </data>
+  <data name="comboBox_ConnectPort.AutoCompleteCustomSource" xml:space="preserve">
+    <value>53</value>
+  </data>
+  <data name="comboBox_ConnectPort.AutoCompleteCustomSource1" xml:space="preserve">
+    <value>80</value>
+  </data>
+  <data name="comboBox_ConnectPort.AutoCompleteCustomSource2" xml:space="preserve">
+    <value>443</value>
+  </data>
+  <data name="comboBox_ConnectPort.AutoCompleteCustomSource3" xml:space="preserve">
+    <value>853</value>
+  </data>
+  <data name="comboBox_ConnectPort.AutoCompleteCustomSource4" xml:space="preserve">
+    <value>2375</value>
+  </data>
+  <data name="comboBox_ConnectPort.AutoCompleteCustomSource5" xml:space="preserve">
+    <value>2376 ！</value>
+  </data>
+  <data name="comboBox_ConnectPort.AutoCompleteCustomSource6" xml:space="preserve">
+    <value>2377 ！</value>
+  </data>
+  <data name="comboBox_ConnectPort.AutoCompleteCustomSource7" xml:space="preserve">
+    <value>2736</value>
+  </data>
+  <data name="comboBox_ConnectPort.AutoCompleteCustomSource8" xml:space="preserve">
+    <value>3000</value>
+  </data>
+  <data name="comboBox_ConnectPort.AutoCompleteCustomSource9" xml:space="preserve">
+    <value>3306 ！</value>
+  </data>
+  <data name="comboBox_ConnectPort.AutoCompleteCustomSource10" xml:space="preserve">
+    <value>3390</value>
+  </data>
+  <data name="comboBox_ConnectPort.AutoCompleteCustomSource11" xml:space="preserve">
+    <value>4789</value>
+  </data>
+  <data name="comboBox_ConnectPort.AutoCompleteCustomSource12" xml:space="preserve">
+    <value>5443</value>
+  </data>
+  <data name="comboBox_ConnectPort.AutoCompleteCustomSource13" xml:space="preserve">
+    <value>7946 ！</value>
+  </data>
+  <data name="comboBox_ConnectPort.Items" xml:space="preserve">
+    <value>53</value>
+  </data>
+  <data name="comboBox_ConnectPort.Items1" xml:space="preserve">
+    <value>80</value>
+  </data>
+  <data name="comboBox_ConnectPort.Items2" xml:space="preserve">
+    <value>443</value>
+  </data>
+  <data name="comboBox_ConnectPort.Items3" xml:space="preserve">
+    <value>853</value>
+  </data>
+  <data name="comboBox_ConnectPort.Items4" xml:space="preserve">
+    <value>2375</value>
+  </data>
+  <data name="comboBox_ConnectPort.Items5" xml:space="preserve">
+    <value>2376 ！</value>
+  </data>
+  <data name="comboBox_ConnectPort.Items6" xml:space="preserve">
+    <value>2377 ！</value>
+  </data>
+  <data name="comboBox_ConnectPort.Items7" xml:space="preserve">
+    <value>2736</value>
+  </data>
+  <data name="comboBox_ConnectPort.Items8" xml:space="preserve">
+    <value>3000</value>
+  </data>
+  <data name="comboBox_ConnectPort.Items9" xml:space="preserve">
+    <value>3306 ！</value>
+  </data>
+  <data name="comboBox_ConnectPort.Items10" xml:space="preserve">
+    <value>3390</value>
+  </data>
+  <data name="comboBox_ConnectPort.Items11" xml:space="preserve">
+    <value>4789</value>
+  </data>
+  <data name="comboBox_ConnectPort.Items12" xml:space="preserve">
+    <value>5443</value>
+  </data>
+  <data name="comboBox_ConnectPort.Items13" xml:space="preserve">
+    <value>7946 ！</value>
+  </data>
 </root>

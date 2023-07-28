@@ -2611,4 +2611,293 @@
   <data name="toolStripMenuItem_ResetWindowSize.Text" xml:space="preserve">
     <value>重置窗口</value>
   </data>
+  <data name="lblPP.Text" xml:space="preserve">
+    <value>聚丙烯</value>
+  </data>
+  <data name="toolStripMenuItem_Enable.ToolTipText" xml:space="preserve">
+    <value>激活此端口代理！</value>
+  </data>
+  <data name="toolStripMenuItem_Disable.ToolTipText" xml:space="preserve">
+    <value>停用此端口代理！</value>
+  </data>
+  <data name="toolStripMenuItem_EnableDisableAll.Text" xml:space="preserve">
+    <value>全部</value>
+  </data>
+  <data name="toolStripMenuItem_EnableAll.Text" xml:space="preserve">
+    <value>全部启用</value>
+  </data>
+  <data name="toolStripMenuItem_DisableAll.Text" xml:space="preserve">
+    <value>全部禁用</value>
+  </data>
+  <data name="toolStripMenuItem_New.ToolTipText" xml:space="preserve">
+    <value>向代理添加新端口
+
+提示：
+您还可以双击此窗口中的大多数空白区域！</value>
+  </data>
+  <data name="toolStripMenuItem_Modify.ToolTipText" xml:space="preserve">
+    <value>修改此端口代理！</value>
+  </data>
+  <data name="toolStripMenuItem_Clone.Text" xml:space="preserve">
+    <value>克隆</value>
+  </data>
+  <data name="toolStripMenuItem_Clone.ToolTipText" xml:space="preserve">
+    <value>复制当前项目；但您需要更改端口。
+
+这使您无需填写表格。！</value>
+  </data>
+  <data name="toolStripMenuItem_Delete.ToolTipText" xml:space="preserve">
+    <value>删除所选端口代理！</value>
+  </data>
+  <data name="toolStripMenuItem_MoveTo.Text" xml:space="preserve">
+    <value>分组：移至... ！</value>
+  </data>
+  <data name="toolStripMenuItem_RenameGroup.Text" xml:space="preserve">
+    <value>组：重命名！</value>
+  </data>
+  <data name="toolStripMenuItem_Refresh.ShortcutKeyDisplayString" xml:space="preserve">
+    <value>F5</value>
+  </data>
+  <data name="clearToolStripMenuItem.Text" xml:space="preserve">
+    <value>列表：清除！</value>
+  </data>
+  <data name="clearToolStripMenuItem.ToolTipText" xml:space="preserve">
+    <value>清除整个列表（又名全部删除） ！</value>
+  </data>
+  <data name="externalAppsToolStripMenuItem.Text" xml:space="preserve">
+    <value>外部应用</value>
+  </data>
+  <data name="WSLToolStripMenuItem.Text" xml:space="preserve">
+    <value>WSL ！</value>
+  </data>
+  <data name="WSLRunningToolStripMenuItem.Text" xml:space="preserve">
+    <value>正在运行</value>
+  </data>
+  <data name="WSLStartToolStripMenuItem.Text" xml:space="preserve">
+    <value>开始！</value>
+  </data>
+  <data name="WSLRestartToolStripMenuItem.Text" xml:space="preserve">
+    <value>重启</value>
+  </data>
+  <data name="WSLShutDownToolStripMenuItem.Text" xml:space="preserve">
+    <value>关机</value>
+  </data>
+  <data name="dockerToolStripMenuItem.Text" xml:space="preserve">
+    <value>Docker</value>
+  </data>
+  <data name="windowsFirewallToolStripMenuItem.Text" xml:space="preserve">
+    <value>防火墙</value>
+  </data>
+  <data name="windowsFirewallToolStripMenuItem1.Text" xml:space="preserve">
+    <value>Windows 防火墙</value>
+  </data>
+  <data name="windowsFirewallToolStripMenuItem1.ToolTipText" xml:space="preserve">
+    <value>启动Windows防火墙（基本视图） ！</value>
+  </data>
+  <data name="basicToolStripMenuItem.Text" xml:space="preserve">
+    <value>基本</value>
+  </data>
+  <data name="basicToolStripMenuItem.ToolTipText" xml:space="preserve">
+    <value>启动Windows防火墙（基本视图） ！</value>
+  </data>
+  <data name="advancedToolStripMenuItem.Text" xml:space="preserve">
+    <value>Advanced高级</value>
+  </data>
+  <data name="advancedToolStripMenuItem.ToolTipText" xml:space="preserve">
+    <value>启动Windows防火墙（高级视图） ！</value>
+  </data>
+  <data name="windowsFirewallControlWFCToolStripMenuItem.Text" xml:space="preserve">
+    <value>粮食理事会</value>
+  </data>
+  <data name="windowsFirewallControlWFCToolStripMenuItem.ToolTipText" xml:space="preserve">
+    <value>BiniSoft/MalwareBytes WFC
+
+注意：
+如果在您的系统上找不到它，您将
+为方便起见，将其定向到其主页
+以防您想下载。！</value>
+  </data>
+  <data name="rulesPanelToolStripMenuItem.Text" xml:space="preserve">
+    <value>规则</value>
+  </data>
+  <data name="rulesPanelToolStripMenuItem.ToolTipText" xml:space="preserve">
+    <value>打开规则面板！</value>
+  </data>
+  <data name="connectionsPanelToolStripMenuItem.Text" xml:space="preserve">
+    <value>联系</value>
+  </data>
+  <data name="connectionsPanelToolStripMenuItem.ToolTipText" xml:space="preserve">
+    <value>打开连接面板！</value>
+  </data>
+  <data name="adaptersToolStripMenuItem.Text" xml:space="preserve">
+    <value>网络适配器！</value>
+  </data>
+  <data name="adaptersToolStripMenuItem.ToolTipText" xml:space="preserve">
+    <value>发布网络适配器列表！</value>
+  </data>
+  <data name="sitesToolStripMenuItem.Text" xml:space="preserve">
+    <value>Sites</value>
+  </data>
+  <data name="portForwardingTesterToolStripMenuItem.Text" xml:space="preserve">
+    <value>端口转发测试仪！</value>
+  </data>
+  <data name="portForwardingTesterToolStripMenuItem.ToolTipText" xml:space="preserve">
+    <value>由YouGetSignal提供！</value>
+  </data>
+  <data name="advancedToolStripMenuItem1.Text" xml:space="preserve">
+    <value>Advanced高级</value>
+  </data>
+  <data name="NetSHToolStripMenuItem.Text" xml:space="preserve">
+    <value>Netsh ！</value>
+  </data>
+  <data name="NetSHaddToolStripMenuItem.Text" xml:space="preserve">
+    <value>添加！</value>
+  </data>
+  <data name="NetSHAddCopyToClipboard.Text" xml:space="preserve">
+    <value>复制到剪贴板</value>
+  </data>
+  <data name="NetSHAddCopyToClipboard.ToolTipText" xml:space="preserve">
+    <value>将命令行复制到剪贴板！</value>
+  </data>
+  <data name="NetSHAddViewCline.Text" xml:space="preserve">
+    <value>查看命令日志</value>
+  </data>
+  <data name="NetSHAddViewCline.ToolTipText" xml:space="preserve">
+    <value>在消息框中显示命令行！</value>
+  </data>
+  <data name="NetSHdeleteToolStripMenuItem.Text" xml:space="preserve">
+    <value>删除 (&amp;D)</value>
+  </data>
+  <data name="NetSHDelCopyToClipboard.Text" xml:space="preserve">
+    <value>复制到剪贴板</value>
+  </data>
+  <data name="NetSHDelCopyToClipboard.ToolTipText" xml:space="preserve">
+    <value>将命令行复制到剪贴板！</value>
+  </data>
+  <data name="NetSHDelViewCline.Text" xml:space="preserve">
+    <value>查看netsh命令！</value>
+  </data>
+  <data name="NetSHDelViewCline.ToolTipText" xml:space="preserve">
+    <value>在消息框中显示命令行！</value>
+  </data>
+  <data name="registryKeyToolStripMenuItem.Text" xml:space="preserve">
+    <value>注册表</value>
+  </data>
+  <data name="registryKeyToolStripMenuItem.ToolTipText" xml:space="preserve">
+    <value>在RegEdit中打开此项目的类型的注册表项！</value>
+  </data>
+  <data name="winsockResetToolStripMenuItem.Text" xml:space="preserve">
+    <value>重置Winsock ！</value>
+  </data>
+  <data name="winsockResetToolStripMenuItem.ToolTipText" xml:space="preserve">
+    <value>运行Windows内置的Winsock重置命令！</value>
+  </data>
+  <data name="toolStripMenuItem_ReloadIpHlpSvc.Text" xml:space="preserve">
+    <value>重新加载IpHlpSvc ！</value>
+  </data>
+  <data name="toolStripMenuItem_ReloadIpHlpSvc.ToolTipText" xml:space="preserve">
+    <value>如果您遇到连接问题，可能值得一试。！</value>
+  </data>
+  <data name="toolStripMenuItem_BackupRestore.Text" xml:space="preserve">
+    <value>备份/恢复</value>
+  </data>
+  <data name="toolStripMenuItem_Export.ToolTipText" xml:space="preserve">
+    <value>备份当前列表！</value>
+  </data>
+  <data name="toolStripMenuItem_Import.ToolTipText" xml:space="preserve">
+    <value>从备份还原代理列表！</value>
+  </data>
+  <data name="toolStripMenuItem_ResetWindowSize.ToolTipText" xml:space="preserve">
+    <value>将窗口大小重置为默认值！</value>
+  </data>
+  <data name="saveFileDialog_Export.Filter" xml:space="preserve">
+    <value>数据库文件</value>
+  </data>
+  <data name="openFileDialog_Import.Filter" xml:space="preserve">
+    <value>数据库文件</value>
+  </data>
+  <data name="lblProxyCount.ToolTip" xml:space="preserve">
+    <value>您列表中的代理数量！</value>
+  </data>
+  <data name="lblGooey.Text" xml:space="preserve">
+    <value>咕咕！</value>
+  </data>
+  <data name="lblGooey.ToolTip" xml:space="preserve">
+    <value>Snozberries尝起来像Snozberries ！ ！</value>
+  </data>
+  <data name="lblJSE.Text" xml:space="preserve">
+    <value>JSE ！</value>
+  </data>
+  <data name="lblJSE.ToolTip" xml:space="preserve">
+    <value>J. Scott Elblein叉子！</value>
+  </data>
+  <data name="toolStripMenuItem_DockerInfo.Text" xml:space="preserve">
+    <value>信息！</value>
+  </data>
+  <data name="ToolStripMenuItem_WSLInfo.Text" xml:space="preserve">
+    <value>信息！</value>
+  </data>
+  <data name="toolStripMenuItemWSLStart.Text" xml:space="preserve">
+    <value>开始！</value>
+  </data>
+  <data name="toolStripMenuItemWSLRestart.Text" xml:space="preserve">
+    <value>重启</value>
+  </data>
+  <data name="toolStripMenuItemWSLRestart.ToolTipText" xml:space="preserve">
+    <value>重启WSL ：无确认！</value>
+  </data>
+  <data name="toolStripMenuItemWSLShutDown.Text" xml:space="preserve">
+    <value>关机</value>
+  </data>
+  <data name="toolStripMenuItemWSLShutDown.ToolTipText" xml:space="preserve">
+    <value>关闭设备</value>
+  </data>
+  <data name="lblIpHlpSvcRunning.Text" xml:space="preserve">
+    <value>服务</value>
+  </data>
+  <data name="lblWSLIP.Text" xml:space="preserve">
+    <value>不适用</value>
+  </data>
+  <data name="lblDockerRunning.Text" xml:space="preserve">
+    <value>Docker</value>
+  </data>
+  <data name="lblWSLRunning.Text" xml:space="preserve">
+    <value>WSL ！</value>
+  </data>
+  <data name="lblCurrentLocalIP.Text" xml:space="preserve">
+    <value>本地：不适用！</value>
+  </data>
+  <data name="toolStripMenuItem_Clipboard.Text" xml:space="preserve">
+    <value>剪贴板复制！</value>
+  </data>
+  <data name="toolStripMenuItem_OpenInBrowser.Text" xml:space="preserve">
+    <value>在浏览器中打开</value>
+  </data>
+  <data name="toolStripMenuItem_OpenInBrowser.ToolTipText" xml:space="preserve">
+    <value>在浏览器中打开所选项目！</value>
+  </data>
+  <data name="toolStripMenuItem_ListeningIP.Text" xml:space="preserve">
+    <value>监听</value>
+  </data>
+  <data name="toolStripMenuItem_ListeningPort.Text" xml:space="preserve">
+    <value>监听端口：</value>
+  </data>
+  <data name="toolStripMenuItem_ConnectToIP.Text" xml:space="preserve">
+    <value>ConnectTo IP ！</value>
+  </data>
+  <data name="toolStripMenuItem_ConnectToPort.Text" xml:space="preserve">
+    <value>ConnectTo端口！</value>
+  </data>
+  <data name="toolStripMenuItem_Comment.Text" xml:space="preserve">
+    <value>备注</value>
+  </data>
+  <data name="toolStripMenuItem_Clipboard.ToolTipText" xml:space="preserve">
+    <value>将这些复制到您的剪贴板！</value>
+  </data>
+  <data name="toolStripMenuItem_CopyAsURLhttp.Text" xml:space="preserve">
+    <value>复制为URL (http) ！</value>
+  </data>
+  <data name="toolStripMenuItem_CopyAsURLhttps.Text" xml:space="preserve">
+    <value>复制为网址(https) ！</value>
+  </data>
 </root>
