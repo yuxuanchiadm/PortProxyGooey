@@ -1513,7 +1513,7 @@ namespace PortProxyGooey {
         private void ToolStripMenuItem_DockerInfo_Click(object sender, EventArgs e) {
 
             Docker.GetInfo_BGW((DockerInfo) => {
-                Dialogs.CustomDialog(Strings.ConvertLineEndings(DockerInfo), "Docker Info", false, new Size(537, 688));
+                Dialogs.CustomDialog(DockerInfo.ReplaceLineEndings(), "Docker Info", false, new Size(537, 688));
             });
 
         }
@@ -1600,12 +1600,12 @@ namespace PortProxyGooey {
                     if (intAsURL == 1 || intAsURL == 2) {
 
                         // 1 or 2 = Listening IP:Port
-                        strFinal = $"{selectedItem.SubItems[2].Text}:{selectedItem.SubItems[3].Text}";
+                        strFinal = $"{selectedItem.SubItems[2].Text.Replace("0.0.0.0", "localhost").Replace("*", "localhost")}:{selectedItem.SubItems[3].Text}";
 
                     } else if (intAsURL == 3 || intAsURL == 4) {
 
                         // 3 or 4 = ConnectTo IP:Port
-                        strFinal = $"{selectedItem.SubItems[4].Text}:{selectedItem.SubItems[5].Text}";
+                        strFinal = $"{selectedItem.SubItems[4].Text.Replace("0.0.0.0", "localhost").Replace("*", "localhost")}:{selectedItem.SubItems[5].Text}";
 
                     }
 
@@ -1623,7 +1623,7 @@ namespace PortProxyGooey {
                 }
 
                 // Finally, if everything was GO, we ship it off to the clipboard, and leave this all behind us.
-                if (string.IsNullOrEmpty(strFinal)) {
+                if (!string.IsNullOrEmpty(strFinal)) {
                     Clipboard.SetText(strFinal);
                     return;
                 }
@@ -1740,7 +1740,25 @@ namespace PortProxyGooey {
         private void toolStripMenuItem_CopyConnectToAsURLhttps_Click(object sender, EventArgs e) {
             ClipItemAI(0, 4);
         }
-        
+
+        #endregion
+
+        #region + -- OPEN IN BROWSER -- +
+
+        private void toolStripMenuItem_OpenInBrowserHttp_Click(object sender, EventArgs e) {
+
+            ListViewItem selectedItem = listViewProxies.SelectedItems[0];
+            Misc.RunCommand("explorer.exe", $"http://{selectedItem.SubItems[2].Text.Replace("0.0.0.0", "localhost").Replace("*", "localhost")}:{selectedItem.SubItems[3].Text}");
+
+        }
+
+        private void toolStripMenuItem_OpenInBrowserHttps_Click(object sender, EventArgs e) {
+
+            ListViewItem selectedItem = listViewProxies.SelectedItems[0];
+            Misc.RunCommand("explorer.exe", $"https://{selectedItem.SubItems[2].Text.Replace("0.0.0.0", "localhost").Replace("*", "localhost")}:{selectedItem.SubItems[3].Text}");
+
+        }
+
         #endregion
 
     }

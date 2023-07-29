@@ -56,6 +56,8 @@
             toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             toolStripMenuItem_More = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem_OpenInBrowser = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem_OpenInBrowserHttp = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem_OpenInBrowserHttps = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem_Clipboard = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem_ListeningIP = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem_ListeningPort = new System.Windows.Forms.ToolStripMenuItem();
@@ -340,9 +342,24 @@
             // 
             // toolStripMenuItem_OpenInBrowser
             // 
+            toolStripMenuItem_OpenInBrowser.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem_OpenInBrowserHttp, toolStripMenuItem_OpenInBrowserHttps });
             toolStripMenuItem_OpenInBrowser.Image = Properties.Resources.internet;
             toolStripMenuItem_OpenInBrowser.Name = "toolStripMenuItem_OpenInBrowser";
             resources.ApplyResources(toolStripMenuItem_OpenInBrowser, "toolStripMenuItem_OpenInBrowser");
+            // 
+            // toolStripMenuItem_OpenInBrowserHttp
+            // 
+            toolStripMenuItem_OpenInBrowserHttp.Image = Properties.Resources.internet;
+            toolStripMenuItem_OpenInBrowserHttp.Name = "toolStripMenuItem_OpenInBrowserHttp";
+            resources.ApplyResources(toolStripMenuItem_OpenInBrowserHttp, "toolStripMenuItem_OpenInBrowserHttp");
+            toolStripMenuItem_OpenInBrowserHttp.Click += toolStripMenuItem_OpenInBrowserHttp_Click;
+            // 
+            // toolStripMenuItem_OpenInBrowserHttps
+            // 
+            toolStripMenuItem_OpenInBrowserHttps.Image = Properties.Resources.internet;
+            toolStripMenuItem_OpenInBrowserHttps.Name = "toolStripMenuItem_OpenInBrowserHttps";
+            resources.ApplyResources(toolStripMenuItem_OpenInBrowserHttps, "toolStripMenuItem_OpenInBrowserHttps");
+            toolStripMenuItem_OpenInBrowserHttps.Click += toolStripMenuItem_OpenInBrowserHttps_Click;
             // 
             // toolStripMenuItem_Clipboard
             // 
@@ -1091,6 +1108,8 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_CopyListeningAsURLhttps;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_CopyConnectToAsURLhttp;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_CopyConnectToAsURLhttps;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_OpenInBrowserHttp;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_OpenInBrowserHttps;
     }
 }
 

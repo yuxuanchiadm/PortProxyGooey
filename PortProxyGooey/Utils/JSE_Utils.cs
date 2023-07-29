@@ -1502,6 +1502,8 @@ namespace JSE_Utils {
         /// <returns>Original string with converted line endings of your choice</returns>
         public static string ConvertLineEndings(string strInput, bool toUnixLineEndings = false) {
 
+            // Dammit. I wrote this before I realized there's already a built-in .ReplaceLineEndings() function in .NET; leaving here for posterity.
+
             // Convert line endings to Windows format (CRLF) by default
             string targetLineEnding = "\r\n";
 

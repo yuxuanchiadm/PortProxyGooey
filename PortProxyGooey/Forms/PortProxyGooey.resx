@@ -380,6 +380,18 @@ This saves you from having to do repititous form filling.</value>
   <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
     <value>179, 6</value>
   </data>
+  <data name="toolStripMenuItem_OpenInBrowserHttp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="toolStripMenuItem_OpenInBrowserHttp.Text" xml:space="preserve">
+    <value>HTTP</value>
+  </data>
+  <data name="toolStripMenuItem_OpenInBrowserHttps.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="toolStripMenuItem_OpenInBrowserHttps.Text" xml:space="preserve">
+    <value>HTTPS</value>
+  </data>
   <data name="toolStripMenuItem_OpenInBrowser.Size" type="System.Drawing.Size, System.Drawing">
     <value>180, 22</value>
   </data>
@@ -429,13 +441,13 @@ This saves you from having to do repititous form filling.</value>
     <value>216, 6</value>
   </data>
   <data name="toolStripMenuItem_CopyListeningAsURLhttp.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>113, 22</value>
   </data>
   <data name="toolStripMenuItem_CopyListeningAsURLhttp.Text" xml:space="preserve">
     <value>HTTP</value>
   </data>
   <data name="toolStripMenuItem_CopyListeningAsURLhttps.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>113, 22</value>
   </data>
   <data name="toolStripMenuItem_CopyListeningAsURLhttps.Text" xml:space="preserve">
     <value>HTTPS</value>
@@ -447,13 +459,13 @@ This saves you from having to do repititous form filling.</value>
     <value>Copy as URL: Listening</value>
   </data>
   <data name="toolStripMenuItem_CopyConnectToAsURLhttp.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>113, 22</value>
   </data>
   <data name="toolStripMenuItem_CopyConnectToAsURLhttp.Text" xml:space="preserve">
     <value>HTTP</value>
   </data>
   <data name="toolStripMenuItem_CopyConnectToAsURLhttps.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>113, 22</value>
   </data>
   <data name="toolStripMenuItem_CopyConnectToAsURLhttps.Text" xml:space="preserve">
     <value>HTTPS</value>
@@ -803,7 +815,7 @@ in case you want to download it.</value>
     <value>More</value>
   </data>
   <data name="contextMenuStrip_RightClick.Size" type="System.Drawing.Size, System.Drawing">
-    <value>183, 304</value>
+    <value>183, 326</value>
   </data>
   <data name="&gt;&gt;contextMenuStrip_RightClick.Name" xml:space="preserve">
     <value>contextMenuStrip_RightClick</value>
@@ -832,7 +844,7 @@ in case you want to download it.</value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAmisAAAJNU0Z0AUkBTAIBAQYB
-        AAEIAQYBCAEGARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAASADAAEBAQABIAYAASBe
+        AAEYAQYBGAEGARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAASADAAEBAQABIAYAASBe
         AAMqAUADKgFAAyoBQAMqAUADKgFAAyoBQAMqAUADKgFAAyoBQAMqAUCQAAMMARACWwFZAcABrwHEARYB
         /wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8B
         xAEWAf8BrwHEARYB/wJbAVkBwAMMARAIAAMMARACWQFbAcABPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8B
@@ -3962,6 +3974,18 @@ in case you want to download it.</value>
     <value>toolStripMenuItem_OpenInBrowser</value>
   </data>
   <data name="&gt;&gt;toolStripMenuItem_OpenInBrowser.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem_OpenInBrowserHttp.Name" xml:space="preserve">
+    <value>toolStripMenuItem_OpenInBrowserHttp</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem_OpenInBrowserHttp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem_OpenInBrowserHttps.Name" xml:space="preserve">
+    <value>toolStripMenuItem_OpenInBrowserHttps</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem_OpenInBrowserHttps.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripMenuItem_Clipboard.Name" xml:space="preserve">
