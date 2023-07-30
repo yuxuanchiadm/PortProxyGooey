@@ -381,13 +381,13 @@ This saves you from having to do repititous form filling.</value>
     <value>179, 6</value>
   </data>
   <data name="toolStripMenuItem_OpenInBrowserHttp.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>113, 22</value>
   </data>
   <data name="toolStripMenuItem_OpenInBrowserHttp.Text" xml:space="preserve">
     <value>HTTP</value>
   </data>
   <data name="toolStripMenuItem_OpenInBrowserHttps.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>113, 22</value>
   </data>
   <data name="toolStripMenuItem_OpenInBrowserHttps.Text" xml:space="preserve">
     <value>HTTPS</value>
@@ -400,6 +400,9 @@ This saves you from having to do repititous form filling.</value>
   </data>
   <data name="toolStripMenuItem_OpenInBrowser.ToolTipText" xml:space="preserve">
     <value>Opens the selected item in your browser</value>
+  </data>
+  <data name="toolStripMenuItem_OpenInBrowser.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="toolStripMenuItem_ListeningIP.Size" type="System.Drawing.Size, System.Drawing">
     <value>219, 22</value>
@@ -485,8 +488,14 @@ This saves you from having to do repititous form filling.</value>
   <data name="toolStripMenuItem_Clipboard.ToolTipText" xml:space="preserve">
     <value>Copy these to your Clipboard</value>
   </data>
-  <data name="toolStripSeparator17.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="toolStripMenuItem_Clipboard.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="toolStripSeparator_BrowserClipboard.Size" type="System.Drawing.Size, System.Drawing">
     <value>177, 6</value>
+  </data>
+  <data name="toolStripSeparator_BrowserClipboard.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="WSLRunningToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>138, 22</value>
@@ -671,7 +680,7 @@ in case you want to download it.</value>
     <value>Show command line in a messagebox</value>
   </data>
   <data name="NetSHaddToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="NetSHaddToolStripMenuItem.Text" xml:space="preserve">
     <value>Add</value>
@@ -695,13 +704,10 @@ in case you want to download it.</value>
     <value>Show command line in a messagebox</value>
   </data>
   <data name="NetSHdeleteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="NetSHdeleteToolStripMenuItem.Text" xml:space="preserve">
     <value>Delete</value>
-  </data>
-  <data name="NetSHToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
   </data>
   <data name="NetSHToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>217, 22</value>
@@ -709,7 +715,7 @@ in case you want to download it.</value>
   <data name="NetSHToolStripMenuItem.Text" xml:space="preserve">
     <value>Netsh</value>
   </data>
-  <data name="registryKeyToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+  <data name="NetSHToolStripMenuItem.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="registryKeyToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
@@ -721,8 +727,14 @@ in case you want to download it.</value>
   <data name="registryKeyToolStripMenuItem.ToolTipText" xml:space="preserve">
     <value>Open the registry key for this item's Type in RegEdit</value>
   </data>
-  <data name="toolStripSeparator11.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="registryKeyToolStripMenuItem.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="toolStripSeparator_NetshRegistry.Size" type="System.Drawing.Size, System.Drawing">
     <value>214, 6</value>
+  </data>
+  <data name="toolStripSeparator_NetshRegistry.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="toolStripMenuItem_FlushDnsCache.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+F</value>
@@ -815,7 +827,7 @@ in case you want to download it.</value>
     <value>More</value>
   </data>
   <data name="contextMenuStrip_RightClick.Size" type="System.Drawing.Size, System.Drawing">
-    <value>183, 326</value>
+    <value>183, 304</value>
   </data>
   <data name="&gt;&gt;contextMenuStrip_RightClick.Name" xml:space="preserve">
     <value>contextMenuStrip_RightClick</value>
@@ -844,7 +856,7 @@ in case you want to download it.</value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAmisAAAJNU0Z0AUkBTAIBAQYB
-        AAEYAQYBGAEGARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAASADAAEBAQABIAYAASBe
+        AAE4AQYBOAEGARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAASADAAEBAQABIAYAASBe
         AAMqAUADKgFAAyoBQAMqAUADKgFAAyoBQAMqAUADKgFAAyoBQAMqAUCQAAMMARACWwFZAcABrwHEARYB
         /wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8B
         xAEWAf8BrwHEARYB/wJbAVkBwAMMARAIAAMMARACWQFbAcABPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8B
@@ -4078,10 +4090,10 @@ in case you want to download it.</value>
   <data name="&gt;&gt;toolStripMenuItem_CopyConnectToAsURLhttps.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator17.Name" xml:space="preserve">
-    <value>toolStripSeparator17</value>
+  <data name="&gt;&gt;toolStripSeparator_BrowserClipboard.Name" xml:space="preserve">
+    <value>toolStripSeparator_BrowserClipboard</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator17.Type" xml:space="preserve">
+  <data name="&gt;&gt;toolStripSeparator_BrowserClipboard.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;externalAppsToolStripMenuItem.Name" xml:space="preserve">
@@ -4270,10 +4282,10 @@ in case you want to download it.</value>
   <data name="&gt;&gt;registryKeyToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator11.Name" xml:space="preserve">
-    <value>toolStripSeparator11</value>
+  <data name="&gt;&gt;toolStripSeparator_NetshRegistry.Name" xml:space="preserve">
+    <value>toolStripSeparator_NetshRegistry</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator11.Type" xml:space="preserve">
+  <data name="&gt;&gt;toolStripSeparator_NetshRegistry.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripMenuItem_FlushDnsCache.Name" xml:space="preserve">

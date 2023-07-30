@@ -703,10 +703,16 @@ namespace PortProxyGooey {
                 toolStripSeparator1.Visible = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
 
                 // NETSH Menu
-                NetSHToolStripMenuItem.Enabled = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
+                NetSHToolStripMenuItem.Visible = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
 
                 // Registry Key
-                registryKeyToolStripMenuItem.Enabled = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
+                registryKeyToolStripMenuItem.Visible = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
+                toolStripSeparator_NetshRegistry.Visible = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
+
+                // Open in Browser / Copy to Clipboard
+                toolStripMenuItem_OpenInBrowser.Visible = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
+                toolStripMenuItem_Clipboard.Visible = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
+                toolStripSeparator_BrowserClipboard.Visible = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
 
                 // WSL
                 if (WSL.IsRunning()) {
@@ -1587,52 +1593,58 @@ namespace PortProxyGooey {
         /// </remarks>
         private void ClipItem(int intSubitemNumber, int intAsURL = 0) {
 
-            ListViewItem selectedItem = listViewProxies.SelectedItems[0];
-            string strFinal = string.Empty;
+            try {
 
-            if (intAsURL > 0) {
+                ListViewItem selectedItem = listViewProxies.SelectedItems[0];
+                string strFinal = string.Empty;
 
-                // Make sure we have everything we need first
-                if ((intAsURL == 1 || intAsURL == 2) && (!string.IsNullOrEmpty(selectedItem.SubItems[2].Text) && !string.IsNullOrEmpty(selectedItem.SubItems[3].Text)) ||
-                    (intAsURL == 3 || intAsURL == 4) && (!string.IsNullOrEmpty(selectedItem.SubItems[4].Text) && !string.IsNullOrEmpty(selectedItem.SubItems[5].Text))) {
+                if (intAsURL > 0) {
 
-                    // We do, so now just stitch it all together for later
-                    if (intAsURL == 1 || intAsURL == 2) {
+                    // Make sure we have everything we need first
+                    if ((intAsURL == 1 || intAsURL == 2) && (!string.IsNullOrEmpty(selectedItem.SubItems[2].Text) && !string.IsNullOrEmpty(selectedItem.SubItems[3].Text)) ||
+                        (intAsURL == 3 || intAsURL == 4) && (!string.IsNullOrEmpty(selectedItem.SubItems[4].Text) && !string.IsNullOrEmpty(selectedItem.SubItems[5].Text))) {
 
-                        // 1 or 2 = Listening IP:Port
-                        strFinal = $"{selectedItem.SubItems[2].Text.Replace("0.0.0.0", "localhost").Replace("*", "localhost")}:{selectedItem.SubItems[3].Text}";
+                        // We do, so now just stitch it all together for later
+                        if (intAsURL == 1 || intAsURL == 2) {
 
-                    } else if (intAsURL == 3 || intAsURL == 4) {
+                            // 1 or 2 = Listening IP:Port
+                            strFinal = $"{selectedItem.SubItems[2].Text.Replace("0.0.0.0", "localhost").Replace("*", "localhost")}:{selectedItem.SubItems[3].Text}";
 
-                        // 3 or 4 = ConnectTo IP:Port
-                        strFinal = $"{selectedItem.SubItems[4].Text.Replace("0.0.0.0", "localhost").Replace("*", "localhost")}:{selectedItem.SubItems[5].Text}";
+                        } else if (intAsURL == 3 || intAsURL == 4) {
+
+                            // 3 or 4 = ConnectTo IP:Port
+                            strFinal = $"{selectedItem.SubItems[4].Text.Replace("0.0.0.0", "localhost").Replace("*", "localhost")}:{selectedItem.SubItems[5].Text}";
+
+                        }
+
+                        // http or https?
+                        if (intAsURL == 1 || intAsURL == 3) {
+
+                            strFinal = $"http://{strFinal}";
+
+                        } else if (intAsURL == 2 || intAsURL == 4) {
+
+                            strFinal = $"https://{strFinal}";
+
+                        }
 
                     }
 
-                    // http or https?
-                    if (intAsURL == 1 || intAsURL == 3) {
-
-                        strFinal = $"http://{strFinal}";
-
-                    } else if (intAsURL == 2 || intAsURL == 4) {
-
-                        strFinal = $"https://{strFinal}";
-
+                    // Finally, if everything was GO, we ship it off to the clipboard, and leave this all behind us.
+                    if (!string.IsNullOrEmpty(strFinal)) {
+                        Clipboard.SetText(strFinal);
+                        return;
                     }
 
                 }
 
-                // Finally, if everything was GO, we ship it off to the clipboard, and leave this all behind us.
-                if (!string.IsNullOrEmpty(strFinal)) {
-                    Clipboard.SetText(strFinal);
-                    return;
-                }
+                // However, if we're still here at this point, caller must be wanting just the column's contents instead, so viola ...
+                if (!string.IsNullOrEmpty(selectedItem.SubItems[intSubitemNumber].Text))
+                    Clipboard.SetText(selectedItem.SubItems[intSubitemNumber].Text);
 
+            } catch (Exception ex) {
+                Debug.WriteLine($"ClipItem(): {ex.Message}");
             }
-
-            // However, if we're still here at this point, caller must be wanting just the column's contents instead, so viola ...
-            if (!string.IsNullOrEmpty(selectedItem.SubItems[intSubitemNumber].Text))
-                Clipboard.SetText(selectedItem.SubItems[intSubitemNumber].Text);
 
         }
 
@@ -1653,54 +1665,60 @@ namespace PortProxyGooey {
         /// </remarks>
         private void ClipItemAI(int intSubitemNumber, int intAsURL = 0) {
 
-            ListViewItem selectedItem = listViewProxies.SelectedItems[0];
-            string strFinal = string.Empty;
+            try {
 
-            if (intAsURL > 0) {
+                ListViewItem selectedItem = listViewProxies.SelectedItems[0];
+                string strFinal = string.Empty;
 
-                string ip = string.Empty;
-                string port = string.Empty;
+                if (intAsURL > 0) {
 
-                // Determine the IP and Port based on intAsURL
-                if ((intAsURL == 1 || intAsURL == 2) && !string.IsNullOrEmpty(selectedItem.SubItems[2].Text) && !string.IsNullOrEmpty(selectedItem.SubItems[3].Text)) {
+                    string ip = string.Empty;
+                    string port = string.Empty;
 
-                    ip = selectedItem.SubItems[2].Text;
-                    port = selectedItem.SubItems[3].Text;
+                    // Determine the IP and Port based on intAsURL
+                    if ((intAsURL == 1 || intAsURL == 2) && !string.IsNullOrEmpty(selectedItem.SubItems[2].Text) && !string.IsNullOrEmpty(selectedItem.SubItems[3].Text)) {
 
-                } else if ((intAsURL == 3 || intAsURL == 4) && !string.IsNullOrEmpty(selectedItem.SubItems[4].Text) && !string.IsNullOrEmpty(selectedItem.SubItems[5].Text)) {
+                        ip = selectedItem.SubItems[2].Text;
+                        port = selectedItem.SubItems[3].Text;
 
-                    ip = selectedItem.SubItems[4].Text;
-                    port = selectedItem.SubItems[5].Text;
+                    } else if ((intAsURL == 3 || intAsURL == 4) && !string.IsNullOrEmpty(selectedItem.SubItems[4].Text) && !string.IsNullOrEmpty(selectedItem.SubItems[5].Text)) {
+
+                        ip = selectedItem.SubItems[4].Text;
+                        port = selectedItem.SubItems[5].Text;
+
+                    }
+
+                    // Determine the URL prefix
+                    string urlPrefix = intAsURL switch {
+                        1 => "http://",
+                        2 => "https://",
+                        3 => "http://",
+                        4 => "https://",
+                        _ => string.Empty
+                    };
+
+                    // Construct the final URL if IP and Port are valid
+                    if (!string.IsNullOrEmpty(ip) && !string.IsNullOrEmpty(port)) {
+                        strFinal = $"{urlPrefix}{ip}:{port}";
+                    }
+
+                    // If everything was good, copy to clipboard and return
+                    if (!string.IsNullOrEmpty(strFinal)) {
+
+                        Clipboard.SetText(strFinal);
+                        return;
+
+                    }
 
                 }
 
-                // Determine the URL prefix
-                string urlPrefix = intAsURL switch {
-                    1 => "http://",
-                    2 => "https://",
-                    3 => "http://",
-                    4 => "https://",
-                    _ => string.Empty
-                };
-
-                // Construct the final URL if IP and Port are valid
-                if (!string.IsNullOrEmpty(ip) && !string.IsNullOrEmpty(port)) {
-                    strFinal = $"{urlPrefix}{ip}:{port}";
+                // If we're here, just copy the selected column's content to clipboard
+                if (!string.IsNullOrEmpty(selectedItem.SubItems[intSubitemNumber].Text)) {
+                    Clipboard.SetText(selectedItem.SubItems[intSubitemNumber].Text);
                 }
 
-                // If everything was good, copy to clipboard and return
-                if (!string.IsNullOrEmpty(strFinal)) {
-
-                    Clipboard.SetText(strFinal);
-                    return;
-
-                }
-
-            }
-
-            // If we're here, just copy the selected column's content to clipboard
-            if (!string.IsNullOrEmpty(selectedItem.SubItems[intSubitemNumber].Text)) {
-                Clipboard.SetText(selectedItem.SubItems[intSubitemNumber].Text);
+            } catch (Exception ex) {
+                Debug.WriteLine($"ClipItemAI(): {ex.Message}");
             }
 
         }
@@ -1734,10 +1752,12 @@ namespace PortProxyGooey {
         }
 
         private void toolStripMenuItem_CopyConnectToAsURLhttp_Click(object sender, EventArgs e) {
+            // Using the AI version here just for the helluvit
             ClipItemAI(0, 3);
         }
 
         private void toolStripMenuItem_CopyConnectToAsURLhttps_Click(object sender, EventArgs e) {
+            // Using the AI version here just for the helluvit
             ClipItemAI(0, 4);
         }
 
@@ -1747,15 +1767,27 @@ namespace PortProxyGooey {
 
         private void toolStripMenuItem_OpenInBrowserHttp_Click(object sender, EventArgs e) {
 
-            ListViewItem selectedItem = listViewProxies.SelectedItems[0];
-            Misc.RunCommand("explorer.exe", $"http://{selectedItem.SubItems[2].Text.Replace("0.0.0.0", "localhost").Replace("*", "localhost")}:{selectedItem.SubItems[3].Text}");
+            try {
+
+                ListViewItem selectedItem = listViewProxies.SelectedItems[0];
+                Misc.RunCommand("explorer.exe", $"http://{selectedItem.SubItems[2].Text.Replace("0.0.0.0", "localhost").Replace("*", "localhost")}:{selectedItem.SubItems[3].Text}");
+
+            } catch (Exception ex) {
+                Debug.WriteLine($"OpenInBrowserHttp_Click): {ex.Message}");
+            }
 
         }
 
         private void toolStripMenuItem_OpenInBrowserHttps_Click(object sender, EventArgs e) {
 
-            ListViewItem selectedItem = listViewProxies.SelectedItems[0];
-            Misc.RunCommand("explorer.exe", $"https://{selectedItem.SubItems[2].Text.Replace("0.0.0.0", "localhost").Replace("*", "localhost")}:{selectedItem.SubItems[3].Text}");
+            try {
+
+                ListViewItem selectedItem = listViewProxies.SelectedItems[0];
+                Misc.RunCommand("explorer.exe", $"https://{selectedItem.SubItems[2].Text.Replace("0.0.0.0", "localhost").Replace("*", "localhost")}:{selectedItem.SubItems[3].Text}");
+
+            } catch (Exception ex) {
+                Debug.WriteLine($"OpenInBrowserHttps_Click(): {ex.Message}");
+            }
 
         }
 
