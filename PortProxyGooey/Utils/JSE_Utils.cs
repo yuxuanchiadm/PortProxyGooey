@@ -376,7 +376,7 @@ namespace JSE_Utils {
                 form.Text = strTitle;
                 form.BackColor = Color.FromArgb(67, 76, 94);
                 form.ShowIcon = false;
-                form.StartPosition = FormStartPosition.CenterScreen;
+                form.StartPosition = FormStartPosition.CenterParent;
                 form.ShowInTaskbar = false;
                 form.FormBorderStyle = FormBorderStyle.FixedSingle;
                 //form.FormBorderStyle = FormBorderStyle.Sizable;
@@ -563,7 +563,7 @@ namespace JSE_Utils {
             //     Debug.WriteLine($"Docker Version: {DockerVersion}");
             // }, true);
 
-            BackgroundWorker worker = new BackgroundWorker();
+            BackgroundWorker worker = new();
 
             worker.DoWork += (sender, e) => {
 
@@ -582,7 +582,7 @@ namespace JSE_Utils {
                     //Debug.WriteLine(strOutput);
                 }
                  
-                e.Result = strOutput.Length > 0 ? strOutput.Trim() : string.Empty;
+                e.Result = !string.IsNullOrEmpty(strOutput) ? strOutput.Trim() : string.Empty;
 
             };
 
@@ -640,7 +640,7 @@ namespace JSE_Utils {
             //     }
             // }, false);
 
-            BackgroundWorker worker = new BackgroundWorker();
+            BackgroundWorker worker = new();
 
             worker.DoWork += (sender, e) => {
 
@@ -1594,10 +1594,10 @@ namespace JSE_Utils {
                 OrderedDictionary dicInfo = new();
 
                 // UPTIME: Add proper uptime based on how many elements we pulled
-                dicInfo.Add("Uptime", infoArray.Length == 4 ? $"{infoArray[0]}, {infoArray[1]}" : infoArray[0]);
+                dicInfo.Add("Uptime:", infoArray.Length == 4 ? $"{infoArray[0]}, {infoArray[1]}" : infoArray[0]);
 
                 // USERS: Add User count. It'll always be the 2nd to last element.
-                dicInfo.Add("Users", infoArray[^2]);
+                dicInfo.Add("Users:", infoArray[^2]);
 
                 // LOAD AVERAGE: Fish out the Load Average for prettifying. It'll always be the last element, se we can just do it this way.
                 string loadAvg = infoArray[^1];
@@ -1606,7 +1606,7 @@ namespace JSE_Utils {
                 string[] loadArray = loadAvg.Split(' ');
 
                 // Add em raw
-                dicInfo.Add("Load Average", loadAvg);
+                dicInfo.Add("Load Average:", loadAvg);
                 dicInfo.Add("Load Average: 1m", $"{loadArray[0]}");
                 dicInfo.Add("Load Average: 5m", $"{loadArray[1]}");
                 dicInfo.Add("Load Average: 15m", $"{loadArray[2]}");
@@ -1625,7 +1625,7 @@ namespace JSE_Utils {
                 strInput = Misc.RunCommand("wsl", $@"uptime -s").Trim();
 
                 // Add Up Since to the very first element
-                dicInfo.Insert(0, "Up Since", DateTime.TryParse(strInput, out DateTime result) ? strInput : string.Empty);
+                dicInfo.Insert(0, "Up Since:", DateTime.TryParse(strInput, out DateTime result) ? strInput : string.Empty);
 
                 // UPTIME SINCE (PRETTY): Let's juice it up and add some more stuff; fetch the info
                 strInput = Misc.RunCommand("wsl", $@"uptime -p").Trim();
@@ -1779,7 +1779,7 @@ namespace JSE_Utils {
         }
 
         /// <summary>
-        /// Gets the currently installed WSL version (WSL *version only*) (async: Task)
+        /// Gets the currently installed WSL version (*version only*) (async: Task)
         /// </summary>
         /// <returns>Success: WSL Version; Fail: Empty string.</returns>
         public static string GetVersion() {
@@ -1800,8 +1800,7 @@ namespace JSE_Utils {
             task.Wait();
 
             string start = "wsl version: ";
-            string end = @"\r\n";
-            //string end = "\r\n";
+            string end = Environment.NewLine;
 
             // Try to parse out a version number
             int startIndex = strOutput.ToLower().IndexOf(start) + start.Length;
@@ -1810,6 +1809,65 @@ namespace JSE_Utils {
 
             // TODO: Should be beefed up with validation (make sure an actual version number was fetched)
             return strResult.Length > 0 ? strResult : string.Empty;
+
+        }
+
+        /// <summary>
+        /// Gets the currently installed WSL version (*version only*) (async: BackgroundWorker)
+        /// </summary>
+        /// <returns>Success: WSL Version; Fail: Empty string.</returns>
+        public static void GetVersion_BGW(Action<string> callback) {
+
+            // Example usage:
+            //
+            // WSL.GetVersion_BGW((strVer) => {
+            //    Debug.WriteLine(strVer);
+            // });
+
+            BackgroundWorker worker = new();
+
+            worker.DoWork += (sender, e) => {
+
+                string strOutput = string.Empty;
+
+                // Run the command
+                strOutput = Misc.RunCommand("wsl.exe", "--version");
+
+                string start = "wsl version: ";
+                string end = Environment.NewLine;
+                string strVersion = string.Empty;
+
+                try {
+
+                    // Try to parse out a version number
+                    int startIndex = strOutput.ToLower().IndexOf(start) + start.Length;
+                    int endIndex = strOutput.IndexOf(end, startIndex);
+                    strVersion = strOutput.Substring(startIndex, endIndex - startIndex);
+
+                } catch (Exception ex) {
+                    Debug.WriteLine($"GetVersion_BGW(): {ex.Message}");
+                }
+
+                e.Result = !string.IsNullOrEmpty(strVersion) ? strVersion : string.Empty;
+
+            };
+
+            worker.RunWorkerCompleted += (sender, e) => {
+
+                if (e.Error != null) {
+                    // Handle errors
+                } else {
+
+                    // Ex:
+                    string strVersion = e.Result as string;
+                    callback?.Invoke(strVersion);
+
+                }
+
+            };
+
+            worker.RunWorkerAsync();
+        
         }
 
         /// <summary>
@@ -1841,7 +1899,7 @@ namespace JSE_Utils {
 
             task.Wait();
 
-            return strWSLIP.Length > 0 ? strWSLIP : string.Empty;
+            return !string.IsNullOrEmpty(strWSLIP) ? strWSLIP : string.Empty;
 
         }
 
@@ -1871,7 +1929,7 @@ namespace JSE_Utils {
                 //Debug.WriteLine($"WSL_GetIP: Task complete (ID: {Task.CurrentId}) Result: {strWSLIP}");
             });
 
-            return strWSLIP.Length > 0 ? strWSLIP : string.Empty;
+            return !string.IsNullOrEmpty(strWSLIP) ? strWSLIP : string.Empty;
         }
 
         /// <summary>

@@ -393,7 +393,7 @@ This saves you from having to do repititous form filling.</value>
     <value>HTTPS</value>
   </data>
   <data name="toolStripMenuItem_OpenInBrowser.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>177, 22</value>
   </data>
   <data name="toolStripMenuItem_OpenInBrowser.Text" xml:space="preserve">
     <value>Open in Browser</value>
@@ -480,7 +480,7 @@ This saves you from having to do repititous form filling.</value>
     <value>Copy as URL: ConnectTo</value>
   </data>
   <data name="toolStripMenuItem_Clipboard.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>177, 22</value>
   </data>
   <data name="toolStripMenuItem_Clipboard.Text" xml:space="preserve">
     <value>Clipboard Copy</value>
@@ -492,7 +492,7 @@ This saves you from having to do repititous form filling.</value>
     <value>False</value>
   </data>
   <data name="toolStripSeparator_BrowserClipboard.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 6</value>
+    <value>174, 6</value>
   </data>
   <data name="toolStripSeparator_BrowserClipboard.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -656,7 +656,7 @@ in case you want to download it.</value>
     <value>Sites</value>
   </data>
   <data name="externalAppsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>177, 22</value>
   </data>
   <data name="externalAppsToolStripMenuItem.Text" xml:space="preserve">
     <value>External Apps</value>
@@ -680,7 +680,7 @@ in case you want to download it.</value>
     <value>Show command line in a messagebox</value>
   </data>
   <data name="NetSHaddToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>113, 22</value>
   </data>
   <data name="NetSHaddToolStripMenuItem.Text" xml:space="preserve">
     <value>Add</value>
@@ -704,7 +704,7 @@ in case you want to download it.</value>
     <value>Show command line in a messagebox</value>
   </data>
   <data name="NetSHdeleteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>113, 22</value>
   </data>
   <data name="NetSHdeleteToolStripMenuItem.Text" xml:space="preserve">
     <value>Delete</value>
@@ -767,13 +767,13 @@ in case you want to download it.</value>
     <value>May be worth a shot if you're experiencing connection issues.</value>
   </data>
   <data name="advancedToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>177, 22</value>
   </data>
   <data name="advancedToolStripMenuItem1.Text" xml:space="preserve">
     <value>Advanced</value>
   </data>
   <data name="toolStripSeparator9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 6</value>
+    <value>174, 6</value>
   </data>
   <data name="toolStripMenuItem_Export.Size" type="System.Drawing.Size, System.Drawing">
     <value>116, 22</value>
@@ -794,16 +794,16 @@ in case you want to download it.</value>
     <value>Restore proxies list from backup</value>
   </data>
   <data name="toolStripMenuItem_BackupRestore.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>177, 22</value>
   </data>
   <data name="toolStripMenuItem_BackupRestore.Text" xml:space="preserve">
     <value>Backup / Restore</value>
   </data>
   <data name="toolStripSeparator6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 6</value>
+    <value>174, 6</value>
   </data>
   <data name="toolStripMenuItem_ResetWindowSize.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>177, 22</value>
   </data>
   <data name="toolStripMenuItem_ResetWindowSize.Text" xml:space="preserve">
     <value>Reset Window</value>
@@ -812,10 +812,10 @@ in case you want to download it.</value>
     <value>Reset the Window Size to it's default</value>
   </data>
   <data name="toolStripSeparator4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 6</value>
+    <value>174, 6</value>
   </data>
   <data name="toolStripMenuItem_About.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>177, 22</value>
   </data>
   <data name="toolStripMenuItem_About.Text" xml:space="preserve">
     <value>About</value>
@@ -856,7 +856,7 @@ in case you want to download it.</value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAmisAAAJNU0Z0AUkBTAIBAQYB
-        AAE4AQYBOAEGARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAASADAAEBAQABIAYAASBe
+        AAFoAQYBaAEGARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAASADAAEBAQABIAYAASBe
         AAMqAUADKgFAAyoBQAMqAUADKgFAAyoBQAMqAUADKgFAAyoBQAMqAUCQAAMMARACWwFZAcABrwHEARYB
         /wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8B
         xAEWAf8BrwHEARYB/wJbAVkBwAMMARAIAAMMARACWQFbAcABPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8B
@@ -1416,6 +1416,9 @@ in case you want to download it.</value>
   <data name="&gt;&gt;lblIpHlpSvcRunning.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="picDockerStatus.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="picDockerStatus.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -1442,6 +1445,9 @@ in case you want to download it.</value>
   </data>
   <data name="picWSLStatus.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
+  </data>
+  <data name="picWSLStatus.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="picWSLStatus.Location" type="System.Drawing.Point, System.Drawing">
     <value>47, 6</value>

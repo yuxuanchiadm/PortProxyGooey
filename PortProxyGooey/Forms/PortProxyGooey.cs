@@ -25,7 +25,7 @@ using static System.Windows.Forms.ListViewItem;
 using ListView = System.Windows.Forms.ListView;
 
 #endregion
-
+// TODO: Add "Added On" tooltips to items in list.
 namespace PortProxyGooey {
 
     public partial class PortProxyGooey : Form {
@@ -358,6 +358,7 @@ namespace PortProxyGooey {
             item.ImageIndex = imageIndex;
             item.Tag = rule.Id;
             item.SubItems.Clear();
+            item.ToolTipText = $"Added:"; // TODO
             item.SubItems.AddRange(new[]
             {
                 new ListViewSubItem(item, rule.Type),
@@ -669,65 +670,73 @@ namespace PortProxyGooey {
                         }
                     }
                 }
-
-                int intCount = listViewProxies.SelectedItems.Count;
-
-                // Enable/Disable (state): Set enabled state of toolstrip items based on the selected item's image index
-                toolStripMenuItem_Enable.Enabled = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Any(x => x.ImageIndex == 0);
-                toolStripMenuItem_Disable.Enabled = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Any(x => x.ImageIndex == 1);
-
-                // Enable/Disable (count): Add count to label if more than 1
-                if (toolStripMenuItem_Enable.Enabled && intCount > 1) { toolStripMenuItem_Enable.Text = $"Enable ({intCount})"; }
-                if (toolStripMenuItem_Disable.Enabled && intCount > 1) { toolStripMenuItem_Disable.Text = $"Disable ({intCount})"; }
-
-                // Only show the Enable/Disable All item if there are more than 1 items (proxies) in the list
-                toolStripMenuItem_EnableDisableAll.Visible = listViewProxies.Items.Count > 1;
-
-                // Delete/Move (count): Add count to let users know how many they're about to nuke (or move)
-                if (intCount > 1) {
-
-                    toolStripMenuItem_Delete.Text = $"Delete ({intCount})";
-                    toolStripMenuItem_MoveTo.Text = $"Group: Move ({intCount}) to ...";
-
-                }
-
-                toolStripMenuItem_Delete.Enabled = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Any();
-                toolStripMenuItem_Modify.Enabled = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
-                toolStripMenuItem_Clone.Enabled = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
-
-                // Clear List: Only visible if Items exist in the list
-                clearToolStripMenuItem.Visible = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
-
-                // Move: Only visible if Items exist in the list (along with the seperator so we don't get ugly double-seperators)
-                toolStripMenuItem_MoveTo.Visible = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
-                toolStripSeparator1.Visible = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
-
-                // NETSH Menu
-                NetSHToolStripMenuItem.Visible = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
-
-                // Registry Key
-                registryKeyToolStripMenuItem.Visible = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
-                toolStripSeparator_NetshRegistry.Visible = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
-
-                // Open in Browser / Copy to Clipboard
-                toolStripMenuItem_OpenInBrowser.Visible = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
-                toolStripMenuItem_Clipboard.Visible = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
-                toolStripSeparator_BrowserClipboard.Visible = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
-
-                // WSL
-                if (WSL.IsRunning()) {
-
-                    WSLShutDownToolStripMenuItem.Enabled = true;
-                    WSLRestartToolStripMenuItem.Enabled = true;
-                    WSLStartToolStripMenuItem.Enabled = false;
-
-                } else {
-
-                    WSLStartToolStripMenuItem.Enabled = true;
-                    WSLShutDownToolStripMenuItem.Enabled = false;
-                    WSLRestartToolStripMenuItem.Enabled = false;
-                }
+                ToggleMenuItems(e, listView);
             }
+        }
+
+        /// <summary>
+        /// Handles the state of ListviewProxies menu items
+        /// </summary>
+        private void ToggleMenuItems(MouseEventArgs e, ListView listView) {
+
+            int intCount = listViewProxies.SelectedItems.Count;
+
+            // Enable/Disable (state): Set enabled state of toolstrip items based on the selected item's image index
+            toolStripMenuItem_Enable.Enabled = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Any(x => x.ImageIndex == 0);
+            toolStripMenuItem_Disable.Enabled = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Any(x => x.ImageIndex == 1);
+
+            // Enable/Disable (count): Add count to label if more than 1
+            if (toolStripMenuItem_Enable.Enabled && intCount > 1) { toolStripMenuItem_Enable.Text = $"Enable ({intCount})"; }
+            if (toolStripMenuItem_Disable.Enabled && intCount > 1) { toolStripMenuItem_Disable.Text = $"Disable ({intCount})"; }
+
+            // Only show the Enable/Disable All item if there are more than 1 items (proxies) in the list
+            toolStripMenuItem_EnableDisableAll.Visible = listViewProxies.Items.Count > 1;
+
+            // Delete/Move (count): Add count to let users know how many they're about to nuke (or move)
+            if (intCount > 1) {
+
+                toolStripMenuItem_Delete.Text = $"Delete ({intCount})";
+                toolStripMenuItem_MoveTo.Text = $"Group: Move ({intCount}) to ...";
+
+            }
+
+            toolStripMenuItem_Delete.Enabled = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Any();
+            toolStripMenuItem_Modify.Enabled = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
+            toolStripMenuItem_Clone.Enabled = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
+
+            // Clear List: Only visible if Items exist in the list
+            clearToolStripMenuItem.Visible = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
+
+            // Move: Only visible if Items exist in the list (along with the seperator so we don't get ugly double-seperators)
+            toolStripMenuItem_MoveTo.Visible = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
+            toolStripSeparator1.Visible = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
+
+            // NETSH Menu
+            NetSHToolStripMenuItem.Visible = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
+
+            // Registry Key
+            registryKeyToolStripMenuItem.Visible = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
+            toolStripSeparator_NetshRegistry.Visible = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
+
+            // Open in Browser / Copy to Clipboard
+            toolStripMenuItem_OpenInBrowser.Visible = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
+            toolStripMenuItem_Clipboard.Visible = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
+            toolStripSeparator_BrowserClipboard.Visible = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
+
+            // WSL
+            if (WSL.IsRunning()) {
+
+                WSLShutDownToolStripMenuItem.Enabled = true;
+                WSLRestartToolStripMenuItem.Enabled = true;
+                WSLStartToolStripMenuItem.Enabled = false;
+
+            } else {
+
+                WSLStartToolStripMenuItem.Enabled = true;
+                WSLShutDownToolStripMenuItem.Enabled = false;
+                WSLRestartToolStripMenuItem.Enabled = false;
+            }
+
         }
 
         /// <summary>
@@ -1321,15 +1330,27 @@ namespace PortProxyGooey {
 
                 if (result) {
 
-                    //WSL.GetInfo_BGW((WSLUptime) => Debug.WriteLine($"{(WSLUptime)}"));
-
                     picWSLStatus.Image = Properties.Resources.green;
                     picWSLStatus.Tag = "1";
-                    //tTipPPG.SetToolTip(picWSLStatus, "WSL: RUNNING");
                     picWSL.Visible = true;
 
                     // LEFT OFF: Need to add WSL version, then below it, all the other WSL info I want.
-                    WSL.GetInfo_BGW((dicWSLInfo) => tTipPPG.SetToolTip(picWSLStatus, $"WSL{(!string.IsNullOrEmpty(dicWSLInfo["Uptime"].ToString()) ? " (v" + (dicWSLInfo["Uptime"]) + ")" : string.Empty)}: RUNNING"));
+                    StringBuilder sb = new();
+
+                    WSL.GetVersion_BGW((strVer) => {sb.AppendLine($"WSL{(!string.IsNullOrEmpty(strVer) ? $" (v{(strVer)})" : string.Empty)}: RUNNING"); });
+
+                    // Grab the other WSL Info
+                    WSL.GetInfo_BGW((dicWSLInfo) => {
+
+                        // Add the Uptime to the sb
+                        if (!string.IsNullOrEmpty(dicWSLInfo["Up Since: Pretty"].ToString())) {sb.AppendLine($"Uptime: {dicWSLInfo["Up Since: Pretty"].ToString()}");}
+
+                        // NOTE: For reasons unbeknownst to me as of yet; sb loses it's context if put outside one of these BGWs; i.e. placing the following line outside this BGW,
+                        //       even though it retains it's contents outside of the above different BGW call ...
+                        // Set the final tooltip
+                        tTipPPG.SetToolTip(picWSLStatus, sb.ToString());
+
+                    });
 
                 } else {
 
@@ -1379,6 +1400,10 @@ namespace PortProxyGooey {
 
             }, PortProxyUtil.ServiceName, false);
 
+            // We initially have these set to disabled so user can't fuck w/the context menus until the first check is done. After that they can go HAM on them all they want.
+            if (!picWSLStatus.Enabled) { picWSLStatus.Enabled = true; }
+            if (!picDockerStatus.Enabled) { picDockerStatus.Enabled = true; }
+
         }
 
         private void ToolStripMenuItem_Move_Click(object sender, EventArgs e) {
@@ -1427,7 +1452,6 @@ namespace PortProxyGooey {
             // Source: https://github.com/swagfin/PortProxyGUI/commit/af6cfdcafe66883def4a9305149c6a48afbfb8f9
 
             try {
-                //Services.ParamChange(PortProxyUtil.ServiceName);
                 Services.ParamChangeWinAPI(PortProxyUtil.ServiceName);
             } catch (Exception ex) {
                 MessageBox.Show(ex.Message, $"{PortProxyUtil.ServiceFriendlyName} Restart Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -1485,7 +1509,7 @@ namespace PortProxyGooey {
         private void picWSLStatus_Click(object sender, EventArgs e) {
 
             if (picWSLStatus.Tag.ToString() == "1") {
-                // TODO: do this w/ the ones in the advanced menu as well (if I decide to keep that menu there)
+                // TODO: do this w/the ones in the advanced menu as well (if I decide to keep that menu there)
                 toolStripMenuItemWSLStart.Visible = false;
                 toolStripMenuItemWSLRestart.Visible = true;
                 toolStripMenuItemWSLShutDown.Visible = true;
@@ -1526,47 +1550,51 @@ namespace PortProxyGooey {
 
         private void ToolStripMenuItem_WSLInfo_Click(object sender, EventArgs e) {
 
-            // TODO: Left off needing to add WSL version + any other WSL stuff I want, to the dialog.
-
-            WSL.GetInfo_BGW((WSLInfo) => {
+            if (WSL.IsRunning()) {
 
                 StringBuilder sb = new();
 
-                sb.AppendLine("Version: TODO");
-                sb.AppendLine();
+                // Get WSL Vesion
+                WSL.GetVersion_BGW((strVer) => {if (!string.IsNullOrEmpty(strVer)) {sb.AppendLine($"Version:\t\t{strVer}");}});
 
-                foreach (DictionaryEntry de in WSLInfo) {
+                // TODO: Left off needing to add any other WSL stuff I want, to the dialog.
+                // Get other WSL Info
+                WSL.GetInfo_BGW((WSLInfo) => {
 
-                    switch (de.Key.ToString()) {
+                    foreach (DictionaryEntry de in WSLInfo) {
 
-                        case string _ when de.Key.ToString().Equals("Up Since"):
+                        switch (de.Key.ToString()) {
 
-                            sb.AppendLine($"{de.Key.ToString()}\t\t{de.Value.ToString()}");
-                            break;
+                            case string _ when de.Key.ToString().Equals("Up Since:"):
 
-                        case string _ when de.Key.ToString().Equals("Up Since: Pretty"):
+                                sb.AppendLine($"{de.Key.ToString()}\t\t{de.Value.ToString()}");
+                                break;
 
-                            sb.AppendLine($"\t\t{de.Value.ToString()}");
-                            break;
+                            case string _ when de.Key.ToString().Equals("Up Since: Pretty"):
 
-                        case string _ when de.Key.ToString().Equals("Users"):
+                                sb.AppendLine($"\t\t{de.Value.ToString()}");
+                                break;
 
-                            sb.AppendLine($"{de.Key.ToString()}\t\t{de.Value.ToString()}");
-                            break;
+                            case string _ when de.Key.ToString().Equals("Users:"):
 
-                        case string _ when de.Key.ToString().Equals("Load Average: Pretty"):
+                                sb.AppendLine($"{de.Key.ToString()}\t\t{de.Value.ToString()}");
+                                break;
 
-                            sb.AppendLine($"Load Averages:\t{de.Value.ToString()}");
-                            break;
+                            case string _ when de.Key.ToString().Equals("Load Average: Pretty"):
+
+                                sb.AppendLine($"Load Averages:\t{de.Value.ToString()}");
+                                break;
+
+                        }
 
                     }
 
-                }
+                    // NOTE: Might wanna validate sb here before opening the window, just to make sure all is ok.
+                    // Show the final result in a Dialog Window
+                    Dialogs.CustomDialog(sb.ToString(), "WSL Info", false);
 
-                Dialogs.CustomDialog(sb.ToString(), "WSL Info", false, new Size(537, 688));
-
-            });
-
+                });
+            }
         }
 
         private void toolStripMenuItem_About_Click(object sender, EventArgs e) {
@@ -1766,27 +1794,26 @@ namespace PortProxyGooey {
         #region + -- OPEN IN BROWSER -- +
 
         private void toolStripMenuItem_OpenInBrowserHttp_Click(object sender, EventArgs e) {
-
-            try {
-
-                ListViewItem selectedItem = listViewProxies.SelectedItems[0];
-                Misc.RunCommand("explorer.exe", $"http://{selectedItem.SubItems[2].Text.Replace("0.0.0.0", "localhost").Replace("*", "localhost")}:{selectedItem.SubItems[3].Text}");
-
-            } catch (Exception ex) {
-                Debug.WriteLine($"OpenInBrowserHttp_Click): {ex.Message}");
-            }
-
+            OpenInBrowser();
         }
 
         private void toolStripMenuItem_OpenInBrowserHttps_Click(object sender, EventArgs e) {
+            OpenInBrowser(true);
+        }
+
+        /// <summary>
+        /// Opens the selected item in the browser.
+        /// </summary>
+        /// <param name="bHTTPS">[optional: default False] If set to <c>true</c> use https</param>
+        private void OpenInBrowser(bool bHTTPS = false) {
 
             try {
 
                 ListViewItem selectedItem = listViewProxies.SelectedItems[0];
-                Misc.RunCommand("explorer.exe", $"https://{selectedItem.SubItems[2].Text.Replace("0.0.0.0", "localhost").Replace("*", "localhost")}:{selectedItem.SubItems[3].Text}");
+                Misc.RunCommand("explorer.exe", $"http{(bHTTPS ? "s" : string.Empty)}://{selectedItem.SubItems[2].Text.Replace("0.0.0.0", "localhost").Replace("*", "localhost")}:{selectedItem.SubItems[3].Text}");
 
             } catch (Exception ex) {
-                Debug.WriteLine($"OpenInBrowserHttps_Click(): {ex.Message}");
+                Debug.WriteLine($"OpenInBrowserHttp{(bHTTPS ? "s" : string.Empty)}_Click(): {ex.Message}");
             }
 
         }

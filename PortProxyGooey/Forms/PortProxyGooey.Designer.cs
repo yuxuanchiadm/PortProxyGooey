@@ -175,6 +175,7 @@
             listViewProxies.ForeColor = System.Drawing.Color.FromArgb(229, 233, 240);
             listViewProxies.FullRowSelect = true;
             listViewProxies.Name = "listViewProxies";
+            listViewProxies.ShowItemToolTips = true;
             listViewProxies.SmallImageList = imgListProxies;
             listViewProxies.UseCompatibleStateImageBehavior = false;
             listViewProxies.View = System.Windows.Forms.View.Details;
@@ -803,10 +804,11 @@
             // 
             // tTipPPG
             // 
-            tTipPPG.AutoPopDelay = 5000;
+            tTipPPG.AutomaticDelay = 1000;
+            tTipPPG.AutoPopDelay = 10000;
             tTipPPG.BackColor = System.Drawing.Color.FromArgb(235, 203, 139);
             tTipPPG.InitialDelay = 1000;
-            tTipPPG.ReshowDelay = 100;
+            tTipPPG.ReshowDelay = 500;
             // 
             // picDocker
             // 
@@ -916,8 +918,8 @@
             // 
             picDockerStatus.ContextMenuStrip = contextMenuStrip_Docker;
             picDockerStatus.Cursor = System.Windows.Forms.Cursors.Hand;
-            picDockerStatus.Image = Properties.Resources.red;
             resources.ApplyResources(picDockerStatus, "picDockerStatus");
+            picDockerStatus.Image = Properties.Resources.red;
             picDockerStatus.Name = "picDockerStatus";
             picDockerStatus.TabStop = false;
             picDockerStatus.Click += picDockerStatus_Click;
