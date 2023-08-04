@@ -723,20 +723,6 @@ namespace PortProxyGooey {
             toolStripMenuItem_Clipboard.Visible = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
             toolStripSeparator_BrowserClipboard.Visible = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
 
-            // WSL
-            if (WSL.IsRunning()) {
-
-                WSLShutDownToolStripMenuItem.Enabled = true;
-                WSLRestartToolStripMenuItem.Enabled = true;
-                WSLStartToolStripMenuItem.Enabled = false;
-
-            } else {
-
-                WSLStartToolStripMenuItem.Enabled = true;
-                WSLShutDownToolStripMenuItem.Enabled = false;
-                WSLRestartToolStripMenuItem.Enabled = false;
-            }
-
         }
 
         /// <summary>
@@ -928,7 +914,7 @@ namespace PortProxyGooey {
             if (AppConfig is not null && sender is Form form)
                 AppConfig.MainWindowSize = form.Size;
 
-            Debug.WriteLine($"Resized to: [w: {Width} h: {Height}]");
+            //Debug.WriteLine($"Resized to: [w: {Width} h: {Height}]");
         }
 
         #region + -- IMPORT / EXPORT -- +
@@ -1337,13 +1323,13 @@ namespace PortProxyGooey {
                     // LEFT OFF: Need to add WSL version, then below it, all the other WSL info I want.
                     StringBuilder sb = new();
 
-                    WSL.GetVersion_BGW((strVer) => {sb.AppendLine($"WSL{(!string.IsNullOrEmpty(strVer) ? $" (v{(strVer)})" : string.Empty)}: RUNNING"); });
+                    WSL.GetVersion_BGW((strVer) => { sb.AppendLine($"WSL{(!string.IsNullOrEmpty(strVer) ? $" (v{(strVer)})" : string.Empty)}: RUNNING"); });
 
                     // Grab the other WSL Info
                     WSL.GetInfo_BGW((dicWSLInfo) => {
 
                         // Add the Uptime to the sb
-                        if (!string.IsNullOrEmpty(dicWSLInfo["Up Since: Pretty"].ToString())) {sb.AppendLine($"Uptime: {dicWSLInfo["Up Since: Pretty"].ToString()}");}
+                        if (!string.IsNullOrEmpty(dicWSLInfo["Up Since: Pretty"].ToString())) { sb.AppendLine($"Uptime: {dicWSLInfo["Up Since: Pretty"].ToString()}"); }
 
                         // NOTE: For reasons unbeknownst to me as of yet; sb loses it's context if put outside one of these BGWs; i.e. placing the following line outside this BGW,
                         //       even though it retains it's contents outside of the above different BGW call ...
@@ -1464,21 +1450,25 @@ namespace PortProxyGooey {
 
         private void picIpHlpSvcStatus_Click(object sender, EventArgs e) {
 
-            // First, check if the service is already running; we only want to do something if it's not.
-            Services.IsRunning_BGW((result) => {
+            if (((MouseEventArgs)e).Button == MouseButtons.Left) {
 
-                if (!result) {
+                // First, check if the service is already running; we only want to do something if it's not.
+                Services.IsRunning_BGW((result) => {
 
-                    // Start the service
-                    //Debug.WriteLine($"{PortProxyUtil.ServiceName}: Starting");  
+                    if (!result) {
 
-                    Services.Start_BGW((result) => {
-                        //Debug.WriteLine(result);
-                    }, PortProxyUtil.ServiceName);
+                        // Start the service
+                        //Debug.WriteLine($"{PortProxyUtil.ServiceName}: Starting");  
 
-                }
+                        Services.Start_BGW((result) => {
+                            //Debug.WriteLine(result);
+                        }, PortProxyUtil.ServiceName);
 
-            }, PortProxyUtil.ServiceName, false);
+                    }
+
+                }, PortProxyUtil.ServiceName, false);
+
+            }
 
         }
 
@@ -1506,22 +1496,33 @@ namespace PortProxyGooey {
 
         }
 
+        private void picWSLStatus_DoubleClick(object sender, EventArgs e) {
+
+            // As a convenience, show the full WSL Info window on double-click
+            ShowWSLInfoWindow();
+        }
+
         private void picWSLStatus_Click(object sender, EventArgs e) {
 
-            if (picWSLStatus.Tag.ToString() == "1") {
-                // TODO: do this w/the ones in the advanced menu as well (if I decide to keep that menu there)
-                toolStripMenuItemWSLStart.Visible = false;
-                toolStripMenuItemWSLRestart.Visible = true;
-                toolStripMenuItemWSLShutDown.Visible = true;
+            if (((MouseEventArgs)e).Button == MouseButtons.Left) {
 
-            } else {
+                if (picWSLStatus.Tag.ToString() == "1") {
 
-                toolStripMenuItemWSLStart.Visible = true;
-                toolStripMenuItemWSLRestart.Visible = false;
-                toolStripMenuItemWSLShutDown.Visible = false;
+                    // WSL already running; hide the "start" item, show Restart & Shutdown.
+                    toolStripMenuItemWSLStart.Visible = false;
+                    toolStripMenuItemWSLRestart.Visible = true;
+                    toolStripMenuItemWSLShutDown.Visible = true;
+
+                } else {
+
+                    // WSL not running; show the "start" item, hide Restart & Shutdown.
+                    toolStripMenuItemWSLStart.Visible = true;
+                    toolStripMenuItemWSLRestart.Visible = false;
+                    toolStripMenuItemWSLShutDown.Visible = false;
+                }
+
+                contextMenuStrip_WSL.Show(Cursor.Position.X - 8, Cursor.Position.Y + 12);
             }
-
-            contextMenuStrip_WSL.Show(Cursor.Position);
 
         }
 
@@ -1533,14 +1534,29 @@ namespace PortProxyGooey {
             ToggleSelectedProxies(false, true);
         }
 
+        private void picDockerStatus_DoubleClick(object sender, EventArgs e) {
+
+            // As a convenience, show the full Docker Info window on double-click
+            ShowDockerInfoWindow();
+
+        }
+
         private void picDockerStatus_Click(object sender, EventArgs e) {
-            contextMenuStrip_Docker.Show(Cursor.Position);
+
+            if (((MouseEventArgs)e).Button == MouseButtons.Left) {
+                contextMenuStrip_Docker.Show(Cursor.Position.X - 8, Cursor.Position.Y + 12);
+            }
+
+        }
+
+        private void ToolStripMenuItem_DockerInfo_Click(object sender, EventArgs e) {
+            ShowDockerInfoWindow();
         }
 
         /// <summary>
         /// Shows the Docker Info in a Dialog Window
         /// </summary>
-        private void ToolStripMenuItem_DockerInfo_Click(object sender, EventArgs e) {
+        private static void ShowDockerInfoWindow() {
 
             Docker.GetInfo_BGW((DockerInfo) => {
                 Dialogs.CustomDialog(DockerInfo.ReplaceLineEndings(), "Docker Info", false, new Size(537, 688));
@@ -1549,13 +1565,17 @@ namespace PortProxyGooey {
         }
 
         private void ToolStripMenuItem_WSLInfo_Click(object sender, EventArgs e) {
+            ShowWSLInfoWindow();
+        }
+
+        private static void ShowWSLInfoWindow() {
 
             if (WSL.IsRunning()) {
 
                 StringBuilder sb = new();
 
                 // Get WSL Vesion
-                WSL.GetVersion_BGW((strVer) => {if (!string.IsNullOrEmpty(strVer)) {sb.AppendLine($"Version:\t\t{strVer}");}});
+                WSL.GetVersion_BGW((strVer) => { if (!string.IsNullOrEmpty(strVer)) { sb.AppendLine($"Version:\t\t{strVer}"); } });
 
                 // TODO: Left off needing to add any other WSL stuff I want, to the dialog.
                 // Get other WSL Info
@@ -1594,7 +1614,9 @@ namespace PortProxyGooey {
                     Dialogs.CustomDialog(sb.ToString(), "WSL Info", false);
 
                 });
+
             }
+
         }
 
         private void toolStripMenuItem_About_Click(object sender, EventArgs e) {
@@ -1820,6 +1842,6 @@ namespace PortProxyGooey {
 
         #endregion
 
-    }
 
+    }
 }

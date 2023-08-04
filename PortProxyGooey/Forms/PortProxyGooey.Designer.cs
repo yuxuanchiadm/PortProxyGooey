@@ -75,15 +75,6 @@
             toolStripMenuItem_CopyConnectToAsURLhttps = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator_BrowserClipboard = new System.Windows.Forms.ToolStripSeparator();
             externalAppsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            WSLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            WSLRunningToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
-            WSLStartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            WSLRestartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
-            WSLShutDownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            dockerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             windowsFirewallToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             windowsFirewallToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             basicToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -468,66 +459,10 @@
             // 
             // externalAppsToolStripMenuItem
             // 
-            externalAppsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { WSLToolStripMenuItem, dockerToolStripMenuItem, toolStripSeparator8, windowsFirewallToolStripMenuItem, adaptersToolStripMenuItem, toolStripSeparator10, sitesToolStripMenuItem });
+            externalAppsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { windowsFirewallToolStripMenuItem, adaptersToolStripMenuItem, toolStripSeparator10, sitesToolStripMenuItem });
             externalAppsToolStripMenuItem.Image = Properties.Resources.external_apps;
             externalAppsToolStripMenuItem.Name = "externalAppsToolStripMenuItem";
             resources.ApplyResources(externalAppsToolStripMenuItem, "externalAppsToolStripMenuItem");
-            // 
-            // WSLToolStripMenuItem
-            // 
-            WSLToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { WSLRunningToolStripMenuItem, toolStripSeparator12, WSLStartToolStripMenuItem, WSLRestartToolStripMenuItem, toolStripSeparator13, WSLShutDownToolStripMenuItem });
-            WSLToolStripMenuItem.Image = Properties.Resources.wsl;
-            WSLToolStripMenuItem.Name = "WSLToolStripMenuItem";
-            resources.ApplyResources(WSLToolStripMenuItem, "WSLToolStripMenuItem");
-            // 
-            // WSLRunningToolStripMenuItem
-            // 
-            WSLRunningToolStripMenuItem.Image = Properties.Resources.wsl;
-            WSLRunningToolStripMenuItem.Name = "WSLRunningToolStripMenuItem";
-            resources.ApplyResources(WSLRunningToolStripMenuItem, "WSLRunningToolStripMenuItem");
-            WSLRunningToolStripMenuItem.Click += WSLRunningToolStripMenuItem_Click;
-            // 
-            // toolStripSeparator12
-            // 
-            toolStripSeparator12.Name = "toolStripSeparator12";
-            resources.ApplyResources(toolStripSeparator12, "toolStripSeparator12");
-            // 
-            // WSLStartToolStripMenuItem
-            // 
-            resources.ApplyResources(WSLStartToolStripMenuItem, "WSLStartToolStripMenuItem");
-            WSLStartToolStripMenuItem.Image = Properties.Resources.wsl;
-            WSLStartToolStripMenuItem.Name = "WSLStartToolStripMenuItem";
-            WSLStartToolStripMenuItem.Click += WSLStartToolStripMenuItem_Click;
-            // 
-            // WSLRestartToolStripMenuItem
-            // 
-            resources.ApplyResources(WSLRestartToolStripMenuItem, "WSLRestartToolStripMenuItem");
-            WSLRestartToolStripMenuItem.Image = Properties.Resources.wsl;
-            WSLRestartToolStripMenuItem.Name = "WSLRestartToolStripMenuItem";
-            WSLRestartToolStripMenuItem.Click += WSLRestartToolStripMenuItem_Click;
-            // 
-            // toolStripSeparator13
-            // 
-            toolStripSeparator13.Name = "toolStripSeparator13";
-            resources.ApplyResources(toolStripSeparator13, "toolStripSeparator13");
-            // 
-            // WSLShutDownToolStripMenuItem
-            // 
-            resources.ApplyResources(WSLShutDownToolStripMenuItem, "WSLShutDownToolStripMenuItem");
-            WSLShutDownToolStripMenuItem.Image = Properties.Resources.wsl;
-            WSLShutDownToolStripMenuItem.Name = "WSLShutDownToolStripMenuItem";
-            WSLShutDownToolStripMenuItem.Click += WSLShutDownToolStripMenuItem_Click;
-            // 
-            // dockerToolStripMenuItem
-            // 
-            dockerToolStripMenuItem.Image = Properties.Resources.docker_1;
-            dockerToolStripMenuItem.Name = "dockerToolStripMenuItem";
-            resources.ApplyResources(dockerToolStripMenuItem, "dockerToolStripMenuItem");
-            // 
-            // toolStripSeparator8
-            // 
-            toolStripSeparator8.Name = "toolStripSeparator8";
-            resources.ApplyResources(toolStripSeparator8, "toolStripSeparator8");
             // 
             // windowsFirewallToolStripMenuItem
             // 
@@ -916,13 +851,13 @@
             // 
             // picDockerStatus
             // 
-            picDockerStatus.ContextMenuStrip = contextMenuStrip_Docker;
             picDockerStatus.Cursor = System.Windows.Forms.Cursors.Hand;
             resources.ApplyResources(picDockerStatus, "picDockerStatus");
             picDockerStatus.Image = Properties.Resources.red;
             picDockerStatus.Name = "picDockerStatus";
             picDockerStatus.TabStop = false;
             picDockerStatus.Click += picDockerStatus_Click;
+            picDockerStatus.DoubleClick += picDockerStatus_DoubleClick;
             // 
             // picWSLStatus
             // 
@@ -933,6 +868,7 @@
             picWSLStatus.TabStop = false;
             picWSLStatus.Tag = "0";
             picWSLStatus.Click += picWSLStatus_Click;
+            picWSLStatus.DoubleClick += picWSLStatus_DoubleClick;
             // 
             // lblWSLIP
             // 
@@ -1030,8 +966,6 @@
         private System.Windows.Forms.ToolStripMenuItem basicToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem advancedToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem dockerToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_Clone;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
         private System.Windows.Forms.ToolStripMenuItem advancedToolStripMenuItem1;
@@ -1054,14 +988,7 @@
         private System.Windows.Forms.ToolTip tTipPPG;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator_NetshRegistry;
         private System.Windows.Forms.ToolStripMenuItem winsockResetToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem WSLToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem WSLRunningToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem WSLShutDownToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
-        private System.Windows.Forms.ToolStripMenuItem WSLStartToolStripMenuItem;
         private System.Windows.Forms.Timer tmrCheck;
-        private System.Windows.Forms.ToolStripMenuItem WSLRestartToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator13;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip_WSL;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemWSLRestart;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemWSLShutDown;
