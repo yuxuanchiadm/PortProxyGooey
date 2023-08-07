@@ -21,9 +21,9 @@
 
 using NAudio.Wave;
 using NStandard;
+using NetFwTypeLib; // Windows Firewall API
 using PortProxyGooey;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -39,8 +39,6 @@ using System.Net.Sockets;
 using System.Reflection;
 using System.Resources;
 using System.Runtime.InteropServices;
-using System.Runtime.Intrinsics.X86;
-using System.Security.Policy;
 using System.ServiceProcess;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -665,6 +663,132 @@ namespace JSE_Utils {
             };
 
             worker.RunWorkerAsync();
+        }
+
+    }
+
+    public static class Firewall {
+
+        #region + -- NOTES  -- +
+
+        // Reference: https://learn.microsoft.com/en-us/windows/win32/api/netfw/nn-netfw-inetfwrule
+
+        // - As of yet I haven't gone too deep into validation. Some things still need it to make sure the proper values get passed to the properties. i.e InterfaceTypes
+        //   and https://learn.microsoft.com/en-us/windows/win32/api/netfw/nf-netfw-inetfwrule-get_localaddresses.
+        // - Also, this (at least so far) isn't meant to handle all possible abilities of the Windows Firewall (not "all inclusive"); just some basic adding/removing.
+
+        #endregion
+
+        /// <summary>
+        /// Adds a rule to the WIndows Firewall
+        /// </summary>
+        /// <param name="strLocalPorts">The string local ports.</param>
+        /// <param name="strRemotePorts">The string remote ports.</param>
+        /// <param name="strName">Name of the string.</param>
+        /// <param name="strDescription">The string description.</param>
+        /// <param name="strLocalAddresses">The string local addresses.</param>
+        /// <param name="strRemoteAddresses">The string remote addresses.</param>
+        /// <param name="bAllow">if set to <c>true</c> [b allow].</param>
+        /// <param name="bDirectionOut">if set to <c>true</c> [b direction out].</param>
+        /// <param name="bTCP">if set to <c>true</c> [b TCP].</param>
+        /// <param name="bEnabled">if set to <c>true</c> [b enabled].</param>
+        /// <param name="strInterfaceTypes">The string interface types.</param>
+        /// <returns>0 on Successful Add; 1 on Failed Add</returns>
+        public static int WinFirewall_RuleAdd(
+            string strLocalPorts = "", 
+            string strRemotePorts = "Any",
+            string strName = "No Name Given",
+            string strDescription = "No Description Given",  
+            string strLocalAddresses = "*", 
+            string strRemoteAddresses = "*", 
+            bool bAllow = true, 
+            bool bDirectionOut = true, 
+            bool bTCP = true, 
+            bool bEnabled = false, 
+            string strInterfaceTypes = "All") {
+
+            int intFailed = 0;
+
+            try {
+
+                // Create an instance of the Windows Firewall Manager
+                INetFwPolicy2 firewallPolicy = (INetFwPolicy2)Activator.CreateInstance(Type.GetTypeFromProgID("HNetCfg.FwPolicy2"));
+
+                // Create the new rule
+                INetFwRule firewallRule = (INetFwRule)Activator.CreateInstance(Type.GetTypeFromProgID("HNetCfg.FWRule"));
+
+                // Set properties for the new rule
+                firewallRule.Action = bAllow ? NET_FW_ACTION_.NET_FW_ACTION_ALLOW : NET_FW_ACTION_.NET_FW_ACTION_BLOCK;                             // Allow or Block INCOMING traffic
+                firewallRule.Description = strDescription.Replace("|", string.Empty).Trim();                                                        // Rule description ("|" not allowed)
+                firewallRule.Direction = bDirectionOut ? NET_FW_RULE_DIRECTION_.NET_FW_RULE_DIR_OUT : NET_FW_RULE_DIRECTION_.NET_FW_RULE_DIR_IN;    // Traffic Direction
+                firewallRule.Enabled = bEnabled;                                                                                                    // Enable/Disable the rule
+                firewallRule.InterfaceTypes = strInterfaceTypes;                                                                                    // Interface (Choices are: "RemoteAccess", "Wireless", "Lan", & "All". Or any of them separated by commas)
+                firewallRule.Name = strName.Replace("|", string.Empty).Replace("all", string.Empty).Trim();                                         // Rule name ("|" and "all" not allowed)
+                firewallRule.Protocol = bTCP ? (int)NET_FW_IP_PROTOCOL_.NET_FW_IP_PROTOCOL_TCP : (int)NET_FW_IP_PROTOCOL_.NET_FW_IP_PROTOCOL_UDP;   // Protocol (you can also use 6 for TCP, or 17 for UDP).
+                firewallRule.LocalPorts = strLocalPorts;                                                                                            // LOCAL port(s) to allow traffic. "RPC" is also acceptable.    TODO
+                firewallRule.RemotePorts = strRemotePorts;                                                                                          // REMOTE port(s) to allow traffic.                             TODO
+                firewallRule.LocalAddresses = strLocalAddresses;                                                                                    // ! Needs validation added later !
+                firewallRule.RemoteAddresses = strRemoteAddresses;                                                                                  // ! Needs validation added later !
+
+                //firewallRule.Profiles = firewallPolicy.CurrentProfileTypes;                                                                       // Note sure yet, look it up.                                   TODO
+
+                // Add the rule to the Windows Firewall.
+                firewallPolicy.Rules.Add(firewallRule);
+
+            } catch (Exception ex) {
+
+                intFailed = 1;
+                Debug.WriteLine($"WinFirewall_RuleAdd(): {ex}");
+                
+            }
+
+            return intFailed;
+
+        }
+
+        public static int WinFirewall_RuleRemove(string strName, string strLocalPorts, string strRemotePorts) {
+            // left off: when several names in the fw list match, it's deleting the first it finds, even though I specify local and remote ports as well.
+            int intFailed = 0;
+
+            try {
+
+                // Create an instance of the Windows Firewall Manager
+                INetFwPolicy2 firewallPolicy = (INetFwPolicy2)Activator.CreateInstance(Type.GetTypeFromProgID("HNetCfg.FwPolicy2"));
+
+                // Filter rules based on all criteria (Name, LocalPorts, and RemotePorts)
+                var matchingRules = firewallPolicy.Rules
+                    .OfType<INetFwRule>()
+                    .Where(x => x.Name == strName && x.LocalPorts == strLocalPorts && x.RemotePorts == strRemotePorts)
+                    .ToList();
+
+                // Check if any matching rule was found
+                if (matchingRules.Count > 0) {
+
+                    foreach (var rule in matchingRules) {
+                        firewallPolicy.Rules.Remove(rule.Name);
+                    }
+
+                } else {
+                    intFailed = 1;
+                }
+
+            } catch (Exception ex) {
+                intFailed = 1;
+                Debug.WriteLine($"WinFirewall_RuleRemove(): {ex}");
+            }
+
+            return intFailed;
+        }
+
+
+        public static void WinFirewallPowerShell() {
+
+            // TODO: (Eventually, if I feel like it). Pass these PowerShell commands to a command line.
+
+            // Invoke-Expression "New-NetFireWallRule -DisplayName 'WSL2 Firewall Unlock' -Direction Outbound -LocalPort $ports_tcp -Action Allow -Protocol TCP -Group WSL -Description 'PortProxy for forwarding TCP ports to WSL'";
+            // Invoke-Expression "New-NetFireWallRule -DisplayName 'WSL2 Firewall Unlock' -Direction Inbound -LocalPort $ports_tcp -Action Allow -Protocol TCP -Group WSL -Description 'PortProxy for forwarding TCP ports to WSL'";
+            // Invoke-Expression "Remove-NetFireWallRule -DisplayName 'WSL2 Firewall Unlock'";
+
         }
 
     }

@@ -335,6 +335,33 @@ This saves you from having to do repititous form filling.</value>
   <data name="toolStripMenuItem_Delete.ToolTipText" xml:space="preserve">
     <value>Remove selected port proxy(s)</value>
   </data>
+  <data name="toolStripSeparator8.Size" type="System.Drawing.Size, System.Drawing">
+    <value>179, 6</value>
+  </data>
+  <data name="toolStripMenuItem_FirewallAdd.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="toolStripMenuItem_FirewallAdd.Text" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="toolStripMenuItem_FirewallAdd.ToolTipText" xml:space="preserve">
+    <value>Add item to your Firewall</value>
+  </data>
+  <data name="toolStripMenuItem_FirewallRemove.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="toolStripMenuItem_FirewallRemove.Text" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="toolStripMenuItem_FirewallRemove.ToolTipText" xml:space="preserve">
+    <value>Remove item from your firewall</value>
+  </data>
+  <data name="firewallToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 22</value>
+  </data>
+  <data name="firewallToolStripMenuItem.Text" xml:space="preserve">
+    <value>Firewall</value>
+  </data>
   <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
     <value>179, 6</value>
   </data>
@@ -559,11 +586,11 @@ If it's not found on your system you'll be
 directed to it's homepage as a convenience
 in case you want to download it.</value>
   </data>
-  <data name="windowsFirewallToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="toolStripMenuItem_WindowsFirewall.Size" type="System.Drawing.Size, System.Drawing">
     <value>183, 22</value>
   </data>
-  <data name="windowsFirewallToolStripMenuItem.Text" xml:space="preserve">
-    <value>Firewall</value>
+  <data name="toolStripMenuItem_WindowsFirewall.Text" xml:space="preserve">
+    <value>Firewall UI's</value>
   </data>
   <data name="adaptersToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>183, 22</value>
@@ -764,7 +791,7 @@ in case you want to download it.</value>
     <value>More</value>
   </data>
   <data name="contextMenuStrip_RightClick.Size" type="System.Drawing.Size, System.Drawing">
-    <value>183, 304</value>
+    <value>183, 354</value>
   </data>
   <data name="&gt;&gt;contextMenuStrip_RightClick.Name" xml:space="preserve">
     <value>contextMenuStrip_RightClick</value>
@@ -793,7 +820,7 @@ in case you want to download it.</value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAmisAAAJNU0Z0AUkBTAIBAQYB
-        AAGoAQYBqAEGARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAASADAAEBAQABIAYAASBe
+        AAHIAQYByAEGARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAASADAAEBAQABIAYAASBe
         AAMqAUADKgFAAyoBQAMqAUADKgFAAyoBQAMqAUADKgFAAyoBQAMqAUCQAAMMARACWwFZAcABrwHEARYB
         /wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8B
         xAEWAf8BrwHEARYB/wJbAVkBwAMMARAIAAMMARACWQFbAcABPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8B
@@ -3877,6 +3904,30 @@ in case you want to download it.</value>
   <data name="&gt;&gt;toolStripMenuItem_Delete.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;toolStripSeparator8.Name" xml:space="preserve">
+    <value>toolStripSeparator8</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;firewallToolStripMenuItem.Name" xml:space="preserve">
+    <value>firewallToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;firewallToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem_FirewallAdd.Name" xml:space="preserve">
+    <value>toolStripMenuItem_FirewallAdd</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem_FirewallAdd.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem_FirewallRemove.Name" xml:space="preserve">
+    <value>toolStripMenuItem_FirewallRemove</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem_FirewallRemove.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;toolStripSeparator1.Name" xml:space="preserve">
     <value>toolStripSeparator1</value>
   </data>
@@ -4045,10 +4096,10 @@ in case you want to download it.</value>
   <data name="&gt;&gt;externalAppsToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;windowsFirewallToolStripMenuItem.Name" xml:space="preserve">
-    <value>windowsFirewallToolStripMenuItem</value>
+  <data name="&gt;&gt;toolStripMenuItem_WindowsFirewall.Name" xml:space="preserve">
+    <value>toolStripMenuItem_WindowsFirewall</value>
   </data>
-  <data name="&gt;&gt;windowsFirewallToolStripMenuItem.Type" xml:space="preserve">
+  <data name="&gt;&gt;toolStripMenuItem_WindowsFirewall.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;windowsFirewallToolStripMenuItem1.Name" xml:space="preserve">

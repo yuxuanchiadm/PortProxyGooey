@@ -10,22 +10,18 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Resources;
-using System.Runtime;
 using System.Text;
-//using System.ServiceProcess;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.ListViewItem;
-//using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using ListView = System.Windows.Forms.ListView;
 
 #endregion
-// TODO: Add "Added On" tooltips to items in list.
+
 namespace PortProxyGooey {
 
     public partial class PortProxyGooey : Form {
@@ -67,7 +63,7 @@ namespace PortProxyGooey {
 
             //Audio.PlaySound_BGW("HS");
             //Audio.PlaySound2_BGW("HS");
-            Audio.tmpPlay(Properties.Resources.HS);
+            //Audio.tmpPlay(Properties.Resources.HS);
 
             Debug.WriteLine(WSL.GetDistros());
             //Audio.PlaySound_BGW("Flush");
@@ -80,7 +76,7 @@ namespace PortProxyGooey {
 
             // Retrieve the image resource by name.
             // TODO: https://stackoverflow.com/questions/4416934/c-how-to-make-a-picture-background-transparent
-            Image img = (Image)rm.GetObject("decoration");
+            //Image img = (Image)rm.GetObject("decoration");
 
             //e.Graphics.DrawImage(img, 50, 50, 100, 100);
 
@@ -885,7 +881,9 @@ namespace PortProxyGooey {
 
                 default:
                     return base.ProcessCmdKey(ref msg, keyData);
+
             }
+
         }
 
         private void listViewProxies_ColumnWidthChanged(object sender, ColumnWidthChangedEventArgs e) {
@@ -1043,7 +1041,7 @@ namespace PortProxyGooey {
 
                 if (key != null) {
 
-                    Process.Start(key.GetValue("InstallationPath").ToString(), strPanel);
+                    Misc.RunCommand(key.GetValue("InstallationPath").ToString(), strPanel);
                     key.Close();
 
                 } else {
@@ -1201,7 +1199,7 @@ namespace PortProxyGooey {
                 key.Close();
             }
 
-            Process.Start("regedit.exe");
+            Misc.RunCommand("regedit.exe");
         }
 
         private void portForwardingTesterToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -1843,5 +1841,22 @@ namespace PortProxyGooey {
         #endregion
 
 
+        private void toolStripMenuItem_FirewallAdd_Click(object sender, EventArgs e) {
+
+            ListViewItem selectedItem = listViewProxies.SelectedItems[0];
+
+            Firewall.WinFirewall_RuleAdd(selectedItem.SubItems[3].Text, selectedItem.SubItems[5].Text, @"PPGooey (Out)", selectedItem.SubItems[6].Text, selectedItem.SubItems[2].Text, selectedItem.SubItems[4].Text, true, true, true, true);
+            Firewall.WinFirewall_RuleAdd(selectedItem.SubItems[3].Text, selectedItem.SubItems[5].Text, @"PPGooey (In)", selectedItem.SubItems[6].Text, selectedItem.SubItems[2].Text, selectedItem.SubItems[4].Text, true, false, true, true);
+
+        }
+
+        private void toolStripMenuItem_FirewallRemove_Click(object sender, EventArgs e) {
+
+            ListViewItem selectedItem = listViewProxies.SelectedItems[0];
+
+            Firewall.WinFirewall_RuleRemove(@"PPGooey (Out)", selectedItem.SubItems[3].Text, selectedItem.SubItems[5].Text);
+            Firewall.WinFirewall_RuleRemove(@"PPGooey (In)", selectedItem.SubItems[3].Text, selectedItem.SubItems[5].Text);
+
+        }
     }
 }

@@ -47,6 +47,10 @@
             toolStripMenuItem_Clone = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
             toolStripMenuItem_Delete = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
+            firewallToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem_FirewallAdd = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem_FirewallRemove = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             toolStripMenuItem_MoveTo = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem_RenameGroup = new System.Windows.Forms.ToolStripMenuItem();
@@ -75,7 +79,7 @@
             toolStripMenuItem_CopyConnectToAsURLhttps = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator_BrowserClipboard = new System.Windows.Forms.ToolStripSeparator();
             externalAppsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            windowsFirewallToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem_WindowsFirewall = new System.Windows.Forms.ToolStripMenuItem();
             windowsFirewallToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             basicToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             advancedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -208,7 +212,7 @@
             // contextMenuStrip_RightClick
             // 
             resources.ApplyResources(contextMenuStrip_RightClick, "contextMenuStrip_RightClick");
-            contextMenuStrip_RightClick.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem_Enable, toolStripMenuItem_Disable, toolStripMenuItem_EnableDisableAll, toolStripSeparator3, toolStripMenuItem_New, toolStripSeparator14, toolStripMenuItem_Modify, toolStripMenuItem_Clone, toolStripSeparator15, toolStripMenuItem_Delete, toolStripSeparator1, toolStripMenuItem_MoveTo, toolStripMenuItem_RenameGroup, toolStripSeparator16, toolStripMenuItem_Refresh, clearToolStripMenuItem, toolStripSeparator2, toolStripMenuItem_More });
+            contextMenuStrip_RightClick.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem_Enable, toolStripMenuItem_Disable, toolStripMenuItem_EnableDisableAll, toolStripSeparator3, toolStripMenuItem_New, toolStripSeparator14, toolStripMenuItem_Modify, toolStripMenuItem_Clone, toolStripSeparator15, toolStripMenuItem_Delete, toolStripSeparator8, firewallToolStripMenuItem, toolStripSeparator1, toolStripMenuItem_MoveTo, toolStripMenuItem_RenameGroup, toolStripSeparator16, toolStripMenuItem_Refresh, clearToolStripMenuItem, toolStripSeparator2, toolStripMenuItem_More });
             contextMenuStrip_RightClick.Name = "contextMenuStrip1";
             contextMenuStrip_RightClick.Closed += contextMenuStrip_RightClick_Closed;
             contextMenuStrip_RightClick.MouseClick += contextMenuStrip_RightClick_MouseClick;
@@ -284,6 +288,30 @@
             toolStripMenuItem_Delete.Image = Properties.Resources.delete;
             toolStripMenuItem_Delete.Name = "toolStripMenuItem_Delete";
             resources.ApplyResources(toolStripMenuItem_Delete, "toolStripMenuItem_Delete");
+            // 
+            // toolStripSeparator8
+            // 
+            toolStripSeparator8.Name = "toolStripSeparator8";
+            resources.ApplyResources(toolStripSeparator8, "toolStripSeparator8");
+            // 
+            // firewallToolStripMenuItem
+            // 
+            firewallToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem_FirewallAdd, toolStripMenuItem_FirewallRemove });
+            firewallToolStripMenuItem.Image = Properties.Resources.firewall;
+            firewallToolStripMenuItem.Name = "firewallToolStripMenuItem";
+            resources.ApplyResources(firewallToolStripMenuItem, "firewallToolStripMenuItem");
+            // 
+            // toolStripMenuItem_FirewallAdd
+            // 
+            toolStripMenuItem_FirewallAdd.Name = "toolStripMenuItem_FirewallAdd";
+            resources.ApplyResources(toolStripMenuItem_FirewallAdd, "toolStripMenuItem_FirewallAdd");
+            toolStripMenuItem_FirewallAdd.Click += toolStripMenuItem_FirewallAdd_Click;
+            // 
+            // toolStripMenuItem_FirewallRemove
+            // 
+            toolStripMenuItem_FirewallRemove.Name = "toolStripMenuItem_FirewallRemove";
+            resources.ApplyResources(toolStripMenuItem_FirewallRemove, "toolStripMenuItem_FirewallRemove");
+            toolStripMenuItem_FirewallRemove.Click += toolStripMenuItem_FirewallRemove_Click;
             // 
             // toolStripSeparator1
             // 
@@ -459,17 +487,17 @@
             // 
             // externalAppsToolStripMenuItem
             // 
-            externalAppsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { windowsFirewallToolStripMenuItem, adaptersToolStripMenuItem, toolStripSeparator10, sitesToolStripMenuItem });
+            externalAppsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem_WindowsFirewall, adaptersToolStripMenuItem, toolStripSeparator10, sitesToolStripMenuItem });
             externalAppsToolStripMenuItem.Image = Properties.Resources.external_apps;
             externalAppsToolStripMenuItem.Name = "externalAppsToolStripMenuItem";
             resources.ApplyResources(externalAppsToolStripMenuItem, "externalAppsToolStripMenuItem");
             // 
-            // windowsFirewallToolStripMenuItem
+            // toolStripMenuItem_WindowsFirewall
             // 
-            windowsFirewallToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { windowsFirewallToolStripMenuItem1, toolStripSeparator7, windowsFirewallControlWFCToolStripMenuItem });
-            windowsFirewallToolStripMenuItem.Image = Properties.Resources.firewall;
-            windowsFirewallToolStripMenuItem.Name = "windowsFirewallToolStripMenuItem";
-            resources.ApplyResources(windowsFirewallToolStripMenuItem, "windowsFirewallToolStripMenuItem");
+            toolStripMenuItem_WindowsFirewall.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { windowsFirewallToolStripMenuItem1, toolStripSeparator7, windowsFirewallControlWFCToolStripMenuItem });
+            toolStripMenuItem_WindowsFirewall.Image = Properties.Resources.firewall;
+            toolStripMenuItem_WindowsFirewall.Name = "toolStripMenuItem_WindowsFirewall";
+            resources.ApplyResources(toolStripMenuItem_WindowsFirewall, "toolStripMenuItem_WindowsFirewall");
             // 
             // windowsFirewallToolStripMenuItem1
             // 
@@ -957,7 +985,7 @@
         private System.Windows.Forms.ToolStripMenuItem externalAppsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem adaptersToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
-        private System.Windows.Forms.ToolStripMenuItem windowsFirewallToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_WindowsFirewall;
         private System.Windows.Forms.ToolStripMenuItem windowsFirewallToolStripMenuItem1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private System.Windows.Forms.ToolStripMenuItem windowsFirewallControlWFCToolStripMenuItem;
@@ -1039,6 +1067,10 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_CopyConnectToAsURLhttps;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_OpenInBrowserHttp;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_OpenInBrowserHttps;
+        private System.Windows.Forms.ToolStripMenuItem firewallToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_FirewallAdd;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_FirewallRemove;
     }
 }
 
