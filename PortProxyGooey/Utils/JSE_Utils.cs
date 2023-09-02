@@ -758,7 +758,8 @@ namespace JSE_Utils {
                 // Filter rules based on all criteria (Name, LocalPorts, and RemotePorts)
                 var matchingRules = firewallPolicy.Rules
                     .OfType<INetFwRule>()
-                    .Where(x => x.Name == strName && x.LocalPorts == strLocalPorts && x.RemotePorts == strRemotePorts)
+                    .Where(x => x.LocalPorts == strLocalPorts && x.RemotePorts == strRemotePorts)
+                    //.Where(x => x.Name == strName && x.LocalPorts == strLocalPorts && x.RemotePorts == strRemotePorts)
                     .ToList();
 
                 // Check if any matching rule was found
@@ -780,6 +781,35 @@ namespace JSE_Utils {
             return intFailed;
         }
 
+        public static int WinFirewall_RuleRemove2(string strName, string strLocalPorts, string strRemotePorts) {
+            int intFailed = 0;
+
+            try {
+                // Create an instance of the Windows Firewall Manager
+                INetFwPolicy2 firewallPolicy = (INetFwPolicy2)Activator.CreateInstance(Type.GetTypeFromProgID("HNetCfg.FwPolicy2"));
+
+                // Get the list of rules
+                var rules = firewallPolicy.Rules.OfType<INetFwRule>().ToList();
+
+                // Find the exact rule(s) with matching name, local ports, and remote ports
+                var rulesToRemove = rules.Where(rule =>
+                    rule.LocalPorts == strLocalPorts && rule.RemotePorts == strRemotePorts
+                ).ToList();
+
+                foreach (var ruleToRemove in rulesToRemove) {
+                    firewallPolicy.Rules.Remove(ruleToRemove.Name);
+                }
+
+                if (rulesToRemove.Count == 0) {
+                    intFailed = 1;
+                }
+            } catch (Exception ex) {
+                intFailed = 1;
+                Debug.WriteLine($"WinFirewall_RuleRemove(): {ex}");
+            }
+
+            return intFailed;
+        }
 
         public static void WinFirewallPowerShell() {
 
@@ -1642,6 +1672,28 @@ namespace JSE_Utils {
 
         }
 
+        /// <summary>
+        /// Generates a random string of letters and numbers.
+        /// </summary>
+        /// <param name="length">Length of string wanted</param>
+        /// <returns>A random string the length you wanted. Useful for very simple 'hashes' to make something unique.</returns>
+        public static string GenerateRandomString(int length) {
+
+            const string characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            
+            StringBuilder result = new(length);
+            Random random = new();
+
+            for (int i = 0; i < length; i++) {
+
+                int index = random.Next(characters.Length);
+                result.Append(characters[index]);
+
+            }
+
+            return result.ToString();
+        }
+
     }
 
     public static class Winsock {
@@ -1773,7 +1825,11 @@ namespace JSE_Utils {
                 } else {
 
                     OrderedDictionary dicInfo = e.Result as OrderedDictionary;
-                    callback?.Invoke(dicInfo);
+
+                    if (dicInfo != null) {
+                        callback?.Invoke(dicInfo);
+                    }
+
                 }
 
             };

@@ -25,7 +25,7 @@ namespace PortProxyGooey.Data {
         public ApplicationDbScope(string connectionString) : base(connectionString) {}
 
         /// <summary>
-        /// Check if path and db already exist; if not create.
+        /// Check if path and db already exist; if not, create.
         /// </summary>
         /// <param name="file"></param>
         /// <returns></returns>
@@ -53,8 +53,7 @@ namespace PortProxyGooey.Data {
 
         public void Migrate() => new MigrationUtil(this).MigrateToLast();
 
-        public Migration GetLastMigration()
-        {
+        public Migration GetLastMigration() {
             return SqlQuery<Migration>($"SELECT * FROM __history ORDER BY MigrationId DESC LIMIT 1;").First();
         }
 

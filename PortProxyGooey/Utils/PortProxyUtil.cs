@@ -36,8 +36,8 @@ namespace PortProxyGooey.Utils {
         /// Read proxies from registry
         /// </summary>
         /// <returns>Array of Proxy Rules</returns>
-        public static Rule[] GetProxies()
-        {
+        public static Rule[] GetProxies() {
+
             List<Rule> ruleList = new();
 
             foreach (string type in ProxyTypes) {
@@ -66,7 +66,9 @@ namespace PortProxyGooey.Utils {
                             ConnectTo = connectTo,
                             ConnectPort = connectPort,
                         });
+                    
                     }
+                
                 }
             }
             return ruleList.ToArray();
@@ -116,4 +118,5 @@ namespace PortProxyGooey.Utils {
         }
 
     }
+
 }

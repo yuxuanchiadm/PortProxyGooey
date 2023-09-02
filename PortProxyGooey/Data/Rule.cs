@@ -20,6 +20,8 @@ namespace PortProxyGooey.Data {
         
         public string Group { get; set; }
 
+        public string FWHash { get; set; }
+
         public bool Valid => ListenPort > 0 && ConnectPort > 0;
 
         private string _realListenPort;
@@ -44,7 +46,11 @@ namespace PortProxyGooey.Data {
 
         }
 
-        public bool Equals(Rule other)  {
+        public override bool Equals(object obj) {
+            return Equals(obj as Rule);
+        }
+
+        public bool Equals(Rule other) {
 
             return Id == other.Id
                 && Type == other.Type
@@ -53,7 +59,8 @@ namespace PortProxyGooey.Data {
                 && ConnectTo == other.ConnectTo
                 && ConnectPort == other.ConnectPort
                 && Comment == other.Comment
-                && Group == other.Group;
+                && Group == other.Group
+                && FWHash == other.FWHash;
         
         }
 
@@ -70,10 +77,6 @@ namespace PortProxyGooey.Data {
             if (int.TryParse(portString, out int port) && 0 < port && port < 65536) return port;
             else throw new NotSupportedException($"Invalid port string. ({portString})");
         
-        }
-
-        public override bool Equals(object obj) {
-            return Equals(obj as Rule);
         }
 
         public override int GetHashCode() {

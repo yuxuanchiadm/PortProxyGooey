@@ -1843,19 +1843,22 @@ namespace PortProxyGooey {
 
         private void toolStripMenuItem_FirewallAdd_Click(object sender, EventArgs e) {
 
+            string strRnd = Strings.GenerateRandomString(8);
+
             ListViewItem selectedItem = listViewProxies.SelectedItems[0];
 
-            Firewall.WinFirewall_RuleAdd(selectedItem.SubItems[3].Text, selectedItem.SubItems[5].Text, @"PPGooey (Out)", selectedItem.SubItems[6].Text, selectedItem.SubItems[2].Text, selectedItem.SubItems[4].Text, true, true, true, true);
-            Firewall.WinFirewall_RuleAdd(selectedItem.SubItems[3].Text, selectedItem.SubItems[5].Text, @"PPGooey (In)", selectedItem.SubItems[6].Text, selectedItem.SubItems[2].Text, selectedItem.SubItems[4].Text, true, false, true, true);
+            Firewall.WinFirewall_RuleAdd(selectedItem.SubItems[3].Text, selectedItem.SubItems[5].Text, $"PPGooey (Out) [{strRnd}]", selectedItem.SubItems[6].Text, selectedItem.SubItems[2].Text, selectedItem.SubItems[4].Text, true, true, true, true);
+            Firewall.WinFirewall_RuleAdd(selectedItem.SubItems[3].Text, selectedItem.SubItems[5].Text, $"PPGooey (In) [{strRnd}]", selectedItem.SubItems[6].Text, selectedItem.SubItems[2].Text, selectedItem.SubItems[4].Text, true, false, true, true);
 
+            // TODO: Add hash to the db for this Rule
         }
 
         private void toolStripMenuItem_FirewallRemove_Click(object sender, EventArgs e) {
 
             ListViewItem selectedItem = listViewProxies.SelectedItems[0];
 
-            Firewall.WinFirewall_RuleRemove(@"PPGooey (Out)", selectedItem.SubItems[3].Text, selectedItem.SubItems[5].Text);
-            Firewall.WinFirewall_RuleRemove(@"PPGooey (In)", selectedItem.SubItems[3].Text, selectedItem.SubItems[5].Text);
+            Firewall.WinFirewall_RuleRemove2("PPGooey (Out)", selectedItem.SubItems[3].Text, selectedItem.SubItems[5].Text);
+            Firewall.WinFirewall_RuleRemove2("PPGooey (In)", selectedItem.SubItems[3].Text, selectedItem.SubItems[5].Text);
 
         }
     }

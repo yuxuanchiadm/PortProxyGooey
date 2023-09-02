@@ -96,6 +96,7 @@ namespace PortProxyGooey.Data {
             {
                 "ALTER TABLE rules ADD Note text;",
                 "ALTER TABLE rules ADD `Group` text;",
+                "ALTER TABLE rules ADD `FWHash` text;",
             },
 
             [new MigrationKey { MigrationId = "202202221635", ProductVersion = "1.3.0" }] = new[]
@@ -112,10 +113,11 @@ namespace PortProxyGooey.Data {
 	ConnectPort integer,
 	Comment text,
 	`Group` text 
+	`FWHash` text 
 );",
                 "CREATE UNIQUE INDEX IX_Rules_Type_ListenOn_ListenPort ON Rules ( Type, ListenOn, ListenPort );",
 
-                "INSERT INTO rules SELECT Id, Type, ListenOn, ListenPort, ConnectTo, ConnectPort, Note, `Group` FROM rulesOld;",
+                "INSERT INTO rules SELECT Id, Type, ListenOn, ListenPort, ConnectTo, ConnectPort, Note, `Group`, `FWHash` FROM rulesOld;",
                 "DROP TABLE rulesOld;",
             },
 
