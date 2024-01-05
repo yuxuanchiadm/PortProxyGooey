@@ -9,6 +9,7 @@ using PortProxyGooey.Utils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -350,7 +351,12 @@ namespace PortProxyGooey {
 
             // WIP: in process of handling text color changes for ConnectTo column.
             // Idea is to check if the WSL IP already in that columnn is outdated compared to the current WSL IP; if yes, then color it red to alert user they may want to update it so it still works.
-            item.UseItemStyleForSubItems = false; 
+            item.UseItemStyleForSubItems = false;
+            Debug.WriteLine("IP:" + lblWSLIP.Text.Substring(lblWSLIP.Text.IndexOf("WSL: ") + 5)); // NOTE: timer doesn't fetch the IP in time to use this here, during initial load. Prob add a func to the timer itself?
+
+
+
+
 
             item.ImageIndex = imageIndex;
             item.Tag = rule.Id;
@@ -1338,6 +1344,8 @@ namespace PortProxyGooey {
 
             WSL.GetIP_BGW((ip) => lblWSLIP.Text = $"WSL: {ip}");
             tTipPPG.SetToolTip(lblWSLIP, "Double-click copies IP to clipboard");
+
+            // TODO: Scan ConnectTo column for stale WSL IPs (related: see line 364)
 
             // -----
 
