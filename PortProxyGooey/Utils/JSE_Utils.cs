@@ -39,11 +39,13 @@ using System.Net.Sockets;
 using System.Reflection;
 using System.Resources;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 using System.ServiceProcess;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using NStandard.Security;
 
 #endregion
 
@@ -655,7 +657,6 @@ namespace JSE_Utils {
                 } else {
 
                     bool isRunning = (bool)e.Result;
-
                     callback?.Invoke(isRunning);
 
                 }
@@ -670,6 +671,8 @@ namespace JSE_Utils {
     public static class Firewall {
 
         #region + -- NOTES  -- +
+
+        // PowerShell Methods require NuGet Package: Microsoft.Powershell.SDK
 
         // Reference: https://learn.microsoft.com/en-us/windows/win32/api/netfw/nn-netfw-inetfwrule
 
@@ -694,7 +697,7 @@ namespace JSE_Utils {
         /// <param name="bEnabled">if set to <c>true</c> [b enabled].</param>
         /// <param name="strInterfaceTypes">The string interface types.</param>
         /// <returns>0 on Successful Add; 1 on Failed Add</returns>
-        public static int WinFirewall_RuleAdd(
+        public static int WinFirewall_Rule_Add(
             string strLocalPorts = "", 
             string strRemotePorts = "Any",
             string strName = "No Name Given",
@@ -746,8 +749,15 @@ namespace JSE_Utils {
 
         }
 
-        public static int WinFirewall_RuleRemove(string strName, string strLocalPorts, string strRemotePorts) {
-            // left off: when several names in the fw list match, it's deleting the first it finds, even though I specify local and remote ports as well.
+        /// <summary>
+        /// Delete a rule(s) from Windows Firewall
+        /// </summary>
+        /// <param name="strName">Name of the Rule to remove, as seen in the Firewall list.</param>
+        /// <returns>0: Successful Deletion; Non-Zero upon failure.</returns>
+        /// <remarks>When several names in the fw list match exactly, it deletes the first it finds.</remarks>
+        /// <remarks>For best results, if you're in control of adding the rule(s) you're removing; add unique names. i.e. w/a random string or hash.</remarks>
+        public static int WinFirewall_Rule_Remove(string strName) {
+
             int intFailed = 0;
 
             try {
@@ -755,17 +765,16 @@ namespace JSE_Utils {
                 // Create an instance of the Windows Firewall Manager
                 INetFwPolicy2 firewallPolicy = (INetFwPolicy2)Activator.CreateInstance(Type.GetTypeFromProgID("HNetCfg.FwPolicy2"));
 
-                // Filter rules based on all criteria (Name, LocalPorts, and RemotePorts)
-                var matchingRules = firewallPolicy.Rules
+                // Filter rules based on Name
+                List<INetFwRule> matchingRules = firewallPolicy.Rules
                     .OfType<INetFwRule>()
-                    .Where(x => x.LocalPorts == strLocalPorts && x.RemotePorts == strRemotePorts)
-                    //.Where(x => x.Name == strName && x.LocalPorts == strLocalPorts && x.RemotePorts == strRemotePorts)
+                    .Where(x => x.Name == strName)
                     .ToList();
 
                 // Check if any matching rule was found
                 if (matchingRules.Count > 0) {
 
-                    foreach (var rule in matchingRules) {
+                    foreach (INetFwRule rule in matchingRules) {
                         firewallPolicy.Rules.Remove(rule.Name);
                     }
 
@@ -777,41 +786,54 @@ namespace JSE_Utils {
                 intFailed = 1;
                 Debug.WriteLine($"WinFirewall_RuleRemove(): {ex}");
             }
-
             return intFailed;
         }
 
-        public static int WinFirewall_RuleRemove2(string strName, string strLocalPorts, string strRemotePorts) {
+        /// <summary>
+        /// Delete a rule(s) from Windows Firewall. THis is just another way of doing the same as WinFirewall_Rule_Remove().
+        /// </summary>
+        /// <param name="strName">Name of the Rule to remove, as seen in the Firewall list.</param>
+        /// <returns>0: Successful Deletion; Non-Zero upon failure.</returns>
+        /// <remarks>When several names in the fw list match exactly, it deletes the first it finds.</remarks>
+        /// <remarks>For best results, if you're in control of adding the rule(s) you're removing; add unique names. i.e. w/a random string or hash.</remarks>
+        public static int WinFirewall_Rule_Remove2(string strName, string strLocalPorts, string strRemotePorts) {
+
             int intFailed = 0;
 
             try {
+
                 // Create an instance of the Windows Firewall Manager
                 INetFwPolicy2 firewallPolicy = (INetFwPolicy2)Activator.CreateInstance(Type.GetTypeFromProgID("HNetCfg.FwPolicy2"));
 
                 // Get the list of rules
-                var rules = firewallPolicy.Rules.OfType<INetFwRule>().ToList();
+                List<INetFwRule> rules = firewallPolicy.Rules.OfType<INetFwRule>().ToList();
 
                 // Find the exact rule(s) with matching name, local ports, and remote ports
-                var rulesToRemove = rules.Where(rule =>
-                    rule.LocalPorts == strLocalPorts && rule.RemotePorts == strRemotePorts
-                ).ToList();
+                List<INetFwRule> matchingRules = rules.Where(rule => rule.LocalPorts == strLocalPorts && rule.RemotePorts == strRemotePorts).ToList();
 
-                foreach (var ruleToRemove in rulesToRemove) {
-                    firewallPolicy.Rules.Remove(ruleToRemove.Name);
+                foreach (INetFwRule rule in matchingRules) {
+                    firewallPolicy.Rules.Remove(rule.Name);
                 }
 
-                if (rulesToRemove.Count == 0) {
+                if (matchingRules.Count == 0) {
                     intFailed = 1;
                 }
+
             } catch (Exception ex) {
                 intFailed = 1;
-                Debug.WriteLine($"WinFirewall_RuleRemove(): {ex}");
+                Debug.WriteLine($"WinFirewall_RuleRemove2(): {ex}");
             }
 
             return intFailed;
         }
 
-        public static void WinFirewallPowerShell() {
+        /// <summary>
+        /// Adds a Firewall Rule using Powershell
+        /// </summary>
+        /// <remarks>UNFINISHED: See remark for the Remove Method</remarks>
+        public static void WinFirewall_Rule_Add_PShell() {
+
+            // Ref: https://stackoverflow.com/q/76857591/553663
 
             // TODO: (Eventually, if I feel like it). Pass these PowerShell commands to a command line.
 
@@ -819,6 +841,120 @@ namespace JSE_Utils {
             // Invoke-Expression "New-NetFireWallRule -DisplayName 'WSL2 Firewall Unlock' -Direction Inbound -LocalPort $ports_tcp -Action Allow -Protocol TCP -Group WSL -Description 'PortProxy for forwarding TCP ports to WSL'";
             // Invoke-Expression "Remove-NetFireWallRule -DisplayName 'WSL2 Firewall Unlock'";
 
+        }
+
+        /// <summary>
+        /// Removes a Firewall Rule using Powershell
+        /// </summary>
+        /// <param name="strName">Name of the Rule to remove</param>
+        /// <returns>0 if successful; non-zero if failed.</returns>
+        /// <remarks>UNFINISHED: Ran into issues with Remove-NetFireWallRule not recognized. Commented out for now so I can uninstall the unused Microsoft.Powershell.SDK Nuget Package bloat.</remarks>
+        public static int WinFirewall_Rule_Remove_PShell(string strName) {
+
+            // Ref: https://stackoverflow.com/q/76857591/553663
+
+            int intFailed = 0;
+
+            //// Create a new PowerShell instance
+            //using (PowerShell ps = PowerShell.Create()) {
+
+            //    ps.AddCommand("Set-ExecutionPolicy");
+            //    ps.AddParameter("-ExecutionPolicy",  "Unrestricted");
+
+            //    ps.AddScript("Import-Module NetSecurity");
+            //    //ps.Invoke();
+
+            //    // Add the Remove-NetFireWallRule cmdlet to the pipeline
+            //    ps.AddCommand("Remove-NetFireWallRule");
+
+            //    // Add the -DisplayName parameter with the rule name you want to remove
+            //    ps.AddParameter("-DisplayName", strName);
+
+            //    try {
+
+            //        // Execute the PowerShell command
+            //        Collection<PSObject> results = ps.Invoke();
+
+            //        // Check for errors
+            //        if (ps.HadErrors) {
+
+            //            intFailed = 1;
+
+            //            foreach (ErrorRecord error in ps.Streams.Error) {
+            //                Debug.WriteLine($"WinFirewall_Rule_Remove_PShell(); PowerShell Error: {error}");
+            //            }
+
+            //        }
+
+            //    } catch (Exception ex) {
+
+            //        intFailed = 1;
+            //        Debug.WriteLine($"WinFirewall_Rule_Remove_PShell(); Exception: {ex.Message}");
+            //    }
+            //}
+
+            return intFailed;
+
+        }
+
+        /// <summary>
+        /// Removes a Firewall Rule using Powershell via CommandLine
+        /// </summary>
+        /// <param name="strName">Name of the Rule to remove</param>
+        /// <returns>0 if successful; non-zero if failed.</returns>
+        /// <remarks>UNFINISHED: Remove-NetFireWallRule suddenly seems to no longer do anything, even in a Pshell terminal itself.</remarks>
+        public static int WinFirewall_Rule_Remove_PShell_via_CMD(string strName) {
+        
+            int intFailed = 0;
+
+            string strOutput = Misc.RunCommand("powershell.exe", $"Invoke-Expression \"Remove-NetFireWallRule -DisplayName '{strName}'\"");
+
+            return intFailed;       
+        
+        }
+
+    }
+
+    public static class Hash {
+
+        /// <summary>
+        /// Generates/Computes an MD5 string hash
+        /// </summary>
+        /// <param name="strInput">String to use in the generation of the MD5 hash</param>
+        /// <returns>An MD5 string hash</returns>
+        public static string Generate_MD5(string strInput) {
+
+            // Create an instance of the MD5 algorithm
+            using (MD5 md5 = MD5.Create()) {
+
+                // Convert the input string to bytes
+                byte[] inputBytes = Encoding.UTF8.GetBytes(strInput);
+
+                // Compute the MD5 hash
+                byte[] hashBytes = md5.ComputeHash(inputBytes);
+
+                // Convert the hash bytes to a hexadecimal string
+                StringBuilder sb = new();
+
+                for (int i = 0; i < hashBytes.Length; i++) {
+                    sb.Append(hashBytes[i].ToString("x2"));
+                }
+
+                return sb.ToString();
+
+            }
+
+        }
+
+        /// <summary>
+        /// Compares 2 MD5 strings and returns whether they match or not
+        /// </summary>
+        /// <param name="strFirstHash">1st MD5 string to compare</param>
+        /// <param name="strSecondHash">2nd MD5 string to compare to the 1st</param>
+        /// <returns>True on matching MD5 string; False otherwise.</returns>
+        /// <remarks>Use the Generate_MD5 method above first, to get the MD5 strings to compare.</remarks>
+        public static bool IsMatch_MD5(string strFirstHash, string strSecondHash) {
+            return (strFirstHash.Equals(strSecondHash));
         }
 
     }

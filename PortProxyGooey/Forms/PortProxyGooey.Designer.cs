@@ -40,24 +40,24 @@
             toolStripMenuItem_EnableDisableAll = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem_EnableAll = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem_DisableAll = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            toolStripSeparator_New = new System.Windows.Forms.ToolStripSeparator();
             toolStripMenuItem_New = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
+            toolStripSeparator_Edit = new System.Windows.Forms.ToolStripSeparator();
             toolStripMenuItem_Modify = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem_Clone = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
+            toolStripSeparator_Delete = new System.Windows.Forms.ToolStripSeparator();
             toolStripMenuItem_Delete = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
-            firewallToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripSeparator_Firewall = new System.Windows.Forms.ToolStripSeparator();
+            toolStripMenuItem_Firewall = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem_FirewallAdd = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem_FirewallRemove = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            toolStripSeparator_MoveTo = new System.Windows.Forms.ToolStripSeparator();
             toolStripMenuItem_MoveTo = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem_RenameGroup = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripSeparator16 = new System.Windows.Forms.ToolStripSeparator();
+            toolStripSeparator_List = new System.Windows.Forms.ToolStripSeparator();
             toolStripMenuItem_Refresh = new System.Windows.Forms.ToolStripMenuItem();
             clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            toolStripSeparator_More = new System.Windows.Forms.ToolStripSeparator();
             toolStripMenuItem_More = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem_OpenInBrowser = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem_OpenInBrowserHttp = new System.Windows.Forms.ToolStripMenuItem();
@@ -140,6 +140,8 @@
             lblDockerRunning = new System.Windows.Forms.Label();
             lblWSLRunning = new System.Windows.Forms.Label();
             lblCurrentLocalIP = new System.Windows.Forms.Label();
+            toolStripSeparator_UpdateLatestWSLIP = new System.Windows.Forms.ToolStripSeparator();
+            toolStripMenuItem_updateWSLIPT = new System.Windows.Forms.ToolStripMenuItem();
             lblPP = new System.Windows.Forms.Label();
             contextMenuStrip_RightClick.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picDocker).BeginInit();
@@ -212,7 +214,7 @@
             // contextMenuStrip_RightClick
             // 
             resources.ApplyResources(contextMenuStrip_RightClick, "contextMenuStrip_RightClick");
-            contextMenuStrip_RightClick.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem_Enable, toolStripMenuItem_Disable, toolStripMenuItem_EnableDisableAll, toolStripSeparator3, toolStripMenuItem_New, toolStripSeparator14, toolStripMenuItem_Modify, toolStripMenuItem_Clone, toolStripSeparator15, toolStripMenuItem_Delete, toolStripSeparator8, firewallToolStripMenuItem, toolStripSeparator1, toolStripMenuItem_MoveTo, toolStripMenuItem_RenameGroup, toolStripSeparator16, toolStripMenuItem_Refresh, clearToolStripMenuItem, toolStripSeparator2, toolStripMenuItem_More });
+            contextMenuStrip_RightClick.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem_Enable, toolStripMenuItem_Disable, toolStripMenuItem_EnableDisableAll, toolStripSeparator_New, toolStripMenuItem_New, toolStripSeparator_Edit, toolStripMenuItem_Modify, toolStripMenuItem_Clone, toolStripSeparator_Delete, toolStripMenuItem_Delete, toolStripSeparator_Firewall, toolStripMenuItem_Firewall, toolStripSeparator_MoveTo, toolStripMenuItem_MoveTo, toolStripMenuItem_RenameGroup, toolStripSeparator_List, toolStripMenuItem_Refresh, clearToolStripMenuItem, toolStripSeparator_More, toolStripMenuItem_More });
             contextMenuStrip_RightClick.Name = "contextMenuStrip1";
             contextMenuStrip_RightClick.Closed += contextMenuStrip_RightClick_Closed;
             contextMenuStrip_RightClick.MouseClick += contextMenuStrip_RightClick_MouseClick;
@@ -231,7 +233,7 @@
             // 
             // toolStripMenuItem_EnableDisableAll
             // 
-            toolStripMenuItem_EnableDisableAll.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem_EnableAll, toolStripMenuItem_DisableAll });
+            toolStripMenuItem_EnableDisableAll.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem_EnableAll, toolStripMenuItem_DisableAll, toolStripSeparator_UpdateLatestWSLIP, toolStripMenuItem_updateWSLIPT });
             toolStripMenuItem_EnableDisableAll.Image = Properties.Resources.orange;
             toolStripMenuItem_EnableDisableAll.Name = "toolStripMenuItem_EnableDisableAll";
             resources.ApplyResources(toolStripMenuItem_EnableDisableAll, "toolStripMenuItem_EnableDisableAll");
@@ -250,10 +252,10 @@
             resources.ApplyResources(toolStripMenuItem_DisableAll, "toolStripMenuItem_DisableAll");
             toolStripMenuItem_DisableAll.Click += toolStripMenuItem_DisableAll_Click;
             // 
-            // toolStripSeparator3
+            // toolStripSeparator_New
             // 
-            toolStripSeparator3.Name = "toolStripSeparator3";
-            resources.ApplyResources(toolStripSeparator3, "toolStripSeparator3");
+            toolStripSeparator_New.Name = "toolStripSeparator_New";
+            resources.ApplyResources(toolStripSeparator_New, "toolStripSeparator_New");
             // 
             // toolStripMenuItem_New
             // 
@@ -261,10 +263,10 @@
             toolStripMenuItem_New.Image = Properties.Resources.add;
             toolStripMenuItem_New.Name = "toolStripMenuItem_New";
             // 
-            // toolStripSeparator14
+            // toolStripSeparator_Edit
             // 
-            toolStripSeparator14.Name = "toolStripSeparator14";
-            resources.ApplyResources(toolStripSeparator14, "toolStripSeparator14");
+            toolStripSeparator_Edit.Name = "toolStripSeparator_Edit";
+            resources.ApplyResources(toolStripSeparator_Edit, "toolStripSeparator_Edit");
             // 
             // toolStripMenuItem_Modify
             // 
@@ -278,10 +280,10 @@
             toolStripMenuItem_Clone.Name = "toolStripMenuItem_Clone";
             resources.ApplyResources(toolStripMenuItem_Clone, "toolStripMenuItem_Clone");
             // 
-            // toolStripSeparator15
+            // toolStripSeparator_Delete
             // 
-            toolStripSeparator15.Name = "toolStripSeparator15";
-            resources.ApplyResources(toolStripSeparator15, "toolStripSeparator15");
+            toolStripSeparator_Delete.Name = "toolStripSeparator_Delete";
+            resources.ApplyResources(toolStripSeparator_Delete, "toolStripSeparator_Delete");
             // 
             // toolStripMenuItem_Delete
             // 
@@ -289,34 +291,36 @@
             toolStripMenuItem_Delete.Name = "toolStripMenuItem_Delete";
             resources.ApplyResources(toolStripMenuItem_Delete, "toolStripMenuItem_Delete");
             // 
-            // toolStripSeparator8
+            // toolStripSeparator_Firewall
             // 
-            toolStripSeparator8.Name = "toolStripSeparator8";
-            resources.ApplyResources(toolStripSeparator8, "toolStripSeparator8");
+            toolStripSeparator_Firewall.Name = "toolStripSeparator_Firewall";
+            resources.ApplyResources(toolStripSeparator_Firewall, "toolStripSeparator_Firewall");
             // 
-            // firewallToolStripMenuItem
+            // toolStripMenuItem_Firewall
             // 
-            firewallToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem_FirewallAdd, toolStripMenuItem_FirewallRemove });
-            firewallToolStripMenuItem.Image = Properties.Resources.firewall;
-            firewallToolStripMenuItem.Name = "firewallToolStripMenuItem";
-            resources.ApplyResources(firewallToolStripMenuItem, "firewallToolStripMenuItem");
+            toolStripMenuItem_Firewall.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem_FirewallAdd, toolStripMenuItem_FirewallRemove });
+            toolStripMenuItem_Firewall.Image = Properties.Resources.firewall_main;
+            toolStripMenuItem_Firewall.Name = "toolStripMenuItem_Firewall";
+            resources.ApplyResources(toolStripMenuItem_Firewall, "toolStripMenuItem_Firewall");
             // 
             // toolStripMenuItem_FirewallAdd
             // 
+            toolStripMenuItem_FirewallAdd.Image = Properties.Resources.firewall_add;
             toolStripMenuItem_FirewallAdd.Name = "toolStripMenuItem_FirewallAdd";
             resources.ApplyResources(toolStripMenuItem_FirewallAdd, "toolStripMenuItem_FirewallAdd");
             toolStripMenuItem_FirewallAdd.Click += toolStripMenuItem_FirewallAdd_Click;
             // 
             // toolStripMenuItem_FirewallRemove
             // 
+            toolStripMenuItem_FirewallRemove.Image = Properties.Resources.firewall_delete;
             toolStripMenuItem_FirewallRemove.Name = "toolStripMenuItem_FirewallRemove";
             resources.ApplyResources(toolStripMenuItem_FirewallRemove, "toolStripMenuItem_FirewallRemove");
             toolStripMenuItem_FirewallRemove.Click += toolStripMenuItem_FirewallRemove_Click;
             // 
-            // toolStripSeparator1
+            // toolStripSeparator_MoveTo
             // 
-            toolStripSeparator1.Name = "toolStripSeparator1";
-            resources.ApplyResources(toolStripSeparator1, "toolStripSeparator1");
+            toolStripSeparator_MoveTo.Name = "toolStripSeparator_MoveTo";
+            resources.ApplyResources(toolStripSeparator_MoveTo, "toolStripSeparator_MoveTo");
             // 
             // toolStripMenuItem_MoveTo
             // 
@@ -331,10 +335,10 @@
             resources.ApplyResources(toolStripMenuItem_RenameGroup, "toolStripMenuItem_RenameGroup");
             toolStripMenuItem_RenameGroup.Click += toolStripMenuItem_RenameGroup_Click;
             // 
-            // toolStripSeparator16
+            // toolStripSeparator_List
             // 
-            toolStripSeparator16.Name = "toolStripSeparator16";
-            resources.ApplyResources(toolStripSeparator16, "toolStripSeparator16");
+            toolStripSeparator_List.Name = "toolStripSeparator_List";
+            resources.ApplyResources(toolStripSeparator_List, "toolStripSeparator_List");
             // 
             // toolStripMenuItem_Refresh
             // 
@@ -348,10 +352,10 @@
             clearToolStripMenuItem.Name = "clearToolStripMenuItem";
             resources.ApplyResources(clearToolStripMenuItem, "clearToolStripMenuItem");
             // 
-            // toolStripSeparator2
+            // toolStripSeparator_More
             // 
-            toolStripSeparator2.Name = "toolStripSeparator2";
-            resources.ApplyResources(toolStripSeparator2, "toolStripSeparator2");
+            toolStripSeparator_More.Name = "toolStripSeparator_More";
+            resources.ApplyResources(toolStripSeparator_More, "toolStripSeparator_More");
             // 
             // toolStripMenuItem_More
             // 
@@ -924,6 +928,16 @@
             lblCurrentLocalIP.Name = "lblCurrentLocalIP";
             lblCurrentLocalIP.DoubleClick += lblCurrentLocalIP_DoubleClick;
             // 
+            // toolStripSeparator_UpdateLatestWSLIP
+            // 
+            toolStripSeparator_UpdateLatestWSLIP.Name = "toolStripSeparator_UpdateLatestWSLIP";
+            resources.ApplyResources(toolStripSeparator_UpdateLatestWSLIP, "toolStripSeparator_UpdateLatestWSLIP");
+            // 
+            // toolStripMenuItem_updateWSLIPT
+            // 
+            toolStripMenuItem_updateWSLIPT.Name = "toolStripMenuItem_updateWSLIPT";
+            resources.ApplyResources(toolStripMenuItem_updateWSLIPT, "toolStripMenuItem_updateWSLIPT");
+            // 
             // PortProxyGooey
             // 
             resources.ApplyResources(this, "$this");
@@ -963,16 +977,16 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_New;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_Delete;
         private System.Windows.Forms.ColumnHeader columnHeader4;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator_MoveTo;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_Refresh;
         private System.Windows.Forms.ColumnHeader columnHeader5;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator_More;
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_Modify;
         private System.Windows.Forms.ColumnHeader columnHeaderState;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_Enable;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_Disable;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator_New;
         private System.Windows.Forms.ColumnHeader columnHeader7;
         internal System.Windows.Forms.ListView listViewProxies;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_More;
@@ -1020,14 +1034,14 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip_WSL;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemWSLRestart;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemWSLShutDown;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator14;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator15;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator_Edit;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator_Delete;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_MoveTo;
         private System.Windows.Forms.PictureBox picWSL;
         private System.Windows.Forms.PictureBox picDocker;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip_Docker;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_RenameGroup;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator16;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator_List;
         private System.Windows.Forms.Panel pnlStatusBar;
         private System.Windows.Forms.Label lblCurrentLocalIP;
         private System.Windows.Forms.Label lblWSLRunning;
@@ -1067,10 +1081,12 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_CopyConnectToAsURLhttps;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_OpenInBrowserHttp;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_OpenInBrowserHttps;
-        private System.Windows.Forms.ToolStripMenuItem firewallToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_Firewall;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator_Firewall;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_FirewallAdd;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_FirewallRemove;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator_UpdateLatestWSLIP;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_updateWSLIPT;
     }
 }
 

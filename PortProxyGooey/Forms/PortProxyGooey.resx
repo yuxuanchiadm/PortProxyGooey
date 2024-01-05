@@ -18,7 +18,7 @@
     <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
     <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
     <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing"">Blue</data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
     <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
         <value>[base64 mime encoded serialized .NET Framework object]</value>
     </data>
@@ -241,16 +241,28 @@
     <value>Deactivate this port proxy</value>
   </data>
   <data name="toolStripMenuItem_EnableAll.Size" type="System.Drawing.Size, System.Drawing">
-    <value>137, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="toolStripMenuItem_EnableAll.Text" xml:space="preserve">
     <value>Enable All</value>
   </data>
   <data name="toolStripMenuItem_DisableAll.Size" type="System.Drawing.Size, System.Drawing">
-    <value>137, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="toolStripMenuItem_DisableAll.Text" xml:space="preserve">
     <value>Disable All</value>
+  </data>
+  <data name="toolStripSeparator_UpdateLatestWSLIP.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 6</value>
+  </data>
+  <data name="toolStripMenuItem_updateWSLIPT.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="toolStripMenuItem_updateWSLIPT.Text" xml:space="preserve">
+    <value>Update WSL IP</value>
+  </data>
+  <data name="toolStripMenuItem_updateWSLIPT.ToolTipText" xml:space="preserve">
+    <value>Fetches the current WSL IP and changes any IP's in the ConnectTo column to the it.</value>
   </data>
   <data name="toolStripMenuItem_EnableDisableAll.Size" type="System.Drawing.Size, System.Drawing">
     <value>182, 22</value>
@@ -261,7 +273,7 @@
   <data name="toolStripMenuItem_EnableDisableAll.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="toolStripSeparator_New.Size" type="System.Drawing.Size, System.Drawing">
     <value>179, 6</value>
   </data>
   <data name="toolStripMenuItem_New.Font" type="System.Drawing.Font, System.Drawing">
@@ -285,7 +297,7 @@
 Tip:
 You can also double-click most blank areas on this window</value>
   </data>
-  <data name="toolStripSeparator14.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="toolStripSeparator_Edit.Size" type="System.Drawing.Size, System.Drawing">
     <value>179, 6</value>
   </data>
   <data name="toolStripMenuItem_Modify.ShortcutKeyDisplayString" xml:space="preserve">
@@ -317,7 +329,7 @@ You can also double-click most blank areas on this window</value>
 
 This saves you from having to do repititous form filling.</value>
   </data>
-  <data name="toolStripSeparator15.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="toolStripSeparator_Delete.Size" type="System.Drawing.Size, System.Drawing">
     <value>179, 6</value>
   </data>
   <data name="toolStripMenuItem_Delete.ShortcutKeyDisplayString" xml:space="preserve">
@@ -335,34 +347,34 @@ This saves you from having to do repititous form filling.</value>
   <data name="toolStripMenuItem_Delete.ToolTipText" xml:space="preserve">
     <value>Remove selected port proxy(s)</value>
   </data>
-  <data name="toolStripSeparator8.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="toolStripSeparator_Firewall.Size" type="System.Drawing.Size, System.Drawing">
     <value>179, 6</value>
   </data>
   <data name="toolStripMenuItem_FirewallAdd.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>123, 22</value>
   </data>
   <data name="toolStripMenuItem_FirewallAdd.Text" xml:space="preserve">
     <value>Add</value>
   </data>
   <data name="toolStripMenuItem_FirewallAdd.ToolTipText" xml:space="preserve">
-    <value>Add item to your Firewall</value>
+    <value>Add selected item(s) to Windows Firewall</value>
   </data>
   <data name="toolStripMenuItem_FirewallRemove.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>123, 22</value>
   </data>
   <data name="toolStripMenuItem_FirewallRemove.Text" xml:space="preserve">
     <value>Remove</value>
   </data>
   <data name="toolStripMenuItem_FirewallRemove.ToolTipText" xml:space="preserve">
-    <value>Remove item from your firewall</value>
+    <value>Remove selected item(s) from Windows Firewall</value>
   </data>
-  <data name="firewallToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="toolStripMenuItem_Firewall.Size" type="System.Drawing.Size, System.Drawing">
     <value>182, 22</value>
   </data>
-  <data name="firewallToolStripMenuItem.Text" xml:space="preserve">
+  <data name="toolStripMenuItem_Firewall.Text" xml:space="preserve">
     <value>Firewall</value>
   </data>
-  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="toolStripSeparator_MoveTo.Size" type="System.Drawing.Size, System.Drawing">
     <value>179, 6</value>
   </data>
   <data name="toolStripMenuItem_MoveTo.Size" type="System.Drawing.Size, System.Drawing">
@@ -380,7 +392,7 @@ This saves you from having to do repititous form filling.</value>
   <data name="toolStripMenuItem_RenameGroup.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="toolStripSeparator16.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="toolStripSeparator_List.Size" type="System.Drawing.Size, System.Drawing">
     <value>179, 6</value>
   </data>
   <data name="toolStripMenuItem_Refresh.ShortcutKeyDisplayString" xml:space="preserve">
@@ -404,7 +416,7 @@ This saves you from having to do repititous form filling.</value>
   <data name="clearToolStripMenuItem.ToolTipText" xml:space="preserve">
     <value>Clears the entire list (a.k.a. Delete All)</value>
   </data>
-  <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="toolStripSeparator_More.Size" type="System.Drawing.Size, System.Drawing">
     <value>179, 6</value>
   </data>
   <data name="toolStripMenuItem_OpenInBrowserHttp.Size" type="System.Drawing.Size, System.Drawing">
@@ -820,7 +832,7 @@ in case you want to download it.</value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAmisAAAJNU0Z0AUkBTAIBAQYB
-        AAHIAQYByAEGARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAASADAAEBAQABIAYAASBe
+        AAH4AQYB+AEGARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAASADAAEBAQABIAYAASBe
         AAMqAUADKgFAAyoBQAMqAUADKgFAAyoBQAMqAUADKgFAAyoBQAMqAUCQAAMMARACWwFZAcABrwHEARYB
         /wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8BxAEWAf8BrwHEARYB/wGvAcQBFgH/Aa8B
         xAEWAf8BrwHEARYB/wJbAVkBwAMMARAIAAMMARACWQFbAcABPAFNAv8BPAFNAv8BPAFNAv8BPAFNAv8B
@@ -3862,10 +3874,10 @@ in case you want to download it.</value>
   <data name="&gt;&gt;toolStripMenuItem_DisableAll.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator3.Name" xml:space="preserve">
-    <value>toolStripSeparator3</value>
+  <data name="&gt;&gt;toolStripSeparator_New.Name" xml:space="preserve">
+    <value>toolStripSeparator_New</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator3.Type" xml:space="preserve">
+  <data name="&gt;&gt;toolStripSeparator_New.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripMenuItem_New.Name" xml:space="preserve">
@@ -3874,10 +3886,10 @@ in case you want to download it.</value>
   <data name="&gt;&gt;toolStripMenuItem_New.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator14.Name" xml:space="preserve">
-    <value>toolStripSeparator14</value>
+  <data name="&gt;&gt;toolStripSeparator_Edit.Name" xml:space="preserve">
+    <value>toolStripSeparator_Edit</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator14.Type" xml:space="preserve">
+  <data name="&gt;&gt;toolStripSeparator_Edit.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripMenuItem_Modify.Name" xml:space="preserve">
@@ -3892,10 +3904,10 @@ in case you want to download it.</value>
   <data name="&gt;&gt;toolStripMenuItem_Clone.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator15.Name" xml:space="preserve">
-    <value>toolStripSeparator15</value>
+  <data name="&gt;&gt;toolStripSeparator_Delete.Name" xml:space="preserve">
+    <value>toolStripSeparator_Delete</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator15.Type" xml:space="preserve">
+  <data name="&gt;&gt;toolStripSeparator_Delete.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripMenuItem_Delete.Name" xml:space="preserve">
@@ -3904,16 +3916,16 @@ in case you want to download it.</value>
   <data name="&gt;&gt;toolStripMenuItem_Delete.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator8.Name" xml:space="preserve">
-    <value>toolStripSeparator8</value>
+  <data name="&gt;&gt;toolStripSeparator_Firewall.Name" xml:space="preserve">
+    <value>toolStripSeparator_Firewall</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator8.Type" xml:space="preserve">
+  <data name="&gt;&gt;toolStripSeparator_Firewall.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;firewallToolStripMenuItem.Name" xml:space="preserve">
-    <value>firewallToolStripMenuItem</value>
+  <data name="&gt;&gt;toolStripMenuItem_Firewall.Name" xml:space="preserve">
+    <value>toolStripMenuItem_Firewall</value>
   </data>
-  <data name="&gt;&gt;firewallToolStripMenuItem.Type" xml:space="preserve">
+  <data name="&gt;&gt;toolStripMenuItem_Firewall.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripMenuItem_FirewallAdd.Name" xml:space="preserve">
@@ -3928,10 +3940,10 @@ in case you want to download it.</value>
   <data name="&gt;&gt;toolStripMenuItem_FirewallRemove.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator1.Name" xml:space="preserve">
-    <value>toolStripSeparator1</value>
+  <data name="&gt;&gt;toolStripSeparator_MoveTo.Name" xml:space="preserve">
+    <value>toolStripSeparator_MoveTo</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator1.Type" xml:space="preserve">
+  <data name="&gt;&gt;toolStripSeparator_MoveTo.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripMenuItem_MoveTo.Name" xml:space="preserve">
@@ -3946,10 +3958,10 @@ in case you want to download it.</value>
   <data name="&gt;&gt;toolStripMenuItem_RenameGroup.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator16.Name" xml:space="preserve">
-    <value>toolStripSeparator16</value>
+  <data name="&gt;&gt;toolStripSeparator_List.Name" xml:space="preserve">
+    <value>toolStripSeparator_List</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator16.Type" xml:space="preserve">
+  <data name="&gt;&gt;toolStripSeparator_List.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripMenuItem_Refresh.Name" xml:space="preserve">
@@ -3964,10 +3976,10 @@ in case you want to download it.</value>
   <data name="&gt;&gt;clearToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator2.Name" xml:space="preserve">
-    <value>toolStripSeparator2</value>
+  <data name="&gt;&gt;toolStripSeparator_More.Name" xml:space="preserve">
+    <value>toolStripSeparator_More</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator2.Type" xml:space="preserve">
+  <data name="&gt;&gt;toolStripSeparator_More.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripMenuItem_More.Name" xml:space="preserve">
@@ -4359,6 +4371,18 @@ in case you want to download it.</value>
   </data>
   <data name="&gt;&gt;tmrCheck.Type" xml:space="preserve">
     <value>System.Windows.Forms.Timer, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator_UpdateLatestWSLIP.Name" xml:space="preserve">
+    <value>toolStripSeparator_UpdateLatestWSLIP</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator_UpdateLatestWSLIP.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem_updateWSLIPT.Name" xml:space="preserve">
+    <value>toolStripMenuItem_updateWSLIPT</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem_updateWSLIPT.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>PortProxyGooey</value>

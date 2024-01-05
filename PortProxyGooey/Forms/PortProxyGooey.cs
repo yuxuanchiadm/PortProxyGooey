@@ -335,21 +335,22 @@ namespace PortProxyGooey {
                 UpdateListViewItem(item, rule, imageIndex);
                 listViewProxies.Items.Add(item);
 
-
                 //int itemCount = Listview.CountItemsInGroup(listViewProxies, group);
                 //Debug.WriteLine($"Number of items in group ({group}): {itemCount}");
 
 
             }
 
-
             // Left off: getting proxy count for group headers; need to figure out how to fetch by group name? Or just use it's index?. Is this the best place for it?
-
 
 
         }
 
         public void UpdateListViewItem(ListViewItem item, Rule rule, int imageIndex) {
+
+            // WIP: in process of handling text color changes for ConnectTo column.
+            // Idea is to check if the WSL IP already in that columnn is outdated compared to the current WSL IP; if yes, then color it red to alert user they may want to update it so it still works.
+            item.UseItemStyleForSubItems = false; 
 
             item.ImageIndex = imageIndex;
             item.Tag = rule.Id;
@@ -360,7 +361,7 @@ namespace PortProxyGooey {
                 new ListViewSubItem(item, rule.Type),
                 new ListViewSubItem(item, rule.ListenOn),
                 new ListViewSubItem(item, rule.ListenPort.ToString()) { Tag = "Number" },
-                new ListViewSubItem(item, rule.ConnectTo),
+                new ListViewSubItem(item, rule.ConnectTo) { ForeColor = Color.FromArgb(191, 97, 106), BackColor = Color.FromArgb(67, 76, 94), Font = item.Font },
                 new ListViewSubItem(item, rule.ConnectPort.ToString ()) { Tag = "Number" },
                 new ListViewSubItem(item, rule.Comment ?? string.Empty),
             });
@@ -688,11 +689,15 @@ namespace PortProxyGooey {
             // Only show the Enable/Disable All item if there are more than 1 items (proxies) in the list
             toolStripMenuItem_EnableDisableAll.Visible = listViewProxies.Items.Count > 1;
 
-            // Delete/Move (count): Add count to let users know how many they're about to nuke (or move)
+            // Add count to menu items let users know how many they're about to nuke (or move, etc.)
             if (intCount > 1) {
 
                 toolStripMenuItem_Delete.Text = $"Delete ({intCount})";
                 toolStripMenuItem_MoveTo.Text = $"Group: Move ({intCount}) to ...";
+
+                // Firewall
+                toolStripMenuItem_FirewallAdd.Text = $"Add ({intCount})";
+                toolStripMenuItem_FirewallRemove.Text = $"Remove ({intCount})";
 
             }
 
@@ -700,12 +705,16 @@ namespace PortProxyGooey {
             toolStripMenuItem_Modify.Enabled = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
             toolStripMenuItem_Clone.Enabled = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
 
-            // Clear List: Only visible if Items exist in the list
+            // Firewall: Only vis if 1 or more are selected.
+            toolStripMenuItem_Firewall.Visible = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Any();
+            toolStripSeparator_Firewall.Visible = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Any();
+
+            // Clear List: Only vis if Items exist in the list
             clearToolStripMenuItem.Visible = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
 
             // Move: Only visible if Items exist in the list (along with the seperator so we don't get ugly double-seperators)
             toolStripMenuItem_MoveTo.Visible = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
-            toolStripSeparator1.Visible = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
+            toolStripSeparator_MoveTo.Visible = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
 
             // NETSH Menu
             NetSHToolStripMenuItem.Visible = e.Button == MouseButtons.Right && listView.SelectedItems.OfType<ListViewItem>().Count() == 1;
@@ -1107,6 +1116,10 @@ namespace PortProxyGooey {
             toolStripMenuItem_Delete.Text = "Delete";
             toolStripMenuItem_MoveTo.Text = "Group: Move to ...";
 
+            // Firewall
+            toolStripMenuItem_FirewallAdd.Text = "Add";
+            toolStripMenuItem_FirewallRemove.Text = "Remove";
+
         }
 
         #region + -- CLIPBOARD / VIEW CLINE -- +
@@ -1145,7 +1158,9 @@ namespace PortProxyGooey {
         /// <param name="intType">1 = Clipboard; else = View</param>
         /// <param name="intCmd">2 = delete; else = add</param>
         private void AdvNetsh(int intType, int intCmd) {
+
             try {
+
                 string strCmd = intCmd == 2 ? "delete" : "add";
                 string strMessage = string.Empty;
 
@@ -1153,8 +1168,7 @@ namespace PortProxyGooey {
                 if (intCmd == 2) {
 
                     // Delete
-                    strMessage = string.Format(
-                                                "netsh interface portproxy {3} {0} listenaddress={1} listenport={2}",
+                    strMessage = string.Format("netsh interface portproxy {3} {0} listenaddress={1} listenport={2}",
                                                 listViewProxies.FocusedItem.SubItems[1].Text,
                                                 listViewProxies.FocusedItem.SubItems[2].Text,
                                                 listViewProxies.FocusedItem.SubItems[3].Text,
@@ -1162,8 +1176,7 @@ namespace PortProxyGooey {
                 } else {
 
                     // Add
-                    strMessage = string.Format(
-                                                "netsh interface portproxy {5} {0} listenaddress={1} listenport={2} connectaddress={3} connectport={4}",
+                    strMessage = string.Format("netsh interface portproxy {5} {0} listenaddress={1} listenport={2} connectaddress={3} connectport={4}",
                                                 listViewProxies.FocusedItem.SubItems[1].Text,
                                                 listViewProxies.FocusedItem.SubItems[2].Text,
                                                 listViewProxies.FocusedItem.SubItems[3].Text,
@@ -1302,6 +1315,25 @@ namespace PortProxyGooey {
                 tTipPPG.SetToolTip(lblCurrentLocalIP, $"Other Reported IPs:{Environment.NewLine}{strAltIPs}");
             }
 
+            // + ----- SERVICE
+
+            // Keep IpHlpSvc status updated
+            Services.IsRunning_BGW((result) => {
+
+                if (result) {
+
+                    picIpHlpSvcStatus.Image = Properties.Resources.green;
+                    tTipPPG.SetToolTip(picIpHlpSvcStatus, $"{PortProxyUtil.ServiceFriendlyName.ToUpper()} SERVICE: RUNNING");
+
+                } else {
+
+                    picIpHlpSvcStatus.Image = Properties.Resources.red;
+                    tTipPPG.SetToolTip(picIpHlpSvcStatus, $"{PortProxyUtil.ServiceFriendlyName.ToUpper()} SERVICE: N/A{Environment.NewLine}Click icon to Start it");
+
+                }
+
+            }, PortProxyUtil.ServiceName, false);
+
             // + ----- WSL
 
             WSL.GetIP_BGW((ip) => lblWSLIP.Text = $"WSL: {ip}");
@@ -1364,25 +1396,6 @@ namespace PortProxyGooey {
                 picDocker.Visible = false;
 
             }
-
-            // + ----- SERVICE
-
-            // Keep IpHlpSvc status updated
-            Services.IsRunning_BGW((result) => {
-
-                if (result) {
-
-                    picIpHlpSvcStatus.Image = Properties.Resources.green;
-                    tTipPPG.SetToolTip(picIpHlpSvcStatus, $"{PortProxyUtil.ServiceFriendlyName.ToUpper()} SERVICE: RUNNING");
-
-                } else {
-
-                    picIpHlpSvcStatus.Image = Properties.Resources.red;
-                    tTipPPG.SetToolTip(picIpHlpSvcStatus, $"{PortProxyUtil.ServiceFriendlyName.ToUpper()} SERVICE: N/A{Environment.NewLine}Click icon to Start it");
-
-                }
-
-            }, PortProxyUtil.ServiceName, false);
 
             // We initially have these set to disabled so user can't fuck w/the context menus until the first check is done. After that they can go HAM on them all they want.
             if (!picWSLStatus.Enabled) { picWSLStatus.Enabled = true; }
@@ -1843,23 +1856,51 @@ namespace PortProxyGooey {
 
         private void toolStripMenuItem_FirewallAdd_Click(object sender, EventArgs e) {
 
-            string strRnd = Strings.GenerateRandomString(8);
+            // TODO: Need to basically add all the stuff to this that I added to the Remove method below
 
-            ListViewItem selectedItem = listViewProxies.SelectedItems[0];
+            foreach (ListViewItem listViewItem in listViewProxies.SelectedItems) {
 
-            Firewall.WinFirewall_RuleAdd(selectedItem.SubItems[3].Text, selectedItem.SubItems[5].Text, $"PPGooey (Out) [{strRnd}]", selectedItem.SubItems[6].Text, selectedItem.SubItems[2].Text, selectedItem.SubItems[4].Text, true, true, true, true);
-            Firewall.WinFirewall_RuleAdd(selectedItem.SubItems[3].Text, selectedItem.SubItems[5].Text, $"PPGooey (In) [{strRnd}]", selectedItem.SubItems[6].Text, selectedItem.SubItems[2].Text, selectedItem.SubItems[4].Text, true, false, true, true);
+                int intResult = 0;
 
-            // TODO: Add hash to the db for this Rule
+                // Generate an MD5 hash for this rule to add to it's Rule Name (we'll use it when removing the rule from the firewall, if needed.)
+                string strMD5 = Hash.Generate_MD5($"PPGooey{listViewItem.SubItems[3].Text}{listViewItem.SubItems[5].Text}");
+
+                //Debug.WriteLine(Hash.Generate_MD5($"PPGooey{selectedItem.SubItems[3].Text}{selectedItem.SubItems[5].Text}"));
+
+                // Format: [3] = Local Port(s), [5] = Remote Port(s), Rule Name, [6] = Desc., [2] = , [4] = 
+                intResult += Firewall.WinFirewall_Rule_Add(listViewItem.SubItems[3].Text, listViewItem.SubItems[5].Text, $"PPGooey (Out) [{strMD5}]", listViewItem.SubItems[6].Text, listViewItem.SubItems[2].Text, listViewItem.SubItems[4].Text, true, true, true, true);
+                intResult += Firewall.WinFirewall_Rule_Add(listViewItem.SubItems[3].Text, listViewItem.SubItems[5].Text, $"PPGooey (In) [{strMD5}]", listViewItem.SubItems[6].Text, listViewItem.SubItems[2].Text, listViewItem.SubItems[4].Text, true, false, true, true);
+
+                // Successful Add will result in intResult = 0 (anything over 0 means something failed)
+                Debug.WriteLine($"FWA {intResult}");
+
+            }
+
         }
 
         private void toolStripMenuItem_FirewallRemove_Click(object sender, EventArgs e) {
+            // TODO: Running great so far; just need to decide how to handle mboxes when doing multiples. Also, what if use manually removed 1 of the items from the fw list? intResult would say failed.
+            foreach (ListViewItem listViewItem in listViewProxies.SelectedItems) {
 
-            ListViewItem selectedItem = listViewProxies.SelectedItems[0];
+                int intResult = 0;
 
-            Firewall.WinFirewall_RuleRemove2("PPGooey (Out)", selectedItem.SubItems[3].Text, selectedItem.SubItems[5].Text);
-            Firewall.WinFirewall_RuleRemove2("PPGooey (In)", selectedItem.SubItems[3].Text, selectedItem.SubItems[5].Text);
+                // Generate an MD5 hash for this rule to match with it's Rule Name
+                string strMD5 = Hash.Generate_MD5($"PPGooey{listViewItem.SubItems[3].Text}{listViewItem.SubItems[5].Text}");
+
+                // Keep track of which rule we're deleting
+                string strRule = String.Format("{3}{3}Type: {0}{3}Local Port: {1}{3}Remote Port: {2}", listViewItem.SubItems[1].Text, listViewItem.SubItems[3].Text, listViewItem.SubItems[5].Text, Environment.NewLine);
+
+                // Try to delete them
+                intResult += Firewall.WinFirewall_Rule_Remove($"PPGooey (Out) [{strMD5}]");
+                intResult += Firewall.WinFirewall_Rule_Remove($"PPGooey (In) [{strMD5}]");
+
+                // Successful Removal will result in intResult = 0 (anything over 0 means something failed)
+                MessageBox.Show(intResult == 0 ? $"Firewall Rule successfully removed: {strRule}" : $"Firewall Rule failed to be removed: {strRule}", "Delete Firewall Rule", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            }
 
         }
+
     }
+
 }
