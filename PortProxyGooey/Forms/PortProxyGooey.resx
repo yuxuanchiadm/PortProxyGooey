@@ -283,7 +283,7 @@
     <value />
   </data>
   <data name="toolStripMenuItem_New.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ins</value>
+    <value>Insert</value>
   </data>
   <data name="toolStripMenuItem_New.Size" type="System.Drawing.Size, System.Drawing">
     <value>182, 22</value>
@@ -336,7 +336,7 @@ This saves you from having to do repititous form filling.</value>
     <value />
   </data>
   <data name="toolStripMenuItem_Delete.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Del</value>
+    <value>Delete</value>
   </data>
   <data name="toolStripMenuItem_Delete.Size" type="System.Drawing.Size, System.Drawing">
     <value>182, 22</value>

@@ -352,7 +352,7 @@ namespace PortProxyGooey {
             // WIP: in process of handling text color changes for ConnectTo column.
             // Idea is to check if the WSL IP already in that columnn is outdated compared to the current WSL IP; if yes, then color it red to alert user they may want to update it so it still works.
             item.UseItemStyleForSubItems = false;
-            Debug.WriteLine("IP:" + lblWSLIP.Text.Substring(lblWSLIP.Text.IndexOf("WSL: ") + 5)); // NOTE: timer doesn't fetch the IP in time to use this here, during initial load. Prob add a func to the timer itself?
+            // Debug.WriteLine("IP:" + lblWSLIP.Text.Substring(lblWSLIP.Text.IndexOf("WSL: ") + 5)); // NOTE: timer doesn't fetch the IP in time to use this here, during initial load. Prob add a func to the timer itself?
 
 
 

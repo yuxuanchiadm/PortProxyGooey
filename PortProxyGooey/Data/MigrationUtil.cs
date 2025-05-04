@@ -112,7 +112,7 @@ namespace PortProxyGooey.Data {
 	ConnectTo text,
 	ConnectPort integer,
 	Comment text,
-	`Group` text 
+	`Group` text,
 	`FWHash` text 
 );",
                 "CREATE UNIQUE INDEX IX_Rules_Type_ListenOn_ListenPort ON Rules ( Type, ListenOn, ListenPort );",
