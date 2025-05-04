@@ -1871,16 +1871,40 @@ namespace PortProxyGooey {
                 int intResult = 0;
 
                 // Generate an MD5 hash for this rule to add to it's Rule Name (we'll use it when removing the rule from the firewall, if needed.)
-                string strMD5 = Hash.Generate_MD5($"PPGooey{listViewItem.SubItems[3].Text}{listViewItem.SubItems[5].Text}");
+                string strMD5 = Hash.Generate_MD5($"PPGooey{listViewItem.SubItems[2].Text}{listViewItem.SubItems[3].Text}");
 
-                //Debug.WriteLine(Hash.Generate_MD5($"PPGooey{selectedItem.SubItems[3].Text}{selectedItem.SubItems[5].Text}"));
+                // Keep track of which rule we're deleting
+                string strRule = String.Format("{3}{3}Type: {0}{3}Address: {1}{3}Port: {2}", listViewItem.SubItems[1].Text, listViewItem.SubItems[2].Text, listViewItem.SubItems[3].Text, Environment.NewLine);
 
                 // Format: [3] = Local Port(s), [5] = Remote Port(s), Rule Name, [6] = Desc., [2] = , [4] = 
-                intResult += Firewall.WinFirewall_Rule_Add(listViewItem.SubItems[3].Text, listViewItem.SubItems[5].Text, $"PPGooey (Out) [{strMD5}]", listViewItem.SubItems[6].Text, listViewItem.SubItems[2].Text, listViewItem.SubItems[4].Text, true, true, true, true);
-                intResult += Firewall.WinFirewall_Rule_Add(listViewItem.SubItems[3].Text, listViewItem.SubItems[5].Text, $"PPGooey (In) [{strMD5}]", listViewItem.SubItems[6].Text, listViewItem.SubItems[2].Text, listViewItem.SubItems[4].Text, true, false, true, true);
+                intResult += Firewall.WinFirewall_Rule_Add(
+                    strLocalPorts: listViewItem.SubItems[3].Text,
+                    strRemotePorts: "*",
+                    strName: $"PPGooey (Out) [{strMD5}]",
+                    strDescription: listViewItem.SubItems[6].Text,
+                    strLocalAddresses: listViewItem.SubItems[2].Text,
+                    strRemoteAddresses: "*",
+                    bAllow: true,
+                    bDirectionOut: true,
+                    bTCP: true,
+                    bEnabled: true
+                );
+                intResult += Firewall.WinFirewall_Rule_Add(
+                    strLocalPorts: listViewItem.SubItems[3].Text,
+                    strRemotePorts: "*",
+                    strName: $"PPGooey (In) [{strMD5}]",
+                    strDescription: listViewItem.SubItems[6].Text,
+                    strLocalAddresses: listViewItem.SubItems[2].Text,
+                    strRemoteAddresses: "*",
+                    bAllow: true,
+                    bDirectionOut: false,
+                    bTCP: true,
+                    bEnabled: true
+                );
 
                 // Successful Add will result in intResult = 0 (anything over 0 means something failed)
                 Debug.WriteLine($"FWA {intResult}");
+                MessageBox.Show(intResult == 0 ? $"Firewall Rule successfully added: {strRule}" : $"Firewall Rule failed to be added: {strRule}", "Add Firewall Rule", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             }
 
@@ -1893,10 +1917,10 @@ namespace PortProxyGooey {
                 int intResult = 0;
 
                 // Generate an MD5 hash for this rule to match with it's Rule Name
-                string strMD5 = Hash.Generate_MD5($"PPGooey{listViewItem.SubItems[3].Text}{listViewItem.SubItems[5].Text}");
+                string strMD5 = Hash.Generate_MD5($"PPGooey{listViewItem.SubItems[2].Text}{listViewItem.SubItems[3].Text}");
 
                 // Keep track of which rule we're deleting
-                string strRule = String.Format("{3}{3}Type: {0}{3}Local Port: {1}{3}Remote Port: {2}", listViewItem.SubItems[1].Text, listViewItem.SubItems[3].Text, listViewItem.SubItems[5].Text, Environment.NewLine);
+                string strRule = String.Format("{3}{3}Type: {0}{3}Address: {1}{3}Port: {2}", listViewItem.SubItems[1].Text, listViewItem.SubItems[2].Text, listViewItem.SubItems[3].Text, Environment.NewLine);
 
                 // Try to delete them
                 intResult += Firewall.WinFirewall_Rule_Remove($"PPGooey (Out) [{strMD5}]");

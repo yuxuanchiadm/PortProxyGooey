@@ -699,7 +699,7 @@ namespace JSE_Utils {
         /// <returns>0 on Successful Add; 1 on Failed Add</returns>
         public static int WinFirewall_Rule_Add(
             string strLocalPorts = "", 
-            string strRemotePorts = "Any",
+            string strRemotePorts = "*",
             string strName = "No Name Given",
             string strDescription = "No Description Given",  
             string strLocalAddresses = "*", 
